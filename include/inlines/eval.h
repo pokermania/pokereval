@@ -164,7 +164,7 @@ StdRules_HANDEVAL( CardMask cards, int n_cards )
             retval.handval_n = 0;
             retval.handval.htype = HandType_STFLUSH;
             retval.handval.top_card = tempeval.handval.top_card;
-/*-->*/     return retval.handval_n;
+/*-->*/     return retval;
           }
         } else
           retval.handval_n = eval__is_straight(ranks);
@@ -177,7 +177,7 @@ StdRules_HANDEVAL( CardMask cards, int n_cards )
         retval.handval.top_card = topCardTable[four_mask];
         retval.handval.second_card = 
           topCardTable[ranks ^ (1 << retval.handval.top_card)];
-        return retval.handval_n;
+        return retval;
       };
 
     if (three_mask && (n_dups >= 3)) 
@@ -189,11 +189,11 @@ StdRules_HANDEVAL( CardMask cards, int n_cards )
         retval.handval.top_card = topCardTable[three_mask];
         t = (two_mask | three_mask) ^ (1 << retval.handval.top_card);
         retval.handval.second_card = topCardTable[t];
-        return retval.handval_n;
+        return retval;
       };
 
     if (retval.handval_n) /* flush and straight */
-      return retval.handval_n;
+      return retval;
 
     if (three_mask) 
       {
@@ -206,7 +206,7 @@ StdRules_HANDEVAL( CardMask cards, int n_cards )
         retval.handval.second_card = topCardTable[t];
         t ^= (1 << retval.handval.second_card);
         retval.handval.third_card = topCardTable[t];
-        return retval.handval_n;
+        return retval;
       };
 
     /* Now, all that's left is pairs, if even that.  */
@@ -259,7 +259,7 @@ StdRules_HANDEVAL( CardMask cards, int n_cards )
         break;
       };
 
-    return retval.handval_n;
+    return retval;
 }
 
 #endif
