@@ -4,7 +4,7 @@ StdDeck_Lowball8_EVAL(StdDeck_CardMask cards, int n_cards) {
 
   ranks = (StdDeck_CardMask_HEARTS(cards) |
            StdDeck_CardMask_DIAMONDS(cards) |
-           StdDeck_CardMask_HEARTS(cards) |
+           StdDeck_CardMask_CLUBS(cards) |
            StdDeck_CardMask_SPADES(cards));
   ranks = Lowball_ROTATE_RANKS(ranks);
   retval = bottomFiveCardsTable[ranks];
