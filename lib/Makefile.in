@@ -54,7 +54,8 @@ $(SLIBPOKER): $(OBJ)
 	$(SLIB_CMD)
 
 clean:
-	$(RM) *@O@ core $(OBJ) $(LIBPOKER) $(DERIVED_SOURCES) $(PROGRAMS) 
+	$(RM) *@O@ core $(OBJ) $(LIBPOKER) $(SLIBPOKER)
+	$(RM) $(DERIVED_SOURCES) $(PROGRAMS) 
 
 $(BASIC_TABLES): mktab_basic@E@
 	$(RUN_IT)

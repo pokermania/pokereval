@@ -25,7 +25,7 @@ JNI_CLASSFILES	:= $(JNI_JAVA:.java=.class)
 JNI_OBJS	:= $(JNI_JAVA:.java=Imp.o)
 JNI_OBJS	+= jniutil.o pokutil.o
 JNI_HEADER	:= pokerjni.h
-JNILIB		:= libpokerjni@SO@
+JNILIB		:= ../lib/libpokerjni@SO@
 JNI_INCLUDES	:= $(addprefix -I, $(shell find $(JDKHOME)/include -type d))
 JARFILE		:= pokersource.jar
 
@@ -43,7 +43,7 @@ $(JAVADOCDIR)/index.html: $(SRC_JAVA)
 	$(JAVADOC) -d $(JAVADOCDIR) -private -classpath $(CLASSPATH) $(JAVADOC_PKGS)
 
 clean: cleanclass
-	$(RM) $(JNI_HEADER) $(JNI_OBJS) $(JNILIB)
+	$(RM) $(JNI_HEADER) $(JNI_OBJS) $(JNILIB) $(JARFILE)
 	$(RM) -r $(JAVADOCDIR)
 cleanclass:
 	$(RM) $(CLASSFILES)
