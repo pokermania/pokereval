@@ -13,6 +13,25 @@ top_bit_func( uint32 n )
 
 
 uint32
+bottom_bit_func( uint32 n )
+{
+  /* BBF returns the bottom bit set, treating 2 as low bit and A as high 
+     bit.  If you want to do A-5 low evaluation, you'll need to rotate
+     the input mask one to make A the low bit before calling this. */
+  uint32 retval;
+
+  if (n == 0) 
+    return 0;
+
+  for (retval = 1; 
+       !(retval & n) && retval <= 1 << StdDeck_Rank_ACE; 
+       retval <<= 1)
+   ;
+  return retval;
+}    
+
+
+uint32
 n_bits_func( uint32 n )
 {
   int retval;
@@ -38,6 +57,28 @@ top_card_func( uint32 n )
       ;
   else
     return 0;
+  return retval;
+}
+
+
+uint32 
+bottom_card_func( uint32 n )
+{
+  /* BCF returns the index of the bottom set bit, treating 2 as low
+     bit and A as high bit.  If you want to do A-5 low evaluation,
+     you'll need to rotate the input mask one to make A the low bit
+     before calling this.  Also, if no bits are set, then the results may
+     not be valid.  
+   */
+  int retval, bit;
+
+  if (n)
+    for ( bit = (1 << StdDeck_Rank_2), retval = StdDeck_Rank_2; 
+          !(n & bit) && retval <= StdDeck_Rank_ACE; 
+          bit <<= 1, ++retval)
+      ;
+  else
+    return -1;
   return retval;
 }
 
