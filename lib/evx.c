@@ -31,19 +31,19 @@ static uint8 next_card(uint32 *ms_cardsp, uint32 *ls_cardsp)
 StdRules_HandVal 
 EvxHandVal_toHandVal(EvxHandVal ehv) {
   StdRules_HandVal hv;
-  uint32 ls_cards, ms_cards;
+  uint32 ls_cards, ms_cards, cards;
+  int i;
 
-  hv.handval_n = 0;
-  hv.handval.htype = EvxHandVal_GETTYPE(ehv);
+  hv = EvxHandVal_GETTYPE(ehv) << StdRules_HandVal_HANDTYPE_SHIFT;
     
   ms_cards = (ehv >> EvxHandVal_SIGCARDS_SHIFT) & EvxHandVal_RANK_MASK;
   ls_cards =  ehv & EvxHandVal_RANK_MASK;
-    
-  hv.handval.top_card    = next_card(&ms_cards, &ls_cards);
-  hv.handval.second_card = next_card(&ms_cards, &ls_cards);
-  hv.handval.third_card  = next_card(&ms_cards, &ls_cards);
-  hv.handval.fourth_card = next_card(&ms_cards, &ls_cards);
-  hv.handval.fifth_card  = next_card(&ms_cards, &ls_cards);
+  cards = 0;
+
+  for (i=0; i<5; i++) 
+    cards = (cards << StdRules_HandVal_CARD_WIDTH) 
+      + next_card(&ms_cards, &ls_cards);
+  hv += cards;
 
   return hv;
 }

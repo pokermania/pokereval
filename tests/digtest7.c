@@ -48,7 +48,7 @@ int main( void )
                                                     cards1.cards.hearts,
                                                     cards1.cards.spades);
                       handval2 = EvxHandVal_toHandVal(evxHandVal);
-                      if (handval1.handval_n != handval2.handval_n)
+                      if (handval1 != handval2)
                         {
                           fprintf(stderr, "eval_n() and eval_x7() disagree\n");
                           printf("0\n");
@@ -61,12 +61,12 @@ int main( void )
                           exit(0);
                         }
                       
-                      hashvals[0] = handval1.handval.htype;
-                      hashvals[1] = handval1.handval.top_card;
-                      hashvals[2] = handval1.handval.second_card;
-                      hashvals[3] = handval1.handval.third_card;
-                      hashvals[4] = handval1.handval.fourth_card;
-                      hashvals[5] = handval1.handval.fifth_card;
+                      hashvals[0] = HandVal_HANDTYPE(handval1);
+                      hashvals[1] = HandVal_TOP_CARD(handval1);
+                      hashvals[2] = HandVal_SECOND_CARD(handval1);
+                      hashvals[3] = HandVal_THIRD_CARD(handval1);
+                      hashvals[4] = HandVal_FOURTH_CARD(handval1);
+                      hashvals[5] = HandVal_FIFTH_CARD(handval1);
                       MD5DigestBytes(ctx, hashvals, 6);
                     });
   MD5End(ctx, raw);
@@ -74,5 +74,6 @@ int main( void )
   printf("%s\n", coded);
   exit(0);
 }
+
 
 

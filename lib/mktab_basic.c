@@ -108,7 +108,7 @@ doTopBitTable(void) {
 
 static void 
 doTopFiveCardsTable(void) {
-  int i;
+  int i, j, card;
 
   MakeTable_begin("topFiveCardsTable", 
                   T5C_FILENAME, 
@@ -119,18 +119,15 @@ doTopFiveCardsTable(void) {
     StdRules_HandVal eval;
     int n = i;
 
-    eval.handval_n = 0;
-    eval.handval.top_card    = top_card_func(n);
-    n &= ~(1 << eval.handval.top_card);
-    eval.handval.second_card = top_card_func(n);
-    n &= ~(1 << eval.handval.second_card);
-    eval.handval.third_card  = top_card_func(n);
-    n &= ~(1 << eval.handval.third_card);
-    eval.handval.fourth_card = top_card_func(n);
-    n &= ~(1 << eval.handval.fourth_card);
-    eval.handval.fifth_card  = top_card_func(n);
+    eval = 0;
+    for (j=0; j<5; j++) {
+      eval <<= StdRules_HandVal_CARD_WIDTH;
+      card = top_card_func(n);
+      eval += card;
+      n &= ~(1 << card);
+    };
 
-    MakeTable_outputUInt32(eval.handval_n);
+    MakeTable_outputUInt32(eval);
   };
 
   MakeTable_end();

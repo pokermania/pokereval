@@ -2,7 +2,11 @@
 
 #include "poker_defs.h"
 
-const char *StdRules_handTypeNames[StdRules_HandType_COUNT] = {
+#if defined(NONSTANDARD_DECK)
+#error "Cannot define NONSTANDARD_DECK for stdrules.c"
+#endif
+
+const char *StdRules_handTypeNames[HandType_COUNT] = {
   "NoPair",
   "OnePair",
   "TwoPair",
@@ -14,7 +18,7 @@ const char *StdRules_handTypeNames[StdRules_HandType_COUNT] = {
   "StFlush"
 };
 
-const char *StdRules_handTypeNamesPadded[StdRules_HandType_COUNT] = {
+const char *StdRules_handTypeNamesPadded[HandType_COUNT] = {
   "NoPair  ",
   "OnePair ",
   "TwoPair ",
@@ -26,7 +30,7 @@ const char *StdRules_handTypeNamesPadded[StdRules_HandType_COUNT] = {
   "StFlush "
 };
 
-int StdRules_nSigCards[StdRules_HandType_COUNT] = {
+int StdRules_nSigCards[HandType_COUNT] = {
   5, 
   4, 
   3, 
@@ -38,23 +42,40 @@ int StdRules_nSigCards[StdRules_HandType_COUNT] = {
   1
 };
 
+StdRules_HandVal StdRules_handValues[HandType_COUNT] = {
+  (HandType_NOPAIR    << HandVal_HANDTYPE_SHIFT), 
+  (HandType_ONEPAIR   << HandVal_HANDTYPE_SHIFT), 
+  (HandType_TWOPAIR   << HandVal_HANDTYPE_SHIFT), 
+  (HandType_TRIPS     << HandVal_HANDTYPE_SHIFT), 
+  (HandType_STRAIGHT  << HandVal_HANDTYPE_SHIFT), 
+  (HandType_FLUSH     << HandVal_HANDTYPE_SHIFT), 
+  (HandType_FULLHOUSE << HandVal_HANDTYPE_SHIFT), 
+  (HandType_QUADS     << HandVal_HANDTYPE_SHIFT), 
+  (HandType_STFLUSH   << HandVal_HANDTYPE_SHIFT), 
+};
+  
 
 int 
 StdRules_handvalToString(StdRules_HandVal handval, char *outString) {
   char *p = outString;
+  int htype = HandVal_GET_HANDTYPE(handval);
 
-  p += sprintf(outString, "%s (", 
-               StdRules_handTypeNames[handval.handval.htype]);
-  if (StdRules_nSigCards[handval.handval.htype] >= 1) 
-    p += sprintf(p, "%c", StdDeck_rankChars[handval.handval.top_card]);
-  if (StdRules_nSigCards[handval.handval.htype] >= 2) 
-    p += sprintf(p, " %c", StdDeck_rankChars[handval.handval.second_card]);
-  if (StdRules_nSigCards[handval.handval.htype] >= 3) 
-    p += sprintf(p, " %c", StdDeck_rankChars[handval.handval.third_card]);
-  if (StdRules_nSigCards[handval.handval.htype] >= 4) 
-    p += sprintf(p, " %c", StdDeck_rankChars[handval.handval.fourth_card]);
-  if (StdRules_nSigCards[handval.handval.htype] >= 5) 
-    p += sprintf(p, " %c", StdDeck_rankChars[handval.handval.fifth_card]);
+  p += sprintf(outString, "%s (", handTypeNames[htype]);
+  if (StdRules_nSigCards[htype] >= 1) 
+    p += sprintf(p, "%c", 
+                 StdDeck_rankChars[HandVal_GET_TOP_CARD(handval)]);
+  if (StdRules_nSigCards[htype] >= 2) 
+    p += sprintf(p, " %c", 
+                 StdDeck_rankChars[HandVal_GET_SECOND_CARD(handval)]);
+  if (StdRules_nSigCards[htype] >= 3) 
+    p += sprintf(p, " %c", 
+                 StdDeck_rankChars[HandVal_GET_THIRD_CARD(handval)]);
+  if (StdRules_nSigCards[htype] >= 4) 
+    p += sprintf(p, " %c", 
+                 StdDeck_rankChars[HandVal_GET_FOURTH_CARD(handval)]);
+  if (StdRules_nSigCards[htype] >= 5) 
+    p += sprintf(p, " %c", 
+                 StdDeck_rankChars[HandVal_GET_FIFTH_CARD(handval)]);
   p += sprintf(p, ")");
 
   return p - outString;
