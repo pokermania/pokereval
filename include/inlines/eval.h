@@ -29,6 +29,13 @@
 
 #include "poker_defs.h"
 
+#define _EN_HAND_VALUE(ht)       ((ht) << StdRules_HandVal_HANDTYPE_SHIFT)
+#define _EN_TOP_CARD_VALUE(c)    ((c) << StdRules_HandVal_TOP_CARD_SHIFT)
+#define _EN_SECOND_CARD_VALUE(c) ((c) << StdRules_HandVal_SECOND_CARD_SHIFT)
+#define _EN_THIRD_CARD_VALUE(c)  ((c) << StdRules_HandVal_THIRD_CARD_SHIFT)
+#define _EN_FOURTH_CARD_VALUE(c) ((c) << StdRules_HandVal_FOURTH_CARD_SHIFT)
+#define _EN_FIFTH_CARD_VALUE(c)  ((c) << StdRules_HandVal_FIFTH_CARD_SHIFT)
+
 /*
  * When run over seven cards, here are the distribution of hands:
  *        high hand: 23294460
@@ -43,32 +50,31 @@
  *
  */
 
-static inline uint32 
-eval__is_flush(CardMask cards, uint32 *flushranks )
+static inline StdRules_HandVal
+en__is_flush(CardMask cards, uint32 *flushranks )
 {
-    HandVal retval;
-
-    retval.handval_n = 0;
-
-    if (nBitsTable[cards.cards.spades] >= 5) {
-        *flushranks          = cards.cards.spades;
-        retval.handval.htype = HandType_FLUSH;
-        retval.handval_n    += topFiveCardsTable[cards.cards.spades];
-    } else if (nBitsTable[cards.cards.clubs   ] >= 5) {
-        *flushranks          = cards.cards.clubs;
-        retval.handval.htype = HandType_FLUSH;
-        retval.handval_n    += topFiveCardsTable[cards.cards.clubs];
-    } else if (nBitsTable[cards.cards.diamonds] >= 5) {
-        *flushranks          = cards.cards.diamonds;
-        retval.handval.htype = HandType_FLUSH;
-        retval.handval_n    += topFiveCardsTable[cards.cards.diamonds];
-    } else if (nBitsTable[cards.cards.hearts  ] >= 5) {
-        *flushranks          = cards.cards.hearts;
-        retval.handval.htype = HandType_FLUSH;
-        retval.handval_n    += topFiveCardsTable[cards.cards.hearts];
-    }
-
-    return retval.handval_n;
+  if (nBitsTable[cards.cards.spades] >= 5) {
+    *flushranks          = cards.cards.spades;
+    return _EN_HAND_VALUE(StdRules_HandType_FLUSH) 
+      + topFiveCardsTable[cards.cards.spades];
+  } 
+  else if (nBitsTable[cards.cards.clubs] >= 5) {
+    *flushranks          = cards.cards.clubs;
+    return _EN_HAND_VALUE(StdRules_HandType_FLUSH) 
+      + topFiveCardsTable[cards.cards.clubs];
+  } 
+  else if (nBitsTable[cards.cards.diamonds] >= 5) {
+    *flushranks          = cards.cards.diamonds;
+    return _EN_HAND_VALUE(StdRules_HandType_FLUSH) 
+      + topFiveCardsTable[cards.cards.diamonds];
+  } 
+  else if (nBitsTable[cards.cards.hearts] >= 5) {
+    *flushranks          = cards.cards.hearts;
+    return _EN_HAND_VALUE(StdRules_HandType_FLUSH) 
+      + topFiveCardsTable[cards.cards.hearts];
+  } 
+  else 
+    return 0;
 }
 
 /*
@@ -82,22 +88,17 @@ eval__is_flush(CardMask cards, uint32 *flushranks )
  *
  */
 
-static inline uint32 
-eval__is_straight( uint32 ranks )
+static inline StdRules_HandVal 
+en__is_straight( uint32 ranks )
 {
-    int st;
+  int st;
 
-    st = straightTable[ranks];
-    if (st) {
-      HandVal retval;
-
-      retval.handval_n        = 0;
-      retval.handval.htype    = HandType_STRAIGHT;
-      retval.handval.top_card = st;
-      return retval.handval_n;
-    }
-    else 
-      return 0;
+  st = straightTable[ranks];
+  if (st) 
+    return _EN_HAND_VALUE(StdRules_HandType_STRAIGHT)
+      + _EN_TOP_CARD_VALUE(st);
+  else 
+    return 0;
 
 #if 0
     /* Keith's way, which is still pretty good and uses one less table. */
@@ -105,161 +106,166 @@ eval__is_straight( uint32 ranks )
 	 (ranks2 &=         (ranks << 2)) &&
 	 (ranks2 &=         (ranks << 3)) &&
 	 (ranks2 &=         (ranks << 4)) ) {
-        retval.eval_t.hand     = HandType_STRAIGHT;
+        retval.eval_t.hand     = StdRules_HandType_STRAIGHT;
         retval.eval_t.top_card = topCardTable[ranks2];
     } else if ((ranks & StdDeck_FIVE_STRAIGHT) ==  StdDeck_FIVE_STRAIGHT) {
-        retval.eval_t.hand     = HandType_STRAIGHT;
+        retval.eval_t.hand     = StdRules_HandType_STRAIGHT;
         retval.eval_t.top_card = StdDeck_Ranks_5;
     }
 #endif
 }
 
 
-static inline HandVal 
+static inline StdRules_HandVal 
 StdRules_HANDEVAL( CardMask cards, int n_cards )
 {
-    HandVal retval, tempeval, tempeval2;
-    uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
-      n_dups, n_ranks, flushranks;
+  StdRules_HandVal retval, tempeval, tempeval2;
+  uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
+    n_dups, n_ranks, flushranks;
     
 #define SC cards.cards.clubs
 #define SD cards.cards.diamonds
 #define SH cards.cards.hearts
 #define SS cards.cards.spades
 
-    retval.handval_n = 0;
-    ranks = SC | SD | SH | SS;
-    n_ranks = nBitsTable[ranks];
-    n_dups = n_cards - n_ranks;
-    switch (n_dups)
-      {
-      case 0:
-        break;
+  retval = 0;
+  ranks = SC | SD | SH | SS;
+  n_ranks = nBitsTable[ranks];
+  n_dups = n_cards - n_ranks;
+  switch (n_dups)
+    {
+    case 0:
+      break;
+      
+    case 1:
+      two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
+      break;
+      
+    case 2:
+      two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
+      three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
+      break;
+      
+    default:
+      four_mask  = SH & SD & SC & SS;
+      two_mask   = (~(SC ^ SD ^ SH ^ SS) & ranks) ^ four_mask;
+      three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
+      break;
+    };
 
-      case 1:
-        two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
-        break;
+  tempeval = 0;
+  tempeval2 = 0;
 
-      case 2:
-        two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
-        three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
-        break;
-
-      default:
-        four_mask  = SH & SD & SC & SS;
-        two_mask   = (~(SC ^ SD ^ SH ^ SS) & ranks) ^ four_mask;
-        three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
-        break;
-      };
-
-    tempeval.handval_n = 0;
-    tempeval2.handval_n = 0;
-
-    if (n_ranks >= 5)
-      {
-        retval.handval_n = eval__is_flush(cards, &flushranks);
-        if (retval.handval_n) {
-          tempeval.handval_n = eval__is_straight(flushranks);
-          if (tempeval.handval_n) {
-            retval.handval_n = 0;
-            retval.handval.htype = HandType_STFLUSH;
-            retval.handval.top_card = tempeval.handval.top_card;
-/*-->*/     return retval;
-          }
-        } else
-          retval.handval_n = eval__is_straight(ranks);
-      };
-
-    if (four_mask) 
-      {
-        retval.handval_n = 0;
-        retval.handval.htype = HandType_QUADS;
-        retval.handval.top_card = topCardTable[four_mask];
-        retval.handval.second_card = 
-          topCardTable[ranks ^ (1 << retval.handval.top_card)];
+  if (n_ranks >= 5) {
+    retval = en__is_flush(cards, &flushranks);
+    if (retval) {
+      tempeval = en__is_straight(flushranks);
+      if (tempeval) {
+        retval = _EN_HAND_VALUE(StdRules_HandType_STFLUSH)
+          + StdRules_HandVal_CARDS(tempeval);
         return retval;
-      };
+      }
+    } else
+      retval = en__is_straight(ranks);
+  };
 
-    if (three_mask && (n_dups >= 3)) 
-      {
-        int t;
+  if (four_mask) {
+    int tc;
 
-        retval.handval_n = 0;
-        retval.handval.htype = HandType_FULLHOUSE;
-        retval.handval.top_card = topCardTable[three_mask];
-        t = (two_mask | three_mask) ^ (1 << retval.handval.top_card);
-        retval.handval.second_card = topCardTable[t];
-        return retval;
-      };
-
-    if (retval.handval_n) /* flush and straight */
-      return retval;
-
-    if (three_mask) 
-      {
-        int t;
-        
-        retval.handval.htype = HandType_TRIPS;
-        retval.handval.top_card = topCardTable[three_mask];
-
-        t = ranks ^ three_mask; /* Only one bit set in three_mask */
-        retval.handval.second_card = topCardTable[t];
-        t ^= (1 << retval.handval.second_card);
-        retval.handval.third_card = topCardTable[t];
-        return retval;
-      };
-
-    /* Now, all that's left is pairs, if even that.  */
-    switch (n_dups)
-      {
-      case 0:
-        retval.handval_n = topFiveCardsTable[ranks];
-        retval.handval.htype = HandType_NOPAIR;
-        break;
-        
-      case 1:
-        {
-          int t;
-
-          retval.handval.htype     = HandType_ONEPAIR;
-          retval.handval.top_card = topCardTable[two_mask];
-          t = ranks ^ two_mask;      /* Only one bit set in two_mask */
-          tempeval.handval_n = topFiveCardsTable[t];
-          retval.handval.second_card = tempeval.handval.top_card;
-          retval.handval.third_card  = tempeval.handval.second_card;
-          retval.handval.fourth_card = tempeval.handval.third_card;
-        }
-        break;
-
-      case 2:
-        {
-          int t;
-          
-          retval.handval.htype = HandType_TWOPAIR;
-          tempeval.handval_n = topFiveCardsTable[two_mask];
-          retval.handval.top_card    = tempeval.handval.top_card;
-          retval.handval.second_card = tempeval.handval.second_card;
-          t = ranks ^ two_mask; /* Exactly two bits set in two_mask */
-          retval.handval.third_card = topCardTable[t];
-        }
-        break;
-
-      default:
-        {
-          int t;
-          
-          retval.handval.htype = HandType_TWOPAIR;
-          retval.handval.top_card = topCardTable[two_mask];
-          retval.handval.second_card = 
-            topCardTable[two_mask ^ (1 << retval.handval.top_card)];
-          t = ranks ^ (1 << retval.handval.top_card)
-                    ^ (1 << retval.handval.second_card);
-          retval.handval.third_card = topCardTable[t];
-        }
-        break;
-      };
-
+    tc = topCardTable[four_mask];
+    retval = _EN_HAND_VALUE(StdRules_HandType_QUADS)
+      + _EN_TOP_CARD_VALUE(tc)
+      + _EN_SECOND_CARD_VALUE(topCardTable[ranks ^ (1 << tc)]);
     return retval;
+  };
+
+  if (three_mask && (n_dups >= 3)) {
+    int tc, t;
+
+    retval  = _EN_HAND_VALUE(StdRules_HandType_FULLHOUSE);
+    tc = topCardTable[three_mask];
+    retval += _EN_TOP_CARD_VALUE(tc);
+    t = (two_mask | three_mask) ^ (1 << tc);
+    retval += _EN_SECOND_CARD_VALUE(topCardTable[t]);
+    return retval;
+  };
+
+  if (retval) /* flush and straight */
+    return retval;
+
+  if (three_mask) {
+    int t, second;
+        
+    retval  = _EN_HAND_VALUE(StdRules_HandType_TRIPS);
+    retval += _EN_TOP_CARD_VALUE(topCardTable[three_mask]);
+
+    t = ranks ^ three_mask; /* Only one bit set in three_mask */
+    second = topCardTable[t];
+    retval += _EN_SECOND_CARD_VALUE(second);
+    t ^= (1 << second);
+    retval += _EN_THIRD_CARD_VALUE(topCardTable[t]);
+    return retval;
+  };
+
+  /* Now, all that's left is pairs, if even that.  */
+  switch (n_dups) {
+  case 0:
+    retval = _EN_HAND_VALUE(StdRules_HandType_NOPAIR)
+      + topFiveCardsTable[ranks];
+    break;
+    
+  case 1: {
+    int t;
+    uint32 kickers;
+
+    retval = _EN_HAND_VALUE(StdRules_HandType_ONEPAIR)
+           + _EN_TOP_CARD_VALUE(topCardTable[two_mask]);
+    t = ranks ^ two_mask;      /* Only one bit set in two_mask */
+    /* Get the top five cards in what is left, drop all but the top three 
+     * cards, and shift them by one to get the three desired kickers */
+    kickers = (topFiveCardsTable[t] >> StdRules_HandVal_CARD_WIDTH)
+            & ~StdRules_HandVal_FIFTH_CARD_MASK;
+    retval += kickers;
+  }
+  break;
+
+  case 2: {
+    int t;
+          
+    retval = _EN_HAND_VALUE(StdRules_HandType_TWOPAIR);
+    tempeval = topFiveCardsTable[two_mask]
+             & (StdRules_HandVal_TOP_CARD_MASK 
+                | StdRules_HandVal_SECOND_CARD_MASK);
+    retval += tempeval;
+    t = ranks ^ two_mask; /* Exactly two bits set in two_mask */
+    retval += _EN_THIRD_CARD_VALUE(topCardTable[t]);
+  }
+  break;
+  
+  default: {
+    int top, second;
+          
+    retval = _EN_HAND_VALUE(StdRules_HandType_TWOPAIR);
+    top = topCardTable[two_mask];
+    retval += _EN_TOP_CARD_VALUE(top);
+    second = topCardTable[two_mask ^ (1 << top)];
+    retval += _EN_SECOND_CARD_VALUE(second);
+    retval += _EN_THIRD_CARD_VALUE(topCardTable[ranks ^ (1 << top) 
+                                                ^ (1 << second)]);
+  }
+  break;
+
+  }; /* switch */
+  
+  return retval;
 }
 
+#undef _EN_HAND_VALUE
+#undef _EN_TOP_CARD_VALUE
+#undef _EN_SECOND_CARD_VALUE
+#undef _EN_THIRD_CARD_VALUE
+#undef _EN_FOURTH_CARD_VALUE
+#undef _EN_FIFTH_CARD_VALUE
+
 #endif
+
