@@ -35,13 +35,14 @@ cleanconfig:
 
 release-src:
 	[ -n "$(RELEASE_NUMBER)" ] || echo "No RELEASE_NUMBER specified"
-	$(MAKE) clean cleanconfig javadoc jarfile cleanclass
-	$(MAKE) poker-eval-src-$(RELEASE_NUMBER).tar.gz
+	$(MAKE) clean javadoc jarfile cleanclass
+	$(MAKE)	poker-eval-src-$(RELEASE_NUMBER).tar.gz
 
 poker-eval-src-$(RELEASE_NUMBER).tar.gz:
 	DIR=/tmp/rel$$$$/poker-eval-src-$(RELEASE_NUMBER);\
 	mkdir -p $$DIR;\
 	cp -r . $$DIR;\
+	rm -f $$DIR/config.log $$DIR/config.cache $$DIR/config.status;\
 	find $$DIR -name CVS | xargs rm -fr;\
 	find $$DIR -name .cvsignore | xargs rm -fr;\
 	find $$DIR -name Makefile | xargs rm -f;\

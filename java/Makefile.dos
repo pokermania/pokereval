@@ -1,12 +1,13 @@
-MKDIR	= @MKDIR@
-RM	= @RM@
-JAVA	= @JAVA@
-JAVAC	= @JAVAC@
-JAVAH	= @JAVAH@
-JAVADOC	= @JAVADOC@
-JAR	= @JAR@
+# Generated automatically from Makefile.in by configure.
+MKDIR	= mkdir
+RM	= del
+JAVA	= 
+JAVAC	= 
+JAVAH	= 
+JAVADOC	= 
+JAR	= 
 JDKHOME	= $(dir $(JAVAH))/..
-SLIBJNI_CMD= @SLIBJNI_CMD@
+SLIBJNI_CMD= LINK /DLL /OUT:$@ ../lib/libpoker.dll $**
 ifeq ($(JAVAC),jikes)
   JAVACOPTS += +E +P
   # TODO: improve on this jre best guess, perhaps in autoconf?
@@ -28,10 +29,10 @@ JNI_JAVA	:= org/pokersource/eval/StandardEval.java \
 		   org/pokersource/enum/Enumerate.java
 JNI_CLASSES	:= $(subst /,., $(JNI_JAVA:.java=))
 JNI_CLASSFILES	:= $(JNI_JAVA:.java=.class)
-JNI_OBJS	:= $(JNI_JAVA:.java=Imp@O@)
-JNI_OBJS	+= jniutil@O@ pokutil@O@
+JNI_OBJS	:= $(JNI_JAVA:.java=Imp.obj)
+JNI_OBJS	+= jniutil.obj pokutil.obj
 JNI_HEADER	:= pokerjni.h
-JNILIB		:= ../lib/libpokerjni@SO@
+JNILIB		:= ../lib/libpokerjni.dll
 JNI_INCLUDES	:= $(addprefix -I, $(shell find $(JDKHOME)/include -type d))
 
 JARSOURCE	:= $(CLASSFILES) sample1.hho
@@ -79,7 +80,7 @@ cleanclass:
 pokerjni.h: $(JNI_CLASSFILES)
 	$(JAVAH) -o $@ -jni -force $(JNI_CLASSES)
 
-.c@O@:
+.c.obj:
 	$(CC) $(CFLAGS) -I. -I../include $(JNI_INCLUDES) -c $< -o $@
 
 $(JNILIB): $(JNI_OBJS)

@@ -19,7 +19,8 @@ if test $target = "msdos"; then
   MKDIR="mkdir"
   RUN_IT="\$**"
   LIB_CMD="LIB /OUT:\$@ \$**"
-  SLIB_CMD="?????? need command to create DLL here"
+  SLIB_CMD="LINK /DLL /OUT:\$@ \$**"
+  SLIBJNI_CMD="LINK /DLL /OUT:\$@ ..\\lib\\libpoker.dll \$**"
   RANLIB="rem"
 else
   AC_CONFIG_HEADER(include/config.h)
@@ -89,6 +90,8 @@ else
   LIB_CMD="\$(AR) cr \$@ \$^"
   # hardcoding -shared in SLIB_CMD seems wrong (e.g., it is -G with solaris cc)
   SLIB_CMD="\$(CC) -shared -o \$@ \$^"
+  # more hardcoding...
+  SLIBJNI_CMD="\$(CC) -shared -L../lib -lpoker -o \$@ \$^"
 fi
 
 AC_SUBST(CC)
@@ -106,6 +109,7 @@ AC_SUBST(SO)
 AC_SUBST(RUN_IT)
 AC_SUBST(LIB_CMD)
 AC_SUBST(SLIB_CMD)
+AC_SUBST(SLIBJNI_CMD)
 
 AC_SUBST(ENABLE_JAVA)
 

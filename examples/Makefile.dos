@@ -12,7 +12,7 @@ RUN_IT = $**
 LIB_CMD = LIB /OUT:$@ $**
 
 PROGRAMS = five_card_hands.exe seven_card_hands.exe fish.exe eval.exe \
-	hcmp2.exe hcmpn.exe
+	hcmp2.exe hcmpn.exe usedecks.exe pokenum.exe
 
 all : $(PROGRAMS)
 
@@ -34,9 +34,16 @@ hcmp2.exe: hcmp2.obj $(LIBPOKER)
 hcmpn.exe: hcmpn.obj $(LIBPOKER)
 	$(CC_EXE)
 
+usedecks.exe: usedecks.obj $(LIBPOKER)
+	$(CC_EXE)
+
+pokenum.exe: pokenum.obj $(LIBPOKER)
+	$(CC_EXE)
+
 clean:
 	$(RM) core *.obj $(PROGRAMS) 
 
 .c.obj:
 	$(CC_OBJ)
 
+Makefile: Makefile.in
