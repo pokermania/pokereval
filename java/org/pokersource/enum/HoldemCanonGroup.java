@@ -3,6 +3,8 @@
 package org.pokersource.enum;
 import org.pokersource.game.Deck;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.HashSet;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.MatchResult;
@@ -84,6 +86,25 @@ public class HoldemCanonGroup extends HoldemHandGroup {
         myhands.add(new Long(hand));
       }
     }
+  }
+
+  public static Iterator allGroups() {
+    String[] ranks = {"A", "K", "Q", "J", "T", "9", "8",
+                      "7", "6", "5", "4", "3", "2"};
+    ArrayList groups = new ArrayList(169);
+    for (int rank1=0; rank1<ranks.length; rank1++) {
+      for (int rank2=rank1; rank2<ranks.length; rank2++) {
+        String groupSpec = ranks[rank1] + ranks[rank2];
+        HoldemCanonGroup group = new HoldemCanonGroup(groupSpec);
+        groups.add(group);
+        if (rank1 != rank2) {
+          groupSpec = groupSpec + "s";
+          group = new HoldemCanonGroup(groupSpec);
+          groups.add(group);
+        }
+      }
+    }
+    return groups.iterator();
   }
 
   public static void main(String[] args) {

@@ -1,6 +1,7 @@
 // $Id$
 
 package org.pokersource.enum.test;
+import java.util.Iterator;
 import org.pokersource.enum.*;
 import org.pokersource.game.Deck;
 
@@ -70,4 +71,14 @@ public class HoldemCanonGroupTest extends TestCase {
     assertEquals(12, gT9.getHands().length);
   }
 
+  public void testAllGroups() {
+    int ngroups = 0;
+    for (Iterator iter = HoldemCanonGroup.allGroups(); iter.hasNext();) {
+      HoldemCanonGroup group = (HoldemCanonGroup) iter.next();
+      //System.out.print(group.toString() + " ");
+      ngroups++;
+    }
+    assertEquals(169, ngroups);
+  }
+    
 }
