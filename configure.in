@@ -30,16 +30,6 @@ else
   AC_PROG_RANLIB
   AC_PROG_CC
 
-  dnl Check for java support.
-  AC_CHECK_CLASSPATH
-  AC_PROG_JAVAC
-  AC_PROG_JAVA
-  AC_CHECK_RQRD_CLASS(org.apache.oro.text.regex.Pattern)
-  AC_CHECK_RQRD_CLASS(junit.framework.TestCase)
-  AC_PATH_PROG(JAVAH,javah)
-  AC_PATH_PROG(JAVADOC,javadoc)
-  AC_PATH_PROG(JAR,jar)
-
   dnl Checks for header files.
   AC_HEADER_STDC
 
@@ -71,6 +61,22 @@ else
     esac
   fi
 
+  test -z "$enable_java" && enable_java=yes
+  if test "$enable_java" = "yes" ; then
+    dnl Check for java support.
+    AC_CHECK_CLASSPATH
+    AC_PROG_JAVAC
+    AC_PROG_JAVA
+    dnl AC_CHECK_RQRD_CLASS(org.apache.oro.text.regex.Pattern)
+    dnl AC_CHECK_RQRD_CLASS(junit.framework.TestCase)
+    AC_PATH_PROG(JAVAH,javah)
+    AC_PATH_PROG(JAVADOC,javadoc)
+    AC_PATH_PROG(JAR,jar)
+  else
+    enable_java=no
+  fi
+  ENABLE_JAVA="$enable_java"
+
   A=".a"
   O=".o"
   E=""
@@ -100,6 +106,8 @@ AC_SUBST(SO)
 AC_SUBST(RUN_IT)
 AC_SUBST(LIB_CMD)
 AC_SUBST(SLIB_CMD)
+
+AC_SUBST(ENABLE_JAVA)
 
 AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile include/Makefile java/Makefile)
 
