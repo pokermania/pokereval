@@ -34,9 +34,13 @@ public abstract class BeliefVector {
       by getBeliefProb(). */
   private long deadCards;
 
+  /** The belief probability (unconditioned by dead cards) for each atomic
+      starting hand.  Updated as needed by computeUnconditionedHandProb().  */
+  private HashMap uncondHandProb;
+
   /** The belief probability (conditioned by dead cards) for each atomic
-      starting hand.  Updated as needed by recomputeHandProb().  */
-  private HashMap handProb;
+      starting hand.  Updated as needed by computeConditionedHandProb().  */
+  private HashMap condHandProb;
 
   private boolean hasRelative = false;
   private boolean hasAbsolute = false;
@@ -48,7 +52,8 @@ public abstract class BeliefVector {
     myspec = spec;
     groupProb = new HashMap();
     deadCards = 0;
-    handProb = null;
+    uncondHandProb = null;
+    condHandProb = null;
   }
 
   /** Instantiate self from string respresentation.  This method must be
@@ -78,14 +83,14 @@ public abstract class BeliefVector {
       details for all atomic hands, conditioned on the dead cards. */
   public String toStringAtomic() {
     StringBuffer buf = new StringBuffer();
-    for (Iterator iter = handProb.keySet().iterator(); iter.hasNext(); ) {
+    for (Iterator iter = condHandProb.keySet().iterator(); iter.hasNext(); ) {
       Long lhand = (Long) iter.next();
       long hand = lhand.longValue();
-      double prob = ((Double) handProb.get(lhand)).doubleValue();
+      double prob = ((Double) condHandProb.get(lhand)).doubleValue();
       if (buf.length() > 1)
         buf.append(" ");
       buf.append(Deck.cardMaskString(hand, ""));
-      int percent = (int) Math.round(100 * Math.abs(prob));
+      int percent = (int) Math.round(10000 * Math.abs(prob));
       buf.append(":" + percent);
     }
     return buf.toString();
@@ -95,9 +100,9 @@ public abstract class BeliefVector {
   /** Return an array of bitmasks representing hands with nonzero probability
       of occurring (conditioned on the dead cards). */
   public long[] getHands() {
-    long[] hands = new long[handProb.size()];
+    long[] hands = new long[condHandProb.size()];
     int nhands = 0;
-    for (Iterator iter = handProb.keySet().iterator(); iter.hasNext(); )
+    for (Iterator iter = condHandProb.keySet().iterator(); iter.hasNext(); )
       hands[nhands++] = ((Long) iter.next()).longValue();
     return hands;
   }
@@ -105,62 +110,94 @@ public abstract class BeliefVector {
   /** Return the absolute probability that hand will occur, conditioned on
       the dead cards. */
   public double getBeliefProb(long hand) {
-    Double prob = (Double) handProb.get(new Long(hand));
+    Double prob = (Double) condHandProb.get(new Long(hand));
     if (prob == null)
       return 0;
     else
       return prob.doubleValue();
   }
 
-  private void recomputeHandProb() {
-    int totalHands = 0;         // # of atomic hands in union of groups
-    int totalLive = 0;          // # of these that aren't excluded by deadCards
-    double totalRel = 0.0;      // sum over groups of each group's relative prob
-    				// times the group's number of atomic hands
+  private void computeConditionedHandProb() {
+    // adjust hand probabilities by eliminating hands that require a dead card
+    if (deadCards == 0) {
+      condHandProb = uncondHandProb;
+      return;
+    }
+    double deadProb = 0.0;	// total prob of hands containing dead cards
+    for (Iterator iter = uncondHandProb.keySet().iterator(); iter.hasNext(); ) {
+      Long key = (Long) iter.next();
+      long hand = key.longValue();
+      Double value = (Double) uncondHandProb.get(key);
+      double hprob = value.doubleValue();
+      if ((hand & deadCards) != 0) { // hand uses a dead card
+        /*System.out.println("  condition: dead " + Deck.cardMaskString(hand) +
+          " hprob=" + hprob);*/
+        deadProb += hprob;
+      }
+    }
+    condHandProb = new HashMap();
+    if (deadProb > 0.999999)
+      throw new IllegalArgumentException("dead cards exclude all hands");
+    double condscale = 1 / (1 - deadProb);
+    /*System.out.println("  condition: deadProb=" + deadProb + ", condscale="
+      + condscale);*/
+    for (Iterator iter = uncondHandProb.keySet().iterator(); iter.hasNext(); ) {
+      Long key = (Long) iter.next();
+      long hand = key.longValue();
+      if ((hand & deadCards) == 0) { // hand does not use dead card
+        Double value = (Double) uncondHandProb.get(key);
+        double hprob = value.doubleValue();
+        double condprob = hprob * condscale;
+        /*System.out.println("  condition: update " + Deck.cardMaskString(hand) +
+          " condprob=" + condprob);*/
+        condHandProb.put(key, new Double(condprob));
+      }
+    }
+  }
+
+  private double totalRelativeProb() {
+    // sum over groups of each group's relative prob
+    // times the group's number of atomic hands
+    double totalRel = 0.0;
+    for (Iterator iter = groupProb.keySet().iterator(); iter.hasNext(); ) {
+      HandGroup group = (HandGroup) iter.next();
+      double gprob = ((Double) groupProb.get(group)).doubleValue();
+      int gsize = group.getHands().length;
+      if (gprob > 0)
+        totalRel += gprob * gsize;
+    }
+    return totalRel;
+  }
+
+  private void computeUnconditionedHandProb() {
+    uncondHandProb = new HashMap();
+    double totalRel = totalRelativeProb();
+    /*System.out.println("recomputing: totalRel=" + totalRel);*/
     for (Iterator iter = groupProb.keySet().iterator(); iter.hasNext(); ) {
       HandGroup group = (HandGroup) iter.next();
       long[] ghands = group.getHands();
       double gprob = ((Double) groupProb.get(group)).doubleValue();
-      int numLive = 0;
-      for (int i=0; i<ghands.length; i++)
-        if ((ghands[i] & deadCards) == 0)
-          numLive++;
-      totalLive += numLive;
-      totalHands += ghands.length;
-      if (gprob > 0)
-        totalRel += gprob * ghands.length;
-    }
-    handProb = new HashMap(totalHands);
-    if (totalLive > 0) {
-      System.out.println("recomputing: totalHands=" + totalHands +
-                         ", totalLive=" + totalLive + ", totalRel=" + totalRel);
-      for (Iterator iter = groupProb.keySet().iterator(); iter.hasNext(); ) {
-        HandGroup group = (HandGroup) iter.next();
-        long[] ghands = group.getHands();
-        double gprob = ((Double) groupProb.get(group)).doubleValue();
-        double hprob;
-        if (gprob < 0) {           // absolute probability
-          hprob = -gprob / ghands.length;
-        } else if (gprob > 0) {    // relative probability
-          hprob = gprob / totalRel;
-        } else {
-          hprob = 0;
+      double hprob;   // absolute probability of each hand in this group
+      if (gprob < 0) {           // group has absolute probability
+        hprob = -gprob / ghands.length;
+      } else if (gprob > 0) {    // group has relative probability
+        hprob = gprob / totalRel;
+      } else {
+        hprob = 0;
+      }
+      /*System.out.println("           : group=" + group.toString() +
+                         ", gsize=" + ghands.length +
+                         ", gprob=" + gprob +
+                         ", hprob=" + hprob);*/
+      if (hprob > 0) {
+        for (int i=0; i<ghands.length; i++) {
+          Long key = new Long(ghands[i]);
+          Double value = new Double(hprob);
+          if (uncondHandProb.containsKey(key))
+            throw new IllegalArgumentException
+              ("duplicate hand: " + Deck.cardMaskString(ghands[i]));
+          uncondHandProb.put(key, value);
         }
-        hprob *= (double)totalHands / totalLive;
-        System.out.println("recomputing: group=" + group.toString() +
-                           ", gsize=" + ghands.length +
-                           ", gprob=" + gprob +
-                           ", hprob=" + hprob);
-        if (hprob > 0)
-          for (int i=0; i<ghands.length; i++)
-            if ((ghands[i] & deadCards) == 0) {
-              Long key = new Long(ghands[i]);
-              Double value = new Double(hprob);
-              if (handProb.containsKey(key))
-                throw new IllegalArgumentException
-                  ("duplicate hand: " + Deck.cardMaskString(ghands[i]));
-              handProb.put(key, value);
-            }
       }
     }
   }
@@ -169,14 +206,16 @@ public abstract class BeliefVector {
      sets the probability to zero of any hand including any of these cards
      increases the probabilities of the other hands in proportion. */
   public void setDeadCards(long cards) {
+    /*System.out.println("DEAD " + Deck.cardMaskString(cards));*/
     deadCards = cards;
-    recomputeHandProb();
+    computeConditionedHandProb();
   }
 
   private void addHandGroup(HandGroup group, double prob) {
-    System.out.println("ADD group=" + group.toString() + ", prob=" + prob);
+    /*System.out.println("ADD group=" + group.toString() + ", prob=" + prob);*/
     groupProb.put(group, new Double(prob));
-    recomputeHandProb();
+    computeUnconditionedHandProb();
+    computeConditionedHandProb();
   }
 
   /** During construction, add a new hand group with its probability of
@@ -200,7 +239,7 @@ public abstract class BeliefVector {
   }
 
   private void addRemaining(double prob) {
-    System.out.println("ADD all remaining hands, prob=" + prob);
+    /*System.out.println("ADD all remaining hands, prob=" + prob);*/
     // Form a special hand group whose set of hands is the difference between
     // the universe of possible hands and hands present in groups we have
     // already added.
@@ -213,7 +252,8 @@ public abstract class BeliefVector {
       others.myhands.removeAll(group.myhands);
     }
     groupProb.put(others, new Double(prob));
-    recomputeHandProb();
+    computeUnconditionedHandProb();
+    computeConditionedHandProb();
   }
 
   /** During construction, add each hand not yet added with its probability of
