@@ -4,7 +4,8 @@ MKTABLE_HELPERS = mktable.o mktable_utils.o
 
 OBJ=$(DERIVED_SOURCES:.c=.o) \
 	mktab_basic.o $(MKTABLE_HELPERS) \
-	stddeck.o stdrules.o evx.o \
+	stddeck.o stdrules.o evx.o handval.o \
+	astuddeck.o astudrules.o \
 	md5c.o 
 
 BASIC_TABLES = \
@@ -14,12 +15,13 @@ PACKED_TABLES = \
 	t_nbitsandstr.c
 EVX_TABLES = \
 	t_evx_pairval.c t_evx_strval.c t_evx_tripsval.c t_evx_flushcards.c
+ASTUD_TABLES = t_astudcardmasks.c
 
 EVX_HEADERS = ../include/inlines/evx5.h ../include/inlines/evx7.h
 
-PROGRAMS = mktab_basic mktab_packed mktab_evx evx_gen5 evx_gen7
+PROGRAMS = mktab_basic mktab_packed mktab_evx mktab_astud evx_gen5 evx_gen7
 
-DERIVED_SOURCES = $(BASIC_TABLES) $(PACKED_TABLES) $(EVX_TABLES)
+DERIVED_SOURCES = $(BASIC_TABLES) $(PACKED_TABLES) $(EVX_TABLES) $(ASTUD_TABLES)
 
 CC = @CC@ 
 CFLAGS = @CFLAGS@ 
@@ -44,6 +46,9 @@ $(PACKED_TABLES): mktab_packed
 $(EVX_TABLES): mktab_evx
 	./$<
 
+$(ASTUD_TABLES): mktab_astud
+	./$<
+
 ../include/inlines/evx5.h:	evx_gen5
 	./$<  >  $@
 
@@ -58,6 +63,9 @@ mktab_packed: mktab_packed.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 mktab_evx: mktab_evx.o $(MKTABLE_HELPERS)
+	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+
+mktab_astud: mktab_astud.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 evx_gen5:	evx_gen5.o
