@@ -67,8 +67,10 @@ public class HoldemSMGroup extends HoldemHandGroup {
     StringTokenizer st = new StringTokenizer(smgroups);
     myhands = new HashSet();
     while (st.hasMoreTokens()) {
-      String canonstr = st.nextToken();
-      HoldemCanonGroup canon = new HoldemCanonGroup(canonstr);
+      String canonSpec = st.nextToken();
+      HoldemCanonGroup canon = (HoldemCanonGroup)
+        HoldemHandGroupFactory.getInstance(canonSpec,
+                                           HoldemCanonGroup.class);
       myhands.addAll(canon.myhands);
     }
   }

@@ -35,16 +35,14 @@ import org.apache.oro.text.regex.Perl5Matcher;
 
 
 public class HoldemAbdulGroup extends HoldemHandGroup {
+  private static Perl5Compiler compiler;
+  private static Perl5Matcher matcher;
+  private static Pattern pairPattern, acePattern, kingPattern, queenPattern;
+  private static Pattern rankPattern, gap0Pattern, gap1Pattern, gap2Pattern;
 
-  // one glitch: the any rank hands (9xs+, 8x+) overlap with the others
-
-  public HoldemAbdulGroup(String groupSpec) {
-    myspec = groupSpec;
-    myhands = new HashSet();
-    Perl5Compiler compiler = new Perl5Compiler();
-    Perl5Matcher matcher = new Perl5Matcher();
-    Pattern pairPattern, acePattern, kingPattern, queenPattern, rankPattern,
-      gap0Pattern, gap1Pattern, gap2Pattern;
+  static {
+    compiler = new Perl5Compiler();
+    matcher = new Perl5Matcher();
     try {
       pairPattern = compiler.compile("^([AKQJT98765432])(\\1)\\+$");
       acePattern = compiler.compile("^(A)([KQJT98765432])(s?)\\+$");
@@ -57,12 +55,22 @@ public class HoldemAbdulGroup extends HoldemHandGroup {
     } catch (MalformedPatternException e) {
       throw new RuntimeException("BUG: " + e.toString());
     }
+  }
+
+  // one glitch: the any rank hands (9xs+, 8x+) overlap with the others
+
+  public HoldemAbdulGroup(String groupSpec) {
+    myspec = groupSpec;
+    myhands = new HashSet();
     if (matcher.matches(groupSpec, pairPattern)) {
       MatchResult result = matcher.getMatch();
       int rank = Deck.parseRank(result.group(1));
       for (int prank=rank; prank<=Deck.RANK_ACE; prank++) {
         String srank = Deck.rankString(prank);
-        HoldemCanonGroup canon = new HoldemCanonGroup(srank + srank);
+        String canonSpec = srank + srank;
+        HoldemCanonGroup canon = (HoldemCanonGroup)
+          HoldemHandGroupFactory.getInstance(canonSpec,
+                                             HoldemCanonGroup.class);
         myhands.addAll(canon.myhands);
       }
     } else if (matcher.matches(groupSpec, acePattern) ||
@@ -79,7 +87,10 @@ public class HoldemAbdulGroup extends HoldemHandGroup {
       int rank2 = Deck.parseRank(srank2);
       for (int prank=rank2; prank<rank1; prank++) {
         srank2 = Deck.rankString(prank);
-        HoldemCanonGroup canon = new HoldemCanonGroup(srank1 + srank2 + ssuited);
+        String canonSpec = srank1 + srank2 + ssuited;
+        HoldemCanonGroup canon = (HoldemCanonGroup)
+          HoldemHandGroupFactory.getInstance(canonSpec,
+                                             HoldemCanonGroup.class);
         myhands.addAll(canon.myhands);
       }
     } else if (matcher.matches(groupSpec, gap0Pattern) ||
@@ -97,7 +108,10 @@ public class HoldemAbdulGroup extends HoldemHandGroup {
         int prank2 = prank1 - gap;
         srank1 = Deck.rankString(prank1);
         srank2 = Deck.rankString(prank2);
-        HoldemCanonGroup canon = new HoldemCanonGroup(srank1 + srank2 + ssuited);
+        String canonSpec = srank1 + srank2 + ssuited;
+        HoldemCanonGroup canon = (HoldemCanonGroup)
+          HoldemHandGroupFactory.getInstance(canonSpec,
+                                             HoldemCanonGroup.class);
         myhands.addAll(canon.myhands);
       }
     } else {

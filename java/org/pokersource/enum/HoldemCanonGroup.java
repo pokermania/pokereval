@@ -19,16 +19,13 @@ import org.apache.oro.text.regex.Perl5Matcher;
 */
 
 public class HoldemCanonGroup extends HoldemHandGroup {
-  /** Convert canonical holdem starting hand notation to a HoldemCanonGroup
-      object.
-      @param groupSpec starting hand (e.g., AA, AKs, T9)
-  */
-  public HoldemCanonGroup(String groupSpec) {
-    myspec = groupSpec;
-    myhands = new HashSet();
-    Perl5Compiler compiler = new Perl5Compiler();
-    Perl5Matcher matcher = new Perl5Matcher();
-    Pattern pairPattern, suitedPattern, offsuitPattern;
+  private static Perl5Compiler compiler;
+  private static Perl5Matcher matcher;
+  private static Pattern pairPattern, suitedPattern, offsuitPattern;
+
+  static {
+    compiler = new Perl5Compiler();
+    matcher = new Perl5Matcher();
     try {
       pairPattern = compiler.compile("^([AKQJT98765432])(\\1)$");
       suitedPattern = compiler.compile("^([AKQJT98765432])([AKQJT98765432])s$");
@@ -36,6 +33,15 @@ public class HoldemCanonGroup extends HoldemHandGroup {
     } catch (MalformedPatternException e) {
       throw new RuntimeException("BUG: " + e.toString());
     }
+  }
+
+  /** Convert canonical holdem starting hand notation to a HoldemCanonGroup
+      object.
+      @param groupSpec starting hand (e.g., AA, AKs, T9)
+  */
+  public HoldemCanonGroup(String groupSpec) {
+    myspec = groupSpec;
+    myhands = new HashSet();
     if (matcher.matches(groupSpec, pairPattern)) {
       MatchResult result = matcher.getMatch();
       int rank = Deck.parseRank(result.group(1));
@@ -94,13 +100,17 @@ public class HoldemCanonGroup extends HoldemHandGroup {
     ArrayList groups = new ArrayList(169);
     for (int rank1=0; rank1<ranks.length; rank1++) {
       for (int rank2=rank1; rank2<ranks.length; rank2++) {
-        String groupSpec = ranks[rank1] + ranks[rank2];
-        HoldemCanonGroup group = new HoldemCanonGroup(groupSpec);
-        groups.add(group);
+        String canonSpec = ranks[rank1] + ranks[rank2];
+        HoldemCanonGroup canon = (HoldemCanonGroup)
+          HoldemHandGroupFactory.getInstance(canonSpec,
+                                             HoldemCanonGroup.class);
+        groups.add(canon);
         if (rank1 != rank2) {
-          groupSpec = groupSpec + "s";
-          group = new HoldemCanonGroup(groupSpec);
-          groups.add(group);
+          canonSpec = canonSpec + "s";
+          canon = (HoldemCanonGroup)
+            HoldemHandGroupFactory.getInstance(canonSpec,
+                                               HoldemCanonGroup.class);
+          groups.add(canon);
         }
       }
     }

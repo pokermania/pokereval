@@ -17,21 +17,27 @@ import org.apache.oro.text.regex.Perl5Matcher;
 */
 
 public class HoldemAtomicGroup extends HoldemHandGroup {
-  /** Convert specific starting hand to HoldemAtomicGroup object.
-      @param groupSpec starting hand (e.g., AhKd, 8h3s)
-  */
-  public HoldemAtomicGroup(String groupSpec) {
-    myspec = groupSpec;
-    myhands = new HashSet();
-    Perl5Compiler compiler = new Perl5Compiler();
-    Perl5Matcher matcher = new Perl5Matcher();
-    Pattern atomicPattern;
+  private static Perl5Compiler compiler;
+  private static Perl5Matcher matcher;
+  private static Pattern atomicPattern;
+
+  static {
+    compiler = new Perl5Compiler();
+    matcher = new Perl5Matcher();
     try {
       atomicPattern = compiler.compile
         ("^([AKQJT98765432])([shdc])([AKQJT98765432])([shdc])$");
     } catch (MalformedPatternException e) {
       throw new RuntimeException("BUG: " + e.toString());
     }
+  }
+
+  /** Convert specific starting hand to HoldemAtomicGroup object.
+      @param groupSpec starting hand (e.g., AhKd, 8h3s)
+  */
+  public HoldemAtomicGroup(String groupSpec) {
+    myspec = groupSpec;
+    myhands = new HashSet();
     MatchResult result;
     if (matcher.matches(groupSpec, atomicPattern)) {
       result = matcher.getMatch();
