@@ -11,6 +11,7 @@ public class AllTests {
   public static Test suite() {
     TestSuite suite = new TestSuite("All org.pokersource.enum tests");
     suite.addTest(new TestSuite(EnumerateTest.class));
+    suite.addTest(new TestSuite(HandMatchupTest.class));
     suite.addTest(new TestSuite(HoldemAbdulGroupTest.class));
     suite.addTest(new TestSuite(HoldemAtomicGroupTest.class));
     suite.addTest(new TestSuite(HoldemBeliefVectorTest.class));

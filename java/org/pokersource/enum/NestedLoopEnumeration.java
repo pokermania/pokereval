@@ -1,6 +1,7 @@
 // $Id$
 
 package org.pokersource.enum;
+import java.util.Enumeration;
 
 /** An iterator that steps through an abritrary number of nested loops, each
     starting at zero and ending at its own upper limit.  Useful when the
@@ -23,8 +24,7 @@ package org.pokersource.enum;
 </pre>
 */
 
-public class NestedLoopEnumeration implements java.util.Enumeration {
-  private int ndims;
+public class NestedLoopEnumeration implements Enumeration {
   private int[] next;
   private int[] limits;
 
@@ -34,9 +34,8 @@ public class NestedLoopEnumeration implements java.util.Enumeration {
   */
   public NestedLoopEnumeration(int[] limits) {
     this.limits = limits;
-    ndims = limits.length;
-    next = new int[ndims];
-    for (int i=0; i<ndims; i++) {
+    next = new int[limits.length];
+    for (int i=0; i<limits.length; i++) {
       if (limits[i] <= 0)
         throw new IllegalArgumentException("limits must be positive");
       next[i] = 0;
@@ -56,8 +55,8 @@ public class NestedLoopEnumeration implements java.util.Enumeration {
     if (next == null)
       return null;
     int[] elem = (int[]) next.clone();
-    next[ndims-1]++;            // increment least-significant dimension
-    for (int i=ndims-1; i>=0; i--) { // check for carries
+    next[limits.length-1]++;    // increment least-significant dimension
+    for (int i=limits.length-1; i>=0; i--) { // check for carries
       if (next[i] == limits[i]) { // need to carry
         next[i] = 0;            // rollover to zero
         if (i>0)

@@ -4,6 +4,7 @@ JAVA	= @JAVA@
 JAVAC	= @JAVAC@
 JAVAH	= @JAVAH@
 JAVADOC	= @JAVADOC@
+JAR	= @JAR@
 JDKHOME	= $(dir $(JAVAH))/..
 SLIB_CMD= @SLIB_CMD@
 
@@ -26,11 +27,16 @@ JNI_OBJS	+= jniutil.o pokutil.o
 JNI_HEADER	:= pokerjni.h
 JNILIB		:= libpokerjni@SO@
 JNI_INCLUDES	:= $(addprefix -I, $(shell find $(JDKHOME)/include -type d))
+JARFILE		:= pokersource.jar
 
-all: classes jnilib javadoc
+all: classes jnilib jarfile javadoc
 classes: $(CLASSFILES)
 jnilib: $(JNILIB)
+jarfile: $(JARFILE)
 javadoc: $(JAVADOCDIR)/index.html
+
+$(JARFILE): $(CLASSFILES)
+	$(JAR) cf $@ $^
 
 $(JAVADOCDIR)/index.html: $(SRC_JAVA)
 	[ -d $(JAVADOCDIR) ] || $(MKDIR) $(JAVADOCDIR)
@@ -71,7 +77,8 @@ develtest: $(CLASSFILES)
 	java org.pokersource.enum.HoldemCanonGroup T9
 	java org.pokersource.enum.HoldemSMGroup SM2
 	java org.pokersource.enum.HoldemUniversalGroup
-	java org.pokersource.enum.HoldemBeliefVector
+	java org.pokersource.enum.HoldemBeliefVector "AhKh" "AA KK:50 QQ:20"
+	java org.pokersource.enum.SAIE "AhKh" "AKs" "4h 5h 6h" ""
 	java org.pokersource.enum.SAIE "87s+" "77" "7h 6h 5h" ""
 	java org.pokersource.enum.SAIE "KhQc" "SM1 SM2 SM3" "4h 5h 3d" ""
 	java org.pokersource.enum.SAIE "KhQc" "SM1 SM2 SM3 SM4 SM5" "4h 5h 3d" ""
