@@ -43,8 +43,10 @@ parseArgs(int argc, char **argv) {
     else {
       if (Deck_stringToMask(argv[i], &c) != 1)
         goto error;
-      CardMask_OR(gCards, gCards, c);
-      ++gNCards;
+      if (!CardMask_ANY_SET(gCards, c)) {
+        CardMask_OR(gCards, gCards, c);
+        ++gNCards;
+      };
     };
   }
   
@@ -74,7 +76,7 @@ main(int argc, char **argv) {
   };
 
   if (gLow || gHighLow) {
-    low = StdDeck_Lowball8_EVAL(gCards, gNCards);
+    low = StdDeck_Lowball_EVAL(gCards, gNCards);
     Deck_printMask(gCards);
     printf(" (low): ");
     LowHandVal_print(low);                  

@@ -54,5 +54,8 @@ extern uint8        bottomCardTable[StdDeck_N_RANKMASKS];
 extern int LowHandVal_toString(LowHandVal hv, char *outString);
 extern int LowHandVal_print(LowHandVal handval);
 
+#define Lowball_ROTATE_RANKS(ranks) \
+((((ranks) & ~(1 << StdDeck_Rank_ACE)) << 1) \
+ | (((ranks) >> StdDeck_Rank_ACE) & 0x01))
 
 #endif

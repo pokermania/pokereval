@@ -34,12 +34,11 @@ CardMask gDeadCards, gPeggedCards;
 
 static void
 parseArgs(int argc, char **argv) {
-  int i, seenCards = 0;
+  int i;
   CardMask c;
 
   for (i = 1; i < argc; ++i) {
     if (argv[i][0] == '-') {
-      if (seenCards) goto error;
       if (strcmp(argv[i], "-n") == 0) {
 	if (++i == argc) goto error;
 	gNCards = atoi(argv[i]);
@@ -48,16 +47,20 @@ parseArgs(int argc, char **argv) {
 	if (++i == argc) goto error;
         if (Deck_stringToMask(argv[i], &c) != 1)
           goto error;
-        CardMask_OR(gDeadCards, gDeadCards, c);
-        ++gNDead;
+        if (!CardMask_ANY_SET(gDeadCards, c)) {
+          CardMask_OR(gDeadCards, gDeadCards, c);
+          ++gNDead;
+        };
       } 
       else 
         goto error;
     } else {
       if (Deck_stringToMask(argv[i], &c) != 1)
         goto error;
-      CardMask_OR(gPeggedCards, gPeggedCards, c);
-      ++gNPegged;
+      if (!CardMask_ANY_SET(gPeggedCards, c)) {
+        CardMask_OR(gPeggedCards, gPeggedCards, c);
+        ++gNPegged;
+      };
     }
   }
 

@@ -33,18 +33,19 @@ CardMask gDeadCards, gCommonCards, gPlayerCards[2];
 
 static void
 parseArgs(int argc, char **argv) {
-  int i, seenCards = 0, count = 0;
+  int i, count = 0;
   StdDeck_CardMask c;
 
   for (i = 1; i < argc; ++i) {
     if (argv[i][0] == '-') {
-      if (seenCards) goto error;
       if (strcmp(argv[i], "-d") == 0) {
 	if (++i == argc) goto error;
         if (StdDeck_stringToMask(argv[i], &c) != 1)
           goto error;
-        ++gNDead;
-        StdDeck_CardMask_OR(gDeadCards, gDeadCards, c);
+        if (!CardMask_ANY_SET(gDeadCards, c)) {
+          ++gNDead;
+          StdDeck_CardMask_OR(gDeadCards, gDeadCards, c);
+        };
       } 
       else 
         goto error;

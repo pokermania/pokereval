@@ -21,9 +21,11 @@ evaluator several years ago, and this code is derived from that work.
 It has been improved over the years, with contributions from Mat
 Hostetter, Keith Miyake, Brian Goetz, Michael Maurer, and others.
 Most recently, the code has been repackaged and cleaned up
-substantially, so it is more suitable for general use.  This code is
-now maintained by Brian Goetz (brian@quiotix.com) and improvements and
-suggestions can be sent to him.  
+substantially, so it is more suitable for general use and extension to
+other types of poker games.  This code is now maintained by Brian
+Goetz (brian@quiotix.com) and improvements and suggestions can be sent
+to him.  The latest version of the software can be found at
+www.pokersource.org.
 
 
 What's in here?  
@@ -73,26 +75,27 @@ Cool macro-based polymorphism that provides flexibility without
 compromising performance.
 
 Highly portable -- uses GNU Autoconf on Unix and can also be compiled
-with Microsoft Visual C++.
+with Microsoft Visual C++.  
 
 
 Where do I start?
 
-Start with the example programs in the examples/ directory.  In there,
-you will find several programs which do interesting and not so
-interesting things, and you will likely find these to be useful
+Start by looking at the example programs in the examples/ directory.
+In there, you will find several programs which do interesting and not
+so interesting things, and you will likely find these to be useful
 starting points for your own programs.
 
 
 What _exactly_ is in here?  
 
-Evaluators: Evaluators are named are composed from the name of the
-deck type they use (StdDeck is the standard 52 card deck, JokerDeck is
-the 52 card deck with the bug, etc) and the rule set they use
-(StdRules are the commonly used poker hand rules.)  Depending on what
-game you've selected, convenience macros are provided so you can use
-shorter names; by default, Hand_EVAL_N is a shortcut for
-StdDeck_StdRules_EVAL_N.
+Evaluators: There are several of them.  Evaluator names are composed
+from the name of the deck type they use (StdDeck is the standard 52
+card deck, JokerDeck is the 52 card deck with the bug, etc) and the
+rule set they use (StdRules are the commonly used poker hand rules.)
+Depending on what game you've selected, convenience macros are
+provided so you can use shorter names; by default, Hand_EVAL_N is a
+shortcut for StdDeck_StdRules_EVAL_N and CardMask is a shortcut for
+StdDeck_CardMask.  
 
 Evaluators return a 32-bit integer which can be compared using integer
 operations; if eval(a) > eval(b), then according to the rules the
@@ -125,8 +128,8 @@ Evaluators:
 
   StdDeck_Lowball8_EVAL_N: An inline evaluator for 5 card lowball,
           with an implicit 8-or-better qualifier.  (When comparing hand
-          values, remember that the _worst_ hand wins, so if eval(a) <
-          eval(b), then a is the winning hand.)  
+          values, remember that the _worst_ hand wins, so that for
+          hand a to beat hand b, eval(a) will be LESS than eval(b).)
 
   StdDeck_Lowball_EVAL_N: An inline evaluator for 5 card lowball.  
 
@@ -160,4 +163,4 @@ added.
           net for a long time.  Given a number of cards to be dealt and an
           optional set of dead cards, compute how many ways there are to 
           make each type of hand.  The five_card_hands program above is
-          equivalent to "fish -n 5".  
+          equivalent to (but faster than) "fish -n 5".

@@ -1,5 +1,5 @@
 /*
- *  hcmp2.c: a program to compare n pairs of hold'em hole cards at any
+ *  hcmpn.c: a program to compare n pairs of hold'em hole cards at any
  *           point of the game (pre-flop, on the flop, turn or river).
  *              
  *  Example:
@@ -35,18 +35,19 @@ CardMask gDeadCards, gCommonCards, gPlayerCards[MAX_PLAYERS];
 
 static void
 parseArgs(int argc, char **argv) {
-  int i, seenCards = 0, seenSep = 0, cardCount = 0;
+  int i, seenSep = 0, cardCount = 0;
   StdDeck_CardMask c;
 
   for (i = 1; i < argc; ++i) {
     if (argv[i][0] == '-') {
       if (strcmp(argv[i], "-d") == 0) {
-        if (seenCards) goto error;
 	if (++i == argc) goto error;
         if (StdDeck_stringToMask(argv[i], &c) != 1)
           goto error;
-        ++gNDead;
-        StdDeck_CardMask_OR(gDeadCards, gDeadCards, c);
+        if (!CardMask_ANY_SET(gDeadCards, c)) {
+          ++gNDead;
+          StdDeck_CardMask_OR(gDeadCards, gDeadCards, c);
+        };
       } 
       else if (!strcmp(argv[i], "--"))
         seenSep = 1;
@@ -55,7 +56,6 @@ parseArgs(int argc, char **argv) {
     } else {
       if (StdDeck_stringToMask(argv[i], &c) != 1)
         goto error;
-      seenCards = 1;
       if (seenSep) {
         StdDeck_CardMask_OR(gCommonCards, gCommonCards, c);
         ++gNCommon;
