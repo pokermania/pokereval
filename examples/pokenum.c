@@ -215,8 +215,8 @@ main(int argc, char **argv) {
 
   if (parseArgs(argc, argv, &game, &enumType, &niter,
                 pockets, &board, &dead, &npockets, &nboard, &terse)) {
-    printf("usage: %s [-t] [-mc niter] [-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]\n",
-           argv[0]);
+    printf("usage: %s [-t] [-mc niter]\n", argv[0]);
+    printf("\t[-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]\n");
     printf("\t<pocket1> - <pocket2> - ... [ -- <board> ] [ / <dead> ] ]\n");
     return 1;
   }

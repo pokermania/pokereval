@@ -13,10 +13,14 @@ under the terms of the GNU General Public License.
 
 
 In order to compile the Java portions of the package, you will need the
-following packages available in your CLASSPATH:
+following packages.  You can simply download the jar file for each and add
+them to your CLASSPATH:
     Apache Oro regular expressions (org.apache.oro.*) [tested with v2.0.6]
+        http://jakarta.apache.org/oro/
     JUnit test framework (junit.framework.*) [tested with v3.7]
-
+        http://sourceforge.net/projects/junit/
+If you aren't interested in the Java portions, you can compile the C
+library on its own.
 
 Compiling -- Unix systems:
 
