@@ -10,11 +10,11 @@ OBJ=$(DERIVED_SOURCES:.c=.o) \
 BASIC_TABLES = \
 	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_cardmasks.c \
 	t_straight.c 
-BITSAND_TABLES = \
+PACKED_TABLES = \
 	t_nbitsandstr.c
-TABLE_PROGRAMS = mktab_basic mktab_bitsand
+TABLE_PROGRAMS = mktab_basic mktab_packed
 
-DERIVED_SOURCES = $(BASIC_TABLES) $(BITSAND_TABLES)
+DERIVED_SOURCES = $(BASIC_TABLES) $(PACKED_TABLES)
 
 CC = @CC@ 
 CFLAGS = @CFLAGS@ 
@@ -33,13 +33,13 @@ clean:
 $(BASIC_TABLES): mktab_basic
 	./mktab_basic
 
-$(BITSAND_TABLES): mktab_bitsand
-	./mktab_bitsand
+$(PACKED_TABLES): mktab_packed
+	./mktab_packed
 
 mktab_basic: mktab_basic.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
-mktab_bitsand: mktab_bitsand.o $(MKTABLE_HELPERS)
+mktab_packed: mktab_packed.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 .c.o:
