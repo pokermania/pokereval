@@ -3,17 +3,17 @@ $Id$
 Introduction
 ============
 
-This is the README file for the pokersource poker hand evaluator
-library.  The library may be obtained from the pokersource web site,
-http://sourceforge.net/projects/pokersource/
+poker-eval is a C library to evaluate poker hands. The result of the
+evalution for a given hand is a number. The general idea is that if
+the evalution of your hand is lower than the evaluation of the hand of
+your opponent, you lose. Many poker variants are supported (draw,
+holdem, omaha, etc.) and more can be added.  poker-eval is designed
+for speed so that it can be used within poker simulation software
+using either exhaustive exploration or Monte Carlo.
 
-To learn more about the features of the library, and how to get
-started using it, see the WHATS-HERE file in the root directory of the
-library distribution.  
-
-The PokerSource evaluator library is Free Software and is released
-under the terms of the GNU General Public License. See the COPYING file
-in the root directory of the distribution.
+The poker-eval library is Free Software and is released under the
+terms of the GNU General Public License. See the COPYING file in the
+root directory of the distribution.
 
 Compiling -- GNU/Linux and Unix systems
 =========================
@@ -78,6 +78,12 @@ Once the library is built, you can use the resulting library
 (libpoker.lib) in other Visual C++ projects.  Make sure to put the
 include directory of the pokersource library package in the include
 path for projects that will be using the library.  
+
+Download
+========
+The library may be obtained from the pokersource project at
+http://sourceforge.net/projects/pokersource/
+
 
 Reporting bugs, suggesting improvements
 =======================================
