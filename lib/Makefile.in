@@ -4,8 +4,8 @@ MKTABLE_HELPERS = mktable.o mktable_utils.o
 
 OBJ=$(DERIVED_SOURCES:.c=.o) \
 	mktab_basic.o $(MKTABLE_HELPERS) \
-	stddeck.o stdrules.o \
-	md5c.o
+	stddeck.o stdrules.o evx.o \
+	md5c.o 
 
 BASIC_TABLES = \
 	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_topfivebits.c \
