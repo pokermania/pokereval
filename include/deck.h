@@ -41,10 +41,13 @@ GenericDeck_printCard(Deck *deck, int cardIndex);
 
 /* These are required by the ENUMERATE_ macros */
 
-#define Deck_CardMask    CardMask
-#define Deck_CardMask_OR CardMask_OR
-#define Deck_CardMask_RESET CardMask_RESET
-#define Deck_CardMask_ANY_SET CardMask_ANY_SET
+#define Deck_CardMask              CardMask
+#define Deck_CardMask_OR           CardMask_OR
+#define Deck_CardMask_XOR          CardMask_XOR
+#define Deck_CardMask_AND          CardMask_AND
+#define Deck_CardMask_RESET        CardMask_RESET
+#define Deck_CardMask_ANY_SET      CardMask_ANY_SET
+#define Deck_CardMask_CARD_IS_SET  CardMask_CARD_IS_SET
 
 #endif
 

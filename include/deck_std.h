@@ -95,18 +95,24 @@ typedef union {
 #define StdDeck_CardMask_SET_HEARTS(cm, ranks)   ((cm).cards.hearts=(ranks))
 
 #ifdef HAVE_INT64
-#define StdDeck_CardMask_OR(result, op1, op2) \
-  LongLong_OR((result).cards_n, (op1).cards_n, (op2).cards_n) 
+#define StdDeck_CardMask_OP(result, op1, op2, OP) \
+  LongLong_OP((result).cards_n, (op1).cards_n, (op2).cards_n, OP);
 #else
-#define StdDeck_CardMask_OR(result, op1, op2)                           \
+#define StdDeck_CardMask_OP(result, op1, op2, OP)
   do {                                                                  \
-    (result.cards_nn.n1) = (op1.cards_nn.n1) | (op2.cards_nn.n1);       \
-    (result.cards_nn.n2) = (op1.cards_nn.n2) | (op2.cards_nn.n2);       \
+    (result.cards_nn.n1) = (op1.cards_nn.n1) OP (op2.cards_nn.n1);      \
+    (result.cards_nn.n2) = (op1.cards_nn.n2) OP (op2.cards_nn.n2);      \
 } while (0)
 #endif
 
+#define StdDeck_CardMask_OR(result, op1, op2) \
+  StdDeck_CardMask_OP(result, op1, op2, |)
+
 #define StdDeck_CardMask_AND(result, op1, op2) \
-  LongLong_AND((result).cards_n, (op1).cards_n, (op2).cards_n) 
+  StdDeck_CardMask_OP(result, op1, op2, &)
+
+#define StdDeck_CardMask_XOR(result, op1, op2) \
+  StdDeck_CardMask_OP(result, op1, op2, ^)
 
 #define StdDeck_CardMask_SET(mask, index)       \
 do {                                            \
@@ -211,6 +217,8 @@ extern Deck StdDeck;
 
 #define CardMask               StdDeck_CardMask 
 #define CardMask_OR            StdDeck_CardMask_OR
+#define CardMask_XOR           StdDeck_CardMask_XOR
+#define CardMask_AND           StdDeck_CardMask_AND
 #define CardMask_SET           StdDeck_CardMask_SET
 #define CardMask_CARD_IS_SET   StdDeck_CardMask_CARD_IS_SET
 #define CardMask_ANY_SET       StdDeck_CardMask_ANY_SET

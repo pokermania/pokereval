@@ -90,6 +90,7 @@ typedef union {
 
 #define JokerDeck_CardMask_OR          StdDeck_CardMask_OR
 #define JokerDeck_CardMask_AND         StdDeck_CardMask_AND
+#define JokerDeck_CardMask_XOR         StdDeck_CardMask_XOR
 #define JokerDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define JokerDeck_CardMask_RESET       StdDeck_CardMask_RESET
 
@@ -177,6 +178,8 @@ extern Deck JokerDeck;
 
 #define CardMask               JokerDeck_CardMask 
 #define CardMask_OR            JokerDeck_CardMask_OR
+#define CardMask_XOR           JokerDeck_CardMask_XOR
+#define CardMask_AND           JokerDeck_CardMask_AND
 #define CardMask_SET           JokerDeck_CardMask_SET
 #define CardMask_CARD_IS_SET   JokerDeck_CardMask_CARD_IS_SET
 #define CardMask_ANY_SET       JokerDeck_CardMask_ANY_SET

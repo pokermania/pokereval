@@ -47,6 +47,7 @@ typedef StdDeck_RankMask AStudDeck_RankMask;
 
 #define AStudDeck_CardMask_OR          StdDeck_CardMask_OR
 #define AStudDeck_CardMask_AND         StdDeck_CardMask_AND
+#define AStudDeck_CardMask_XOR         StdDeck_CardMask_XOR
 #define AStudDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define AStudDeck_CardMask_RESET       StdDeck_CardMask_RESET
 
@@ -116,6 +117,8 @@ extern Deck AStudDeck;
 
 #define CardMask               AStudDeck_CardMask 
 #define CardMask_OR            AStudDeck_CardMask_OR
+#define CardMask_XOR           AStudDeck_CardMask_XOR
+#define CardMask_AND           AStudDeck_CardMask_AND
 #define CardMask_SET           AStudDeck_CardMask_SET
 #define CardMask_CARD_IS_SET   AStudDeck_CardMask_CARD_IS_SET
 #define CardMask_ANY_SET       AStudDeck_CardMask_ANY_SET
