@@ -25,53 +25,43 @@
 
 #include "poker_defs.h"
 
+
+/* This table packs n_bits, is_straight, and (n_bits > 5) into one byte,
+   as follows:
+   Bit 0:   n_bits > 5
+   Bit 1:   is_straight
+   Bit 2-6: n_bits
+*/
 extern uint8 nBitsAndStrTable[StdDeck_N_RANKMASKS];
-
-
-#define SC StdDeck_CardMask_CLUBS(cards)
-#define SD StdDeck_CardMask_DIAMONDS(cards)
-#define SH StdDeck_CardMask_HEARTS(cards)
-#define SS StdDeck_CardMask_SPADES(cards)
 
 static inline int 
 StdDeck_StdRules_EVAL_TYPE( StdDeck_CardMask cards, int n_cards )
 {
-  uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
-    n_dups, is_st_or_fl = 0;
-  uint8 n_ranks;
+  uint32 ranks, four_mask, three_mask, two_mask, 
+    n_dups, n_ranks, is_st_or_fl = 0, t, sc, sd, sh, ss;
 
-  ranks = SC | SD | SH | SS;
-  n_ranks = nBitsAndStrTable[ranks] & 0x0F;
+  sc = StdDeck_CardMask_CLUBS(cards);
+  sd = StdDeck_CardMask_DIAMONDS(cards);
+  sh = StdDeck_CardMask_HEARTS(cards);
+  ss = StdDeck_CardMask_SPADES(cards);
+
+  ranks = sc | sd | sh | ss;
+  n_ranks = nBitsAndStrTable[ranks] >> 2;
   n_dups = n_cards - n_ranks;
 
-  if (n_ranks >= 5) {
-    if (nBitsAndStrTable[ranks] & 0xF0)
+  if (nBitsAndStrTable[ranks] & 0x01) { /* if n_ranks > 5 */
+    if (nBitsAndStrTable[ranks] & 0x02)
       is_st_or_fl = StdRules_HandType_STRAIGHT;
 
-    if ((nBitsAndStrTable[cards.cards.spades] & 0x0F) >= 5) {
-      if (nBitsAndStrTable[cards.cards.spades] & 0xF0) 
+    t = nBitsAndStrTable[ss] | nBitsAndStrTable[sc]
+      | nBitsAndStrTable[sd] | nBitsAndStrTable[sh];
+
+    if (t & 0x01) {
+      if (t & 0x02) 
         return StdRules_HandType_STFLUSH;
-      else
+      else 
         is_st_or_fl = StdRules_HandType_FLUSH;
-    } 
-    else if ((nBitsAndStrTable[cards.cards.clubs] & 0x0F) >= 5) {
-      if (nBitsAndStrTable[cards.cards.clubs] & 0xF0) 
-        return StdRules_HandType_STFLUSH;
-      else
-        is_st_or_fl = StdRules_HandType_FLUSH;
-    } 
-    else if ((nBitsAndStrTable[cards.cards.diamonds] & 0x0F) >= 5) {
-      if (nBitsAndStrTable[cards.cards.diamonds] & 0xF0) 
-        return StdRules_HandType_STFLUSH;
-      else
-        is_st_or_fl = StdRules_HandType_FLUSH;
-    } 
-    else if ((nBitsAndStrTable[cards.cards.hearts] & 0x0F) >= 5) {
-      if (nBitsAndStrTable[cards.cards.hearts] & 0xF0) 
-        return StdRules_HandType_STFLUSH;
-      else
-        is_st_or_fl = StdRules_HandType_FLUSH;
-    } 
+    };
 
     if (is_st_or_fl && n_dups < 3)
       return is_st_or_fl;
@@ -79,7 +69,7 @@ StdDeck_StdRules_EVAL_TYPE( StdDeck_CardMask cards, int n_cards )
 
   switch (n_dups) {
   case 0:
-    return HandType_NOPAIR;
+    return StdRules_HandType_NOPAIR;
     break;
 
   case 1:
@@ -87,33 +77,27 @@ StdDeck_StdRules_EVAL_TYPE( StdDeck_CardMask cards, int n_cards )
     break;
 
   case 2:
-    two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
-    if (!two_mask) 
-      return HandType_TRIPS;
-    else
-      return HandType_TWOPAIR;
+    two_mask = ranks ^ (sc ^ sd ^ sh ^ ss);
+    return (two_mask != 0) 
+      ? StdRules_HandType_TWOPAIR 
+      : StdRules_HandType_TRIPS;
     break;
 
   default:
-    four_mask  = (SC&SD) & (SH&SS);
+    four_mask  = (sc & sd) & (sh & ss);
     if (four_mask) 
-      return HandType_QUADS;
-    three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
+      return StdRules_HandType_QUADS;
+    three_mask = (( sc&sd )|( sh&ss )) & (( sc&sh )|( sd&ss ));
     if (three_mask) 
-      return HandType_FULLHOUSE;
+      return StdRules_HandType_FULLHOUSE;
     else if (is_st_or_fl)
       return is_st_or_fl;
     else 
-      return HandType_TWOPAIR;
+      return StdRules_HandType_TWOPAIR;
 
     break;
   };
 
 }
-
-#undef SC
-#undef SH
-#undef SD
-#undef SS
 
 #endif

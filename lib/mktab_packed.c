@@ -11,8 +11,10 @@
  "It is possible, using just this table and bit masking operations, \n"      \
  "to determine the type of hand.  Since this table is only 8K it should\n"   \
  "in L1 cache on some processors.\n "                                        \
- "The nBits is packed into the low four bits, and the straight value is in\n"\
- "the high four bits."
+ "The layout of the result is as follows: \n"\
+ "  Bit 0: (nBits >= 5)\n"\
+ "  Bit 1: is-straight\n"\
+ "  Bits 2-6: nBits\n"
 #define NBS_FILENAME "t_nbitsandstr"
 
 
@@ -30,10 +32,10 @@ doNBitsAndStrTable(void) {
     val = n_bits_func(i);
     assert((val & 0xF0) == 0);
     t = straight_func(i);
-    assert((t & 0xF0) == 0);
-    val |= (t << 4);
 
-    MakeTable_outputUInt8(val);
+    MakeTable_outputUInt8((val << 2) 
+                          | (((t != 0) & 0x01) << 1) 
+                          | ((val >= 5) & 0x01) );
   };
 
   MakeTable_end();

@@ -1,13 +1,7 @@
 /*
  *  eval.h: a fast poker hand evaluator
  *
- *  Copyright (C) 1993-99 Clifford T. Matthews, Keith Miyake, Brian Goetz
- *
- *  Cliff wrote the original code.
- *  Keith significantly sped up is_straight, is_three_of_a_kind and is_pair,
- *	made mask_rank_table a real table and added returns to eval.
- *  Brian sped up the whole thing a lot, and made it suitable for use on 
- *      machines without 64-bit support.  
+ *  Copyright (C) 1993-99 Brian Goetz, Keith Miyake, Clifford T. Matthews
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -61,7 +55,7 @@
  */
 
 #if 0
-    /* Keith's way, which is still pretty good and uses one less table. */
+/* Keith's is-straight, which is still pretty good and uses one less table. */
     if ( (ranks2  = ranks & (ranks << 1)) &&
 	 (ranks2 &=         (ranks << 2)) &&
 	 (ranks2 &=         (ranks << 3)) &&
