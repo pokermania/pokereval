@@ -11,19 +11,11 @@ their accompanying macros and functions need a reorganization.
 
 NICE TO HAVE
 ------------
-The macro DECK_ENUMERATE_PERMUTATIONS_D visits each ordered set of *ordered*
-subsets.  That is, it visits all of
-  {{Ac,Ks}, {4d,2h}}
-  {{Ac,Ks}, {2h,4d}}
-  {{Ks,Ac}, {4d,2h}}
-  {{Ks,Ac}, {2h,4d}}
-This isn't needed for the kinds of enumerations we do in pokenum, which
-doesn't care about the order of each player's cards.  This means that pokenum
-redundantly visits matchups multiple times in stud and draw games (but still
-gets the right EV answers).
-
 There is no makedepend support, so make doesn't know to recompile a file when
 an include file changes.  And there are lots of includes!
+
+The 'make all' and 'make test' process hasn't been tested lately on Windows
+and is probably broken.
 
 The autoconf/configure tool is not being used to create the shared libraries
 in a platform-independent way.  The current configure.in hard-codes the
