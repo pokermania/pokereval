@@ -154,7 +154,7 @@ int main( int argc, char *argv[] )
   for (i=0; i<gNPlayers; i++) {
     printf("  ");
     Deck_printMask(gPlayerCards[i]);
-    printf("  %7ld %6.2f   %7ld %6.2f   %7ld %6.2f     %5.3f\n", 
+    printf("  %7ld %6.2f   %7ld %6.2f   %7ld %6.2f     %6.4f\n", 
            winCount[i], 100.0*winCount[i]/handCount, 
            loseCount[i], 100.0*loseCount[i]/handCount, 
            tieCount[i], 100.0*tieCount[i]/handCount, 
