@@ -7,7 +7,6 @@ AC_FLAGS=
 AM_FLAGS='--add-missing --copy'
 TEST='-d examples'
 
-
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.
 
@@ -15,6 +14,12 @@ ORIGDIR=`pwd`
 cd $srcdir
 
 DIE=0
+
+if [ -f configure.in ]; then
+    echo "Moving configure.in to configure.in.old"
+    echo "  (since configure.ac should be used to generate it)"
+    mv configure.in configure.in.old
+fi
 
 have_libtool=false
 if libtoolize --version < /dev/null > /dev/null 2>&1 ; then
@@ -112,5 +117,5 @@ autoconf $AC_FLAGS || exit $?
 cd $ORIGDIR
 
 echo
-echo "Now run ./configure ; ( cd lib ; make build_tables ) ; make "
+echo "Now run ./configure && ( cd lib && make build_tables ) && make "
 echo
