@@ -3,17 +3,17 @@
 #
 
 all:
-	(cd lib; make)
-	(cd tests; make)
-	(cd examples; make)
+	(cd lib; $(MAKE))
+	(cd tests; $(MAKE))
+	(cd examples; $(MAKE))
 
 clean:
-	(cd lib; make clean)
-	(cd tests; make clean)
-	(cd examples; make clean)
+	(cd lib; $(MAKE) $@)
+	(cd tests; $(MAKE) $@)
+	(cd examples; $(MAKE) $@)
 
 test:
-	(cd tests; make clean)
+	(cd tests; $(MAKE) $@)
 
  
 
