@@ -93,10 +93,11 @@ them (with replacement).
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "pokereval_export.h"
 
-#ifdef WIN32
+/*#ifdef WIN32
 #define random rand
-#endif
+#endif*/
 
 #define DECK_ENUMERATE_1_CARDS(deck, cards_var, action) \
 do {                                                    \
@@ -758,7 +759,7 @@ do {                                                    	\
     deck##_CardMask_RESET(cards_var);				\
     for (_j=0; _j<num_cards; _j++) {				\
       do {							\
-        _c = random() % deck##_N_CARDS;				\
+        _c = RANDOM() % deck##_N_CARDS;				\
       } while (deck##_CardMask_CARD_IS_SET(_used, _c));		\
       deck##_CardMask_SET(cards_var, _c);			\
       deck##_CardMask_SET(_used, _c);				\
@@ -779,7 +780,7 @@ do {                                                    	\
       deck##_CardMask_RESET(set_var[_j]);			\
       for (_k=0; _k<set_sizes[_j]; _k++) {			\
         do {							\
-          _c = random() % deck##_N_CARDS;			\
+          _c = RANDOM() % deck##_N_CARDS;			\
         } while (deck##_CardMask_CARD_IS_SET(_used, _c));	\
         deck##_CardMask_SET(set_var[_j], _c);			\
         deck##_CardMask_SET(_used, _c);				\
