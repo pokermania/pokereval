@@ -16,41 +16,17 @@ StdDeck_cardToString(int cardIndex, char *outString) {
 
 int
 StdDeck_maskToString(StdDeck_CardMask cardMask, char *outString) {
-  int c;
+  int i;
   char *p = outString;
 
-  while (cardMask.cards.spades != 0) {
-    c = topCardTable[cardMask.cards.spades];
-    cardMask.cards.spades ^= (1 << c);
-    if (p > outString) *p++ = ' ';
-    *p++ = StdDeck_rankChars[c];
-    *p++ = StdDeck_suitChars[StdDeck_Suit_SPADES];
+  for (i=StdDeck_N_CARDS-1; i >= 0; i--) {
+    if (StdDeck_CardMask_CARD_IS_SET(cardMask, i)) {
+      if (p > outString) *p++ = ' ';
+      *p++ = StdDeck_rankChars[StdDeck_RANK(i)];
+      *p++ = StdDeck_suitChars[StdDeck_SUIT(i)];
+    };
   };
 
-  while (cardMask.cards.hearts != 0) {
-    c = topCardTable[cardMask.cards.hearts];
-    cardMask.cards.hearts ^= (1 << c);
-    if (p > outString) *p++ = ' ';
-    *p++ = StdDeck_rankChars[c];
-    *p++ = StdDeck_suitChars[StdDeck_Suit_HEARTS];
-  };
-
-  while (cardMask.cards.diamonds != 0) {
-    c = topCardTable[cardMask.cards.diamonds];
-    cardMask.cards.diamonds ^= (1 << c);
-    if (p > outString) *p++ = ' ';
-    *p++ = StdDeck_rankChars[c];
-    *p++ = StdDeck_suitChars[StdDeck_Suit_DIAMONDS];
-  };
-
-  while (cardMask.cards.clubs != 0) {
-    c = topCardTable[cardMask.cards.clubs];
-    cardMask.cards.clubs ^= (1 << c);
-    if (p > outString) *p++ = ' ';
-    *p++ = StdDeck_rankChars[c];
-    *p++ = StdDeck_suitChars[StdDeck_Suit_CLUBS];
-  };
- 
   *p = '\0';
   return p - outString;
 }
