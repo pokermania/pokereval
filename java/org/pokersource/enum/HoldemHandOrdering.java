@@ -58,7 +58,7 @@ public class HoldemHandOrdering extends HandValuation {
       throw new RuntimeException("missing hands in input");
   }
 
-  /** @see fromStream */
+  /** @see #fromStream(InputStream) */
   public void fromFile(String path) throws IOException {
     fromStream(new FileInputStream(path));
   }

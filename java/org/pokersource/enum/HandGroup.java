@@ -9,7 +9,8 @@ import java.util.Set;
     include specific holdings like "AhAd", "Kh2h"; canonical starting
     hands like "AKs", "TT"; or abdulian groups like "Q8s+".  Subclasses
     like HoldemHandGroup define these groups for specific games.
-    @see BaseHandGroup, HoldemHandGroup
+    @see BaseHandGroup
+    @see HoldemHandGroup
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -8,7 +8,8 @@ import java.util.Iterator;
 
 /** Implements the HandGroup interface in a way that will work for most
     poker games.  Subclasses can override if necessary.
-    @see HandGroup, HoldemHandGroup
+    @see HandGroup
+    @see HoldemHandGroup
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
