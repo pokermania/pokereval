@@ -80,10 +80,11 @@ AC_SUBST(E)
 AC_SUBST(RUN_IT)
 AC_SUBST(LIB_CMD)
 
-AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile)
+AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile include/Makefile)
 
 if test $target = "msdos"; then 
   mv lib/Makefile lib/Makefile.dos
   mv tests/Makefile tests/Makefile.dos
   mv examples/Makefile examples/Makefile.dos
+  mv include/Makefile include/Makefile.dos
 fi

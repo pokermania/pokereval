@@ -11,9 +11,7 @@ clean:
 	(cd lib; $(MAKE) $@)
 	(cd tests; $(MAKE) $@)
 	(cd examples; $(MAKE) $@)
+	(cd include; $(MAKE) $@)
 
 test:
 	(cd tests; $(MAKE) $@)
-
- 
-
