@@ -4,11 +4,20 @@
 # Visual C.  These files can then be rolled into the distribution.  
 #
 
-AC_INIT(lib/stddeck.c)
+AC_INIT(include/poker_defs.h)
 
 if test $target = "msdos"; then 
   CC=cl
-  CFLAGS="-O1 -nologo -DNDEBUG -MD"
+  CC_OBJ="-c -Fo\$@ \$**"
+  CC_EXE="-Fe\$@ \$**"
+  CFLAGS="-O1 -nologo -DNDEBUG -MD -DMSDOS"
+  A=".lib"
+  O=".obj"
+  E=".exe"
+  RM="del"
+  RUN_IT="\$**"
+  LIB_CMD="LIB /OUT:\$@ \$**"
+  RANLIB="rem"
 else
   AC_CONFIG_HEADER(include/config.h)
 
@@ -46,11 +55,28 @@ else
       i?86-*) CFLAGS="$CFLAGS";;
     esac
   fi
+
+  A=".a"
+  O=".o"
+  E=""
+  RM="rm -f"
+  CC_OBJ="-c -o \$@ \$^"
+  CC_EXE="-o \$@ \$^"
+  RUN_IT="./\$<"
+  LIB_CMD="\$(AR) cr \$@ $^"
 fi
 
 AC_SUBST(CC)
+AC_SUBST(CC_OBJ)
+AC_SUBST(CC_EXE)
 AC_SUBST(CFLAGS)
 AC_SUBST(RANLIB)
+AC_SUBST(RM)
+AC_SUBST(A)
+AC_SUBST(O)
+AC_SUBST(E)
+AC_SUBST(RUN_IT)
+AC_SUBST(LIB_CMD)
 
 AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile)
 

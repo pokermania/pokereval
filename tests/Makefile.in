@@ -1,23 +1,30 @@
-LIB = ../lib/libpoker.a
+LIBPOKER = ../lib/libpoker@A@
 
-CFLAGS = @CFLAGS@
-CC = @CC@
+CC = @CC@ 
+CFLAGS = @CFLAGS@ 
+RANLIB = @RANLIB@ 
+AR = ar
+RM = @RM@
+CC_OBJ = $(CC) $(CFLAGS) -I../include @CC_OBJ@
+CC_EXE = $(CC) $(CFLAGS) -I../include @CC_EXE@
+RUN_IT = @RUN_IT@
+LIB_CMD = @LIB_CMD@
 
 all: tests
 
-tests: digtest5 digtest7
+tests: digtest5@E@ digtest7@E@
 
-digtest5 : digtest5.o
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+digtest5@E@ : digtest5@O@ $(LIBPOKER)
+	$(CC_EXE)
 
-digtest7 : digtest7.o
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+digtest7@E@ : digtest7@O@ $(LIBPOKER)
+	$(CC_EXE)
 
 clean:
-	rm -f *.o core digtest5 digtest7
+	$(RM) *@O@ core digtest5@E@ digtest7@E@
 
-.c.o:
-	$(CC) $(CFLAGS) -I../include -c $<
+.c@O@:
+	$(CC_OBJ)
 
 test : tests
 	@echo -n "digtest5: 5-card hands..."

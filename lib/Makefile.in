@@ -1,11 +1,11 @@
-LIB=libpoker.a
+LIBPOKER=libpoker@A@
 
-MKTABLE_HELPERS = mktable.o mktable_utils.o
+MKTABLE_HELPERS = mktable@O@ mktable_utils@O@
 
-OBJ=$(DERIVED_SOURCES:.c=.o) \
-	stddeck.o stdrules.o evx.o \
-	astuddeck.o astudrules.o jokerdeck.o lowball.o \
-	md5c.o 
+OBJ=$(DERIVED_SOURCES:.c=@O@) \
+	stddeck@O@ stdrules@O@ evx@O@ \
+	astuddeck@O@ astudrules@O@ jokerdeck@O@ lowball@O@ \
+	md5c@O@ 
 
 BASIC_TABLES = \
 	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_topfivebits.c \
@@ -20,9 +20,9 @@ LOWBALL_TABLES = t_botfivecards.c t_botcard.c t_botfivecardsj.c
 
 EVX_HEADERS = ../include/inlines/evx5.h ../include/inlines/evx7.h
 
-PROGRAMS = mktab_basic mktab_packed mktab_evx mktab_astud mktab_joker \
-	   mktab_lowball \
-	   evx_gen5 evx_gen7
+PROGRAMS = mktab_basic@E@ mktab_packed@E@ mktab_evx@E@ mktab_astud@E@ \
+	mktab_joker@E@ mktab_lowball@E@ \
+	evx_gen5@E@ evx_gen7@E@
 
 DERIVED_SOURCES = \
 	$(BASIC_TABLES) \
@@ -35,72 +35,77 @@ DERIVED_SOURCES = \
 CC = @CC@ 
 CFLAGS = @CFLAGS@ 
 RANLIB = @RANLIB@ 
-AR=ar
+AR = ar
+RM = @RM@
+CC_OBJ = $(CC) $(CFLAGS) -I../include @CC_OBJ@
+CC_EXE = $(CC) $(CFLAGS) -I../include @CC_EXE@
+RUN_IT = @RUN_IT@
+LIB_CMD = @LIB_CMD@
 
-all:	$(LIB) $(EVX_HEADERS)
+all:	$(LIBPOKER) $(EVX_HEADERS)
 
-$(LIB): $(OBJ)
-	$(AR) cr $(LIB) $(OBJ)
-	$(RANLIB) $(LIB)
+$(LIBPOKER): $(OBJ)
+	$(LIB_CMD)
+	$(RANLIB) $@
 
 clean:
-	rm -f *.o core $(OBJ) $(LIB) $(DERIVED_SOURCES) $(PROGRAMS) 
+	$(RM) *@O@ core $(OBJ) $(LIBPOKER) $(DERIVED_SOURCES) $(PROGRAMS) 
 
-$(BASIC_TABLES): mktab_basic
-	./$<
+$(BASIC_TABLES): mktab_basic@E@
+	$(RUN_IT)
 
-$(PACKED_TABLES): mktab_packed
-	./$<
+$(PACKED_TABLES): mktab_packed@E@
+	$(RUN_IT)
 
-$(EVX_TABLES): mktab_evx
-	./$<
+$(EVX_TABLES): mktab_evx@E@
+	$(RUN_IT)
 
-$(ASTUD_TABLES): mktab_astud
-	./$<
+$(ASTUD_TABLES): mktab_astud@E@
+	$(RUN_IT)
 
-$(JOKER_TABLES): mktab_joker
-	./$<
+$(JOKER_TABLES): mktab_joker@E@
+	$(RUN_IT)
 
-$(LOWBALL_TABLES): mktab_lowball
-	./$<
+$(LOWBALL_TABLES): mktab_lowball@E@
+	$(RUN_IT)
 
-../include/inlines/evx5.h:	evx_gen5
-	./$<  >  $@
+../include/inlines/evx5.h:	evx_gen5@E@
+	$(RUN_IT) >  $@
 
-../include/inlines/evx7.h:	evx_gen7
-	./$<  >  $@
+../include/inlines/evx7.h:	evx_gen7@E@
+	$(RUN_IT) >  $@
 
 
-mktab_basic: mktab_basic.o $(MKTABLE_HELPERS)
-	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+mktab_basic@E@: mktab_basic@O@ $(MKTABLE_HELPERS)
+	$(CC_EXE) 
 
-mktab_packed: mktab_packed.o $(MKTABLE_HELPERS)
-	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+mktab_packed@E@: mktab_packed@O@ $(MKTABLE_HELPERS)
+	$(CC_EXE) 
 
-mktab_evx: mktab_evx.o $(MKTABLE_HELPERS)
-	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+mktab_evx@E@: mktab_evx@O@ $(MKTABLE_HELPERS)
+	$(CC_EXE) 
 
-mktab_astud: mktab_astud.o $(MKTABLE_HELPERS)
-	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+mktab_astud@E@: mktab_astud@O@ $(MKTABLE_HELPERS)
+	$(CC_EXE) 
 
-mktab_joker: mktab_joker.o $(MKTABLE_HELPERS)
-	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+mktab_joker@E@: mktab_joker@O@ $(MKTABLE_HELPERS)
+	$(CC_EXE) 
 
-mktab_lowball: mktab_lowball.o $(MKTABLE_HELPERS)
-	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+mktab_lowball@E@: mktab_lowball@O@ $(MKTABLE_HELPERS)
+	$(CC_EXE) 
 
-evx_gen5:	evx_gen5.o
-	$(CC) -o $@ $<
+evx_gen5@E@:	evx_gen5@O@
+	$(CC_EXE)
 
-evx_gen7:	evx_gen7.o
-	$(CC) -o $@ $<
+evx_gen7@E@:	evx_gen7@O@
+	$(CC_EXE)
 
-.c.o:
+.c@O@:
 	$(CC) $(CFLAGS) -I../include -c $<
 
-evx_gen5.o:	evx_generate.c
-	$(CC) $(CFLAGS) -I../include -DCARDS_DEALT=5 -c $< -o $@
+evx_gen5@O@:	evx_generate.c
+	$(CC_OBJ) -DCARDS_DEALT=5 
 
-evx_gen7.o:	evx_generate.c
-	$(CC) $(CFLAGS) -I../include -DCARDS_DEALT=7 -c $< -o $@
+evx_gen7@O@:	evx_generate.c
+	$(CC_OBJ) -DCARDS_DEALT=7 
 

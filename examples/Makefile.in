@@ -1,33 +1,41 @@
-LIB = ../lib/libpoker.a
+LIBPOKER = ../lib/libpoker@A@
 
-CFLAGS = @CFLAGS@
-CC = @CC@
+CC = @CC@ 
+CFLAGS = @CFLAGS@ 
+RANLIB = @RANLIB@ 
+AR = ar
+RM = @RM@
+CC_OBJ = $(CC) $(CFLAGS) -I../include @CC_OBJ@
+CC_EXE = $(CC) $(CFLAGS) -I../include @CC_EXE@
+RUN_IT = @RUN_IT@
+LIB_CMD = @LIB_CMD@
 
-PROGRAMS = five_card_hands seven_card_hands fish eval hcmp2 hcmpn
+PROGRAMS = five_card_hands@E@ seven_card_hands@E@ fish@E@ eval@E@ \
+	hcmp2@E@ hcmpn@E@
 
 all : $(PROGRAMS)
 
-five_card_hands: five_card_hands.o $(LIB)
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+five_card_hands@E@: five_card_hands@O@ $(LIBPOKER)
+	$(CC_EXE)
 
-seven_card_hands: seven_card_hands.o $(LIB)
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+seven_card_hands@E@: seven_card_hands@O@ $(LIBPOKER)
+	$(CC_EXE)
 
-fish: fish.o $(LIB)
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+fish@E@: fish@O@ $(LIBPOKER)
+	$(CC_EXE)
 
-eval: eval.o $(LIB)
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+eval@E@: eval@O@ $(LIBPOKER)
+	$(CC_EXE)
 
-hcmp2: hcmp2.o $(LIB)
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+hcmp2@E@: hcmp2@O@ $(LIBPOKER)
+	$(CC_EXE)
 
-hcmpn: hcmpn.o $(LIB)
-	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+hcmpn@E@: hcmpn@O@ $(LIBPOKER)
+	$(CC_EXE)
 
 clean:
-	rm -f core *.o $(PROGRAMS) 
+	$(RM) core *@O@ $(PROGRAMS) 
 
-.c.o:
-	$(CC) $(CFLAGS) -I../include -c $<
+.c@O@:
+	$(CC_OBJ)
 

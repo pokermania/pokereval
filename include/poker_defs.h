@@ -4,6 +4,7 @@
 #if defined(_MSC_VER)
 #define HAVE_INT64
 #define UINT64_TYPE unsigned __int64
+#define inline __inline
 #else
 #include "config.h"
 #endif
