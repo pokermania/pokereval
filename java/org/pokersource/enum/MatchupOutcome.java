@@ -2,6 +2,11 @@
 
 package org.pokersource.enum;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class MatchupOutcome {
   public double matchProb;           // probability of this matchup
   public double matchEV[];           // matchEV[i] is player i's all-in equity

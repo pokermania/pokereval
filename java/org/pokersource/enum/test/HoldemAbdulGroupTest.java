@@ -6,6 +6,11 @@ import org.pokersource.game.Deck;
 
 import junit.framework.*;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class HoldemAbdulGroupTest extends TestCase {
   private HoldemAbdulGroup g99;
   private HoldemAbdulGroup gATs;

@@ -3,6 +3,11 @@
 package org.pokersource.eval;
 import org.pokersource.game.Deck;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class JokerEval {
   static {
     System.loadLibrary("poker");

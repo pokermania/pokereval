@@ -4,7 +4,10 @@ package org.pokersource.game.test;
 import org.pokersource.game.Deck;
 import junit.framework.*;
 
-/** Tests to ensure compatibility with the C-language macros. */
+/** Tests to ensure compatibility with the C-language macros.
+    @version $Revision$
+    @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class DeckTest extends TestCase {
   private int indexAs;

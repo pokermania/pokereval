@@ -5,7 +5,10 @@ import org.pokersource.game.Deck;
 
 import java.util.HashSet;
 
-/** A holdem hand group representing every possible starting Holdem hand. */
+/** A holdem hand group representing every possible starting Holdem hand.
+    @version $Revision$
+    @author Michael Maurer <mjmaurer@yahoo.com>
+*/
 
 public class HoldemUniversalGroup extends HoldemHandGroup {
   /** Return a group containing all possible holdem hands

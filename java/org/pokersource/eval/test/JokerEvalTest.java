@@ -6,6 +6,11 @@ import org.pokersource.game.Deck;
 
 import junit.framework.*;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class JokerEvalTest extends TestCase {
   private int[] ranks;
   private int[] suits;

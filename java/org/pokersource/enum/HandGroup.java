@@ -11,6 +11,8 @@ import java.util.Iterator;
     include specific holdings like "AhAd", "Kh2h"; canonical starting
     hands like "AKs", "TT"; or abdulian groups like "Q8s+".  Subclasses
     like HoldemHandGroup define these groups for specific games.
+    @version $Revision$
+    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
 public class HandGroup {

@@ -3,6 +3,11 @@
 package org.pokersource;
 import junit.framework.*;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class AllTests {
   public static void main (String[] args) {
     junit.textui.TestRunner.run(suite());

@@ -13,6 +13,8 @@ import org.apache.oro.text.regex.Perl5Matcher;
 
 /** A holdem hand group representing sets of starting hands defined using
     canonical notation: "KK", "AQs", "T9".
+    @version $Revision$
+    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
 public class HoldemCanonGroup extends HoldemHandGroup {

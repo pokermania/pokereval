@@ -4,7 +4,10 @@ package org.pokersource.enum;
 import org.pokersource.game.Deck;
 
 /** Algorithms for enumerating or sampling the outcomes of a poker hand
-    matchup. */
+    matchup.
+    @version $Revision$
+    @author Michael Maurer <mjmaurer@yahoo.com>
+*/
 
 public class Enumerate {
   // must match enum_game_t definitions in enumdefs.h

@@ -6,6 +6,11 @@ import org.pokersource.game.Deck;
 
 import junit.framework.*;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class EnumerateTest extends TestCase {
   private int[][] pocketRanks;
   private int[][] pocketSuits;

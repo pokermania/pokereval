@@ -8,6 +8,11 @@ import java.util.Iterator;
 
 import junit.framework.*;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class SAIETest extends TestCase {
   private HoldemBeliefVector bv1;
   private HoldemBeliefVector bv2;

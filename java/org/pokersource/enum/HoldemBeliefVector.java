@@ -5,7 +5,10 @@ import org.pokersource.game.Deck;
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
-/** A concrete implementation of BeliefVector for the game of Holdem. */
+/** A concrete implementation of BeliefVector for the game of Holdem.
+    @version $Revision$
+    @author Michael Maurer <mjmaurer@yahoo.com>
+*/
 
 public class HoldemBeliefVector extends BeliefVector {
   /** Instantiate from a string representation.  The syntax is one or more

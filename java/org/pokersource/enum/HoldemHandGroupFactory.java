@@ -6,6 +6,8 @@ import java.util.HashMap;
 /** Creates instances of HoldemHandGroup objects from their string
     representations.  Use of this factory is preferred to directly calling the
     constructors of the HoldemHandGroup subclasses.
+    @version $Revision$
+    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
 public class HoldemHandGroupFactory {

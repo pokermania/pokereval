@@ -5,6 +5,11 @@ import org.pokersource.enum.*;
 
 import junit.framework.*;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class HandMatchupTest extends TestCase {
   HandMatchup hm1;
   HandMatchup hm2;

@@ -2,6 +2,11 @@
 
 package org.pokersource.enum;
 
+/**
+   @version $Revision$
+   @author Michael Maurer <mjmaurer@yahoo.com>
+*/
+
 public class HandMatchup {
   public long matchHands[];          // matchHands[i] is player i's hand
   private int hash;
