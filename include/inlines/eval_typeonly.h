@@ -36,7 +36,8 @@ static inline int
 StdRules_EVAL_TYPEONLY( CardMask cards, int n_cards )
 {
   uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
-    n_dups, n_ranks, is_st_or_fl = 0;
+    n_dups, is_st_or_fl = 0;
+  uint8 n_ranks;
 
   ranks = SC | SD | SH | SS;
   n_ranks = nBitsAndStrTable[ranks] & 0x0F;
