@@ -28,6 +28,7 @@
 #define __EVAL_H__
 
 #include "poker_defs.h"
+#include <assert.h>
 
 /*
  * When run over seven cards, here are the distribution of hands:
@@ -82,21 +83,9 @@ en__is_flush(StdDeck_CardMask cards, uint32 *flushranks )
  * be non-zero, but any gap will result in a zero value.  There's
  * a nice side-effect of leaving the top most bit set so we can use
  * it to set top_card.
- * Now it uses a precomputed lookup table.  
+ * Now we use a precomputed lookup table.  
  *
  */
-
-static inline HandVal 
-en__is_straight( uint32 ranks )
-{
-  int st;
-
-  st = straightTable[ranks];
-  if (st) 
-    return HandVal_HANDTYPE_VALUE(StdRules_HandType_STRAIGHT)
-      + HandVal_TOP_CARD_VALUE(st);
-  else 
-    return 0;
 
 #if 0
     /* Keith's way, which is still pretty good and uses one less table. */
@@ -111,146 +100,172 @@ en__is_straight( uint32 ranks )
         retval.eval_t.top_card = StdDeck_Ranks_5;
     }
 #endif
-}
 
 
 static inline HandVal 
 StdDeck_StdRules_EVAL_N( StdDeck_CardMask cards, int n_cards )
 {
-  HandVal retval, tempeval, tempeval2;
-  uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
+  HandVal retval;
+  uint32 ranks, four_mask, three_mask, two_mask, 
     n_dups, n_ranks, flushranks;
     
   retval = 0;
   ranks = SC | SD | SH | SS;
   n_ranks = nBitsTable[ranks];
   n_dups = n_cards - n_ranks;
-  switch (n_dups)
-    {
-    case 0:
-      break;
-      
-    case 1:
-      two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
-      break;
-      
-    case 2:
-      two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
-      three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
-      break;
-      
-    default:
-      four_mask  = SH & SD & SC & SS;
-      two_mask   = (~(SC ^ SD ^ SH ^ SS) & ranks) ^ four_mask;
-      three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
-      break;
-    };
 
-  tempeval = 0;
-  tempeval2 = 0;
-
+  /* Check for straight, flush, or straight flush, and return if we can
+     determine immediately that this is the best possible hand 
+  */
   if (n_ranks >= 5) {
     retval = en__is_flush(cards, &flushranks);
     if (retval) {
-      tempeval = en__is_straight(flushranks);
-      if (tempeval) {
-        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_STFLUSH)
-          + HandVal_CARDS(tempeval);
+      if (straightTable[flushranks]) {
+        return HandVal_HANDTYPE_VALUE(StdRules_HandType_STFLUSH)
+          + HandVal_TOP_CARD_VALUE(straightTable[flushranks]);
+      }
+    } 
+    else {
+      int st;
+
+      st = straightTable[ranks];
+      if (st) 
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_STRAIGHT)
+          + HandVal_TOP_CARD_VALUE(st);
+    };
+
+    /* Another win -- if there can't be a FH/Quads (n_dups < 3), 
+       which is true most of the time when there is a made hand, then if we've
+       found a five card hand, just return.  This skips the whole process of
+       computing two_mask/three_mask/etc.
+    */
+    if (retval && n_dups < 3)
+      return retval;
+  };
+
+  /*
+   * By the time we're here, either: 
+     1) there's no five-card hand possible (flush or straight), or
+     2) there's a flush or straight, but we know that there are enough
+        duplicates to make a full house / quads possible.  
+   */
+  switch (n_dups)
+    {
+    case 0:
+      /* It's a no-pair hand */
+      return HandVal_HANDTYPE_VALUE(StdRules_HandType_NOPAIR)
+        + topFiveCardsTable[ranks];
+      break;
+      
+    case 1: {
+      /* It's a one-pair hand */
+      uint32 t, kickers;
+
+      two_mask   = ranks ^ (SC ^ SD ^ SH ^ SS);
+
+      retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_ONEPAIR)
+        + HandVal_TOP_CARD_VALUE(topCardTable[two_mask]);
+      t = ranks ^ two_mask;      /* Only one bit set in two_mask */
+      /* Get the top five cards in what is left, drop all but the top three 
+       * cards, and shift them by one to get the three desired kickers */
+      kickers = (topFiveCardsTable[t] >> HandVal_CARD_WIDTH)
+        & ~HandVal_FIFTH_CARD_MASK;
+      retval += kickers;
+
+      return retval;
+    }
+    break;
+      
+    case 2: 
+      /* Either two pair or trips */
+
+      two_mask   = ranks ^ (SC ^ SD ^ SH ^ SS);
+      if (two_mask) { 
+        uint32 t;
+
+        t = ranks ^ two_mask; /* Exactly two bits set in two_mask */
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_TWOPAIR)
+          + (topFiveCardsTable[two_mask]
+             & (HandVal_TOP_CARD_MASK | HandVal_SECOND_CARD_MASK))
+          + HandVal_THIRD_CARD_VALUE(topCardTable[t]);
+
         return retval;
       }
-    } else
-      retval = en__is_straight(ranks);
-  };
-
-  if (four_mask) {
-    int tc;
-
-    tc = topCardTable[four_mask];
-    retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_QUADS)
-      + HandVal_TOP_CARD_VALUE(tc)
-      + HandVal_SECOND_CARD_VALUE(topCardTable[ranks ^ (1 << tc)]);
-    return retval;
-  };
-
-  if (three_mask && (n_dups >= 3)) {
-    int tc, t;
-
-    retval  = HandVal_HANDTYPE_VALUE(StdRules_HandType_FULLHOUSE);
-    tc = topCardTable[three_mask];
-    retval += HandVal_TOP_CARD_VALUE(tc);
-    t = (two_mask | three_mask) ^ (1 << tc);
-    retval += HandVal_SECOND_CARD_VALUE(topCardTable[t]);
-    return retval;
-  };
-
-  if (retval) /* flush and straight */
-    return retval;
-
-  if (three_mask) {
-    int t, second;
+      else {
+        int t, second;
         
-    retval  = HandVal_HANDTYPE_VALUE(StdRules_HandType_TRIPS);
-    retval += HandVal_TOP_CARD_VALUE(topCardTable[three_mask]);
+        three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
+        
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_TRIPS)
+          + HandVal_TOP_CARD_VALUE(topCardTable[three_mask]);
 
-    t = ranks ^ three_mask; /* Only one bit set in three_mask */
-    second = topCardTable[t];
-    retval += HandVal_SECOND_CARD_VALUE(second);
-    t ^= (1 << second);
-    retval += HandVal_THIRD_CARD_VALUE(topCardTable[t]);
-    return retval;
-  };
+        t = ranks ^ three_mask; /* Only one bit set in three_mask */
+        second = topCardTable[t];
+        retval += HandVal_SECOND_CARD_VALUE(second);
+        t ^= (1 << second);
+        retval += HandVal_THIRD_CARD_VALUE(topCardTable[t]);
+        return retval;
+      }
+      break;
+      
+    default:
+      /* Possible quads, fullhouse, straight or flush, or two pair */
+      four_mask  = SH & SD & SC & SS;
+      if (four_mask) {
+        int tc;
 
-  /* Now, all that's left is pairs, if even that.  */
-  switch (n_dups) {
-  case 0:
-    retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_NOPAIR)
-      + topFiveCardsTable[ranks];
-    break;
-    
-  case 1: {
-    int t;
-    uint32 kickers;
+        tc = topCardTable[four_mask];
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_QUADS)
+          + HandVal_TOP_CARD_VALUE(tc)
+          + HandVal_SECOND_CARD_VALUE(topCardTable[ranks ^ (1 << tc)]);
+        return retval;
+      };
 
-    retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_ONEPAIR)
-           + HandVal_TOP_CARD_VALUE(topCardTable[two_mask]);
-    t = ranks ^ two_mask;      /* Only one bit set in two_mask */
-    /* Get the top five cards in what is left, drop all but the top three 
-     * cards, and shift them by one to get the three desired kickers */
-    kickers = (topFiveCardsTable[t] >> HandVal_CARD_WIDTH)
-            & ~HandVal_FIFTH_CARD_MASK;
-    retval += kickers;
-  }
-  break;
+      /* Technically, three_mask as defined below is really the set of
+         bits which are set in three or four of the suits, but since
+         we've already eliminated quads, this is OK */
+      /* Similarly, two_mask is really two_or_four_mask, but since we've
+         already eliminated quads, we can use this shortcut */
+      three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
+      two_mask   = (~(SC ^ SD ^ SH ^ SS) & ranks);
 
-  case 2: {
-    int t;
+      /* Note that testing three_mask here (when n_dups is known to be 
+         >= 3) is sufficient to determine we have a full house.  This is
+         because we've already tested for quads; in the absense of quads
+         then three_mask != 0 && n_dups >=3 implies full house.
+      */
+      if (three_mask) {
+        int tc, t;
+
+        retval  = HandVal_HANDTYPE_VALUE(StdRules_HandType_FULLHOUSE);
+        tc = topCardTable[three_mask];
+        retval += HandVal_TOP_CARD_VALUE(tc);
+        t = (two_mask | three_mask) ^ (1 << tc);
+        retval += HandVal_SECOND_CARD_VALUE(topCardTable[t]);
+        return retval;
+      };
+
+      if (retval) /* flush and straight */
+        return retval;
+      else {
+        /* Must be two pair */
+        int top, second;
           
-    retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_TWOPAIR);
-    tempeval = topFiveCardsTable[two_mask]
-             & (HandVal_TOP_CARD_MASK 
-                | HandVal_SECOND_CARD_MASK);
-    retval += tempeval;
-    t = ranks ^ two_mask; /* Exactly two bits set in two_mask */
-    retval += HandVal_THIRD_CARD_VALUE(topCardTable[t]);
-  }
-  break;
-  
-  default: {
-    int top, second;
-          
-    retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_TWOPAIR);
-    top = topCardTable[two_mask];
-    retval += HandVal_TOP_CARD_VALUE(top);
-    second = topCardTable[two_mask ^ (1 << top)];
-    retval += HandVal_SECOND_CARD_VALUE(second);
-    retval += HandVal_THIRD_CARD_VALUE(topCardTable[ranks ^ (1 << top) 
-                                                ^ (1 << second)]);
-  }
-  break;
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_TWOPAIR);
+        top = topCardTable[two_mask];
+        retval += HandVal_TOP_CARD_VALUE(top);
+        second = topCardTable[two_mask ^ (1 << top)];
+        retval += HandVal_SECOND_CARD_VALUE(second);
+        retval += HandVal_THIRD_CARD_VALUE(topCardTable[ranks ^ (1 << top) 
+                                                        ^ (1 << second)]);
+        return retval;
+      };
 
-  }; /* switch */
-  
-  return retval;
+      break;
+    };
+
+  /* Should never happen */
+  assert(!"Logic error in StdDeck_StdRules_EVAL_N");
 }
 
 #undef SC
