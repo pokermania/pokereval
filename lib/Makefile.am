@@ -90,13 +90,13 @@ evx_gen7_SOURCES = evx_generate.c
 evx_gen7_CPPFLAGS = -DCARDS_DEALT=7
 
 build_tables: $(noinst_PROGRAMS) evx_preamble.cfrag
-	mktab_basic
-	mktab_joker
-	mktab_packed
-	mktab_evx
-	mktab_astud
-	mktab_lowball
-	evx_gen5 > $(top_srcdir)/include/inlines/evx5.h
-	evx_gen7 > $(top_srcdir)/include/inlines/evx7.h
+	./mktab_basic
+	./mktab_joker
+	./mktab_packed
+	./mktab_evx
+	./mktab_astud
+	./mktab_lowball
+	./evx_gen5 > $(top_srcdir)/include/inlines/evx5.h
+	./evx_gen7 > $(top_srcdir)/include/inlines/evx7.h
 
 libpoker_eval_la_LDFLAGS = -version-info 1:0:0
