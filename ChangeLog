@@ -1,3 +1,12 @@
+Thu Dec 01 01:42:23 2004  Tim Showalter  <tjs@psaux.com>
+
+	* Updated Mac builds; currently, things seem to build with only
+	  one config setting (--with-mac-target=darwin).
+	* Make it unnecessary to have '.' in one's path when building.
+	* bootstrap now checks for 'libtoolize' in both places, not 'libtool'
+	  (My Debian system has no 'libtool', but my Mac does, and it's
+	  not actually related to GNU libtool.)
+
 Thu Nov 25 12:27:09 2004  Loic Dachary  <loic@gnu.org>
 
 	* "Nick Wilton" <info@nickwilton.info> header patches + Makefiles for compilation on windows
