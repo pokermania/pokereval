@@ -36,21 +36,24 @@ public class HoldemHandOrderingTest extends TestCase {
   }
 
   public void testToString() {
-    assertTrue(hho1.toString().startsWith("72:0.0 82:0.00904977"));
+    assertTrue(hho1.toString().startsWith("32:0.0 42:0.00904977"));
   }
 
   public void testGreaterEqual() {
     HandGroup[] groups = hho1.greaterEqual(0.95);
-    assertEquals(10, groups.length);
-    assertEquals("AJs", groups[0].toString());
-    assertEquals("AQ", groups[1].toString());
-    assertEquals("TT", groups[2].toString());
-    assertEquals("AQs", groups[3].toString());
-    assertEquals("AK", groups[4].toString());
-    assertEquals("JJ", groups[5].toString());
-    assertEquals("AKs", groups[6].toString());
-    assertEquals("QQ", groups[7].toString());
-    assertEquals("KK", groups[8].toString());
-    assertEquals("AA", groups[9].toString());
+    // SAMPLE1>0.95 is [AJs AQs 77 AKs 88 99 TT JJ QQ KK AA]
+    assertEquals(11, groups.length);
+    int i = 0;
+    assertEquals("AJs", groups[i++].toString());
+    assertEquals("AQs", groups[i++].toString());
+    assertEquals("77", groups[i++].toString());
+    assertEquals("AKs", groups[i++].toString());
+    assertEquals("88", groups[i++].toString());
+    assertEquals("99", groups[i++].toString());
+    assertEquals("TT", groups[i++].toString());
+    assertEquals("JJ", groups[i++].toString());
+    assertEquals("QQ", groups[i++].toString());
+    assertEquals("KK", groups[i++].toString());
+    assertEquals("AA", groups[i++].toString());
   }
 }

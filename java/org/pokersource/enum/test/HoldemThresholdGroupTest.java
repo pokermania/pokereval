@@ -35,24 +35,24 @@ public class HoldemThresholdGroupTest extends TestCase {
   }
   
   public void testIsHandInGroup() {
-    // SAMPLE1>0.95 is [AJs AQ TT AQs AK JJ AKs QQ KK AA]
-    assertTrue(!ht1.isHandInGroup(Deck.parseCardMask("9h9d")));
-    assertTrue(!ht1.isHandInGroup(Deck.parseCardMask("AhJd")));
+    // SAMPLE1>0.95 is [AJs AQs 77 AKs 88 99 TT JJ QQ KK AA]
+    assertTrue(!ht1.isHandInGroup(Deck.parseCardMask("6h6d")));
+    assertTrue(!ht1.isHandInGroup(Deck.parseCardMask("AhKd")));
     assertTrue(!ht1.isHandInGroup(Deck.parseCardMask("KcQc")));
     assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AhJh")));
-    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AhQd")));
+    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AhQh")));
+    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("7s7d")));
+    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AsKs")));
+    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("8s8d")));
+    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("9s9d")));
     assertTrue(ht1.isHandInGroup(Deck.parseCardMask("TsTd")));
-    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AsQs")));
-    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AsKh")));
     assertTrue(ht1.isHandInGroup(Deck.parseCardMask("JhJd")));
-    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AdKd")));
     assertTrue(ht1.isHandInGroup(Deck.parseCardMask("QhQs")));
-    assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AhKs")));
     assertTrue(ht1.isHandInGroup(Deck.parseCardMask("AhAs")));
   }
   
   public void testGetHands() {
-    assertEquals(4+12+6+4+12+6+4+6+6+6, ht1.numHands());
-    assertEquals(4+12+6+4+12+6+4+6+6+6, ht1.getHands().length);
+    assertEquals(4+4+6+4+6+6+6+6+6+6+6, ht1.numHands());
+    assertEquals(4+4+6+4+6+6+6+6+6+6+6, ht1.getHands().length);
   }
 }

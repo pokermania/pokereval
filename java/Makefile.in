@@ -118,6 +118,9 @@ develtest: $(CLASSFILES)
 	$(JAVA) org.pokersource.enum.SAIE 0 0 "KhQc" "<any>" "4h 5h 3d" ""
 	$(JAVA) org.pokersource.enum.SAIE 100 0 "KhQc" "<any>" "4h 5h 3d" ""
 	$(JAVA) org.pokersource.enum.SAIE 100 0 "SM1 SM2" "<any>" "4h 5h 3d" ""
+	$(JAVA) org.pokersource.enum.SAIEMain -b Ah3d2c9d JsJd 'AQs+ TT+'
+	$(JAVA) org.pokersource.enum.SAIEMain -m 100 -n 100 'AQs+ TT+' AK
+	$(JAVA) org.pokersource.enum.SAIEMain -O -r SAMP:sample1.hho -m 100 -n 100 'AhTd' 'SAMP>0.80' 'SAMP>0.95'
 
 Makefile: Makefile.in
 .PHONY: javadoc
