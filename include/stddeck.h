@@ -45,14 +45,36 @@ typedef union {
   } cards_nn;
 #endif
   struct {
-    uint32         :(16 - StdDeck_Rank_COUNT);
-    uint32 spades  :StdDeck_Rank_COUNT;
-    uint32         :(16 - StdDeck_Rank_COUNT);
-    uint32 clubs   :StdDeck_Rank_COUNT;
-    uint32         :(16 - StdDeck_Rank_COUNT);
-    uint32 diamonds:StdDeck_Rank_COUNT;
-    uint32         :(16 - StdDeck_Rank_COUNT);
-    uint32 hearts  :StdDeck_Rank_COUNT;
+    /* There are multiple ways to define these fields.  We could pack the
+       13-bit fields together, we could define 13-bit fields with 3-bit
+       padding between them, or we can define them as 16-bit fields.  
+       Which is best will depend on the particular characteristics of the
+       processor.  
+       If we are on a big-endian processor, the padding should precede the
+       field; on a little-endian processor, the padding should come after
+       the field.  
+       I found that uint32 was faster than uint16 on a lot of processors --
+       the 16-bit instructions can be slow. 
+    */
+#ifdef WORDS_BIGENDIAN
+    uint32         : 3;
+    uint32 spades  :13;
+    uint32         : 3;
+    uint32 clubs   :13;
+    uint32         : 3;
+    uint32 diamonds:13;
+    uint32         : 3;
+    uint32 hearts  :13;
+#else
+    uint32 spades  :13;
+    uint32         : 3;
+    uint32 clubs   :13;
+    uint32         : 3;
+    uint32 diamonds:13;
+    uint32         : 3;
+    uint32 hearts  :13;
+    uint32         : 3;
+#endif
   } cards;
 } StdDeck_CardMask;
 
