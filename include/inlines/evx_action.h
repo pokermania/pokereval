@@ -111,6 +111,7 @@
 
 #endif
 
+#undef FK_LOCALS
 #if     !defined(FOUR_OF_A_KIND_complete_P)
 
 #define FOUR_OF_A_KIND_complete_P()                                     \
@@ -121,6 +122,9 @@
       : tmpFkRetval                                                     \
 )
 
+#define FK_LOCALS uint32 tmpFkRetval;
+#else
+#define FK_LOCALS
 #endif
 
 /*
@@ -151,6 +155,7 @@
  *      over.
  */
 
+#undef FH_LOCALS
 #if     !defined(FULL_HOUSE_complete_P)
 
 #define FULL_HOUSE_complete_P(three_info)                               \
@@ -163,6 +168,10 @@
     : tmpFhRetval                                                       \
 )
 
+#define FH_LOCALS uint32 tmpFhRetval, tmpFhTopbit;
+#else
+#define FH_LOCALS
+
 #endif
 
 #define STRAIGHT_FLUSH_XOR_CORRECTION_VALUE     (EvxHandVal_STRAIGHT ^       \
@@ -171,7 +180,8 @@
 #define ALL_PAIRS_helper()      (h & (d|c|s)) | (d & (c|s)) | (c & s)
 
 {
-  uint32 tmpFkRetval, tmpFhRetval, tmpFhTopbit;
+  FK_LOCALS
+  FH_LOCALS
 
     flush_suit = FLUSH_helper_P();
     if (STRAIGHT_P()) {
