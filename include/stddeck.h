@@ -64,7 +64,7 @@ typedef union {
 #define StdDeck_CardMask_DIAMONDS(cm) ((cm).cards.diamonds)
 #define StdDeck_CardMask_HEARTS(cm)   ((cm).cards.hearts)
 
-#if HAVE_INT64
+#ifdef HAVE_INT64
 #define StdDeck_CardMask_OR(result, op1, op2) \
   LongLong_OR((result).cards_n, (op1).cards_n, (op2).cards_n) 
 #else
