@@ -553,18 +553,27 @@ do {                                                                       \
       };                                                                    \
       { action };                                                           \
                                                                             \
-      if (_indices[_nCards] != _liveCards[_nLiveCards - 1]) {               \
+      do {                                                                  \
         ++_indices[_nCards];                                                \
+      }                                                                     \
+      while (deck##_CardMask_CARD_IS_SET(_orMask[_nCards-1],                \
+                                         _liveCards[_indices[_nCards]])     \
+             && (_indices[_nCards] < _nLiveCards));                         \
+      if (_indices[_nCards] < _nLiveCards) {                                \
         deck##_CardMask_OR(_orMask[_nCards], _orMask[_nCards-1],            \
                            deck##_MASK(_liveCards[_indices[_nCards]]));     \
       }                                                                     \
       else {                                                                \
         for (_i=_nCards-1; _i > 0; _i--)                                    \
-          if (_indices[_i] != _liveCards[_nLiveCards - (_nCards - _i) - 1]) \
+          if (_indices[_i] <= _nLiveCards - (_nCards - _i) - 1)             \
             break;                                                          \
         if (_i == 0)                                                        \
           break;                                                            \
-        ++_indices[_i];                                                     \
+        do {                                                                \
+          ++_indices[_i];                                                   \
+        }                                                                   \
+        while (deck##_CardMask_CARD_IS_SET(_orMask[_i-1],                   \
+                                           _liveCards[_indices[_i]]));      \
         deck##_CardMask_OR(_orMask[_i], _orMask[_i-1],                      \
                            deck##_MASK(_liveCards[_indices[_i]]));          \
         for (_j=_i+1; _j <= _nCards; _j++) {                                \
