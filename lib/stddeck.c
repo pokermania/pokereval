@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include "poker_defs.h"
 
-const char StdDeck_rankChars[] = "23456789TJKQA";
+const char StdDeck_rankChars[] = "23456789TJQKA";
 const char StdDeck_suitChars[] = "hdcs";
 
 int 
