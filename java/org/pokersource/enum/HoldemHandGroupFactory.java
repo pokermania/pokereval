@@ -3,9 +3,11 @@
 package org.pokersource.enum;
 import java.util.HashMap;
 
-/** Creates instances of HoldemHandGroup objects from their string
-    representations.  Use of this factory is preferred to directly calling the
-    constructors of the HoldemHandGroup subclasses.
+/** Creates instances of HoldemHandGroup-implementing objects from their
+    string representations.  Use of this factory is preferred to directly
+    calling the constructors of subclasses, as the factory maintains a cache
+    of immutable instances.
+
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

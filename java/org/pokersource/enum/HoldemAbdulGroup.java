@@ -12,7 +12,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 
 /** A holdem hand group representing sets of starting hands defined using
-    abdulian notation:
+    abdulian notation.  The notation is:
 <pre>
       99+	pair >= 99
       ATs+	suited ace with kicker >= T
@@ -30,6 +30,9 @@ import org.apache.oro.text.regex.Perl5Matcher;
       75+	offsuit 1-gap connector, J9-75
       74+	offsuit 2-gap connector, J8-74
 </pre>
+    Note that these hand groups are not mutually disjoint.  For example,
+    the hand group 9xs+ overlaps with 86s+, as both include 97s.
+
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

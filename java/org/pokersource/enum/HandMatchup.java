@@ -4,7 +4,9 @@ package org.pokersource.enum;
 import org.pokersource.util.LongArray;
 
 /**
-   Represents one poker matchup in which each player holds one specific hand.
+   Represents one poker confrontation in which each player holds one specific
+   hand. 
+   @see MatchupOutcome
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

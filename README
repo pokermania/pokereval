@@ -1,50 +1,65 @@
+$Id$
+
+Introduction
+============
+
 This is the README file for the pokersource poker hand evaluator
 library.  The library may be obtained from the pokersource web site,
 www.pokersource.org.  
-
 
 To learn more about the features of the library, and how to get
 started using it, see the WHATS-HERE file in the root directory of the
 library distribution.  
 
-
 The PokerSource evaluator library is free software and is released
-under the terms of the GNU General Public License.
+under the terms of the GNU General Public License.  See the LICENSE file
+in the root directory of the distribution.
 
-
-In order to compile the Java portions of the package, you will need the
-following packages.  You can simply download the jar file for each and add
-them to your CLASSPATH:
+The PokerSource library includes an optional Java layer.  You can compile the
+C library on its own, or you can compile both the C library and the Java
+layer.  In order to compile the Java layer, you will need the following
+packages.  Jar files are provided as part of the distribution for your
+convenience; you can also download the sources or jar files yourself.
     Apache Oro regular expressions (org.apache.oro.*) [tested with v2.0.6]
         http://jakarta.apache.org/oro/
+        See the file LICENSE.oro for license details.  
+        This product includes software developed by the
+        Apache Software Foundation (http://www.apache.org/).
     JUnit test framework (junit.framework.*) [tested with v3.7]
         http://sourceforge.net/projects/junit/
-If you aren't interested in the Java portions, you can compile the C
-library on its own.  The Java code is documented in the java/javadoc/
-directory.
+        See the file LICENSE.junit for license details.
+The Java code is documented in the java/javadoc directory.
 
-Compiling -- Unix systems:
 
+Compiling -- Unix systems
+=========================
 This library uses the GNU Autoconf self-configuration mechanism, so
-compiling on a Unix system should be fairly simple.  Just enter the
-following commands: 
+compiling on a Unix system should be fairly simple.  If you want to
+build both the C library and the java layer, say
   ./configure
   make 
+  make test
+Or, if you do not want to build the java layer, say
+  ./configure --disable-java
+  make
   make test
 
 The "make test" command will run several test programs to ensure that
 everything works correctly.  On slow machines, the tests may take
 several minutes.  (Note: The make files may have some dependencies on GNU
-make; if this is the case, they may need to be edited before the
+make; if you do not have GNU make, they may need to be edited before the
 library and test programs will compile properly.)
 
 After you have a working build, you may want to:
-* add the lib directory to your LD_LIBRARY_PATH environment variable
-* add the java/pokersource.jar file to your CLASSPATH environment variable
 * add the examples directory to your PATH environment variable
+* add the lib directory to your LD_LIBRARY_PATH environment variable
+* add java/pokersource.jar to your CLASSPATH environment variable
+* add java/jakarta-oro-2.0.6.jar to your CLASSPATH environment variable
+* add java/junit-3.7.jar to your CLASSPATH environment variable
 
-Compiling -- Windows, using cygwin: 
 
+Compiling -- Windows, using cygwin 
+==================================
 If you have the cygwin package installed, you can build the library as
 per the directions above for Unix systems.  (You may need to create a
 link for /bin (some versions of cygwin don't do this properly on
@@ -52,8 +67,8 @@ installation) so that the configure script can find /bin/sh and other
 required files.)  
 
 
-Compiling -- DOS / Windows: 
-
+Compiling -- DOS / Windows
+==========================
 The library can also be compiled using Microsoft Visual C++.  In each
 directory, special DOS makefiles are provided, called makefile.dos.
 To compile the library, make sure that the VC tools are on the path
@@ -79,8 +94,8 @@ path for projects that will be using the library.
 
 
 
-Reporting bugs, suggesting improvements: 
-
+Reporting bugs, suggesting improvements
+=======================================
 As of August 1999, the pokersource evaluator library is maintained by
 Brian Goetz.  Bug reports, suggestions for improvements, or candidates
 for inclusion should be sent to brian@quiotix.com.
