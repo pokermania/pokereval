@@ -341,7 +341,6 @@ unsigned int len;
  */
 
 #include <stdlib.h>
-#include <netinet/in.h>
 
 void
 MD5DigestString(const char *string, Md5RawDigest digest)
@@ -416,6 +415,7 @@ MD5DigestBytes(Md5Context ctx, unsigned char *bytes, int count) {
   MD5Update(ctx, bytes, count);
 }
 
+#if 0
 void
 MD5DigestLong(Md5Context ctx, unsigned long l) {
   unsigned long v;
@@ -424,6 +424,7 @@ MD5DigestLong(Md5Context ctx, unsigned long l) {
   v = htonl(l);
   MD5Update(ctx, &v, sizeof(v));
 }
+#endif
 
 void 
 MD5End(Md5Context ctx, Md5RawDigest raw) {
