@@ -106,6 +106,27 @@ do { \
   StdDeck_CardMask_SET_DIAMONDS(sCards, JokerDeck_CardMask_DIAMONDS(jCards)); \
 } while (0)
 
+#define JokerDeck_CardMask_fromStd(jCards, sCards) \
+do { \
+  JokerDeck_CardMask_RESET(jCards); \
+  JokerDeck_CardMask_SET_SPADES(jCards, StdDeck_CardMask_SPADES(sCards)); \
+  JokerDeck_CardMask_SET_HEARTS(jCards, StdDeck_CardMask_HEARTS(sCards)); \
+  JokerDeck_CardMask_SET_CLUBS(jCards, StdDeck_CardMask_CLUBS(sCards)); \
+  JokerDeck_CardMask_SET_DIAMONDS(jCards, StdDeck_CardMask_DIAMONDS(sCards)); \
+} while (0)
+
+#define JokerDeck_CardMask_fromStd_N(jCards, sCards, N) \
+do { \
+  int _i; \
+  for (_i=0; _i<N; _i++) {\
+    JokerDeck_CardMask_RESET(jCards[_i]); \
+    JokerDeck_CardMask_SET_SPADES(jCards[_i], StdDeck_CardMask_SPADES(sCards[_i])); \
+    JokerDeck_CardMask_SET_HEARTS(jCards[_i], StdDeck_CardMask_HEARTS(sCards[_i])); \
+    JokerDeck_CardMask_SET_CLUBS(jCards[_i], StdDeck_CardMask_CLUBS(sCards[_i])); \
+    JokerDeck_CardMask_SET_DIAMONDS(jCards[_i], StdDeck_CardMask_DIAMONDS(sCards[_i])); \
+  }\
+} while (0)
+
 #ifdef HAVE_INT64                                                          
 #define JokerDeck_CardMask_CARD_IS_SET(mask, index)                       \
   (( (mask).cards_n & (JokerDeck_MASK(index).cards_n)) != 0 )                 
