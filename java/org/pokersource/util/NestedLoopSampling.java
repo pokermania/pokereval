@@ -1,6 +1,6 @@
 // $Id$
 
-package org.pokersource.enum;
+package org.pokersource.util;
 import java.util.Enumeration;
 import java.util.Random;
 

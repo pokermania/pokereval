@@ -58,14 +58,14 @@ public class SAIETest extends TestCase {
     // KhQc vs "SM1 SM2 SM3" with board of 5h4h3d
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
                       new BeliefVector[] {bv1, bv2},
-                      mask5h4h3d, 0, ev, null);
+                      mask5h4h3d, 0, ev, null, null);
     assertEquals(0.279634179634, ev[0], 1e-10);
     assertEquals(0.720365820366, ev[1], 1e-10);
 
     // KhQc vs "SM1 SM2 SM3 SM4 SM5" with board of 5h4h3d
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
                       new BeliefVector[] {bv1, bv3},
-                      mask5h4h3d, 0, ev, null);
+                      mask5h4h3d, 0, ev, null, null);
     assertEquals(0.416602297485, ev[0], 1e-10);
     assertEquals(0.583397702515, ev[1], 1e-10);
   }
@@ -76,7 +76,7 @@ public class SAIETest extends TestCase {
     // KhQc vs TdTc with board of 5h4h3d
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
                       new BeliefVector[] {bv1, bv4},
-                      mask5h4h3d, 0, ev, matchups);
+                      mask5h4h3d, 0, ev, matchups, null);
     assertEquals(0.298484848485, ev[0], 1e-10);
     assertEquals(0.701515151515, ev[1], 1e-10);
     assertEquals(1, matchups.size());
@@ -85,12 +85,46 @@ public class SAIETest extends TestCase {
     // KhQc vs "SM1 SM2 SM3" with board of 5h4h3d
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
                       new BeliefVector[] {bv1, bv2},
-                      mask5h4h3d, 0, ev, matchups);
+                      mask5h4h3d, 0, ev, matchups, null);
     assertEquals(0.279634179634, ev[0], 1e-10);
     assertEquals(0.720365820366, ev[1], 1e-10);
     assertEquals((6+3+3+6+3) + (6+3+4+2+9) + (6+4+3+3+4+9),
                  matchups.size());
     checkEV(ev, matchups);
+  }
+
+  public void testFlopGameSAIE_Orderings() {
+    double[] ev = new double[2];
+    HashMap orderings = new HashMap();
+    // KhQc vs 65s with board of 5h4h3d
+    SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
+                      new BeliefVector[] {bv1, bv5},
+                      mask5h4h3d, 0, ev, null, orderings);
+    assertEquals(0.218855218855, ev[0], 1e-10);
+    assertEquals(0.781144781145, ev[1], 1e-10);
+
+    /* There are three matchups: {KhQc, 6s5s}, {KhQc, 6d5d}, {KhQc, 6c5c}.
+       The ordering histograms for each are:
+         A  B   {KhQc, 6s5s}   {KhQc, 6d5d}   {KhQc, 6c5c}
+         1  1        22             22             22
+         1  2       210            197            210
+         2  1       758            771            758
+    */
+    RankOrdering ranks;
+    Integer count;
+    assertEquals(3, orderings.size());
+
+    ranks = new RankOrdering(new int[] {0, 0});
+    count = (Integer) orderings.get(ranks);
+    assertEquals(22 + 22 + 22, count.intValue());
+
+    ranks = new RankOrdering(new int[] {0, 1});
+    count = (Integer) orderings.get(ranks);
+    assertEquals(210 + 197 + 210, count.intValue());
+
+    ranks = new RankOrdering(new int[] {1, 0});
+    count = (Integer) orderings.get(ranks);
+    assertEquals(758 + 771 + 758, count.intValue());
   }
 
   public void testFlopGameSAIE_Sampling() {
@@ -105,7 +139,7 @@ public class SAIETest extends TestCase {
     noutcomes = 0;
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
                       new BeliefVector[] {bv5, bv2},
-                      mask5h4h3d, 0, ev, matchups);
+                      mask5h4h3d, 0, ev, matchups, null);
     assertEquals(0.640960327917, ev[0], 1e-10);
     assertEquals(0.359039672083, ev[1], 1e-10);
     assertEquals(3 * ((6+6+6+6+4) + (6+4+4+4+12) + (6+4+4+4+4+12)),
@@ -117,7 +151,7 @@ public class SAIETest extends TestCase {
     // now sample matchups but use full enumeration for cards to come
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
                       new BeliefVector[] {bv5, bv2},
-                      mask5h4h3d, 0, ev, matchups);
+                      mask5h4h3d, 0, ev, matchups, null);
     // use a tolerance that is large enough that it is unlikely to be exceeded
     // due to random chance, but small enough to catch programming blunders
     assertEquals(0.640960327917, ev[0], 7e-02);
@@ -130,7 +164,7 @@ public class SAIETest extends TestCase {
     // now enumerate matchups but sample cards to come
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
                       new BeliefVector[] {bv5, bv2},
-                      mask5h4h3d, 0, ev, matchups);
+                      mask5h4h3d, 0, ev, matchups, null);
     assertEquals(0.640960327917, ev[0], 7e-02);
     assertEquals(0.359039672083, ev[1], 7e-02);
     assertEquals(3 * ((6+6+6+6+4) + (6+4+4+4+12) + (6+4+4+4+4+12)),
@@ -142,7 +176,7 @@ public class SAIETest extends TestCase {
     // finally sample both matchups and cards to come
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
                       new BeliefVector[] {bv5, bv2},
-                      mask5h4h3d, 0, ev, matchups);
+                      mask5h4h3d, 0, ev, matchups, null);
     assertEquals(0.640960327917, ev[0], 7e-02);
     assertEquals(0.359039672083, ev[1], 7e-02);
     assertTrue(matchups.size() <= nmatchups);
@@ -161,7 +195,7 @@ public class SAIETest extends TestCase {
     noutcomes = 0;
     SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
                       new BeliefVector[] {bv1, bv2, bv3, bv5},
-                      mask5h4h3d, 0, ev, matchups);
+                      mask5h4h3d, 0, ev, matchups, null);
     assertEquals(0.12, ev[0], 2e-02);
     assertEquals(0.20, ev[1], 2e-02);
     assertEquals(0.19, ev[2], 2e-02);

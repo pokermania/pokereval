@@ -1,7 +1,7 @@
 // $Id$
 
-package org.pokersource.enum.test;
-import org.pokersource.enum.*;
+package org.pokersource.util.test;
+import org.pokersource.util.*;
 
 import junit.framework.*;
 

@@ -2,7 +2,10 @@
 
 package org.pokersource.enum;
 import org.pokersource.game.Deck;
+import org.pokersource.util.NestedLoopEnumeration;
+import org.pokersource.util.NestedLoopSampling;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Enumeration;
 
@@ -16,6 +19,19 @@ import java.util.Enumeration;
 
 public class SAIE {
 
+  private static void accumulateOrderings(Map orderings,
+                                          int[][] orderKeys,
+                                          int[] orderVals) {
+    for (int i=0; i<orderKeys.length; i++) {
+      int newTotal = orderVals[i];
+      RankOrdering ord = new RankOrdering(orderKeys[i]);
+      Integer prevTotal = (Integer) orderings.get(ord);
+      if (prevTotal != null)
+        newTotal += prevTotal.intValue();
+      orderings.put(ord, new Integer(newTotal));
+    }
+  }
+
   /** Compute the subjective all-in equity of each player based on a
       belief distribution for each player's hands.  Typical usage is
       to fix one player's cards and allow the other players' cards to
@@ -26,22 +42,26 @@ public class SAIE {
       [Note: matchups are counted before they are tested for feasibility, that
       is, whether they share cards.  So the total number of matchups that
       contribute to the SAIE estimate may be less than nmatchups.]
-      @param noutcomes number of boards to sample (if zero, full enumeration)
+      @param noutcomes number of boards to sample for each matchup (if zero,
+      full enumeration)
       @param handDistribs the hand distribution belief vector for each player
       @param board bitmask of cards already dealt to board (can be zero)
       @param dead bitmask of cards that cannot appear in any hand or on
       the board (can be zero)
       @param ev output: ev[i] player i's all-in pot equity
       @param matchups output: map of {HandMatchup, MatchupOutcome}
-      pairs, one for each matchup
+      pairs, one for each matchup.  Skipped if matchups is null.
+      @param orderings output: map of {RankOrdering, Integer} pairs.
+      Skipped if orderings is null.
   */
-  public static void FlopGameSAIE(int gameType,
-                                  int nmatchups, int noutcomes,
-                                  BeliefVector[] handDistribs,
-                                  long board, long dead,
-                                  double ev[], Map matchups) {
+  public static void FlopGameSAIE(int gameType, int nmatchups, int noutcomes,
+                                  BeliefVector[] handDistribs, long board,
+                                  long dead, double ev[], Map matchups,
+                                  Map orderings) {
     if (matchups != null)
       matchups.clear();
+    if (orderings != null)
+      orderings.clear();
     int nplayers = handDistribs.length;
     long[][] hands = new long[nplayers][];
     int[] nhands = new int[nplayers];
@@ -77,7 +97,18 @@ public class SAIE {
       }
 
       // heavy lifting for this matchup: enumerate all outcomes
-      Enumerate.PotEquity(gameType, noutcomes, curhands, board, dead, matchev);
+      if (orderings == null) {
+        // simply compute EV, no need to track rank orderings
+        Enumerate.PotEquity(gameType, noutcomes, curhands, board, dead,
+                            matchev);
+      } else {
+        // compute EV and also maintain histogram of rank orderings
+        int[][][] orderKeys = new int[1][][];
+        int[][] orderVals = new int[1][];
+        Enumerate.PotEquity(gameType, noutcomes, curhands, board, dead,
+                            matchev, orderKeys, orderVals);
+        accumulateOrderings(orderings, orderKeys[0], orderVals[0]);
+      }
 
       if (matchups != null) { // save to Collection if requested
         HandMatchup matchup = new HandMatchup(curhands);
@@ -131,10 +162,17 @@ public class SAIE {
     System.out.println("dead = " + Deck.cardMaskString(dead));
 
     double[] totalev = new double[nplayers];
-    FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
-                 beliefs, board, dead, totalev, null);
+    TreeMap orderings = new TreeMap();
+    FlopGameSAIE(Enumerate.GAME_HOLDEM8, nmatchups, noutcomes,
+                 beliefs, board, dead, totalev, null, orderings);
     for (int i=0; i<nplayers; i++) {
       System.out.println("FlopGameSAIE: totalev[" + i + "] = " + totalev[i]);
+    }
+    System.out.println("FlopGameSAIE: relative rank ordering histogram:");
+    for (Iterator iter=orderings.keySet().iterator(); iter.hasNext();) {
+      RankOrdering ranks = (RankOrdering) iter.next();
+      Integer count = (Integer) orderings.get(ranks);
+      System.out.println("\t" + ranks + " " + count);
     }
   }
 }

@@ -23,7 +23,6 @@ public class AllTests {
     suite.addTest(new TestSuite(HoldemHandGroupFactoryTest.class));
     suite.addTest(new TestSuite(HoldemSMGroupTest.class));
     suite.addTest(new TestSuite(HoldemUniversalGroupTest.class));
-    suite.addTest(new TestSuite(NestedLoopEnumerationTest.class));
     suite.addTest(new TestSuite(SAIETest.class));
     return suite;
   }

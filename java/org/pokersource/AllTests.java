@@ -16,6 +16,7 @@ public class AllTests {
     suite.addTest(org.pokersource.game.test.AllTests.suite());
     suite.addTest(org.pokersource.eval.test.AllTests.suite());
     suite.addTest(org.pokersource.enum.test.AllTests.suite());
+    suite.addTest(org.pokersource.util.test.AllTests.suite());
     return suite;
   }
 }
