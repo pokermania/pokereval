@@ -21,7 +21,7 @@ JNIEXPORT jlong JNICALL Java_org_pokersource_eval_JokerEval_EvalHigh
   HandVal hival;
   
   if (parseJokerRanksSuits(env, ranks, suits, &mcards, &ncards)) {
-    jniThrow(env, class, "unable to parse input cards");
+    jniThrow(env, "unable to parse input cards");
     return (jlong)0;
   }
   hival = JokerDeck_JokerRules_EVAL_N(mcards, ncards);
@@ -42,7 +42,7 @@ JNIEXPORT jlong JNICALL Java_org_pokersource_eval_JokerEval_EvalLow
   LowHandVal loval;
   
   if (parseJokerRanksSuits(env, ranks, suits, &mcards, &ncards)) {
-    jniThrow(env, class, "unable to parse input cards");
+    jniThrow(env, "unable to parse input cards");
     return (jlong)0;
   }
   loval = JokerDeck_Lowball_EVAL(mcards, ncards);
@@ -63,7 +63,7 @@ JNIEXPORT jlong JNICALL Java_org_pokersource_eval_JokerEval_EvalLow8
   LowHandVal lo8val;
   
   if (parseJokerRanksSuits(env, ranks, suits, &mcards, &ncards)) {
-    jniThrow(env, class, "unable to parse input cards");
+    jniThrow(env, "unable to parse input cards");
     return (jlong)0;
   }
   lo8val = JokerDeck_Lowball8_EVAL(mcards, ncards);

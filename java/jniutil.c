@@ -5,7 +5,7 @@
 /* Try to throw an exception back to java.  This may fail, so anyone calling
    this function should assume that it may return. */
 void
-jniThrow(JNIEnv *env, jclass class, char *msg)
+jniThrow(JNIEnv *env, char *msg)
 {
   jclass exClass;
 

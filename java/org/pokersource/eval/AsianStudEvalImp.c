@@ -19,7 +19,7 @@ JNIEXPORT jlong JNICALL Java_org_pokersource_eval_AsianStudEval_EvalHigh
   HandVal hival;
   
   if (parseAsianStudRanksSuits(env, ranks, suits, &mcards, &ncards)) {
-    jniThrow(env, class, "unable to parse input cards");
+    jniThrow(env, "unable to parse input cards");
     return (jlong)0;
   }
   hival = AStudDeck_AStudRules_EVAL_N(mcards, ncards);

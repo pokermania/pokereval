@@ -1,3 +1,3 @@
 /* $Id$ */
 
-extern void jniThrow(JNIEnv *env, jclass class, char *msg);
+extern void jniThrow(JNIEnv *env, char *msg);
