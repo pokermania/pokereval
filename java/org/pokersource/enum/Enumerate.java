@@ -9,6 +9,9 @@ import org.pokersource.game.Deck;
 */
 
 public class Enumerate {
+  private Enumerate() {    // don't let anybody instantiate us
+  }
+
   // must match enum_game_t definitions in enumdefs.h
   public static int GAME_HOLDEM		= 0;
   public static int GAME_HOLDEM8	= 1;
@@ -28,6 +31,7 @@ public class Enumerate {
     System.loadLibrary("poker");
     System.loadLibrary("pokerjni");
   }
+
   /**
      Compute all-in pot equity of each player's hand, either by complete
      enumeration of outcomes or by monte carlo sampling.

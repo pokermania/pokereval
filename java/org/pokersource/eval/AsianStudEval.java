@@ -8,6 +8,8 @@ import org.pokersource.game.Deck;
 */
 
 public class AsianStudEval {
+  private AsianStudEval() {    // don't let anybody instantiate us
+  }
   static {
     System.loadLibrary("poker");
     System.loadLibrary("pokerjni");

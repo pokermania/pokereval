@@ -10,6 +10,9 @@ package org.pokersource.game;
 */
 
 public class Deck {
+  private Deck() {    // don't let anybody instantiate us
+  }
+
   // must match values in deck_joker.h (and also deck_std.h, deck_astud.h)
   public static int SUIT_HEARTS		= 0;
   public static int SUIT_DIAMONDS	= 1;

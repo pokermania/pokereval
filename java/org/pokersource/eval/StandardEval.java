@@ -8,6 +8,9 @@ import org.pokersource.game.Deck;
 */
 
 public class StandardEval {
+  private StandardEval() {    // don't let anybody instantiate us
+  }
+
   static {
     System.loadLibrary("poker");
     System.loadLibrary("pokerjni");

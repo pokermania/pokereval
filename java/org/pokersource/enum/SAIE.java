@@ -18,6 +18,8 @@ import java.util.Enumeration;
 */
 
 public class SAIE {
+  private SAIE() {    // don't let anybody instantiate us
+  }
 
   private static void accumulateOrderings(Map orderings,
                                           int[][] orderKeys,
