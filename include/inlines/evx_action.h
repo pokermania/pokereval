@@ -114,16 +114,12 @@
 #if     !defined(FOUR_OF_A_KIND_complete_P)
 
 #define FOUR_OF_A_KIND_complete_P()                                     \
-({                                                                      \
-    uint32 retval;                                                      \
-									\
-    retval = c & d & h & s;                                             \
-    if (retval) {                                                       \
-	retval = EvxHandVal_QUADS | (retval << StdDeck_Rank_COUNT) |                \
-			  	    topBitTable[ranks ^ retval];        \
-    }                                                                   \
-    retval;                                                             \
-})
+(   tmpFkRetval = c & d & h & s,                                        \
+    tmpFkRetval?                                                        \
+	EvxHandVal_QUADS | (tmpFkRetval << StdDeck_Rank_COUNT) |        \
+			  	    topBitTable[ranks ^ tmpFkRetval]    \
+      : tmpFkRetval                                                     \
+)
 
 #endif
 
@@ -158,17 +154,14 @@
 #if     !defined(FULL_HOUSE_complete_P)
 
 #define FULL_HOUSE_complete_P(three_info)                               \
-({                                                                      \
-    uint32 retval;                                                      \
-    uint32 top_bit;                                                     \
-    retval = (~(c^d^h^s) & ranks)|three_info;                           \
-    top_bit = topBitTable[three_info];                                  \
-    retval ^= top_bit;                                                  \
-    if (retval)                                                         \
-	retval = EvxHandVal_FULLHOUSE | (top_bit << StdDeck_Rank_COUNT) | \
-					topBitTable[retval];            \
-    retval;                                                             \
-})
+(   tmpFhRetval = (~(c^d^h^s) & ranks)|three_info,                      \
+    tmpFhTopbit = topBitTable[three_info],                              \
+    tmpFhRetval ^= tmpFhTopbit,                                         \
+    tmpFhRetval?                                                        \
+	EvxHandVal_FULLHOUSE | (tmpFhTopbit << StdDeck_Rank_COUNT) |    \
+					topBitTable[tmpFhRetval]        \
+    : tmpFhRetval                                                       \
+)
 
 #endif
 
@@ -178,6 +171,8 @@
 #define ALL_PAIRS_helper()      (h & (d|c|s)) | (d & (c|s)) | (c & s)
 
 {
+  uint32 tmpFkRetval, tmpFhRetval, tmpFhTopbit;
+
     flush_suit = FLUSH_helper_P();
     if (STRAIGHT_P()) {
 	if (flush_suit) {
