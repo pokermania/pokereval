@@ -83,24 +83,47 @@ public class HoldemSMGroupTest extends TestCase {
   }
   
   public void testGetHands() {
-    assertEquals(6+6+6+6+4,
-                 gSM1.getHands().length);
-    assertEquals(6+4+4+4+12,
-                 gSM2.getHands().length);
-    assertEquals(6+4+4+4+4+12,
-                 gSM3.getHands().length);
-    assertEquals(4+12+6+4+4+4+12+4,
-                 gSM4.getHands().length);
-    assertEquals(6+4+4+4+12+12+12+4+4+4+4+4+4+4+4+4+4+4,
-                 gSM5.getHands().length);
-    assertEquals(6+12+6+4+12+12+4+4+4,
-                 gSM6.getHands().length);
-    assertEquals(6+12+4+4+12+6+12+4+6+4+4+4+4+4+4+4+4+4,
-                 gSM7.getHands().length);
-    assertEquals(12+4+12+12+12+4+4+4+4+12+4+12+12+4+12+12,
-                 gSM8.getHands().length);
-    assertEquals(784,
-                 gSM9.getHands().length);
+    // 6+6+6+6+4 = 28
+    assertEquals(28, gSM1.getHands().length);
+
+    // 6+4+4+4+12 = 30
+    assertEquals(30, gSM2.getHands().length);
+
+    // 6+4+4+4+4+12 = 34
+    assertEquals(34, gSM3.getHands().length);
+
+    // 4+12+6+4+4+4+12+4 = 50
+    assertEquals(50, gSM4.getHands().length);
+
+    // 6+4+4+4+12+12+12+4+4+4+4+4+4+4+4+4+4+4 = 98
+    assertEquals(98, gSM5.getHands().length);
+
+    // 6+12+6+4+12+12+4+4+4 = 64
+    assertEquals(64, gSM6.getHands().length);
+
+    // 6+12+4+4+12+6+12+4+6+4+4+4+4+4+4+4+4+4 = 102
+    assertEquals(102, gSM7.getHands().length);
+
+    // 12+4+12+12+12+4+4+4+4+12+4+12+12+4+12+12 = 136
+    assertEquals(136, gSM8.getHands().length);
+
+    // 1326 - (28+30+34+50+98+64+102+136) = 784
+    assertEquals(784, gSM9.getHands().length);
   }
 
+  public void testDisjoint() {
+    HoldemSMGroup[] groups = {gSM1, gSM2, gSM3, gSM4, gSM5,
+                              gSM6, gSM7, gSM8, gSM9};
+    for (int i=0; i<groups.length; i++) {
+      long[] hands = groups[i].getHands();
+      for (int j=0; j<hands.length; j++) {
+        for (int k=0; k<groups.length; k++) {
+          boolean isSameGroup = (i == k);
+          boolean isMember = groups[k].isHandInGroup(hands[j]);
+          assertTrue(isSameGroup == isMember);
+        }
+      }
+    }
+  }
+    
 }
