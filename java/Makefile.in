@@ -69,6 +69,7 @@ test: $(CLASSFILES)
 		 org.pokersource.AllTests
 
 develtest: $(CLASSFILES)
+	$(JAVA) org.pokersource.util.ValueSortedMap
 	$(JAVA) org.pokersource.eval.StandardEval
 	$(JAVA) org.pokersource.eval.JokerEval
 	$(JAVA) org.pokersource.eval.AsianStudEval
@@ -78,7 +79,12 @@ develtest: $(CLASSFILES)
 	$(JAVA) org.pokersource.enum.HoldemCanonGroup KQs
 	$(JAVA) org.pokersource.enum.HoldemCanonGroup T9
 	$(JAVA) org.pokersource.enum.HoldemSMGroup SM2
+	$(JAVA) org.pokersource.enum.HoldemAbdulGroup 'A8s+'
+	$(JAVA) org.pokersource.enum.HoldemAbdulGroup '99+'
 	$(JAVA) org.pokersource.enum.HoldemUniversalGroup
+	$(JAVA) org.pokersource.enum.HandValuation
+	$(JAVA) org.pokersource.enum.HoldemHandOrdering sample1.hho 0.90
+	$(JAVA) org.pokersource.enum.ThresholdHandGroup sample1.hho SAMP 'SAMP>0.90'
 	$(JAVA) org.pokersource.enum.HoldemBeliefVector "AhKh" "AA KK:50 QQ:20"
 	$(JAVA) org.pokersource.enum.SAIE 0 0 "AhKh" "AKs" "4h 5h 6h" ""
 	$(JAVA) org.pokersource.enum.SAIE 0 0 "87s+" "77" "7h 6h 5h" ""

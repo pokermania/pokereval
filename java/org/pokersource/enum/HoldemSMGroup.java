@@ -11,7 +11,8 @@ import java.util.StringTokenizer;
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
-public class HoldemSMGroup extends HoldemHandGroup {
+public class HoldemSMGroup extends BaseHandGroup
+  implements HoldemHandGroup {
   private static String[] smdefs = {
     // group 1
     "AA KK QQ JJ AKs",

@@ -3,10 +3,11 @@
 package org.pokersource.enum;
 
 /**
+   A marker interface for subclasses of BaseHandGroup meant to encode
+   holdem hands.
+
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
-public class HoldemHandGroup extends HandGroup {
-  // constructor of form: <init>(String groupSpec);
-
+public interface HoldemHandGroup extends HandGroup {
 }

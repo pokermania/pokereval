@@ -1,9 +1,7 @@
 // $Id$
 
 package org.pokersource.enum;
-import org.pokersource.game.Deck;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Set;
 
 /** A HandGroup represents a set of poker hands that can be referred to by
     name.  The specific way that hands are assigned to named groups is
@@ -11,49 +9,16 @@ import java.util.Iterator;
     include specific holdings like "AhAd", "Kh2h"; canonical starting
     hands like "AKs", "TT"; or abdulian groups like "Q8s+".  Subclasses
     like HoldemHandGroup define these groups for specific games.
+    @see BaseHandGroup, HoldemHandGroup
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
-public class HandGroup {
-  /** String representation of hand group.  Subclasses should accept this
-      string in the constructor and save it here. */
-  String myspec;
-
-  /** Set of Long objects, each a bitmask for one hand.  Subclasses should,
-      in their constructor, convert myspec into the set of corresponding
-      hands.  The set should be immutable once set in the constructor. */
-  HashSet myhands;
-
-  // subclasses should have constructor of form: <init>(String groupSpec);
-
-  public boolean isHandInGroup(long hand) {
-    return myhands.contains(new Long(hand));
-  }
-
-  public int numHands() {
-    return myhands.size();
-  }
-
-  public long[] getHands() {
-    long[] hands = new long[myhands.size()];
-    int nhands = 0;
-    for (Iterator i = myhands.iterator(); i.hasNext(); )
-      hands[nhands++] = ((Long) i.next()).longValue();
-    return hands;
-  }
-
-  public String toString() {
-    return myspec;
-  }
-
-  public String toStringAtomic() {
-    StringBuffer buf = new StringBuffer();
-    for (Iterator i = myhands.iterator(); i.hasNext(); ) {
-      long hand = ((Long) i.next()).longValue();
-      if (buf.length() > 1)
-        buf.append(" ");
-      buf.append(Deck.cardMaskString(hand, ""));
-    }
-    return buf.toString();
-  }
+public interface HandGroup {
+  public String getGroupSpec();
+  public int numHands();
+  public long[] getHands();
+  public Set getHandSet();
+  public boolean isHandInGroup(long hand);
+  public String toString();
+  public String toStringAtomic();
 }

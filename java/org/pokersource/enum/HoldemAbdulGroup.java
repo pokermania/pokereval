@@ -34,7 +34,8 @@ import org.apache.oro.text.regex.Perl5Matcher;
 */
 
 
-public class HoldemAbdulGroup extends HoldemHandGroup {
+public class HoldemAbdulGroup extends BaseHandGroup
+  implements HoldemHandGroup {
   private static Perl5Compiler compiler;
   private static Perl5Matcher matcher;
   private static Pattern pairPattern, acePattern, kingPattern, queenPattern;

@@ -9,7 +9,8 @@ import java.util.HashSet;
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
-public class HoldemUniversalGroup extends HoldemHandGroup {
+public class HoldemUniversalGroup extends BaseHandGroup
+  implements HoldemHandGroup {
   /** Return a group containing all possible holdem hands
       @param groupSpec Must have value "<any>"
   */

@@ -1,0 +1,12 @@
+# $Id$
+# Sample holdem hand ordering; this one is the all-in preflop
+# best response to an opponent playing {SM1, SM2, SM3, SM4}.
+
+72 82 83 92 93 94 T2 62 73 T3 84 J2 T4 T5 32 J3 95 42 J4 52 J6 63 74 J5 T6 85
+96 72s J7 Q2 43 82s 83s T7 Q3 86 53 64 75 97 92s Q4 93s 94s Q7 J8 Q5 87 T2s Q6
+62s T8 73s 76 98 T3s 84s 65 54 T4s 32s J2s T5s Q8 95s 42s J3s 52s K2 J4s 63s
+74s J6s T9 K3 85s J9 J5s T6s K4 96s 43s K5 K7 J7s K8 K6 Q9 Q2s T7s 53s 75s 64s
+86s 97s Q3s Q4s 87s Q7s J8s Q5s 76s T8s Q6s 98s JT 65s 54s K9 Q8s QT K2s T9s
+J9s K3s QJ K4s K5s Q9s K7s K8s K6s KT A6 A2 A7 A3 A8 JTs A4 KJ K9s A5 QTs A9
+QJs KTs A6s 22 A2s A7s A3s A8s 33 A4s KJs AT A5s 44 KQ A9s 55 66 77 88 ATs KQs
+AJ 99 AJs AQ TT AQs AK JJ AKs QQ KK AA

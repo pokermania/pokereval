@@ -22,7 +22,7 @@ public abstract class BeliefVector {
   HandGroup universalGroup;
 
   /** The belief probability (unconditioned by dead cards) of each hand group.
-      Hash key is HoldemHandGroup, value is Double.  Positive value is the
+      Hash key is HandGroup, value is Double.  Positive value is the
       relative probability compared to uniform Bayesian prior (so, a value of
       +2 means hand from this group are twice as likely as would be expected
       from a uniform distribution over all possible hands); a negative value
@@ -256,13 +256,13 @@ public abstract class BeliefVector {
     // Form a special hand group whose set of hands is the difference between
     // the universe of possible hands and hands present in groups we have
     // already added.
-    HandGroup others = new HandGroup();
+    BaseHandGroup others = new BaseHandGroup();
     others.myspec = "<other>";
     others.myhands = new HashSet();
-    others.myhands.addAll(universalGroup.myhands);
+    others.myhands.addAll(universalGroup.getHandSet());
     for (Iterator iter = groupProb.keySet().iterator(); iter.hasNext(); ) {
       HandGroup group = (HandGroup) iter.next();
-      others.myhands.removeAll(group.myhands);
+      others.myhands.removeAll(group.getHandSet());
     }
     groupProb.put(others, new Double(prob));
     computeUnconditionedHandProb();

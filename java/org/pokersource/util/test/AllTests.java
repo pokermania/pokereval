@@ -17,6 +17,7 @@ public class AllTests {
     suite.addTest(new TestSuite(IntArrayTest.class));
     suite.addTest(new TestSuite(LongArrayTest.class));
     suite.addTest(new TestSuite(NestedLoopEnumerationTest.class));
+    suite.addTest(new TestSuite(ValueSortedMapTest.class));
     return suite;
   }
 }

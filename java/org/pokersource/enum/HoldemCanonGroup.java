@@ -18,7 +18,8 @@ import org.apache.oro.text.regex.Perl5Matcher;
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
-public class HoldemCanonGroup extends HoldemHandGroup {
+public class HoldemCanonGroup extends BaseHandGroup
+  implements HoldemHandGroup {
   private static Perl5Compiler compiler;
   private static Perl5Matcher matcher;
   private static Pattern pairPattern, suitedPattern, offsuitPattern;

@@ -20,7 +20,7 @@ public class HoldemHandGroupFactory {
     HoldemSMGroup.class,
     HoldemAbdulGroup.class,
     HoldemUniversalGroup.class,
-    ThresholdHandGroup.class,
+    HoldemThresholdGroup.class,
   };
 
   /** Cache of hand groups already instantiated. */
