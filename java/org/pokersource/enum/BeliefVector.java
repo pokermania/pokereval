@@ -97,6 +97,11 @@ public abstract class BeliefVector {
     return buf.toString();
   }
 
+  /** Returns the number of atomic hands with nonzero probability of occurring
+      (conditioned on the dead cards). */
+  public int numHands() {
+    return condHandProb.size();
+  }
 
   /** Return an array of bitmasks representing hands with nonzero probability
       of occurring (conditioned on the dead cards). */
@@ -163,7 +168,7 @@ public abstract class BeliefVector {
     for (Iterator iter = groupProb.keySet().iterator(); iter.hasNext(); ) {
       HandGroup group = (HandGroup) iter.next();
       double gprob = ((Double) groupProb.get(group)).doubleValue();
-      int gsize = group.getHands().length;
+      int gsize = group.numHands();
       if (gprob > 0)
         totalRel += gprob * gsize;
     }
