@@ -44,37 +44,10 @@
  *
  */
 
-#define SC StdDeck_CardMask_CLUBS(cards)
-#define SD StdDeck_CardMask_DIAMONDS(cards)
-#define SH StdDeck_CardMask_HEARTS(cards)
-#define SS StdDeck_CardMask_SPADES(cards)
-
-static inline HandVal
-en__is_flush(StdDeck_CardMask cards, uint32 *flushranks )
-{
-  if (nBitsTable[SS] >= 5) {
-    *flushranks          = SS;
-    return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[SS];
-  } 
-  else if (nBitsTable[SC] >= 5) {
-    *flushranks          = SC;
-    return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[SC];
-  } 
-  else if (nBitsTable[SD] >= 5) {
-    *flushranks          = SD;
-    return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[SD];
-  } 
-  else if (nBitsTable[SH] >= 5) {
-    *flushranks          = SH;
-    return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[SH];
-  } 
-  else 
-    return 0;
-}
+#define SC sc
+#define SD sd
+#define SH sh
+#define SS ss
 
 /*
  * is_straight used to check for a straight by masking the ranks with four
@@ -107,8 +80,14 @@ StdDeck_StdRules_EVAL_N( StdDeck_CardMask cards, int n_cards )
 {
   HandVal retval;
   uint32 ranks, four_mask, three_mask, two_mask, 
-    n_dups, n_ranks, flushranks;
-    
+    n_dups, n_ranks;
+  uint32 sc, sd, sh, ss;
+
+  ss = StdDeck_CardMask_SPADES(cards);
+  sc = StdDeck_CardMask_CLUBS(cards);
+  sd = StdDeck_CardMask_DIAMONDS(cards);
+  sh = StdDeck_CardMask_HEARTS(cards);
+
   retval = 0;
   ranks = SC | SD | SH | SS;
   n_ranks = nBitsTable[ranks];
@@ -118,12 +97,37 @@ StdDeck_StdRules_EVAL_N( StdDeck_CardMask cards, int n_cards )
      determine immediately that this is the best possible hand 
   */
   if (n_ranks >= 5) {
-    retval = en__is_flush(cards, &flushranks);
-    if (retval) {
-      if (straightTable[flushranks]) {
+    if (nBitsTable[SS] >= 5) {
+      if (straightTable[SS]) 
         return HandVal_HANDTYPE_VALUE(StdRules_HandType_STFLUSH)
-          + HandVal_TOP_CARD_VALUE(straightTable[flushranks]);
-      }
+          + HandVal_TOP_CARD_VALUE(straightTable[SS]);
+      else
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
+          + topFiveCardsTable[SS];
+    } 
+    else if (nBitsTable[SC] >= 5) {
+      if (straightTable[SC]) 
+        return HandVal_HANDTYPE_VALUE(StdRules_HandType_STFLUSH)
+          + HandVal_TOP_CARD_VALUE(straightTable[SC]);
+      else 
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
+          + topFiveCardsTable[SC];
+    } 
+    else if (nBitsTable[SD] >= 5) {
+      if (straightTable[SD]) 
+        return HandVal_HANDTYPE_VALUE(StdRules_HandType_STFLUSH)
+          + HandVal_TOP_CARD_VALUE(straightTable[SD]);
+      else 
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
+          + topFiveCardsTable[SD];
+    } 
+    else if (nBitsTable[SH] >= 5) {
+      if (straightTable[SH]) 
+        return HandVal_HANDTYPE_VALUE(StdRules_HandType_STFLUSH)
+          + HandVal_TOP_CARD_VALUE(straightTable[SH]);
+      else 
+        retval = HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
+          + topFiveCardsTable[SH];
     } 
     else {
       int st;
@@ -226,17 +230,14 @@ StdDeck_StdRules_EVAL_N( StdDeck_CardMask cards, int n_cards )
          we've already eliminated quads, this is OK */
       /* Similarly, two_mask is really two_or_four_mask, but since we've
          already eliminated quads, we can use this shortcut */
-      three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
-      two_mask   = (~(SC ^ SD ^ SH ^ SS) & ranks);
 
-      /* Note that testing three_mask here (when n_dups is known to be 
-         >= 3) is sufficient to determine we have a full house.  This is
-         because we've already tested for quads; in the absense of quads
-         then three_mask != 0 && n_dups >=3 implies full house.
-      */
-      if (three_mask) {
+      two_mask   = ranks ^ (SC ^ SD ^ SH ^ SS);
+      if (nBitsTable[two_mask] != n_dups) {
+        /* Must be some trips then, which really means there is a 
+           full house since n_dups >= 3 */
         int tc, t;
 
+        three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
         retval  = HandVal_HANDTYPE_VALUE(StdRules_HandType_FULLHOUSE);
         tc = topCardTable[three_mask];
         retval += HandVal_TOP_CARD_VALUE(tc);
