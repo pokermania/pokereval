@@ -194,3 +194,6 @@ Example programs:
 
   usedecks: Shows one way to use different decks and evaluation rules
           within the same program.
+
+  saie:   A script wrapping the java-based SAIE calculator.  See the script
+          itself for suggested usage.

@@ -20,7 +20,8 @@ them to your CLASSPATH:
     JUnit test framework (junit.framework.*) [tested with v3.7]
         http://sourceforge.net/projects/junit/
 If you aren't interested in the Java portions, you can compile the C
-library on its own.
+library on its own.  The Java code is documented in the java/javadoc/
+directory.
 
 Compiling -- Unix systems:
 
