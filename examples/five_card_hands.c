@@ -19,6 +19,7 @@
  */
 
 
+#include	<getopt.h>
 #include	<stdio.h>
 #include	<signal.h>
 
@@ -28,7 +29,57 @@
 /* #define VERBOSE */
 
 uint32 totals[HandType_LAST+1];
+int num_dead;
+CardMask dead_cards;
 
+const char *opts = "d:";
+
+/*
+ * returns number of dead cards, -1 on error
+ *
+ * argc, argv are the standard arguments to main
+ * num_dead is a return value of the number of dead cards
+ * dead_cards is a return value of the dead cards
+ */
+static int
+parse_args(int argc, char **argv, int *num_dead, CardMask *dead_cards) {
+  int i, c, o, rc, len;
+
+  if (num_dead == NULL) {
+    return (-1);
+  }
+
+  if (dead_cards == NULL) {
+    return (-1);
+  }
+
+  *num_dead = 0;
+  CardMask_RESET(*dead_cards);
+
+  /*
+   * parse any options passed to us.
+   * -d "c1 [...]" is dead cards
+   */
+  while((o = getopt(argc, argv, opts)) != -1) {
+    switch(o) {
+    case 'd':
+      len = strlen(optarg);
+      for(i = 0;i < len;) {
+	rc = StdDeck_stringToCard(optarg+i, &c);
+	if (rc) {
+	  StdDeck_CardMask_SET(*dead_cards, c);
+	  (*num_dead)++;
+	  i += 2;
+	} else {
+	  i++;
+	}
+      }
+      break;
+    }
+  }
+
+  return (*num_dead);
+}
 
 void dump_totals(void) {
   int i;
@@ -49,12 +100,15 @@ void dump_totals(void) {
 #define DUMP_HAND do { } while (0)
 #endif
 
-int main( void )
+int main(int argc, char *argv[])
 {
-  CardMask cards;
+  CardMask cards, dead_cards;
   HandVal  handval;
+  int      num_dead;
 
-  ENUMERATE_5_CARDS(cards, 
+  parse_args(argc, argv, &num_dead, &dead_cards);
+
+  ENUMERATE_5_CARDS_D(cards, dead_cards,
                     {
                       handval = Hand_EVAL_N(cards, 5);
                       ++totals[HandVal_HANDTYPE(handval)];
