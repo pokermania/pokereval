@@ -21,9 +21,14 @@
 
 #include "poker_defs.h"
 #include <stdio.h>
-#include <sys/stat.h>
 #include <stdlib.h>
+
+#ifdef HAVE_SYS_STAT_H
+#include <sys/stat.h>
+#endif
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 
 typedef enum {
   MAY_HAVE_FOUR_OF_A_KIND  = (1 << 0),
