@@ -169,6 +169,18 @@ public abstract class BeliefVector {
     return totalRel;
   }
 
+  private double totalAbsoluteProb() {
+    // sum over groups of each group's absolte prob
+    double totalAbs = 0.0;
+    for (Iterator iter = groupProb.keySet().iterator(); iter.hasNext(); ) {
+      HandGroup group = (HandGroup) iter.next();
+      double gprob = ((Double) groupProb.get(group)).doubleValue();
+      if (gprob < 0)
+        totalAbs += -gprob;
+    }
+    return totalAbs;
+  }
+
   private void computeUnconditionedHandProb() {
     uncondHandProb = new HashMap();
     double totalRel = totalRelativeProb();
@@ -275,5 +287,17 @@ public abstract class BeliefVector {
       throw new IllegalArgumentException("cannot mix relative and absolute probs");
     addRemaining(-absoluteProb);
     hasAbsolute = true;
+  }
+
+  /** After construction, subclasses should call this for a sanity check. */
+  void validate() {
+    if (hasAbsolute) {
+      if (totalAbsoluteProb() != 1.0)
+        throw new IllegalArgumentException("absolute probabilities must sum to 1");
+    }
+    if (hasRelative) {
+      if (totalRelativeProb() <= 0)
+        throw new IllegalArgumentException("relative probabilities must be positive");
+    }
   }
 }

@@ -23,6 +23,7 @@ public class HoldemBeliefVector extends BeliefVector {
     super(spec);
     universalGroup = (HandGroup) HoldemHandGroupFactory.getInstance("<any>");
     fromString(spec);
+    validate();
   }
 
   public void fromString(String spec) {
@@ -59,25 +60,10 @@ public class HoldemBeliefVector extends BeliefVector {
   }
 
   public static void main(String[] args) {
-    HoldemBeliefVector v1 = new HoldemBeliefVector("");
-    v1.addHandGroupRelative(new HoldemCanonGroup("AKs"), 2.00);
-    v1.addHandGroupRelative(new HoldemCanonGroup("T9"), 1.00);
-    v1.addHandGroupRelative(new HoldemCanonGroup("52s"), 0.50);
-    System.out.println("v1.toString = " + v1.toString());
-    System.out.println("v1.toStringAtomic = " + v1.toStringAtomic());
-
-    HoldemBeliefVector v2 = new HoldemBeliefVector("AKs:200 T9 52s:50");
-    System.out.println("v2.toString = " + v2.toString());
-    System.out.println("v2.toStringAtomic = " + v2.toStringAtomic());
-    int[] dranks = {Deck.RANK_5, Deck.RANK_5};
-    int[] dsuits = {Deck.SUIT_HEARTS, Deck.SUIT_SPADES};
-    long dead = Deck.createCardMask(dranks, dsuits);
-    v2.setDeadCards(dead);
-    System.out.println("v2.toString = " + v2.toString());
-    System.out.println("v2.toStringAtomic = " + v2.toStringAtomic());
-
-    HoldemBeliefVector v3 = new HoldemBeliefVector("AA=50 SM2=50");
-    System.out.println("v3.toString = " + v3.toString());
-    System.out.println("v3.toStringAtomic = " + v3.toStringAtomic());
+    for (int i=0; i<args.length; i++) {
+      HoldemBeliefVector v1 = new HoldemBeliefVector(args[i]);
+      System.out.println("v1.toString = " + v1.toString());
+      System.out.println("v1.toStringAtomic = " + v1.toStringAtomic());
+    }
   }
 }
