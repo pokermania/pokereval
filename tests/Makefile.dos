@@ -1,0 +1,40 @@
+# Generated automatically from Makefile.in by configure.
+LIBPOKER = ../lib/libpoker.lib
+
+CC = cl 
+CFLAGS = -O1 -nologo -DNDEBUG -MD -DMSDOS 
+RANLIB = rem 
+AR = ar
+RM = del
+CC_OBJ = $(CC) $(CFLAGS) -I../include -c -Fo$@ $**
+CC_EXE = $(CC) $(CFLAGS) -I../include -Fe$@ $**
+RUN_IT = $**
+LIB_CMD = LIB /OUT:$@ $**
+
+all: tests
+
+tests: digtest5.exe digtest7.exe
+
+digtest5.exe : digtest5.obj $(LIBPOKER)
+	$(CC_EXE)
+
+digtest7.exe : digtest7.obj $(LIBPOKER)
+	$(CC_EXE)
+
+clean:
+	$(RM) *.obj core digtest5.exe digtest7.exe
+
+.c.obj:
+	$(CC_OBJ)
+
+test : tests
+	@echo -n "digtest5: 5-card hands..."
+	@if [ `./digtest5` = "1f066feff1a8b3406fe069c05c4ba17d" ]; \
+		then echo "		Passed"; \
+		else echo "		Failed"; \
+	fi
+	@echo -n "digtest7: 7-card hands..."
+	@if [ `./digtest7` = "03a86bd2deac3052bbe93256e0d7b156" ]; \
+		then echo "		Passed"; \
+		else echo "		Failed"; \
+	fi

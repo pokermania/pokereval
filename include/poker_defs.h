@@ -5,6 +5,7 @@
 #define HAVE_INT64
 #define UINT64_TYPE unsigned __int64
 #define inline __inline
+#define HAVE_SYS_STAT_H
 #else
 #include "config.h"
 #endif

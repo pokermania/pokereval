@@ -36,6 +36,8 @@ else
   AC_C_BIGENDIAN
   AC_CHECK_SIZEOF(long)
   AC_CHECK_SIZEOF(int)
+  AC_CHECK_HEADERS(unistd.h)
+  AC_CHECK_HEADERS(sys/stat.h)
 
   dnl Check for existence of "long long" type
   AC_MSG_CHECKING(if compiler supports long long integer types)
@@ -81,7 +83,6 @@ AC_SUBST(LIB_CMD)
 AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile)
 
 if test $target = "msdos"; then 
-  mv Makefile Makefile.dos
   mv lib/Makefile lib/Makefile.dos
   mv tests/Makefile tests/Makefile.dos
   mv examples/Makefile examples/Makefile.dos
