@@ -36,6 +36,8 @@
 #define StdDeck_Suit_FIRST    StdDeck_Suit_HEARTS
 #define StdDeck_Suit_COUNT    4
 
+typedef uint32 StdDeck_RankMask;
+
 typedef union {
 #ifdef HAVE_INT64
   uint64  cards_n;
