@@ -37,6 +37,6 @@ poker-eval-$(RELEASE_NUMBER).tar.gz:
 
 .PHONY: ChangeLog
 ChangeLog:
-        cvs2cl.pl --tags --revisions
+	cvs2cl.pl --tags --revisions
 
 Makefile: Makefile.in
