@@ -11,7 +11,7 @@ RUN_IT = @RUN_IT@
 LIB_CMD = @LIB_CMD@
 
 PROGRAMS = five_card_hands@E@ seven_card_hands@E@ fish@E@ eval@E@ \
-	hcmp2@E@ hcmpn@E@
+	hcmp2@E@ hcmpn@E@ usedecks@E@ pokenum@E@
 
 all : $(PROGRAMS)
 
@@ -31,6 +31,12 @@ hcmp2@E@: hcmp2@O@ $(LIBPOKER)
 	$(CC_EXE)
 
 hcmpn@E@: hcmpn@O@ $(LIBPOKER)
+	$(CC_EXE)
+
+usedecks@E@: usedecks@O@ $(LIBPOKER)
+	$(CC_EXE)
+
+pokenum@E@: pokenum@O@ $(LIBPOKER)
 	$(CC_EXE)
 
 clean:
