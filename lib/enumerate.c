@@ -2,7 +2,9 @@
   Exports:
         enumExhaustive()	exhaustive enumeration of outcomes
         enumGameParams()	look up rule parameters by game type
+        enumResultAlloc()	allocate ordering histograms in result object
         enumResultClear()	clear enumeration result object
+        enumResultFree()	free ordering histograms in result object
         enumResultPrint()	print enumeration result object
         enumResultPrintTerse()	print enumeration result object, tersely
         enumSample()		monte carlo sampling of outcomes
@@ -146,6 +148,26 @@ static enum_gameparams_t enum_gameparams[] = {
           result->nscoop[i]++;						\
         result->ev[i] += potfrac;					\
       }									\
+      if (result->ordering != NULL) {					\
+        if (result->ordering->mode == enum_ordering_mode_hi) {		\
+          int hiranks[ENUM_ORDERING_MAXPLAYERS];			\
+          ENUM_ORDERING_RANK_HI(hival, HandVal_NOTHING, npockets, hiranks);\
+          ENUM_ORDERING_INCREMENT(result->ordering, npockets, hiranks);	\
+        }								\
+        if (result->ordering->mode == enum_ordering_mode_lo) {		\
+          int loranks[ENUM_ORDERING_MAXPLAYERS];			\
+          ENUM_ORDERING_RANK_LO(loval, LowHandVal_NOTHING, npockets, loranks);\
+          ENUM_ORDERING_INCREMENT(result->ordering, npockets, loranks);	\
+        }								\
+        if (result->ordering->mode == enum_ordering_mode_hilo) {	\
+          int hiranks[ENUM_ORDERING_MAXPLAYERS_HILO];			\
+          int loranks[ENUM_ORDERING_MAXPLAYERS_HILO];			\
+          ENUM_ORDERING_RANK_HI(hival, HandVal_NOTHING, npockets, hiranks);\
+          ENUM_ORDERING_RANK_LO(loval, LowHandVal_NOTHING, npockets, loranks);\
+          ENUM_ORDERING_INCREMENT_HILO(result->ordering, npockets,	\
+                                       hiranks, loranks);		\
+        }								\
+      }									\
       result->nsamples++;						\
     } while (0);
 
@@ -272,11 +294,41 @@ static enum_gameparams_t enum_gameparams[] = {
 int 
 enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
                StdDeck_CardMask board, StdDeck_CardMask dead,
-               int npockets, int nboard, enum_result_t *result) {
+               int npockets, int nboard, int orderflag,
+               enum_result_t *result) {
   int i;
+
   enumResultClear(result);
   if (npockets > ENUM_MAXPLAYERS)
     return 1;
+  if (orderflag) {
+    enum_ordering_mode_t mode;
+    switch (game) {
+    case game_holdem:
+    case game_omaha:
+    case game_7stud:
+    case game_5draw:
+      mode = enum_ordering_mode_hi;
+      break;
+    case game_razz:
+    case game_lowball:
+    case game_lowball27:
+      mode = enum_ordering_mode_lo;
+      break;
+    case game_holdem8:
+    case game_omaha8:
+    case game_7stud8:
+    case game_7studnsq:
+    case game_5draw8:
+    case game_5drawnsq:
+      mode = enum_ordering_mode_hilo;
+      break;
+    default:
+      return 1;
+    }
+    if (enumResultAlloc(result, npockets, mode))
+      return 1;
+  }
 
   if (game == game_holdem) {
     StdDeck_CardMask sharedCards;
@@ -453,13 +505,42 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
 int 
 enumSample(enum_game_t game, StdDeck_CardMask pockets[],
            StdDeck_CardMask board, StdDeck_CardMask dead,
-           int npockets, int nboard, int niter, enum_result_t *result) {
+           int npockets, int nboard, int niter, int orderflag,
+           enum_result_t *result) {
   int i;
   int numCards;
 
   enumResultClear(result);
   if (npockets > ENUM_MAXPLAYERS)
     return 1;
+  if (orderflag) {
+    enum_ordering_mode_t mode;
+    switch (game) {
+    case game_holdem:
+    case game_omaha:
+    case game_7stud:
+    case game_5draw:
+      mode = enum_ordering_mode_hi;
+      break;
+    case game_razz:
+    case game_lowball:
+    case game_lowball27:
+      mode = enum_ordering_mode_lo;
+      break;
+    case game_holdem8:
+    case game_omaha8:
+    case game_7stud8:
+    case game_7studnsq:
+    case game_5draw8:
+    case game_5drawnsq:
+      mode = enum_ordering_mode_hilo;
+      break;
+    default:
+      return 1;
+    }
+    if (enumResultAlloc(result, npockets, mode))
+      return 1;
+  }
 
   if (game == game_holdem) {
     StdDeck_CardMask sharedCards;
@@ -625,6 +706,48 @@ enumResultClear(enum_result_t *result) {
   memset(result, 0, sizeof(enum_result_t));
 }
 
+void
+enumResultFree(enum_result_t *result) {
+  if (result->ordering != NULL) {
+    if (result->ordering->hist != NULL)
+      free(result->ordering->hist);
+    free(result->ordering);
+  }
+}
+
+int
+enumResultAlloc(enum_result_t *result, int nplayers,
+                enum_ordering_mode_t mode) {
+  int nentries;
+  switch (mode) {
+  case enum_ordering_mode_hi:
+  case enum_ordering_mode_lo:
+    nentries = ENUM_ORDERING_NENTRIES(nplayers);
+    break;
+  case enum_ordering_mode_hilo:
+    nentries = ENUM_ORDERING_NENTRIES_HILO(nplayers);
+    break;
+  case enum_ordering_mode_none:
+    return 0;
+  default:
+    return 1;
+  }
+  if (nentries <= 0)
+    return 1;
+  result->ordering = (enum_ordering_t *) malloc(sizeof(enum_ordering_t));
+  if (result->ordering == NULL)
+    return 1;
+  result->ordering->mode = mode;
+  result->ordering->nplayers = nplayers;
+  result->ordering->nentries = nentries;
+  result->ordering->hist = (int *) calloc(nentries, sizeof(int));
+  if (result->ordering->hist == NULL) {
+    free(result->ordering);
+    return 1;
+  }
+  return 0;
+}
+
 enum_gameparams_t *
 enumGameParams(enum_game_t game) {
   if (game >= 0 && game < game_NUMGAMES)
@@ -632,6 +755,80 @@ enumGameParams(enum_game_t game) {
   else
     return NULL;
 }
+
+static void
+enumResultPrintOrdering(enum_result_t *result, int terse) {
+  int i, k;
+
+  if (!terse)
+    printf("Histogram of relative hand ranks:\n");
+  if (result->ordering->mode == enum_ordering_mode_hi ||
+      result->ordering->mode == enum_ordering_mode_lo) {
+    if (!terse) {
+      for (k=0; k<result->ordering->nplayers; k++)
+        printf(" %2c", 'A' + k);
+      printf(" %8s\n", "Freq");
+    } else
+      printf("ORD %d %d:", result->ordering->mode, result->ordering->nplayers);
+    for (i=0; i<result->ordering->nentries; i++) {
+      if (result->ordering->hist[i] > 0) {
+        for (k=0; k<result->ordering->nplayers; k++) {
+          int rank = ENUM_ORDERING_DECODE_K(i,
+                     result->ordering->nplayers, k);
+          if (rank == result->ordering->nplayers)
+            printf(" NQ");
+          else {
+            printf(" %2d", rank + 1);
+          }
+        }
+        printf(" %8d", result->ordering->hist[i]);
+        printf(terse ? "|" : "\n");
+      }
+    }
+  } else if (result->ordering->mode == enum_ordering_mode_hilo) {
+    if (!terse) {
+      printf("HI:");
+      for (k=0; k<result->ordering->nplayers; k++)
+        printf(" %2c", 'A' + k);
+      printf("  LO:");
+      for (k=0; k<result->ordering->nplayers; k++)
+        printf(" %2c", 'A' + k);
+      printf(" %8s\n", "Freq");
+    } else
+      printf("ORD %d %d:", result->ordering->mode, result->ordering->nplayers);
+    for (i=0; i<result->ordering->nentries; i++) {
+      if (result->ordering->hist[i] > 0) {
+        if (!terse)
+          printf("   ");
+        for (k=0; k<result->ordering->nplayers; k++) {
+          int rankhi = ENUM_ORDERING_DECODE_HILO_K_HI(i,
+                       result->ordering->nplayers, k);
+          if (rankhi == result->ordering->nplayers)
+            printf(" NQ");
+          else {
+            printf(" %2d", rankhi + 1);
+          }
+        }
+        if (!terse)
+          printf("     ");
+        for (k=0; k<result->ordering->nplayers; k++) {
+          int ranklo = ENUM_ORDERING_DECODE_HILO_K_LO(i,
+                       result->ordering->nplayers, k);
+          if (ranklo == result->ordering->nplayers)
+            printf(" NQ");
+          else {
+            printf(" %2d", ranklo + 1);
+          }
+        }
+        printf(" %8d", result->ordering->hist[i]);
+        printf(terse ? "|" : "\n");
+      }
+    }
+  }
+  if (terse)
+    printf("\n");
+}
+
 
 void
 enumResultPrint(enum_result_t *result, StdDeck_CardMask pockets[],
@@ -711,6 +908,9 @@ enumResultPrint(enum_result_t *result, StdDeck_CardMask pockets[],
       }
     }
   }
+
+  if (result->ordering != NULL)
+    enumResultPrintOrdering(result, 0);
 }
 
 void
@@ -718,7 +918,10 @@ enumResultPrintTerse(enum_result_t *result, StdDeck_CardMask pockets[],
                      StdDeck_CardMask board) {
   int i;
 
+  printf("EV %d:", result->nplayers);
   for (i=0; i<result->nplayers; i++)
-    printf("%8.6f ", result->ev[i] / result->nsamples);
+    printf(" %8.6f", result->ev[i] / result->nsamples);
   printf("\n");
+  if (result->ordering != NULL)
+    enumResultPrintOrdering(result, 1);
 }

@@ -31,30 +31,7 @@ public class Enumerate {
   /**
      Compute all-in pot equity of each player's hand, either by complete
      enumeration of outcomes or by monte carlo sampling.
-     @param gameType specifies game (holdem, omaha, etc)
-     @param nsamples number of monte carlo samples; if 0, full enumeration
-     @param pocketRanks pocketRanks[i][j] is rank of player i's jth card
-     @param pocketSuits pocketSuits[i][j] is suit of player i's jth card
-     @param boardRanks boardRanks[j] is rank of jth board card
-     @param boardSuits boardSuits[j] is suit of jth board card
-     @param deadRanks deadRanks[j] is rank of jth dead card
-     @param deadSuits deadSuits[j] is suit of jth dead card
-     @param ev output: ev[i] is pot equity of player i
-   */
-  public static native void PotEquity(int gameType,
-                                      int nsamples,
-                                      int[][] pocketRanks,
-                                      int[][] pocketSuits,
-                                      int[] boardRanks,
-                                      int[] boardSuits,
-                                      int[] deadRanks,
-                                      int[] deadSuits,
-                                      double[] ev);
-  
-  /**
-     Compute all-in pot equity of each player's hand, either by complete
-     enumeration of outcomes or by monte carlo sampling.
-     @param gameType specifies game (holdem, omaha, etc)
+     @param gameType specifies game (Enumerate.GAME_HOLDEM, etc)
      @param nsamples number of monte carlo samples; if 0, full enumeration
      @param pockets pockets[i] is bitmask of player i's cards
      @param board board is bitmask of board cards
@@ -69,57 +46,84 @@ public class Enumerate {
                                       double[] ev);
   
   /**
+     Compute all-in pot equity of each player's hand, either by complete
+     enumeration of outcomes or by monte carlo sampling.
+     @param gameType specifies game (Enumerate.GAME_HOLDEM, etc)
+     @param nsamples number of monte carlo samples; if 0, full enumeration
+     @param pockets pockets[i] is bitmask of player i's cards
+     @param board board is bitmask of board cards
+     @param dead dead is bitmask of dead cards
+     @param ev output: ev[i] is pot equity of player i
+     @param orderKeys output: orderKeys[0][j] corresponds to a particular
+     relative ordering of the players' hands at showdown, such that
+     orderKeys[0][j][k] is the relative rank of player k's hand, where rank=0
+     means best, rank=nplayers-1 means worst, and rank=nplayers indicates a
+     non-qualifying hand.  For high-low games, orderKeys[0][j][k+nplayers]
+     gives corresponding information for the low hand.  Before calling
+     the method, allocate orderKeys as a new int[1][][].
+     @param orderVals output: orderVals[0][j] the number of outcomes
+     corresponding to the relative rank ordering in orderKeys[0][j].  Before
+     calling the method, allocate orderVals as a new int[1][].*/
+  public static native void PotEquity(int gameType,
+                                      int nsamples,
+                                      long[] pockets,
+                                      long board,
+                                      long dead,
+                                      double[] ev,
+                                      int[][][] orderKeys,
+                                      int[][] orderVals);
+  
+  /**
      A simple test of Enumerate methods.
      Compare to "pokenum -h ks kh ad td 9c 8c -- kd jd th / As 2h".
+      and "pokenum -O -h ks kh ad td 9c 8c -- kd jd th / As 2h".
   */
   public static void main(String[] args) {
-    int[][] pocketRanks = new int[3][2];
-    int[][] pocketSuits = new int[3][2];
-    int[] boardRanks = new int[3];
-    int[] boardSuits = new int[3];
-    int[] deadRanks = new int[2];
-    int[] deadSuits = new int[2];
+    long[] pockets = new long[3];
+    long board;
+    long dead;
     // player 0 has Ks Kh
-    pocketRanks[0][0] = Deck.RANK_KING;
-    pocketSuits[0][0] = Deck.SUIT_SPADES;
-    pocketRanks[0][1] = Deck.RANK_KING;
-    pocketSuits[0][1] = Deck.SUIT_HEARTS;
+    pockets[0] = Deck.parseCardMask("Ks Kh");
 
     // player 1 has Ad Td
-    pocketRanks[1][0] = Deck.RANK_ACE;
-    pocketSuits[1][0] = Deck.SUIT_DIAMONDS;
-    pocketRanks[1][1] = Deck.RANK_TEN;
-    pocketSuits[1][1] = Deck.SUIT_DIAMONDS;
+    pockets[1] = Deck.parseCardMask("Ad Td");
 
     // player 2 has 9c 8c
-    pocketRanks[2][0] = Deck.RANK_9;
-    pocketSuits[2][0] = Deck.SUIT_CLUBS;
-    pocketRanks[2][1] = Deck.RANK_8;
-    pocketSuits[2][1] = Deck.SUIT_CLUBS;
+    pockets[2] = Deck.parseCardMask("9c 8c");
 
     // the board is Kd Jd Th
-    boardRanks[0] = Deck.RANK_KING;
-    boardSuits[0] = Deck.SUIT_DIAMONDS;
-    boardRanks[1] = Deck.RANK_JACK;
-    boardSuits[1] = Deck.SUIT_DIAMONDS;
-    boardRanks[2] = Deck.RANK_TEN;
-    boardSuits[2] = Deck.SUIT_HEARTS;
+    board = Deck.parseCardMask("Kd Jd Th");
 
     // another player folded As 2h
-    deadRanks[0] = Deck.RANK_ACE;
-    deadSuits[0] = Deck.SUIT_SPADES;
-    deadRanks[1] = Deck.RANK_2;
-    deadSuits[1] = Deck.SUIT_HEARTS;
+    dead = Deck.parseCardMask("As 2h");
 
-    double[] ev = new double[pocketRanks.length];
+    double[] ev = new double[pockets.length];
+    int[][][] orderKeys = new int[1][][];
+    int[][] orderVals = new int[1][];
     try {
-      PotEquity(GAME_HOLDEM, 0, pocketRanks, pocketSuits,
-                boardRanks, boardSuits, deadRanks, deadSuits, ev);
+
+      PotEquity(GAME_HOLDEM, 0, pockets, board, dead, ev);
       for (int i=0; i<ev.length; i++) {
         System.out.println("In Java: Player " + i + " ev=" + ev[i]);
       }
+      System.out.println();
+
+      PotEquity(GAME_HOLDEM, 0, pockets, board, dead, ev,
+                orderKeys, orderVals);
+      for (int i=0; i<ev.length; i++) {
+        System.out.println("In Java: Player " + i + " ev=" + ev[i]);
+      }
+      for (int j=0; j<orderKeys[0].length; j++) {
+        for (int k=0; k<orderKeys[0][j].length; k++) {
+          int place = orderKeys[0][j][k] + 1;
+          System.out.print(" " + place);
+        }
+        System.out.println(": " + orderVals[0][j]);
+      }
+
     } catch (Exception e) {
       System.out.println("In Java: caught exception: " + e);
+      e.printStackTrace();
     }
   }
 }

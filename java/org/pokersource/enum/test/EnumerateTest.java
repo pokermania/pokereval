@@ -74,19 +74,99 @@ public class EnumerateTest extends TestCase {
     dead = Deck.createCardMask(deadRanks, deadSuits);
   }
 
-  public void testPotEquity() {
-    // Compare to "pokenum -h ks kh ad td 9c 8c -- kd jd th / As 2h".
-    double[] ev = new double[pocketRanks.length];
-    Enumerate.PotEquity(Enumerate.GAME_HOLDEM, 0, pocketRanks, pocketSuits,
-                        boardRanks, boardSuits, deadRanks, deadSuits, ev);
-    assertEquals(0.531707317073, ev[0], 1e-10);
-    assertEquals(0.392682926829, ev[1], 1e-10);
-    assertEquals(0.075609756098, ev[2], 1e-10);
+  public void assertEquals(int[][] expected,
+                           int[][] observed) {
+    assertEquals(expected.length, observed.length);
+    for (int i=0; i<expected.length; i++) {
+      assertEquals(expected[i].length, observed[i].length);
+      for (int j=0; j<expected[i].length; j++) {
+        assertEquals(expected[i][j], observed[i][j]);
+      }
+    }
+  }
 
-    ev = new double[pockets.length];
+  public void assertEquals(int[][][] expected,
+                           int[][][] observed) {
+    assertEquals(expected.length, observed.length);
+    for (int i=0; i<expected.length; i++) {
+      assertEquals(expected[i].length, observed[i].length);
+      for (int j=0; j<expected[i].length; j++) {
+        assertEquals(expected[i][j].length, observed[i][j].length);
+        for (int k=0; k<expected[i][j].length; k++) {
+          assertEquals(expected[i][j][k], observed[i][j][k]);
+        }
+      }
+    }
+  }
+
+  public void testPotEquity1() {
+    // Compare to "pokenum -h ks kh ad td 9c 8c -- kd jd th / As 2h".
+    double[] ev = new double[pockets.length];
     Enumerate.PotEquity(Enumerate.GAME_HOLDEM, 0, pockets, board, dead, ev);
     assertEquals(0.531707317073, ev[0], 1e-10);
     assertEquals(0.392682926829, ev[1], 1e-10);
     assertEquals(0.075609756098, ev[2], 1e-10);
+  }
+
+  public void testPotEquity2() {
+    // Compare to "pokenum -h -O ks kh ad td 9c 8c -- kd jd th / As 2h".
+    double[] ev = new double[pockets.length];
+    int[][][] orderKeys = new int[1][][];
+    int[][] orderVals = new int[1][];
+    Enumerate.PotEquity(Enumerate.GAME_HOLDEM, 0, pockets, board, dead, ev,
+                        orderKeys, orderVals);
+    assertEquals(0.531707317073, ev[0], 1e-10);
+    assertEquals(0.392682926829, ev[1], 1e-10);
+    assertEquals(0.075609756098, ev[2], 1e-10);
+    int[][][] expectedKeys = {{{0, 0, 0},
+                               {0, 1, 2},
+                               {0, 2, 1},
+                               {1, 0, 1},
+                               {1, 0, 2},
+                               {1, 2, 0},
+                               {2, 0, 1}}};
+    int[][] expectedVals = {{6, 407, 27, 14, 154, 60, 152}};
+    assertEquals(expectedKeys, orderKeys);
+    assertEquals(expectedVals, orderVals);
+  }
+
+  public void testPotEquity3() {
+    // Compare to "pokenum -h8 -O Ah 2h 5s 3s 8h 8d -- 2s 4c 4d".
+    pockets[0] = Deck.parseCardMask("Ah 2h");
+    pockets[1] = Deck.parseCardMask("5s 3s");
+    pockets[2] = Deck.parseCardMask("8h 8d");
+    board = Deck.parseCardMask("2s 4c 4d");
+    dead = 0;
+    double[] ev = new double[pockets.length];
+    int[][][] orderKeys = new int[1][][];
+    int[][] orderVals = new int[1][];
+    Enumerate.PotEquity(Enumerate.GAME_HOLDEM8, 0, pockets, board, dead, ev,
+                        orderKeys, orderVals);
+    assertEquals(0.119601328904, ev[0], 1e-10);
+    assertEquals(0.373754152824, ev[1], 1e-10);
+    assertEquals(0.506644518272, ev[2], 1e-10);
+    int[][][] expectedKeys = {{{0, 1, 2, 3, 0, 3},
+                               {0, 2, 1, 0, 3, 1},
+                               {0, 2, 1, 3, 0, 3},
+                               {0, 2, 1, 3, 3, 3},
+                               {1, 0, 2, 3, 0, 1},
+                               {1, 0, 2, 3, 0, 3},
+                               {1, 1, 0, 3, 3, 3},
+                               {1, 2, 0, 1, 0, 3},
+                               {1, 2, 0, 3, 0, 3},
+                               {1, 2, 0, 3, 3, 3},
+                               {2, 0, 1, 0, 1, 2},
+                               {2, 0, 1, 1, 0, 2},
+                               {2, 0, 1, 3, 0, 3},
+                               {2, 0, 1, 3, 3, 3},
+                               {2, 1, 0, 0, 1, 2},
+                               {2, 1, 0, 0, 1, 3},
+                               {2, 1, 0, 1, 0, 3},
+                               {2, 1, 0, 3, 0, 3},
+                               {2, 1, 0, 3, 3, 3}}};
+    int[][] expectedVals = {{17, 9, 13, 54, 42, 61, 4, 7, 140, 220,
+                             24, 16, 92, 16, 24, 12, 9, 11, 132}};
+    assertEquals(expectedKeys, orderKeys);
+    assertEquals(expectedVals, orderVals);
   }
 }

@@ -1,3 +1,10 @@
+/* $Id$ */
+
+#ifndef ENUMDEFS_H
+#define ENUMDEFS_H
+
+#include "enumord.h"
+
 #define ENUM_MAXPLAYERS 12
 
 typedef enum {
@@ -30,6 +37,9 @@ typedef struct {
 typedef enum { ENUM_EXHAUSTIVE, ENUM_SAMPLE } enum_sample_t;
 
 typedef struct {
+  enum_game_t game;
+  enum_sample_t sampleType;
+  unsigned int nsamples;
   unsigned int nplayers;
   unsigned int nwinhi[ENUM_MAXPLAYERS];	/* qualifies for high and wins (no tie) */
   unsigned int ntiehi[ENUM_MAXPLAYERS];	/* qualifies for high and ties */
@@ -61,9 +71,7 @@ typedef struct {
   /* ev[i] is the pot equity of player i averaged over all outcomes */
   double ev[ENUM_MAXPLAYERS];
 
-  unsigned int nsamples;
-  enum_sample_t sampleType;
-  enum_game_t game;
+  enum_ordering_t *ordering;	/* detailed relative hand rank ordering */
 } enum_result_t;  
 
 extern void enumResultPrint(enum_result_t *result, StdDeck_CardMask pockets[],
@@ -72,10 +80,17 @@ extern void enumResultPrintTerse(enum_result_t *result,
                                  StdDeck_CardMask pockets[],
                                  StdDeck_CardMask board);
 extern void enumResultClear(enum_result_t *result);
+extern void enumResultFree(enum_result_t *result);
+extern int enumResultAlloc(enum_result_t *result, int nplayers,
+                           enum_ordering_mode_t mode);
 extern int enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
                           StdDeck_CardMask board, StdDeck_CardMask dead,
-                          int npockets, int nboard, enum_result_t *result);
+                          int npockets, int nboard, int orderflag,
+                          enum_result_t *result);
 extern int enumSample(enum_game_t game, StdDeck_CardMask pockets[],
                       StdDeck_CardMask board, StdDeck_CardMask dead,
-                      int npockets, int nboard, int niter, enum_result_t *result);
+                      int npockets, int nboard, int niter, int orderflag,
+                      enum_result_t *result);
 extern enum_gameparams_t *enumGameParams(enum_game_t game);
+
+#endif

@@ -4,11 +4,12 @@
 
 Note: games that use the joker are not yet implemented, though listed below.
 
-Usage: 
-$ pokenum [-mc niter] [-t]
+Typical usage: 
+$ pokenum [-mc niter] [-t] [-O]
           [-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]
           <pocket1> - <pocket2> - ... [ -- <board> ] [ / <dead> ]
       -t     terse output (one line, list of EV values)
+      -O     compute and output detailed relative rank ordering histogram
       -mc    sample monte-carlo style instead of full enumeration
       -h     holdem hi (default)
       -h8    holdem hi/lo 8-or-better
@@ -23,6 +24,14 @@ $ pokenum [-mc niter] [-t]
       -5dnsq 5-card draw hi/lo no stinking qualifier (with joker)
       -l     5-card draw ace-to-5 lowball (with joker)
       -l27   5-card draw deuce-to-seven lowball
+
+Streaming usage:
+$ pokenum -i
+followed by lines on stdin, one enumeration request per line, for example:
+  -t -h Ac 7c - 5s 4s - Ks Kd
+  -t -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h
+  -t -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h 4d
+  -t -mc 10000 -l27 5h 4h 3h / 5s Qd - 9s 8h 6d / Ks Kh
 
 Use '-' between each player (optional in flop games).
 Use '--' before the board (if any).
@@ -62,7 +71,7 @@ parseArgs(int argc, char **argv,
           enum_game_t *game, enum_sample_t *enumType, int *niter,
           StdDeck_CardMask pockets[], StdDeck_CardMask *board,
           StdDeck_CardMask *dead, int *npockets, int *nboard,
-          int *terse) {
+          int *orderflag, int *terse) {
   /* we have a type problem: we define the masks here as
      StdDeck_CardMask, which makes it impossible to hold jokers.
      we need to redesign some of the deck typing to make this work... */
@@ -75,6 +84,7 @@ parseArgs(int argc, char **argv,
   state = ST_OPTIONS;
   *npockets = *nboard = ncards = 0;
   *terse = 0;
+  *orderflag = 0;
   *game = game_holdem;
   *enumType = ENUM_EXHAUSTIVE;
   StdDeck_CardMask_RESET(*dead);
@@ -97,6 +107,8 @@ parseArgs(int argc, char **argv,
           argv++; argc--;                       /* put card back in list */
         } else if (strcmp(*argv, "-t") == 0) {
           *terse = 1;
+        } else if (strcmp(*argv, "-O") == 0) {
+          *orderflag = 1;
         } else if (strcmp(*argv, "-h") == 0) {
           *game = game_holdem;
         } else if (strcmp(*argv, "-h8") == 0) {
@@ -203,38 +215,74 @@ parseArgs(int argc, char **argv,
   return 0;
 }
 
+#define MAX_ARGS 100
+#define BUF_LEN 1000
+
 int 
 main(int argc, char **argv) {
   enum_game_t game;
   enum_sample_t enumType;
-  int niter, npockets, nboard, err, terse;
+  int niter, npockets, nboard, err, terse, orderflag;
   StdDeck_CardMask pockets[ENUM_MAXPLAYERS];
   StdDeck_CardMask board;
   StdDeck_CardMask dead;
   enum_result_t result;
+  int fromStdin;
 
-  if (parseArgs(argc, argv, &game, &enumType, &niter,
-                pockets, &board, &dead, &npockets, &nboard, &terse)) {
-    printf("usage: %s [-t] [-mc niter]\n", argv[0]);
-    printf("\t[-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]\n");
-    printf("\t<pocket1> - <pocket2> - ... [ -- <board> ] [ / <dead> ] ]\n");
-    return 1;
-  }
-  if (enumType == ENUM_EXHAUSTIVE) {
-    err = enumExhaustive(game, pockets, board, dead, npockets, nboard,
-                         &result);
-  } else if (enumType == ENUM_SAMPLE) {
-    err = enumSample(game, pockets, board, dead, npockets, nboard, niter,
-                     &result);
-  } else
-    err = 1;
-  if (err) {
-    printf("enumeration function failed err=%d\n", err);
-    return 1;
-  }
-  if (terse)
-    enumResultPrintTerse(&result, pockets, board);
-  else
-    enumResultPrint(&result, pockets, board);
-  return 0;
+  fromStdin = (argc == 2 && !strcmp(argv[1], "-i"));
+  if (fromStdin)
+    argv = (char **) malloc(MAX_ARGS * sizeof(char *));
+  do {
+    err = 0;
+    enumResultClear(&result);
+    if (fromStdin) {	/* read one line from stdin, split into argv/argc */
+      char buf[BUF_LEN], *p;
+      if (fgets(buf, sizeof(buf), stdin) == NULL)
+        break;
+      argc = 0;
+      argv[argc++] = "pokenum";
+      p = strtok(buf, " \t\r\n");
+      while (p != NULL) {
+        argv[argc++] = p;
+        p = strtok(NULL, " \t\r\n");
+      }
+    }
+    if (parseArgs(argc, argv, &game, &enumType, &niter,
+                  pockets, &board, &dead, &npockets, &nboard,
+                  &orderflag, &terse)) {
+      if (fromStdin) {
+        printf("ERROR\n");
+      } else {
+        printf("single usage: %s [-t] [-O] [-mc niter]\n", argv[0]);
+        printf("\t[-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]\n");
+        printf("\t<pocket1> - <pocket2> - ... [ -- <board> ] [ / <dead> ] ]\n");
+        printf("streaming usage: %s -i < argsfile\n", argv[0]);
+      }
+      err = 1;
+    } else {
+      if (enumType == ENUM_EXHAUSTIVE) {
+        err = enumExhaustive(game, pockets, board, dead, npockets, nboard,
+                             orderflag, &result);
+      } else if (enumType == ENUM_SAMPLE) {
+        err = enumSample(game, pockets, board, dead, npockets, nboard, niter,
+                         orderflag, &result);
+      } else {
+        err = 1;
+      }
+      if (err) {
+        if (fromStdin)
+          printf("ERROR\n");
+        else
+          printf("enumeration function failed err=%d\n", err);
+      } else {
+        if (terse)
+          enumResultPrintTerse(&result, pockets, board);
+        else
+          enumResultPrint(&result, pockets, board);
+      }
+    }
+    enumResultFree(&result);
+    fflush(stdout);
+  } while (fromStdin);
+  return err;
 }
