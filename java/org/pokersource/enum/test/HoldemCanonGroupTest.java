@@ -9,7 +9,7 @@ import org.pokersource.game.Deck;
 import java.util.Iterator;
 
 /**
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemCanonGroupTest extends TestCase {

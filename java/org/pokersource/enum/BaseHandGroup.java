@@ -12,7 +12,7 @@ import java.util.Set;
  poker games.  Subclasses can override if necessary.
  @see HandGroup
  @see HoldemHandGroup
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class BaseHandGroup implements HandGroup, Comparable {

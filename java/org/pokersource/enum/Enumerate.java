@@ -6,7 +6,7 @@ import org.pokersource.game.Deck;
 
 /** Algorithms for enumerating or sampling the outcomes of a poker hand
  matchup.
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class Enumerate {

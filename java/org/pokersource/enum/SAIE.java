@@ -16,7 +16,7 @@ import java.util.TreeMap;
  opponent(s) and assuming no further betting.  Beliefs about an opponent's
  hand distribution are represented by a BeliefVector object which maps each
  possible opponent hand to the probability of its occurrence.
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class SAIE {

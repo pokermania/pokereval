@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
  groups G_1 through G_{i-1}.  A typical usage is define the G_i as the 169
  canonical hand groups.
 
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemHandOrdering extends HandValuation {

@@ -5,7 +5,7 @@ package org.pokersource.enum;
 import java.util.StringTokenizer;
 
 /** A concrete implementation of BeliefVector for the game of Holdem.
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemBeliefVector extends BeliefVector {

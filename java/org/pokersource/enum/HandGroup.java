@@ -12,7 +12,7 @@ import java.util.Set;
  like HoldemHandGroup define these groups for specific games.
  @see BaseHandGroup
  @see HoldemHandGroup
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public interface HandGroup {

@@ -29,7 +29,7 @@ import java.util.HashSet;
  Note that these hand groups are not mutually disjoint.  For example,
  the hand group 9xs+ overlaps with 86s+, as both include 97s.
 
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 

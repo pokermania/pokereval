@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import org.pokersource.game.Deck;
 
 /** Tests to ensure compatibility with the C-language macros.
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class DeckTest extends TestCase {

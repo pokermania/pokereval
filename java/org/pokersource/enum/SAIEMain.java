@@ -46,7 +46,7 @@ import java.util.TreeMap;
  vectors)
  @see HoldemHandOrdering HoldemHandOrdering (for the format of hand rank
  ordering files)
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class SAIEMain {
@@ -132,7 +132,7 @@ public class SAIEMain {
     board = dead = 0;
     beliefs.clear();
     try {
-      Getopt g = new Getopt("SAIEMain", argv, "b:d:m:n:r:Oti");
+      Getopt g = new Getopt("SAIEMain", argv, "b:d:m:n:r:Otiv:");
       int c;
       while ((c = g.getopt()) != -1) {
         switch (c) {
@@ -178,6 +178,9 @@ public class SAIEMain {
             break;
           case 'i':
             stdinFlag = true;
+            break;
+          case 'v':
+            verbose = Integer.parseInt(g.getOptarg());
             break;
           case '?':
             return false;

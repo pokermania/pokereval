@@ -8,7 +8,7 @@ import java.util.Random;
 /** Like NestedLoopEnumeration, but rather than visiting every entry in
  turn, randomly samples with replacement.
  @see NestedLoopEnumeration
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class NestedLoopSampling implements Enumeration {

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class SAIETest extends TestCase {
@@ -70,6 +70,20 @@ public class SAIETest extends TestCase {
             mask5h4h3d, 0, ev, null, null);
     assertEquals(0.416602297485, ev[0], 1e-10);
     assertEquals(0.583397702515, ev[1], 1e-10);
+
+    // KhQc vs TdTc with board of QhJhThTs
+    SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
+            new BeliefVector[]{bv1, bv4},
+            Deck.parseCardMask("QhJhThTs"), 0, ev, null, null);
+    assertEquals(2 / 44.0d, ev[0], 1e-10);
+    assertEquals(42 / 44.0d, ev[1], 1e-10);
+
+    // KhQc vs TdTc with board of QhThTs
+    SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
+            new BeliefVector[]{bv1, bv4},
+            Deck.parseCardMask("QhThTs"), 0, ev, null, null);
+    assertEquals(3 / 990.0d, ev[0], 1e-10);
+    assertEquals(987 / 990.0d, ev[1], 1e-10);
   }
 
   public void testFlopGameSAIE_Matchup() {

@@ -15,7 +15,8 @@ import java.util.HashSet;
  create a new group consisting of those G_i whose strength exceeds some
  minimum value.
 
- @author Michael Maurer <mjmaurer@yahoo.com> */
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
+*/
 
 public class ThresholdHandGroup extends BaseHandGroup {
   private static Perl5Compiler compiler;

@@ -9,7 +9,7 @@ import java.util.HashMap;
  calling the constructors of subclasses, as the factory maintains a cache
  of immutable instances.
 
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemHandGroupFactory {

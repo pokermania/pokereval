@@ -11,7 +11,7 @@ import java.util.Iterator;
 
 /** A holdem hand group representing sets of starting hands defined using
  canonical notation: "KK", "AQs", "T9".
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemCanonGroup extends BaseHandGroup

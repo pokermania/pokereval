@@ -10,7 +10,7 @@ import org.pokersource.util.IntArray;
  if values[i]==1, then one player has a better hand than player i, etc.
  If values[i]==values.length then player i does not have a qualifying hand.
 
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class RankOrdering extends IntArray {

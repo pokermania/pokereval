@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 /** A holdem hand group representing sets of starting hands corresponding
  to Sklansky & Malmuth groups.  "SM1" is group 1, etc., with "SM9"
  defined to be all hands not included in groups 1-8.
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemSMGroup extends BaseHandGroup

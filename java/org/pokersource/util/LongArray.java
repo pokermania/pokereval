@@ -10,7 +10,7 @@ package org.pokersource.util;
  compareTo() method is defined lexicographically, with shorter arrays
  comparing less than longer arrays having the same starting elements.
 
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class LongArray implements Comparable {

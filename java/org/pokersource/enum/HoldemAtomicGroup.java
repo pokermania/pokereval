@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 /** A holdem hand group representing one exact starting hand such as
  "AhKh".
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemAtomicGroup extends BaseHandGroup

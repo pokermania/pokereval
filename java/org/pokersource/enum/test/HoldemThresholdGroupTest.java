@@ -10,7 +10,7 @@ import org.pokersource.enum.ThresholdHandGroup;
 import org.pokersource.game.Deck;
 
 /**
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HoldemThresholdGroupTest extends TestCase {

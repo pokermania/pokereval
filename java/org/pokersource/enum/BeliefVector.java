@@ -11,7 +11,7 @@ import java.util.Iterator;
 /** Represents subjective beliefs about the possible hands held by a
  player.  Maintains a mapping from each hand to its probability of
  occurrence.
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public abstract class BeliefVector {

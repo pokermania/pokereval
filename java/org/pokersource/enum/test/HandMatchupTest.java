@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import org.pokersource.enum.HandMatchup;
 
 /**
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HandMatchupTest extends TestCase {

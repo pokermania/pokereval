@@ -8,7 +8,7 @@ import org.pokersource.util.ValueSortedMap;
 import java.util.List;
 
 /**
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class ValueSortedMapTest extends TestCase {

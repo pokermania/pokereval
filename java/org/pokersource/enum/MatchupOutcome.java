@@ -7,7 +7,7 @@ package org.pokersource.enum;
  matchup, where a matchup is a confrontation between players who each
  hold a single known hand.
  @see HandMatchup
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class MatchupOutcome {

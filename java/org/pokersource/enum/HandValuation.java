@@ -13,7 +13,7 @@ import java.util.List;
  Maintains a mapping from HandGroup to numeric value; defines methods for
  sorting and selecting subsets of hand groups based on their numeric value.
 
- @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer &lt;<a href="mailto:mjmaurer@yahoo.com">mjmaurer@yahoo.com</a>&gt;
  */
 
 public class HandValuation {
