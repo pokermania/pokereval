@@ -23,9 +23,9 @@ CFLAGS=""
 
 if test "$target_vendor" = "apple" ; then
   AC_ARG_WITH(mac-target,
-      [  --with-mac-target=TARGET  either `carbon' (default) or `darwin'],
+      [  --with-mac-target=TARGET  either `darwin' (default) or `carbon'],
       mac_target="$withval",
-      mac_target="carbon")
+      mac_target="darwin")
   case "$mac_target" in
     carbon)
       BUILD_HOST="carbon"
@@ -49,21 +49,26 @@ if test "$target_vendor" = "apple" ; then
   AC_ARG_WITH(fink,
       [  --with-fink=PATH    if PATH is omitted, /sw is used],
       fink_prefix="$withval",
-      fink_prefix="none")
-  if test $fink_prefix != none; then
-    if test $fink_prefix = yes; then
+      fink_prefix="yes")
+  if test "$fink_prefix" != no; then
+    if test "$fink_prefix" = yes; then
       fink_prefix=/sw
     fi
-    CPPFLAGS="$CPPFLAGS -I${fink_prefix}/include"
-    LIBS="$LIBS -L${fink_prefix}/lib"
-    AC_MSG_RESULT([yes, prefix is $fink_prefix])
-  else
-    AC_MSG_RESULT(no)
-    AC_MSG_NOTICE([
+
+    if test -d "${fink_prefix}" ; then
+      CPPFLAGS="$CPPFLAGS -I${fink_prefix}/include"
+      LIBS="$LIBS -L${fink_prefix}/lib"
+      AC_MSG_RESULT([yes, prefix is $fink_prefix])
+    else
+      AC_MSG_RESULT(no)
+      AC_MSG_NOTICE([
 
   ** We recommend you install Fink (http://fink.sf.net) for the 3rd party
-  ** libraries. Then you can invoke configure with --with-fink.
+  ** libraries.  Re-run configure, and Fink will be detected automatically.
                   ])
+    fi
+  else
+    AC_MSG_RESULT(no, disabled)
   fi
 else
   BUILD_HOST="unix"
