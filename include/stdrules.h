@@ -40,6 +40,16 @@ typedef union {
   | (1 << StdDeck_Rank_4 ) \
   | (1 << StdDeck_Rank_5 ))
 
+extern const char *StdRules_handTypeNames[StdRules_HandType_COUNT];
+extern const char *StdRules_handTypeNamesPadded[StdRules_HandType_COUNT];
+
+extern int StdRules_nSigCards[StdRules_HandType_COUNT];
+
+extern int 
+StdRules_handvalToString(StdRules_HandVal handval, char *outString); 
+extern int 
+StdRules_printHandval(StdRules_HandVal handval); 
+
 
 #ifndef NONSTANDARD_RULES
 #define HandVal            StdRules_HandVal
@@ -55,4 +65,14 @@ typedef union {
 #define HandType_STFLUSH   StdRules_HandType_STFLUSH    
 #define HandType_FIRST     StdRules_HandType_FIRST  
 #define HandType_COUNT     StdRules_HandType_COUNT     
+
+#define handTypeNames        StdRules_handTypeNames
+#define handTypeNamesPadded  StdRules_handTypeNamesPadded
+#define nSigCards            StdRules_nSigCards
+
+#define Rules_handvalToString StdRules_handvalToString
+#define Rules_printHandval    StdRules_printHandval
+
+#define PokerHand_EVAL_N   StdRules_HANDEVAL
 #endif
+

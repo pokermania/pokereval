@@ -84,6 +84,23 @@ do {                                            \
   do { (mask).cards_nn.n1 = (mask).cards_nn.n2 = 0; } while (0)
 #endif
 
+extern uint8          nBitsTable[StdDeck_N_RANKMASKS];
+extern uint32  topFiveCardsTable[StdDeck_N_RANKMASKS];
+extern uint32    topFiveBitTable[StdDeck_N_RANKMASKS];
+extern uint8        topCardTable[StdDeck_N_RANKMASKS];
+extern uint32        topBitTable[StdDeck_N_RANKMASKS];
+extern uint8       straightTable[StdDeck_N_RANKMASKS];
+extern StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
+
+extern const char StdDeck_rankChars[StdDeck_Rank_COUNT];
+extern const char StdDeck_suitChars[StdDeck_Suit_COUNT];
+
+extern int StdDeck_cardToString(int cardIndex, char *outString);
+extern int StdDeck_maskToString(StdDeck_CardMask cardMask, char *outString);
+extern int StdDeck_printCard(int cardIndex);
+extern int StdDeck_printMask(StdDeck_CardMask cardMask);
+extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask outMask);
+
 
 #ifndef NONSTANDARD_DECK
 #define Deck_FIRST_CARD   StdDeck_FIRST_CARD
@@ -91,6 +108,12 @@ do {                                            \
 #define Deck_MASK         StdDeck_MASK
 #define Deck_RANK         StdDeck_RANK
 #define Deck_SUIT         StdDeck_SUIT
+
+#define Deck_cardToString StdDeck_cardToString
+#define Deck_maskToString StdDeck_maskToString
+#define Deck_printCard    StdDeck_printCard
+#define Deck_printMask    StdDeck_printMask
+#define Deck_stringToMask StdDeck_stringToMask
 
 #define CardMask          StdDeck_CardMask 
 #define CardMask_OR       StdDeck_CardMask_OR
@@ -110,12 +133,13 @@ do {                                            \
 #define Rank_ACE          StdDeck_Rank_ACE
 #define Rank_FIRST        StdDeck_Rank_FIRST 
 #define Rank_COUNT        StdDeck_Rank_COUNT
+
+#define Suit_HEARTS       StdDeck_Suit_HEARTS
+#define Suit_DIAMONDS     StdDeck_Suit_DIAMONDS
+#define Suit_CLUBS        StdDeck_Suit_CLUBS
+#define Suit_SPADES       StdDeck_Suit_SPADES
+#define Suit_FIRST        StdDeck_Suit_FIRST
+#define Suit_COUNT        StdDeck_Suit_COUNT
+
 #endif
 
-extern uint8          nBitsTable[StdDeck_N_RANKMASKS];
-extern uint32  topFiveCardsTable[StdDeck_N_RANKMASKS];
-extern uint32    topFiveBitTable[StdDeck_N_RANKMASKS];
-extern uint8        topCardTable[StdDeck_N_RANKMASKS];
-extern uint32        topBitTable[StdDeck_N_RANKMASKS];
-extern uint8       straightTable[StdDeck_N_RANKMASKS];
-extern StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
