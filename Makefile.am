@@ -26,6 +26,10 @@
 # 
 EXTRA_DIST = \
 	config/build.m4 config/ccache.m4 bootstrap \
+	examples/Makefile.dos \
+	include/Makefile.dos \
+	lib/Makefile.dos \
+	tests/Makefile.dos \
 	WHATS-HERE
 
 SUBDIRS = \
