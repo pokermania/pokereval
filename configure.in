@@ -1,0 +1,37 @@
+AC_INIT(lib/stddeck.c)
+AC_CONFIG_HEADER(include/config.h)
+
+dnl Checks for programs.
+AC_PROG_RANLIB
+AC_PROG_CC
+
+dnl Checks for header files.
+AC_HEADER_STDC
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+AC_C_BIGENDIAN
+AC_CHECK_SIZEOF(long)
+AC_CHECK_SIZEOF(int)
+
+dnl Check for existence of "long long" type
+AC_MSG_CHECKING(if compiler supports long long integer types)
+AC_TRY_COMPILE([],
+               [ long long a; ],
+               [cf_longlong=yes],
+               [cf_longlong=no])
+AC_MSG_RESULT($cf_longlong)
+test $cf_longlong = yes && AC_DEFINE(HAVE_INT64)
+test $cf_longlong = yes && AC_DEFINE(HAVE_LONG_LONG)
+
+if test $GCC = yes; then 
+  CFLAGS="-g -O4 -Wall -finline-functions -Winline -fomit-frame-pointer"
+fi
+
+AC_SUBST(CC)
+AC_SUBST(CFLAGS)
+AC_SUBST(RANLIB)
+
+AC_OUTPUT(lib/Makefile)
+
