@@ -1,0 +1,62 @@
+Sun Nov 07 15:53:27 2004  Loic Dachary  <loic@gnu.org>
+
+	* Release 0.124
+	
+	* include/enumerate.h: apply macro/comma related patch from Martin Stjernholm
+	  http://sourceforge.net/mailarchive/forum.php?thread_id=5586390&forum_id=40226
+
+Sun Nov 07 13:55:00 2004  Loic Dachary  <loic@gnu.org>
+
+	* WHATS-HERE.Java: cut/paste java related stuff from WHATS-HERE
+
+	* WHATE-HERE, README: review and update
+	
+	* test/digest[57].c: rewrite into enumtest[57] to get rid of md5 
+	  dependency
+	
+	* lib/*md5*,include/md5.h: license problem and do not belong here
+	
+	* include/{,inlines/}*.h: add or update copyright notice at the beginning of the file.
+	  Add POKEREVAL_EXPORT markers to extern symbols, include pokereval_export.h when
+	  doing so. Add multiple inclusion guards when missing.
+	
+	* include/enumerate.h: random is called rand if WIN32 is defined
+
+	* include/pokereval_export.h: add file to cope with
+	  POKEREVAL_EXPORT keyword made to enable the use of poker-eval as
+	  a shared library on windows.
+
+	* include/Makefile.am (nobase_pkginclude_HEADERS): pokereval_export.h
+
+	* lib/mktable.c: %xLL is %xi64 if WIN32 is defined
+
+Sun Nov 07 11:42:07 2004  Loic Dachary  <loic@gnu.org>
+
+	* tests/run.in : tests from Makefile.in are now in a script. Accomodate for
+	  md5sum change in calling syntax
+
+	* configure.ac: detect awk / md5sum
+	
+	* configure.ac/Makefile.am: java is not included in the distribution until
+	  licensing issues are solved.
+	
+	* include/deck_std.h (StdDeck_CardMask_OP): missing backslash at end of line
+
+	* config/ccache.m4, config/build.m4: macros for configure.ac
+
+	* configure.ac: modern configure for autoconf2.5, do not override configure.in that
+	  is still the default for older configures
+
+	* include/poker_config.h.in: obsoletes include/config.h.in to avoid name conflicts
+	  when distributing the headers. include/config.h is still being used for inclusions
+	  within the poker-eval sources but is not published.
+
+	* bootstrap: script to re-generate autotools files
+
+	* poker-eval.pc.in: add pkg-config declaration file
+
+	* AUTHORS: add missing list of authors
+
+	* NEWS: RELEASE is now NEWS (standard file) but RELEASE is kept back
+
+	* {include,tests,lib,examples}/Makefile.am : automake compatibility
