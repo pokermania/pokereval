@@ -3,7 +3,7 @@ LIBPOKER=libpoker@A@
 MKTABLE_HELPERS = mktable@O@ mktable_utils@O@
 
 OBJ=$(DERIVED_SOURCES:.c=@O@) \
-	deck@O@ deck_std@O@ rules_std@O@ evx@O@ \
+	deck@O@ deck_std@O@ rules_std@O@ rules_joker@O@ evx@O@ \
 	deck_astud@O@ rules_astud@O@ deck_joker@O@ lowball@O@ \
 	md5c@O@ 
 
@@ -15,7 +15,7 @@ PACKED_TABLES = \
 EVX_TABLES = \
 	t_evx_pairval.c t_evx_strval.c t_evx_tripsval.c t_evx_flushcards.c
 ASTUD_TABLES = t_astudcardmasks.c
-JOKER_TABLES = t_jokercardmasks.c
+JOKER_TABLES = t_jokercardmasks.c t_jokerstraight.c
 LOWBALL_TABLES = t_botfivecards.c t_botcard.c t_botfivecardsj.c
 
 EVX_HEADERS = ../include/inlines/evx5.h ../include/inlines/evx7.h

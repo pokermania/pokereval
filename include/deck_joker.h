@@ -119,6 +119,8 @@ do {                                              \
 
 extern JokerDeck_CardMask JokerDeck_cardMasksTable[JokerDeck_N_CARDS];
 
+extern uint8              jokerStraightTable[StdDeck_N_RANKMASKS];
+ 
 extern int JokerDeck_cardToString(int cardIndex, char *outString);
 extern int JokerDeck_stringToCard(char *inString, int *outCard);
 

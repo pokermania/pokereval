@@ -27,7 +27,7 @@ JokerDeck_Lowball_EVAL(JokerDeck_CardMask cards, int n_cards) {
 
   ranks = sc | ss | sd | sh;
   if (!(ranks & (1 << JokerDeck_Rank_ACE)))
-    rank = JokerDeck_Rank_ACE;
+    rank = 1 << JokerDeck_Rank_ACE;
   else 
     for (rank= (1 << JokerDeck_Rank_2); 
 	 rank <= (1 << JokerDeck_Rank_KING); 

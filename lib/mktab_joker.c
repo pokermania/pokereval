@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "poker_defs.h"
-#include "jokerdeck.h"
+#include "deck_joker.h"
 #include "mktable.h"
 
 #define JCM_COMMENT_STRING \
@@ -9,6 +9,14 @@
  "The output mask has only one bit set, the bit corresponding to the card\n" \
  "identified by the index." 
 #define JCM_FILENAME "t_jokercardmasks"
+
+#define JST_COMMENT_STRING \
+ "straightTable[].  Maps 13-bit rank masks to a value indicating if a \n"    \
+ "straight would be present if we had a joker, and if so, the rank of \n"    \
+ "the high card.  Zero means no straight, even though zero corresponds\n"    \
+ "to deuce, but since there is no such thing as a deuce-high straight, \n"  \
+ "that's OK. "
+#define JST_FILENAME "t_jokerstraight"
 
 
 
@@ -22,7 +30,7 @@ doCardMaskTable(void) {
                   "JokerDeck_CardMask", 
                   JokerDeck_N_CARDS);
   MakeTable_comment(JCM_COMMENT_STRING);
-  MakeTable_extraCode("#include \"jokerdeck.h\"");
+  MakeTable_extraCode("#include \"deck_joker.h\"");
   for (i=0; i<JokerDeck_N_CARDS; i++) {
     JokerDeck_CardMask_RESET(c);
     if (JokerDeck_IS_JOKER(i))
@@ -55,9 +63,36 @@ doCardMaskTable(void) {
 }
 
 
+static void 
+doStraightTable(void) {
+  int i, j;
+
+  MakeTable_begin("jokerStraightTable", 
+                  JST_FILENAME, 
+                  "uint8", 
+                  StdDeck_N_RANKMASKS);
+  MakeTable_comment(JST_COMMENT_STRING);
+  for (i=0; i < StdDeck_N_RANKMASKS; i++) {
+    int maxSf = 0, sf;
+    for (j=StdDeck_Rank_FIRST; j <= StdDeck_Rank_LAST; j++) {
+      sf = straight_func(i | (1 << j));
+      if (sf > maxSf) 
+        maxSf = sf;
+    };
+    
+    MakeTable_outputUInt8(maxSf);
+  };
+
+  MakeTable_end();
+}
+
+
+
+
 int 
 main(int argc, char **argv) {
   doCardMaskTable();
+  doStraightTable();
 
   return 0;
 }

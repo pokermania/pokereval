@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "poker_defs.h"
-#include "jokerdeck.h"
+#include "deck_joker.h"
 
 const char JokerDeck_rankChars[] = "23456789TJQKA";
 const char JokerDeck_suitChars[] = "hdcs";
