@@ -133,7 +133,7 @@ do {                                            \
 #define StdDeck_CardMask_ANY_SET(mask1, mask2)                          \
   (( (mask1).cards_n & (mask2).cards_n) != 0 )                 
 #else                                                                   
-#define StdDeck_CardMask_ANY_SET(mask, index)                           \
+#define StdDeck_CardMask_ANY_SET(mask1, mask2)                           \
   ((( (mask1).cards_nn.n1 & (mask2).cards_nn.n1) != 0 )                 \
    || (( (mask1).cards_nn.n2 & (mask2).cards_nn.n2) != 0 ))           
 #endif
