@@ -43,7 +43,11 @@
 	#  ifdef POKEREVAL_LIBRARY
 	#    define POKEREVAL_EXPORT   __declspec(dllexport)
 	#  else
-	#    define POKEREVAL_EXPORT   "C"__declspec(dllimport)
+	#    ifdef __cplusplus
+	#       define POKEREVAL_EXPORT   "C" __declspec(dllimport)
+        #    else
+	#       define POKEREVAL_EXPORT   __declspec(dllimport)
+        #    endif
 	#  endif /* POKEREVAL_LIBRARY */
 #else
 	#  define POKEREVAL_EXPORT
