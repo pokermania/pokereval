@@ -7,6 +7,7 @@
 #undef Hand_EVAL_N
 #undef Hand_EVAL_TYPE
 #undef Hand_EVAL_LOW
+#undef Hand_EVAL_LOW8
 
 #define Hand_EVAL_N           AStudDeck_AStudRules_EVAL_N
 #define Hand_EVAL_TYPE(m, n)  HandVal_HANDTYPE(Hand_EVAL_N((m), (n)))
