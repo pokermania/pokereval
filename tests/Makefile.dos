@@ -13,12 +13,12 @@ LIB_CMD = LIB /OUT:$@ $**
 
 all: tests
 
-tests: digtest5.exe digtest7.exe joktest1.exe enumtest1.exe enumtest2.exe enumtest3.exe
+tests: enumtest5.exe enumtest7.exe joktest1.exe enumtest1.exe enumtest2.exe enumtest3.exe
 
-digtest5.exe : digtest5.obj $(LIBPOKER)
+enumtest5.exe : enumtest5.obj $(LIBPOKER)
 	$(CC_EXE)
 
-digtest7.exe : digtest7.obj $(LIBPOKER)
+enumtest7.exe : enumtest7.obj $(LIBPOKER)
 	$(CC_EXE)
 
 joktest1.exe : joktest1.obj $(LIBPOKER)
@@ -34,7 +34,7 @@ enumtest3.exe : enumtest3.obj $(LIBPOKER)
 	$(CC_EXE)
 
 clean:
-	$(RM) *.obj core digtest5.exe digtest7.exe joktest1.exe
+	$(RM) *.obj core enumtest5.exe enumtest7.exe joktest1.exe
 	$(RM) enumtest1.exe enumtest2.exe enumtest3.exe
 
 .c.obj:
@@ -59,13 +59,15 @@ test : tests
 		then echo "		Passed"; \
 		else echo "		Failed"; \
 	fi
-	@echo -n "digtest5: 5-card hands..."
-	@if [ `./digtest5` = "1f066feff1a8b3406fe069c05c4ba17d" ]; \
+	@echo -n "enumtest5: 5-card hands...  "
+	@if [ `./enumtest5 | md5sum - | awk '{print $$1}'` \
+		= 1f066feff1a8b3406fe069c05c4ba17d ] ; \
 		then echo "		Passed"; \
 		else echo "		Failed"; \
 	fi
-	@echo -n "digtest7: 7-card hands..."
-	@if [ `./digtest7` = "03a86bd2deac3052bbe93256e0d7b156" ]; \
+	@echo -n "enumtest7: 7-card hands...  "
+	@if [ `./enumtest7 | md5sum - | awk '{print $$1}'` \
+		= 03a86bd2deac3052bbe93256e0d7b156 ] ; \
 		then echo "		Passed"; \
 		else echo "		Failed"; \
 	fi

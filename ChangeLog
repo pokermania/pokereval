@@ -1,6 +1,6 @@
 Thu Nov 25 12:27:09 2004  Loic Dachary  <loic@gnu.org>
 
-	* "Nick Wilton" <info@nickwilton.info> header patches for compilation on windows
+	* "Nick Wilton" <info@nickwilton.info> header patches + Makefiles for compilation on windows
 
 Mon Nov 15 20:20:43 2004  Loic Dachary  <loic@gnu.org>
 

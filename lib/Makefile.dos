@@ -7,7 +7,7 @@ MKTABLE_HELPERS = mktable.obj mktable_utils.obj
 OBJ=$(DERIVED_SOURCES:.c=.obj) \
 	deck.obj deck_std.obj rules_std.obj rules_joker.obj evx.obj \
 	deck_astud.obj rules_astud.obj deck_joker.obj lowball.obj \
-	md5c.obj enumerate.obj enumord.obj combinations.obj 
+	enumerate.obj enumord.obj combinations.obj 
 
 BASIC_TABLES = \
 	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_topfivebits.c \
