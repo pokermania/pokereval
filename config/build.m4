@@ -95,7 +95,7 @@ if test "$enable_debug" = "yes" ; then
 else
   WARNING="-Wall -Wpointer-arith"
   DEBUG=""
-  OPTIMIZE="-march=$host_cpu -O3"
+  OPTIMIZE="-O3"
   DEFINE=""
 fi
 CPPFLAGS="$CPPFLAGS $WARNING $OPTIMIZE $OPTION $DEFINE"

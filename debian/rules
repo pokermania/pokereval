@@ -3,7 +3,7 @@
 # Sample debian/rules that uses debhelper.
 # GNU copyright 1997 to 1999 by Joey Hess.
 
-# debuild -uc -us -i'(?:^|/)\.#.*$|(?:^|/).*~$|(?:^|/)\..*\.swp|DEADJOE|\.cvsignore|configure.in|Makefile.dos|saie|LICENSE.*|RELEASE|md5.*|digtest.*|WHATS-HERE.Java|(?:/(?:java|CVS|RCS|\.deps|\{arch\}|\.arch-ids|\.svn))(?:$|/.*$)'
+# debuild -uc -us -i'(?:^|/)\.#.*$|(?:^|/).*~$|(?:^|/)\..*\.swp|DEADJOE|\.cvsignore|configure.in|Makefile.dos|saie|LICENSE.*|RELEASE|.*\.vcproj|.*\.sln|md5.*|digtest.*|WHATS-HERE.Java|(?:/(?:java|CVS|RCS|\.deps|\{arch\}|\.arch-ids|\.svn))(?:$|/.*$)'
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
