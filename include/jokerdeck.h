@@ -38,6 +38,10 @@
 
 typedef uint32 JokerDeck_RankMask;
 
+/* 
+   It is important that the hearts, spades, clubs, and diamonds fields 
+   in JokerDeck_CardMask agree with the definition for StdDeck_CardMask!  
+*/
 typedef union {
 #ifdef HAVE_INT64
   uint64  cards_n;
@@ -47,15 +51,27 @@ typedef union {
   } cards_nn;
 #endif
   struct {
-    uint32         : (16 - JokerDeck_Rank_COUNT - 1);
+#ifdef WORDS_BIGENDIAN
+    uint32         : 2;
     uint32 joker   : 1;
-    uint32 spades  : JokerDeck_Rank_COUNT;
-    uint32         : (16 - JokerDeck_Rank_COUNT);
-    uint32 clubs   : JokerDeck_Rank_COUNT;
-    uint32         : (16 - JokerDeck_Rank_COUNT);
-    uint32 diamonds: JokerDeck_Rank_COUNT;
-    uint32         : (16 - JokerDeck_Rank_COUNT);
-    uint32 hearts  : JokerDeck_Rank_COUNT;
+    uint32 spades  : 13;
+    uint32         : 3;
+    uint32 clubs   : 13;
+    uint32         : 3;
+    uint32 diamonds: 13;
+    uint32         : 3;
+    uint32 hearts  : 13;
+#else
+    uint32 spades  : 13;
+    uint32         : 3;
+    uint32 clubs   : 13;
+    uint32         : 3;
+    uint32 diamonds: 13;
+    uint32         : 3;
+    uint32 hearts  : 13;
+    uint32 joker   : 1;
+    uint32         : 2;
+#endif
   } cards;
 } JokerDeck_CardMask;
 
