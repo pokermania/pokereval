@@ -58,24 +58,24 @@ StdRules_HandVal StdRules_handValues[HandType_COUNT] = {
 int 
 StdRules_handvalToString(StdRules_HandVal handval, char *outString) {
   char *p = outString;
-  int htype = HandVal_GET_HANDTYPE(handval);
+  int htype = HandVal_HANDTYPE(handval);
 
   p += sprintf(outString, "%s (", handTypeNames[htype]);
   if (StdRules_nSigCards[htype] >= 1) 
     p += sprintf(p, "%c", 
-                 StdDeck_rankChars[HandVal_GET_TOP_CARD(handval)]);
+                 StdDeck_rankChars[HandVal_TOP_CARD(handval)]);
   if (StdRules_nSigCards[htype] >= 2) 
     p += sprintf(p, " %c", 
-                 StdDeck_rankChars[HandVal_GET_SECOND_CARD(handval)]);
+                 StdDeck_rankChars[HandVal_SECOND_CARD(handval)]);
   if (StdRules_nSigCards[htype] >= 3) 
     p += sprintf(p, " %c", 
-                 StdDeck_rankChars[HandVal_GET_THIRD_CARD(handval)]);
+                 StdDeck_rankChars[HandVal_THIRD_CARD(handval)]);
   if (StdRules_nSigCards[htype] >= 4) 
     p += sprintf(p, " %c", 
-                 StdDeck_rankChars[HandVal_GET_FOURTH_CARD(handval)]);
+                 StdDeck_rankChars[HandVal_FOURTH_CARD(handval)]);
   if (StdRules_nSigCards[htype] >= 5) 
     p += sprintf(p, " %c", 
-                 StdDeck_rankChars[HandVal_GET_FIFTH_CARD(handval)]);
+                 StdDeck_rankChars[HandVal_FIFTH_CARD(handval)]);
   p += sprintf(p, ")");
 
   return p - outString;
