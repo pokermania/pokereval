@@ -39,7 +39,7 @@ int main( void )
 
   ctx = MD5Begin();
   StdDeck_stringToMask("Ad Ah", &peggedCards);
-  ENUMERATE_5_CARDS(cards, 
+  ENUMERATE_5_CARDS_D(cards, peggedCards, 
                     {
                       StdDeck_CardMask_OR(cards1, cards, peggedCards);
                       handval1 = StdRules_HANDEVAL(cards1, 7);
