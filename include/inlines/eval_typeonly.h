@@ -1,5 +1,6 @@
 /*
  *  eval_type.h: a fast poker hand evaluator -- evaluates only the hand type
+ *  Should be small enough to stay in the L1 cache, if we're lucky. 
  *
  *  Copyright (C) 1999 Brian Goetz
  *
@@ -35,82 +36,81 @@ static inline int
 StdRules_EVAL_TYPEONLY( CardMask cards, int n_cards )
 {
   uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
-    n_dups, n_ranks, is_straight = 0, is_flush = 0;
+    n_dups, n_ranks, is_st_or_fl = 0;
 
   ranks = SC | SD | SH | SS;
   n_ranks = nBitsAndStrTable[ranks] & 0x0F;
 
   if (n_ranks >= 5) {
-    is_straight = nBitsAndStrTable[ranks] & 0xF0;
+    if (nBitsAndStrTable[ranks] & 0xF0)
+      is_st_or_fl = StdRules_HandType_STRAIGHT;
     if ((nBitsAndStrTable[cards.cards.spades] & 0x0F) >= 5) {
       if (nBitsAndStrTable[cards.cards.spades] & 0xF0) 
         return StdRules_HandType_STFLUSH;
       else
-        is_flush = 1;
+        is_st_or_fl = StdRules_HandType_FLUSH;
     } 
     else if ((nBitsAndStrTable[cards.cards.clubs] & 0x0F) >= 5) {
       if (nBitsAndStrTable[cards.cards.clubs] & 0xF0) 
         return StdRules_HandType_STFLUSH;
       else
-        is_flush = 1;
+        is_st_or_fl = StdRules_HandType_FLUSH;
     } 
     else if ((nBitsAndStrTable[cards.cards.diamonds] & 0x0F) >= 5) {
       if (nBitsAndStrTable[cards.cards.diamonds] & 0xF0) 
         return StdRules_HandType_STFLUSH;
       else
-        is_flush = 1;
+        is_st_or_fl = StdRules_HandType_FLUSH;
     } 
     else if ((nBitsAndStrTable[cards.cards.hearts] & 0x0F) >= 5) {
       if (nBitsAndStrTable[cards.cards.hearts] & 0xF0) 
         return StdRules_HandType_STFLUSH;
       else
-        is_flush = 1;
+        is_st_or_fl = StdRules_HandType_FLUSH;
     } 
   };
 
   n_dups = n_cards - n_ranks;
-  if (n_dups < 3) {
-    if (is_flush)
-      return StdRules_HandType_FLUSH;
-    else if (is_straight)
-      return StdRules_HandType_STRAIGHT;
-  };
 
   switch (n_dups) {
   case 0:
+    if (is_st_or_fl)
+      return is_st_or_fl;
+    else 
+      return HandType_NOPAIR;
     break;
 
   case 1:
-    two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
+    if (is_st_or_fl)
+      return is_st_or_fl;
+    else
+      return StdRules_HandType_ONEPAIR;
     break;
 
   case 2:
+    if (is_st_or_fl)
+      return is_st_or_fl;
     two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
-    three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
+    if (!two_mask) 
+      return HandType_TRIPS;
+    else
+      return HandType_TWOPAIR;
     break;
 
   default:
-    four_mask  = SH & SD & SC & SS;
-    two_mask   = (~(SC ^ SD ^ SH ^ SS) & ranks) ^ four_mask;
+    four_mask  = (SC&SD) & (SH&SS);
+    if (four_mask) 
+      return HandType_QUADS;
     three_mask = (( SC&SD )|( SH&SS )) & (( SC&SH )|( SD&SS ));
+    if (three_mask) 
+      return HandType_FULLHOUSE;
+    else if (is_st_or_fl)
+      return is_st_or_fl;
+    else 
+      return HandType_TWOPAIR;
+
     break;
   };
 
-  if (four_mask) 
-    return HandType_QUADS;
-  else if (three_mask && (n_dups >= 3)) 
-    return HandType_FULLHOUSE;
-  else if (is_flush)
-    return StdRules_HandType_FLUSH;
-  else if (is_straight)
-    return StdRules_HandType_STRAIGHT;
-  else if (three_mask) 
-    return HandType_TRIPS;
-  else if (n_dups == 0) 
-    return HandType_NOPAIR;
-  else if (n_dups == 1) 
-    return HandType_ONEPAIR;
-  else 
-    return HandType_TWOPAIR;
 }
 #endif
