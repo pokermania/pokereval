@@ -515,3 +515,4 @@ do {                                                                       \
 #define ENUMERATE_N_CARDS(c,n,a) DECK_ENUMERATE_N_CARDS(Deck, c, n, a)
 #define ENUMERATE_N_CARDS_D(c,n,d,a) DECK_ENUMERATE_N_CARDS_D(Deck, c, n, d, a)
 
+
