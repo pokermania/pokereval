@@ -50,7 +50,7 @@ doTripsValueTable(void) {
     cards ^= val;
     val |= top_bit_func(cards);
     if (val)
-      val |= (StdRules_HandType_TRIPS << EvxHandVal_TYPE_SHIFT);
+      val |= EvxHandVal_TRIPS;
     MakeTable_outputUInt32(val);
   };
 
@@ -72,7 +72,7 @@ doStraightValueTable(void) {
 
     sv = straight_func(i);
     val = sv ? 
-      (1 << sv) | (StdRules_HandType_STRAIGHT << EvxHandVal_TYPE_SHIFT) : 0;
+      (1 << sv) | EvxHandVal_STRAIGHT : 0;
     MakeTable_outputUInt32(val);
   };
 
@@ -99,7 +99,7 @@ doPairValueTable(void) {
     retval ^= temp;
     cards ^= temp;
     retval |= top_bit_func(cards) 
-              | (StdRules_HandType_ONEPAIR << EvxHandVal_TYPE_SHIFT);
+              | EvxHandVal_ONEPAIR;
 
     MakeTable_outputUInt32(retval);
   };

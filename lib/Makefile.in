@@ -9,7 +9,7 @@ OBJ=$(DERIVED_SOURCES:.c=.o) \
 
 BASIC_TABLES = \
 	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_topfivebits.c \
-        t_toptwobits.c t_cardmasks.c t_rankmasks.c t_straight.c 
+        t_toptwobits.c t_cardmasks.c t_maskrank.c t_straight.c 
 PACKED_TABLES = \
 	t_nbitsandstr.c
 EVX_TABLES = \

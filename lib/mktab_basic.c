@@ -49,12 +49,12 @@
  "is no such thing as a deuce-high straight, that's OK. "
 #define ST_FILENAME "t_straight"
 
-#define RM_COMMENT_STRING \
- "StdDeck_rankMasksTable[].  Maps card ranks (2..A) to a cardmask which\n"   \
+#define MR_COMMENT_STRING \
+ "StdDeck_masksRanksTable[].  Maps card ranks (2..A) to a cardmask which\n"   \
  "has all the bits set except the bits corresponding to the cards whose\n"   \
  "have the input rank.  This is a quick way to mask off all the cards of\n"  \
  "a specific rank."
-#define RM_FILENAME "t_rankmasks"
+#define MR_FILENAME "t_maskrank"
 
 
 
@@ -242,14 +242,14 @@ doCardMaskTable(void) {
 
 
 static void 
-doRankMaskTable(void) {
+doMaskRankTable(void) {
   int i;
 
-  MakeTable_begin("StdDeck_rankMasksTable", 
-                  RM_FILENAME, 
+  MakeTable_begin("StdDeck_maskRankTable", 
+                  MR_FILENAME, 
                   "StdDeck_CardMask", 
                   StdDeck_Rank_COUNT);
-  MakeTable_comment(RM_COMMENT_STRING);
+  MakeTable_comment(MR_COMMENT_STRING);
   for (i=0; i < StdDeck_Rank_COUNT; i++) {
     StdDeck_CardMask c;
 
@@ -277,7 +277,7 @@ doRankMaskTable(void) {
 int 
 main(int argc, char **argv) {
   doCardMaskTable();
-  doRankMaskTable();
+  doMaskRankTable();
   doNBitsTable();
   doTopCardTable();
   doTopBitTable();
