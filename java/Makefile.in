@@ -64,27 +64,29 @@ $(JNILIB): $(JNI_OBJS)
 $(JNI_OBJS): $(JNI_HEADER)
 
 test: $(CLASSFILES)
-	java org.pokersource.AllTests
+	LD_LIBRARY_PATH=../lib:$$LD_LIBRARY_PATH \
+		$(JAVA) -classpath .:$(JARFILE):$$CLASSPATH \
+		 org.pokersource.AllTests
 
 develtest: $(CLASSFILES)
-	java org.pokersource.eval.StandardEval
-	java org.pokersource.eval.JokerEval
-	java org.pokersource.eval.AsianStudEval
-	java org.pokersource.enum.Enumerate
-	java org.pokersource.enum.HoldemAtomicGroup AhQh
-	java org.pokersource.enum.HoldemCanonGroup AA
-	java org.pokersource.enum.HoldemCanonGroup KQs
-	java org.pokersource.enum.HoldemCanonGroup T9
-	java org.pokersource.enum.HoldemSMGroup SM2
-	java org.pokersource.enum.HoldemUniversalGroup
-	java org.pokersource.enum.HoldemBeliefVector "AhKh" "AA KK:50 QQ:20"
-	java org.pokersource.enum.SAIE 0 0 "AhKh" "AKs" "4h 5h 6h" ""
-	java org.pokersource.enum.SAIE 0 0 "87s+" "77" "7h 6h 5h" ""
-	java org.pokersource.enum.SAIE 0 0 "KhQc" "SM1 SM2 SM3" "4h 5h 3d" ""
-	java org.pokersource.enum.SAIE 0 0 "KhQc" "SM1 SM2 SM3 SM4 SM5" "4h 5h 3d" ""
-	java org.pokersource.enum.SAIE 0 0 "KhQc" "<any>" "4h 5h 3d" ""
-	java org.pokersource.enum.SAIE 100 0 "KhQc" "<any>" "4h 5h 3d" ""
-	java org.pokersource.enum.SAIE 100 0 "SM1 SM2" "<any>" "4h 5h 3d" ""
+	$(JAVA) org.pokersource.eval.StandardEval
+	$(JAVA) org.pokersource.eval.JokerEval
+	$(JAVA) org.pokersource.eval.AsianStudEval
+	$(JAVA) org.pokersource.enum.Enumerate
+	$(JAVA) org.pokersource.enum.HoldemAtomicGroup AhQh
+	$(JAVA) org.pokersource.enum.HoldemCanonGroup AA
+	$(JAVA) org.pokersource.enum.HoldemCanonGroup KQs
+	$(JAVA) org.pokersource.enum.HoldemCanonGroup T9
+	$(JAVA) org.pokersource.enum.HoldemSMGroup SM2
+	$(JAVA) org.pokersource.enum.HoldemUniversalGroup
+	$(JAVA) org.pokersource.enum.HoldemBeliefVector "AhKh" "AA KK:50 QQ:20"
+	$(JAVA) org.pokersource.enum.SAIE 0 0 "AhKh" "AKs" "4h 5h 6h" ""
+	$(JAVA) org.pokersource.enum.SAIE 0 0 "87s+" "77" "7h 6h 5h" ""
+	$(JAVA) org.pokersource.enum.SAIE 0 0 "KhQc" "SM1 SM2 SM3" "4h 5h 3d" ""
+	$(JAVA) org.pokersource.enum.SAIE 0 0 "KhQc" "SM1 SM2 SM3 SM4 SM5" "4h 5h 3d" ""
+	$(JAVA) org.pokersource.enum.SAIE 0 0 "KhQc" "<any>" "4h 5h 3d" ""
+	$(JAVA) org.pokersource.enum.SAIE 100 0 "KhQc" "<any>" "4h 5h 3d" ""
+	$(JAVA) org.pokersource.enum.SAIE 100 0 "SM1 SM2" "<any>" "4h 5h 3d" ""
 
 Makefile: Makefile.in
 .PHONY: javadoc

@@ -36,8 +36,12 @@ The "make test" command will run several test programs to ensure that
 everything works correctly.  On slow machines, the tests may take
 several minutes.  (Note: The make files may have some dependencies on GNU
 make; if this is the case, they may need to be edited before the
-library and test programs will compile properly.)  
+library and test programs will compile properly.)
 
+After you have a working build, you may want to:
+* add the lib directory to your LD_LIBRARY_PATH environment variable
+* add the java/pokersource.jar file to your CLASSPATH environment variable
+* add the examples directory to your PATH environment variable
 
 Compiling -- Windows, using cygwin: 
 
