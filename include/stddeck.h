@@ -107,6 +107,8 @@ extern uint32  topFiveCardsTable[StdDeck_N_RANKMASKS];
 extern uint32    topFiveBitTable[StdDeck_N_RANKMASKS];
 extern uint8        topCardTable[StdDeck_N_RANKMASKS];
 extern uint32        topBitTable[StdDeck_N_RANKMASKS];
+extern uint32    topTwoBitsTable[StdDeck_N_RANKMASKS];
+extern uint32   topFiveBitsTable[StdDeck_N_RANKMASKS];
 extern uint8       straightTable[StdDeck_N_RANKMASKS];
 extern StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
 
