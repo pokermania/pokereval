@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="0"
-				AdditionalIncludeDirectories="poker-eval/include"
+				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
 				StringPooling="FALSE"
 				MinimalRebuild="TRUE"
@@ -91,7 +91,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="poker-eval/include"
+				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE,POKEREVAL_LIBRARY"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -158,7 +158,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="poker-eval\lib\mktab_packed.c">
+				RelativePath="lib\mktab_packed.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -173,7 +173,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\mktable.c">
+				RelativePath="lib\mktable.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -188,7 +188,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\mktable_utils.c">
+				RelativePath="lib\mktable_utils.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool

@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="0"
-				AdditionalIncludeDirectories="poker-eval/include"
+				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				StringPooling="FALSE"
 				MinimalRebuild="TRUE"
@@ -45,7 +45,9 @@
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="Performing registration"
+				CommandLine="&quot;$(TargetPath)&quot; /RegServer"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -74,7 +76,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="poker-eval/include"
+				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE,POKEREVAL_LIBRARY"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -127,7 +129,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="poker-eval\lib\mktab_lowball.c">
+				RelativePath="lib\mktab_lowball.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -142,7 +144,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\mktable.c">
+				RelativePath="lib\mktable.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -157,7 +159,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\mktable_utils.c">
+				RelativePath="lib\mktable_utils.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool

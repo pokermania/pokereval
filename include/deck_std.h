@@ -196,7 +196,11 @@ do {                                            	\
 #define StdDeck_CardMask_IS_EMPTY(mask) \
   ((mask).cards_nn.n1 == 0 && (mask).cards_nn.n2 == 0)
 #endif
-
+/*
+#ifdef __cplusplus
+extern "C" {
+#endif
+*/
 extern POKEREVAL_EXPORT uint8             nBitsTable[StdDeck_N_RANKMASKS];
 extern POKEREVAL_EXPORT uint32     topFiveCardsTable[StdDeck_N_RANKMASKS];
 extern POKEREVAL_EXPORT uint32       topFiveBitTable[StdDeck_N_RANKMASKS];
@@ -205,15 +209,19 @@ extern POKEREVAL_EXPORT uint32           topBitTable[StdDeck_N_RANKMASKS];
 extern POKEREVAL_EXPORT uint32       topTwoBitsTable[StdDeck_N_RANKMASKS];
 extern POKEREVAL_EXPORT uint32      topFiveBitsTable[StdDeck_N_RANKMASKS];
 extern POKEREVAL_EXPORT uint8          straightTable[StdDeck_N_RANKMASKS];
-
+/*
+#ifdef __cplusplus
+}
+#endif
+*/
 extern POKEREVAL_EXPORT uint32  bottomFiveCardsTable[StdDeck_N_RANKMASKS];
 extern POKEREVAL_EXPORT uint32  bottomFiveJokerTable[StdDeck_N_RANKMASKS];
 extern POKEREVAL_EXPORT uint8        bottomCardTable[StdDeck_N_RANKMASKS];
 
 extern POKEREVAL_EXPORT StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
 
-extern POKEREVAL_EXPORT const char StdDeck_rankChars[StdDeck_Rank_LAST+1];
-extern POKEREVAL_EXPORT const char StdDeck_suitChars[StdDeck_Suit_LAST+1];
+extern POKEREVAL_EXPORT char StdDeck_rankChars[StdDeck_Rank_LAST+1];
+extern POKEREVAL_EXPORT char StdDeck_suitChars[StdDeck_Suit_LAST+1];
 
 extern POKEREVAL_EXPORT int StdDeck_cardToString(int cardIndex, char *outString);
 extern POKEREVAL_EXPORT int StdDeck_stringToCard(char *inString, int *outCard);

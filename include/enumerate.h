@@ -95,9 +95,9 @@ them (with replacement).
 #include <stdlib.h>
 #include "pokereval_export.h"
 
-/*#ifdef WIN32
-#define random rand
-#endif*/
+#ifndef RANDOM
+#define RANDOM rand
+#endif
 
 #define DECK_ENUMERATE_1_CARDS(deck, cards_var, action) \
 do {                                                    \

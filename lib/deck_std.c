@@ -3,8 +3,11 @@
 #include "poker_defs.h"
 
 
-const char StdDeck_rankChars[] = "23456789TJQKA";
-const char StdDeck_suitChars[] = "hdcs";
+
+char StdDeck_rankChars[] = "23456789TJQKA";
+char StdDeck_suitChars[] = "hdcs";
+
+int tototo[8];
 
 
 int 

@@ -40,19 +40,35 @@
 #endif
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__) || defined( __BCPLUSPLUS__)  || defined( __MWERKS__)
-	#  ifdef POKEREVAL_LIBRARY
-	#    define POKEREVAL_EXPORT   __declspec(dllexport)
-        #    define RANDOM rand
-	#  else
-	#    ifdef __cplusplus
-	#       define POKEREVAL_EXPORT   "C" __declspec(dllimport)
-        #    else
-	#       define POKEREVAL_EXPORT   __declspec(dllimport)
-        #    endif
-	#  endif /* POKEREVAL_LIBRARY */
-#else
-	#  define POKEREVAL_EXPORT
-#endif  
 
+	#ifndef POKERVAL_DLL
+		#ifdef __cplusplus
+			#define POKEREVAL_EXPORT "C"
+		#else
+			#define POKEREVAL_EXPORT
+		#endif
+	#else
+		#ifdef POKEREVAL_LIBRARY
+			#ifdef __cplusplus
+				#define POKEREVAL_EXPORT "C" __declspec(dllexport)
+			#else
+				#define POKEREVAL_EXPORT "C"
+			#endif
+		#else
+			#ifdef __cplusplus
+				#define POKEREVAL_EXPORT "C" __declspec(dllimport)
+			#else
+				#define POKEREVAL_EXPORT "C"
+			#endif
+		#endif
+	#endif
+
+#else
+	#ifdef __cplusplus
+		#define POKEREVAL_EXPORT "C"
+	#else
+		#define POKEREVAL_EXPORT
+	#endif
+#endif
 
 #endif

@@ -23,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="0"
-				AdditionalIncludeDirectories="poker-eval/include"
+				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;POKEREVAL_LIBRARY"
 				StringPooling="FALSE"
 				MinimalRebuild="TRUE"
@@ -85,7 +85,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="FALSE"
-				AdditionalIncludeDirectories="poker-eval/include"
+				AdditionalIncludeDirectories="include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;POKEREVAL_LIBRARY"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -141,7 +141,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="poker-eval\lib\combinations.c">
+				RelativePath="lib\combinations.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -156,7 +156,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\deck.c">
+				RelativePath="lib\deck.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -171,7 +171,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\deck_astud.c">
+				RelativePath="lib\deck_astud.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -186,7 +186,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\deck_joker.c">
+				RelativePath="lib\deck_joker.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -201,7 +201,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\deck_std.c">
+				RelativePath="lib\deck_std.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -216,7 +216,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\enumerate.c">
+				RelativePath="lib\enumerate.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -231,7 +231,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\evx.c">
+				RelativePath=".\lib\enumord.c">
+			</File>
+			<File
+				RelativePath="lib\evx.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -246,7 +249,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\lowball.c">
+				RelativePath="lib\lowball.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -261,7 +264,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\md5c.c">
+				RelativePath="lib\md5c.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -276,7 +279,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\rules_astud.c">
+				RelativePath="lib\rules_astud.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -291,7 +294,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\rules_joker.c">
+				RelativePath="lib\rules_joker.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -306,7 +309,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="poker-eval\lib\rules_std.c">
+				RelativePath="lib\rules_std.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -385,67 +388,67 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
-				RelativePath="poker-eval\include\combinations.h">
+				RelativePath="include\combinations.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\deck.h">
+				RelativePath="include\deck.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\deck_astud.h">
+				RelativePath="include\deck_astud.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\deck_joker.h">
+				RelativePath="include\deck_joker.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\deck_std.h">
+				RelativePath="include\deck_std.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\deck_undef.h">
+				RelativePath="include\deck_undef.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\enumdefs.h">
+				RelativePath="include\enumdefs.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\enumerate.h">
+				RelativePath="include\enumerate.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\evx_defs.h">
+				RelativePath="include\evx_defs.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\game_astud.h">
+				RelativePath="include\game_astud.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\game_joker.h">
+				RelativePath="include\game_joker.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\game_std.h">
+				RelativePath="include\game_std.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\handval.h">
+				RelativePath="include\handval.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\handval_low.h">
+				RelativePath="include\handval_low.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\md5c.h">
+				RelativePath="include\md5c.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\poker_defs.h">
+				RelativePath="include\poker_defs.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\pokereval_export.h">
+				RelativePath="include\pokereval_export.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\rules_astud.h">
+				RelativePath="include\rules_astud.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\rules_joker.h">
+				RelativePath="include\rules_joker.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\rules_std.h">
+				RelativePath="include\rules_std.h">
 			</File>
 			<File
-				RelativePath="poker-eval\include\rules_undef.h">
+				RelativePath="include\rules_undef.h">
 			</File>
 		</Filter>
 		<Filter
