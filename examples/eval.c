@@ -47,17 +47,17 @@ parseArgs(int argc, char **argv) {
 
 int 
 main(int argc, char **argv) {
-  StdRules_HandVal handval;
+  HandVal handval;
 
   gNCards = 0;
   StdDeck_CardMask_RESET(gCards);
   parseArgs(argc, argv);
 
-  handval = StdRules_HANDEVAL(gCards, gNCards);
+  handval = Hand_EVAL_N(gCards, gNCards);
 
   Deck_printMask(gCards);
   printf(": ");                                 
-  Rules_printHandval(handval);                  
+  HandVal_print(handval);                  
   printf("\n");                                 
 
   return 0;

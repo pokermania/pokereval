@@ -42,21 +42,8 @@ int StdRules_nSigCards[HandType_COUNT] = {
   1
 };
 
-StdRules_HandVal StdRules_handValues[HandType_COUNT] = {
-  (HandType_NOPAIR    << HandVal_HANDTYPE_SHIFT), 
-  (HandType_ONEPAIR   << HandVal_HANDTYPE_SHIFT), 
-  (HandType_TWOPAIR   << HandVal_HANDTYPE_SHIFT), 
-  (HandType_TRIPS     << HandVal_HANDTYPE_SHIFT), 
-  (HandType_STRAIGHT  << HandVal_HANDTYPE_SHIFT), 
-  (HandType_FLUSH     << HandVal_HANDTYPE_SHIFT), 
-  (HandType_FULLHOUSE << HandVal_HANDTYPE_SHIFT), 
-  (HandType_QUADS     << HandVal_HANDTYPE_SHIFT), 
-  (HandType_STFLUSH   << HandVal_HANDTYPE_SHIFT), 
-};
-  
-
 int 
-StdRules_handvalToString(StdRules_HandVal handval, char *outString) {
+HandVal_toString(HandVal handval, char *outString) {
   char *p = outString;
   int htype = HandVal_HANDTYPE(handval);
 
@@ -82,11 +69,11 @@ StdRules_handvalToString(StdRules_HandVal handval, char *outString) {
 }
 
 int 
-StdRules_printHandval(StdRules_HandVal handval) {
+HandVal_print(HandVal handval) {
   char buf[80];
   int n;
 
-  n = StdRules_handvalToString(handval, buf);
+  n = HandVal_toString(handval, buf);
   printf("%s", buf);
   return n;
 }

@@ -29,12 +29,12 @@
 #include "inlines/eval.h"
 
 int gNCards, gNPegged;
-StdDeck_CardMask gDeadCards, gPeggedCards;
+CardMask gDeadCards, gPeggedCards;
 
 static void
 parseArgs(int argc, char **argv) {
   int i, seenCards = 0;
-  StdDeck_CardMask c;
+  CardMask c;
 
   for (i = 1; i < argc; ++i) {
     if (argv[i][0] == '-') {
@@ -45,16 +45,16 @@ parseArgs(int argc, char **argv) {
       } 
       else if (strcmp(argv[i], "-d") == 0) {
 	if (++i == argc) goto error;
-        if (StdDeck_stringToMask(argv[i], &c) != 1)
+        if (Deck_stringToMask(argv[i], &c) != 1)
           goto error;
-        StdDeck_CardMask_OR(gDeadCards, gDeadCards, c);
+        CardMask_OR(gDeadCards, gDeadCards, c);
       } 
       else 
         goto error;
     } else {
-      if (StdDeck_stringToMask(argv[i], &c) != 1)
+      if (Deck_stringToMask(argv[i], &c) != 1)
         goto error;
-      StdDeck_CardMask_OR(gPeggedCards, gPeggedCards, c);
+      CardMask_OR(gPeggedCards, gPeggedCards, c);
       ++gNPegged;
     }
   }
@@ -78,21 +78,21 @@ static void dump_totals(void) {
 
 int 
 main(int argc, char **argv) {
-  StdDeck_CardMask hand, cards;
-  StdRules_HandVal handval;
+  CardMask hand, cards;
+  HandVal handval;
 
   gNCards = 7;
-  StdDeck_CardMask_RESET(gDeadCards);
-  StdDeck_CardMask_RESET(gPeggedCards);
+  CardMask_RESET(gDeadCards);
+  CardMask_RESET(gPeggedCards);
   parseArgs(argc, argv);
 
   Deck_printMask(gPeggedCards);
 
   ENUMERATE_N_CARDS_D(cards, (gNCards-gNPegged), gDeadCards, 
                       {
-                        StdDeck_CardMask_OR(hand, cards, gPeggedCards);
-                        handval = StdRules_HANDEVAL(hand, gNCards);
-                        ++totals[StdRules_HandVal_HANDTYPE(handval)];
+                        CardMask_OR(hand, cards, gPeggedCards);
+                        handval = Hand_EVAL_N(hand, gNCards);
+                        ++totals[HandVal_HANDTYPE(handval)];
                       });
   dump_totals();
   return 0;

@@ -28,22 +28,18 @@ static uint8 next_card(uint32 *ms_cardsp, uint32 *ls_cardsp)
 }
 
 
-StdRules_HandVal 
+HandVal 
 EvxHandVal_toHandVal(EvxHandVal ehv) {
-  StdRules_HandVal hv;
   uint32 ls_cards, ms_cards, cards;
   int i;
 
-  hv = EvxHandVal_GETTYPE(ehv) << StdRules_HandVal_HANDTYPE_SHIFT;
-    
   ms_cards = (ehv >> EvxHandVal_SIGCARDS_SHIFT) & EvxHandVal_RANK_MASK;
   ls_cards =  ehv & EvxHandVal_RANK_MASK;
   cards = 0;
 
   for (i=0; i<5; i++) 
-    cards = (cards << StdRules_HandVal_CARD_WIDTH) 
+    cards = (cards << HandVal_CARD_WIDTH) 
       + next_card(&ms_cards, &ls_cards);
-  hv += cards;
 
-  return hv;
+  return HandVal_HANDTYPE_VALUE(EvxHandVal_HANDTYPE(ehv)) + cards;
 }

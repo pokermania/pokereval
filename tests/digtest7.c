@@ -29,7 +29,7 @@
 int main( void )
 {
   CardMask cards, cards1, peggedCards;
-  StdRules_HandVal handval1, handval2;
+  HandVal handval1, handval2;
   EvxHandVal evxHandVal;
   Md5Context ctx;
   Md5RawDigest raw;
@@ -42,11 +42,11 @@ int main( void )
   ENUMERATE_5_CARDS_D(cards, peggedCards, 
                     {
                       StdDeck_CardMask_OR(cards1, cards, peggedCards);
-                      handval1 = StdRules_HANDEVAL(cards1, 7);
-                      evxHandVal = StdRules_EVAL_X7(cards1.cards.clubs, 
-                                                    cards1.cards.diamonds,
-                                                    cards1.cards.hearts,
-                                                    cards1.cards.spades);
+                      handval1 = Hand_EVAL_N(cards1, 7);
+                      evxHandVal = Hand_EVAL_X7(cards1.cards.clubs, 
+                                                cards1.cards.diamonds,
+                                                cards1.cards.hearts,
+                                                cards1.cards.spades);
                       handval2 = EvxHandVal_toHandVal(evxHandVal);
                       if (handval1 != handval2)
                         {
@@ -54,9 +54,9 @@ int main( void )
                           printf("0\n");
                           Deck_printMask(cards);                        
                           printf(": ");                                 
-                          Rules_printHandval(handval1);                  
+                          HandVal_print(handval1);                  
                           printf(", ");
-                          Rules_printHandval(handval2);                  
+                          HandVal_print(handval2);                  
                           printf("\n");                                 
                           exit(0);
                         }

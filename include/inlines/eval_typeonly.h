@@ -41,10 +41,12 @@ StdRules_EVAL_TYPEONLY( CardMask cards, int n_cards )
 
   ranks = SC | SD | SH | SS;
   n_ranks = nBitsAndStrTable[ranks] & 0x0F;
+  n_dups = n_cards - n_ranks;
 
   if (n_ranks >= 5) {
     if (nBitsAndStrTable[ranks] & 0xF0)
       is_st_or_fl = StdRules_HandType_STRAIGHT;
+
     if ((nBitsAndStrTable[cards.cards.spades] & 0x0F) >= 5) {
       if (nBitsAndStrTable[cards.cards.spades] & 0xF0) 
         return StdRules_HandType_STFLUSH;
@@ -69,28 +71,21 @@ StdRules_EVAL_TYPEONLY( CardMask cards, int n_cards )
       else
         is_st_or_fl = StdRules_HandType_FLUSH;
     } 
-  };
 
-  n_dups = n_cards - n_ranks;
+    if (is_st_or_fl && n_dups < 3)
+      return is_st_or_fl;
+  };
 
   switch (n_dups) {
   case 0:
-    if (is_st_or_fl)
-      return is_st_or_fl;
-    else 
-      return HandType_NOPAIR;
+    return HandType_NOPAIR;
     break;
 
   case 1:
-    if (is_st_or_fl)
-      return is_st_or_fl;
-    else
-      return StdRules_HandType_ONEPAIR;
+    return StdRules_HandType_ONEPAIR;
     break;
 
   case 2:
-    if (is_st_or_fl)
-      return is_st_or_fl;
     two_mask   = ~(SC ^ SD ^ SH ^ SS) & ranks;
     if (!two_mask) 
       return HandType_TRIPS;

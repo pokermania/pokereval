@@ -116,12 +116,12 @@ doTopFiveCardsTable(void) {
                   StdDeck_N_RANKMASKS);
   MakeTable_comment(T5C_COMMENT_STRING);
   for (i=0; i < StdDeck_N_RANKMASKS; i++) {
-    StdRules_HandVal eval;
+    HandVal eval;
     int n = i;
 
     eval = 0;
     for (j=0; j<5; j++) {
-      eval <<= StdRules_HandVal_CARD_WIDTH;
+      eval <<= HandVal_CARD_WIDTH;
       card = top_card_func(n);
       eval += card;
       n &= ~(1 << card);

@@ -19,7 +19,14 @@ typedef unsigned short uint16;
 typedef unsigned int   uint32;
 
 #include "stddeck.h"
+#include "handval.h"
 #include "stdrules.h"
 #include "enumerate.h"
+
+#if !defined(NONSTANDARD_DECK) && !defined(NONSTANDARD_RULES)
+#define Hand_EVAL_N  StdDeck_StdRules_EVAL_N
+#define Hand_EVAL_X5 StdDeck_StdRules_EVAL_X5
+#define Hand_EVAL_X7 StdDeck_StdRules_EVAL_X7
+#endif
 
 #endif

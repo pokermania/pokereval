@@ -92,9 +92,9 @@ int main( int argc, char *argv[] )
                       {
                         ++count;
                         CardMask_OR(c0, p0, cards);
-                        h0 = PokerHand_EVAL_N(c0, 7);
+                        h0 = Hand_EVAL_N(c0, 7);
                         CardMask_OR(c1, p1, cards);
-                        h1 = PokerHand_EVAL_N(c1, 7);
+                        h1 = Hand_EVAL_N(c1, 7);
 
                         if (h0 > h1)
 			  ++h0_count;
