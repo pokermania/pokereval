@@ -1,14 +1,6 @@
 #ifndef __STDDECK_H__
 #define __STDDECK_H__
 
-#ifdef HAVE_INT64
-#define LongLong_OP(result, op1, op2, operation) \
-  do { result = (op1) operation (op2); } while (0)
-#define LongLong_OR(result, op1, op2)  LongLong_OP(result, op1, op2, |)
-#define LongLong_AND(result, op1, op2) LongLong_OP(result, op1, op2, &)
-#endif
-
-#define StdDeck_FIRST_CARD   0
 #define StdDeck_N_CARDS      52
 #define StdDeck_MASK(index)  (StdDeck_cardMasksTable[index])
 
@@ -136,7 +128,6 @@ extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask);
 
 
 #ifndef NONSTANDARD_DECK
-#define Deck_FIRST_CARD   StdDeck_FIRST_CARD
 #define Deck_N_CARDS      StdDeck_N_CARDS
 #define Deck_MASK         StdDeck_MASK
 #define Deck_RANK         StdDeck_RANK
