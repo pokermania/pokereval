@@ -67,7 +67,7 @@ StdDeck_Lowball_EVAL(StdDeck_CardMask cards, int n_cards) {
 
     case 2:
       if (nBitsTable[dups] == 2) {
-        trips = sc ^ ss ^ sd ^ sh;
+        trips = dups & (sc ^ ss ^ sd ^ sh);
         trips = Lowball_ROTATE_RANKS(trips);
         t = bottomCardTable[trips];
         return LowHandVal_HANDTYPE_VALUE(StdRules_HandType_FULLHOUSE)

@@ -54,4 +54,11 @@ extern int LowHandVal_print(LowHandVal handval);
 ((((ranks) & ~(1 << StdDeck_Rank_ACE)) << 1) \
  | (((ranks) >> StdDeck_Rank_ACE) & 0x01))
 
+#define Lowball_JOKERFY_RANKS(ranks)		\
+do { int j;					\
+  for (j=0; j < StdDeck_Rank_COUNT; j++)	\
+    if (!(ranks) & (1 << j))			\
+      (ranks) |= (1 << j);			\
+} while (0)
+
 #endif

@@ -1,5 +1,5 @@
-#ifndef __JOKERDECK_H__
-#define __JOKERDECK_H__
+#ifndef __DECK_JOKER_H__
+#define __DECK_JOKER_H__
 
 #define JokerDeck_N_CARDS      53
 #define JokerDeck_MASK(index)  (JokerDeck_cardMasksTable[index])
@@ -24,7 +24,7 @@
 
 #define JokerDeck_RANK          StdDeck_RANK
 #define JokerDeck_SUIT          StdDeck_SUIT
-#define JokerDeck_IS_JOKER(index) (index == JokerDeck_JOKER)
+#define JokerDeck_IS_JOKER(index) ((index) == JokerDeck_JOKER)
 #define JokerDeck_MAKE_CARD     StdDeck_MAKE_CARD
 #define JokerDeck_JOKER        (JokerDeck_N_CARDS - 1)
 
@@ -36,7 +36,7 @@
 #define JokerDeck_Suit_LAST     StdDeck_Suit_LAST
 #define JokerDeck_Suit_COUNT    StdDeck_Suit_COUNT
 
-typedef uint32 JokerDeck_RankMask;
+typedef StdDeck_RankMask JokerDeck_RankMask;
 
 /* 
    It is important that the hearts, spades, clubs, and diamonds fields 
@@ -81,11 +81,26 @@ typedef union {
 #define JokerDeck_CardMask_HEARTS(cm)   ((cm).cards.hearts)
 #define JokerDeck_CardMask_JOKER(cm)    ((cm).cards.joker)
 
+#define JokerDeck_CardMask_SET_SPADES(cm, ranks)   ((cm).cards.spades=(ranks))
+#define JokerDeck_CardMask_SET_CLUBS(cm, ranks)    ((cm).cards.clubs=(ranks))
+#define JokerDeck_CardMask_SET_DIAMONDS(cm, ranks) \
+        ((cm).cards.diamonds=(ranks))
+#define JokerDeck_CardMask_SET_HEARTS(cm, ranks)   ((cm).cards.hearts=(ranks))
+#define JokerDeck_CardMask_SET_JOKER(cm, ranks)    ((cm).cards.joker=(ranks))
+
 #define JokerDeck_CardMask_OR          StdDeck_CardMask_OR
 #define JokerDeck_CardMask_AND         StdDeck_CardMask_AND
-#define JokerDeck_CardMask_SET         StdDeck_CardMask_SET
 #define JokerDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define JokerDeck_CardMask_RESET       StdDeck_CardMask_RESET
+
+#define JokerDeck_CardMask_toStd(jCards, sCards) \
+do { \
+  StdDeck_CardMask_RESET(sCards); \
+  StdDeck_CardMask_SET_SPADES(sCards, JokerDeck_CardMask_SPADES(jCards)); \
+  StdDeck_CardMask_SET_HEARTS(sCards, JokerDeck_CardMask_HEARTS(jCards)); \
+  StdDeck_CardMask_SET_CLUBS(sCards, JokerDeck_CardMask_CLUBS(jCards)); \
+  StdDeck_CardMask_SET_DIAMONDS(sCards, JokerDeck_CardMask_DIAMONDS(jCards)); \
+} while (0)
 
 #ifdef HAVE_INT64                                                          
 #define JokerDeck_CardMask_CARD_IS_SET(mask, index)                       \
@@ -96,19 +111,33 @@ typedef union {
    || (( (mask).cards_nn.n2 & (JokerDeck_MASK(index).cards_nn.n2)) != 0 ))   
 #endif
 
+#define JokerDeck_CardMask_SET(mask, index)       \
+do {                                              \
+  JokerDeck_CardMask _t1 = JokerDeck_MASK(index); \
+  JokerDeck_CardMask_OR((mask), (mask), _t1);     \
+} while (0)
+
 extern JokerDeck_CardMask JokerDeck_cardMasksTable[JokerDeck_N_CARDS];
 
-extern const char JokerDeck_rankChars[JokerDeck_Rank_LAST+1];
-extern const char JokerDeck_suitChars[JokerDeck_Suit_LAST+1];
-
 extern int JokerDeck_cardToString(int cardIndex, char *outString);
-extern int JokerDeck_maskToString(JokerDeck_CardMask cardMask, char *outString);
-extern int JokerDeck_printCard(int cardIndex);
-extern int JokerDeck_printMask(JokerDeck_CardMask cardMask);
-extern int JokerDeck_stringToMask(char *inString, JokerDeck_CardMask *outMask);
+extern int JokerDeck_stringToCard(char *inString, int *outCard);
+
+#define JokerDeck_cardString(i) GenericDeck_cardString(JokerDeck, (i))
+#define JokerDeck_printCard(i)  GenericDeck_printCard(JokerDeck, (i))
+#define JokerDeck_printMask(m)  GenericDeck_printMask(JokerDeck, (m))
+#define JokerDeck_maskString(m) GenericDeck_maskString(JokerDeck, (m))
+#define JokerDeck_maskToString(m, s) GenericDeck_maskToString(JokerDeck, (m), (s))
+
+extern Deck JokerDeck;
+
+#endif
 
 
-#ifdef USE_JOKER_DECK
+#ifdef DECK_JOKER
+
+#if defined(Deck_N_CARDS)
+#include "deck_undef.h"
+#endif
 
 #define Deck_N_CARDS      JokerDeck_N_CARDS
 #define Deck_MASK         JokerDeck_MASK
@@ -156,6 +185,12 @@ extern int JokerDeck_stringToMask(char *inString, JokerDeck_CardMask *outMask);
 #define CardMask_CLUBS         JokerDeck_CardMask_CLUBS
 #define CardMask_DIAMONDS      JokerDeck_CardMask_DIAMONDS
 
+#define CardMask_SET_SPADES    JokerDeck_CardMask_SET_SPADES
+#define CardMask_SET_HEARTS    JokerDeck_CardMask_SET_HEARTS
+#define CardMask_SET_CLUBS     JokerDeck_CardMask_SET_CLUBS
+#define CardMask_SET_DIAMONDS  JokerDeck_CardMask_SET_DIAMONDS
+
+#define CurDeck JokerDeck
+
 #endif 
 
-#endif

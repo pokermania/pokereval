@@ -6,97 +6,53 @@
 const char JokerDeck_rankChars[] = "23456789TJQKA";
 const char JokerDeck_suitChars[] = "hdcs";
 
+/*
+ * These implementations assume that the card indices and suit bit fields
+ * between StdDeck and JokerDeck are the same!
+ */
+
 int 
 JokerDeck_cardToString(int cardIndex, char *outString) {
   if (JokerDeck_IS_JOKER(cardIndex)) {
     *outString++ = 'X';
     *outString++ = 'x';
+    *outString   = '\0';
+    return 2;
   }
-  else {
-    *outString++ = JokerDeck_rankChars[JokerDeck_RANK(cardIndex)];
-    *outString++ = JokerDeck_suitChars[JokerDeck_SUIT(cardIndex)];
-  };
-
-  *outString   = '\0';
-  return 2;
+  else 
+    return StdDeck_cardToString(cardIndex, outString);
 }
 
 
 int
-JokerDeck_maskToString(JokerDeck_CardMask cardMask, char *outString) {
-  int i;
-  char *p = outString;
+JokerDeck_maskToCards(void *cardMask, int cards[]) {
+  int i, n=0;
+  JokerDeck_CardMask c = *((JokerDeck_CardMask *) cardMask);
 
-  for (i=JokerDeck_N_CARDS-1; i >= 0; i--) {
-    if (JokerDeck_CardMask_CARD_IS_SET(cardMask, i)) {
-      if (p > outString) *p++ = ' ';
-      p += JokerDeck_cardToString(i, p);
-    };
-  };
+  for (i=JokerDeck_N_CARDS-1; i >= 0; i--) 
+    if (JokerDeck_CardMask_CARD_IS_SET(c, i)) 
+      cards[n++] = i;
 
-  *p = '\0';
-  return p - outString;
-}
-
-
-int
-JokerDeck_printCard(int cardIndex) {
-  char buffer[80];
-  int n;
-
-  n = JokerDeck_cardToString(cardIndex, buffer);
-  printf("%s", buffer);
-  return n;
-}
-
-int 
-JokerDeck_printMask(JokerDeck_CardMask cardMask) {
-  char buffer[80];
-  int n;
-
-  n = JokerDeck_maskToString(cardMask, buffer);
-  printf("%s", buffer);
   return n;
 }
 
 
 int 
-JokerDeck_stringToMask(char *inString, JokerDeck_CardMask *outMask) {
-  char *p;
-  int n=0, rank, suit, card;
+JokerDeck_stringToCard(char *inString, int *cardIndex) {
 
-  JokerDeck_CardMask_RESET(*outMask);
-  for (p=inString; p < inString + strlen(inString); p++) {
-    if (*p == ' ')
-      continue;
-
-    if ((toupper(p[0]) == 'X') && toupper(p[1]) == 'X') {
-      card = JokerDeck_JOKER;
-      JokerDeck_CardMask_SET(*outMask, card);
-      ++n;
-      ++p; ++p;
-    }
-    else {
-      for (rank=JokerDeck_Rank_FIRST; rank <= JokerDeck_Rank_LAST; rank++) 
-        if (JokerDeck_rankChars[rank] == toupper(*p))
-          break;
-      if (rank > JokerDeck_Rank_LAST)
-        break;
-      ++p;
-      for (suit=JokerDeck_Suit_FIRST; suit <= JokerDeck_Suit_LAST; suit++) 
-        if (JokerDeck_suitChars[suit] == tolower(*p))
-          break;
-      if (suit > JokerDeck_Suit_LAST)
-        break;
-      ++p;
-      card = JokerDeck_MAKE_CARD(rank, suit);
-      JokerDeck_CardMask_SET(*outMask, card);
-      ++n;
-    };
+  if ((toupper(inString[0]) == 'X') && toupper(inString[1]) == 'X') {
+    *cardIndex = JokerDeck_JOKER;
+    return 2;
   }
-    
-  return n;
+  else 
+    return StdDeck_stringToCard(inString, cardIndex);
 }
 
 
-
+Deck JokerDeck = { 
+  JokerDeck_N_CARDS, 
+  "JokerDeck", 
+  JokerDeck_cardToString, 
+  JokerDeck_stringToCard,
+  JokerDeck_maskToCards 
+};

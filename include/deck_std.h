@@ -89,6 +89,11 @@ typedef union {
 #define StdDeck_CardMask_DIAMONDS(cm) ((cm).cards.diamonds)
 #define StdDeck_CardMask_HEARTS(cm)   ((cm).cards.hearts)
 
+#define StdDeck_CardMask_SET_SPADES(cm, ranks)   ((cm).cards.spades=(ranks))
+#define StdDeck_CardMask_SET_CLUBS(cm, ranks)    ((cm).cards.clubs=(ranks))
+#define StdDeck_CardMask_SET_DIAMONDS(cm, ranks) ((cm).cards.diamonds=(ranks))
+#define StdDeck_CardMask_SET_HEARTS(cm, ranks)   ((cm).cards.hearts=(ranks))
+
 #ifdef HAVE_INT64
 #define StdDeck_CardMask_OR(result, op1, op2) \
   LongLong_OR((result).cards_n, (op1).cards_n, (op2).cards_n) 
@@ -205,6 +210,7 @@ extern Deck StdDeck;
 #define Suit_COUNT        StdDeck_Suit_COUNT
 
 #define CardMask               StdDeck_CardMask 
+#define Deck_CardMask          StdDeck_CardMask
 #define CardMask_OR            StdDeck_CardMask_OR
 #define CardMask_SET           StdDeck_CardMask_SET
 #define CardMask_CARD_IS_SET   StdDeck_CardMask_CARD_IS_SET
@@ -215,6 +221,11 @@ extern Deck StdDeck;
 #define CardMask_HEARTS        StdDeck_CardMask_HEARTS
 #define CardMask_CLUBS         StdDeck_CardMask_CLUBS
 #define CardMask_DIAMONDS      StdDeck_CardMask_DIAMONDS
+
+#define CardMask_SET_SPADES    StdDeck_CardMask_SET_SPADES
+#define CardMask_SET_HEARTS    StdDeck_CardMask_SET_HEARTS
+#define CardMask_SET_CLUBS     StdDeck_CardMask_SET_CLUBS
+#define CardMask_SET_DIAMONDS  StdDeck_CardMask_SET_DIAMONDS
 
 #define CurDeck StdDeck
 

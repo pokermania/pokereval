@@ -37,5 +37,14 @@
 #undef CardMask_HEARTS        
 #undef CardMask_CLUBS         
 #undef CardMask_DIAMONDS      
+#undef CardMask_SET_SPADES        
+#undef CardMask_SET_HEARTS        
+#undef CardMask_SET_CLUBS         
+#undef CardMask_SET_DIAMONDS      
+
+#undef Deck_cardToString
+#undef Deck_maskToString
+#undef Deck_printCard
+#undef Deck_printMask
 
 #undef CurDeck

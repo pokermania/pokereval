@@ -21,9 +21,10 @@
 #include <stdlib.h>
 
 #include "poker_defs.h"
+#include "game_joker.h"
 
 #include "inlines/eval.h"
-#include "inlines/eval_low.h"
+#include "inlines/eval_lowj.h"
 
 int gNCards;
 CardMask gCards;
@@ -66,19 +67,25 @@ main(int argc, char **argv) {
   CardMask_RESET(gCards);
   parseArgs(argc, argv);
 
+#if 0
   if (!gLow) {
     handval = Hand_EVAL_N(gCards, gNCards);
     printf("%s: ", Deck_maskString(gCards));
     HandVal_print(handval);                  
     printf("\n");                                 
   };
+#endif
 
   if (gLow || gHighLow) {
 #if defined(Hand_EVAL_LOW)
-    low = Hand_EVAL_LOW(gCards, gNCards);
-    printf("%s (low): ", Deck_maskString(gCards));
-    LowHandVal_print(low);                  
-    printf("\n");                                 
+    if (n_cards < 5) 
+      printf("Not enough cards to evaluate low hand\n");
+    else {
+      low = Hand_EVAL_LOW(gCards, gNCards);
+      printf("%s (low): ", Deck_maskString(gCards));
+      LowHandVal_print(low);                  
+      printf("\n");                                 
+    };
 #else
     printf("Low evaluator not available \n");
 #endif
