@@ -25,8 +25,8 @@ test : tests
 		then echo "		Passed"; \
 		else echo "		Failed"; \
 	fi
-#	@echo -n "digtest7: 7-card hands..."
-#	@if [ `./digtest7` = "03a86bd2deac3052bbe93256e0d7b156" ]; \
-#		then echo "		Passed"; \
-#		else echo "		Failed"; \
-#	fi
+	@echo -n "digtest7: 7-card hands..."
+	@if [ `./digtest7` = "03a86bd2deac3052bbe93256e0d7b156" ]; \
+		then echo "		Passed"; \
+		else echo "		Failed"; \
+	fi
