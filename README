@@ -28,6 +28,10 @@ convenience; you can also download the sources or jar files yourself.
     JUnit test framework (junit.framework.*) [tested with v3.7]
         http://sourceforge.net/projects/junit/
         See the file LICENSE.junit for license details.
+    Gnu Getopt (gnu.getopt.*) [tested with v1.0.9]
+        http://www.gnu.org/software/java/packages.html
+        See the file LICENSE.getopt for license details.
+
 The Java code is documented in the java/javadoc directory.
 
 
@@ -56,6 +60,7 @@ After you have a working build, you may want to:
 * add java/pokersource.jar to your CLASSPATH environment variable
 * add java/jakarta-oro-2.0.6.jar to your CLASSPATH environment variable
 * add java/junit-3.7.jar to your CLASSPATH environment variable
+* add java/gnu-getopt-1.0.9.jar to your CLASSPATH environment variable
 
 
 Compiling -- Windows, using cygwin 
@@ -81,7 +86,7 @@ vcvars32.bat, to set this up), and enter the following commands:
   cd ..\tests
   nmake -f makefile.dos
 
-The Java layer is not supported yet.
+The Java layer is not supported yet on Windows.
 
 You can't use make to run the test programs under Windows as you can
 on Unix, but you can run them (digtest5 and digtest7, in the tests
@@ -103,4 +108,4 @@ Brian Goetz.  Bug reports, suggestions for improvements, or candidates
 for inclusion should be sent to brian@quiotix.com.
 
 You can also check out the pokersource user group at
-http://groups.yahoo.com/group/pokersource.
+http://groups.yahoo.com/group/pokersource

@@ -39,6 +39,7 @@ JARSOURCE_QUOTED:= $(patsubst %,'%', $(JARSOURCE))
 POKERSOURCE_JAR	:= pokersource.jar
 JUNIT_JAR	:= junit-3.7.jar
 ORO_JAR		:= jakarta-oro-2.0.6.jar
+GETOPT_JAR	:= gnu-getopt-1.0.9.jar
 
 JAVADOC_DOCTITLE	:= 'PokerSource Java API'
 JAVADOC_WINDOWTITLE	:= $(JAVADOC_DOCTITLE)
@@ -46,7 +47,7 @@ JAVADOC_HEADER		:= '<b>PokerSource Java API</b>'
 JAVADOC_BOTTOM		:= '<a href="http://www.pokersource.org/">PokerSource \
 			Home Page</a> - Learn how you can contribute!'
 JAVADOC_OVERVIEW	:= overview.html
-JAVADOC_CLASSPATH	:= .:$(JUNIT_JAR):$(ORO_JAR):$(CLASSPATH)
+JAVADOC_CLASSPATH	:= .:$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR):$(CLASSPATH)
 
 all: classes jnilib jarfile javadoc
 classes: $(CLASSFILES)
@@ -59,7 +60,7 @@ $(POKERSOURCE_JAR): $(JARSOURCE)
 
 $(JAVADOCDIR)/index.html: $(SRC_JAVA)
 	[ -d $(JAVADOCDIR) ] || $(MKDIR) $(JAVADOCDIR)
-	$(JAVADOC) -d $(JAVADOCDIR) -use -author -private \
+	$(JAVADOC) -d $(JAVADOCDIR) -use -author -package \
 		-doctitle $(JAVADOC_DOCTITLE) \
 		-windowtitle $(JAVADOC_WINDOWTITLE) \
 		-header $(JAVADOC_HEADER) \
@@ -74,7 +75,7 @@ cleanclass:
 	$(RM) $(CLASSFILES)
 
 %.class: %.java
-	$(JAVAC) $(JAVACOPTS) -classpath .:$(JUNIT_JAR):$(ORO_JAR):$(CLASSPATH) $<
+	$(JAVAC) $(JAVACOPTS) -classpath .:$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR):$(CLASSPATH) $<
 
 pokerjni.h: $(JNI_CLASSFILES)
 	$(JAVAH) -o $@ -jni -force $(JNI_CLASSES)
@@ -87,7 +88,7 @@ $(JNILIB): $(JNI_OBJS)
 
 $(JNI_OBJS): $(JNI_HEADER)
 
-TEST_CLASSPATH := $(POKERSOURCE_JAR):$(JUNIT_JAR):$(ORO_JAR):$(CLASSPATH)
+TEST_CLASSPATH := $(POKERSOURCE_JAR):$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR):$(CLASSPATH)
 test: $(POKERSOURCE_JAR) $(JNILIB)
 	LD_LIBRARY_PATH=../lib:$$LD_LIBRARY_PATH \
 	  $(JAVA) -classpath $(TEST_CLASSPATH) org.pokersource.AllTests

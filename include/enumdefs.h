@@ -8,6 +8,7 @@
 #define ENUM_MAXPLAYERS 12
 
 typedef enum {
+  /* do not reorder -- some other static arrays depend on this order */
   game_holdem,
   game_holdem8,
   game_omaha,
