@@ -33,5 +33,5 @@ AC_SUBST(CC)
 AC_SUBST(CFLAGS)
 AC_SUBST(RANLIB)
 
-AC_OUTPUT(lib/Makefile)
+AC_OUTPUT(lib/Makefile tests/Makefile examples/Makefile)
 

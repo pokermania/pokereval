@@ -12,6 +12,7 @@ typedef unsigned long           uint64;
 #error "Don't know what 64-bit integers are called"
 #endif
 #endif
+
 typedef unsigned char  uint8;
 typedef   signed char   int8;
 typedef unsigned short uint16;

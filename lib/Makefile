@@ -1,9 +1,11 @@
 # Generated automatically from Makefile.in by configure.
 LIB=libpoker.a
 
+MKTABLE_HELPERS = mktable.o mktable_utils.o
+
 OBJ=$(DERIVED_SOURCES:.c=.o) \
-	mktab_basic.o mktable_utils.o mktable.o \
-	stddeck.o \
+	mktab_basic.o $(MKTABLE_HELPERS) \
+	stddeck.o stdrules.o \
 	md5c.o
 
 BASIC_TABLES = \
@@ -32,8 +34,8 @@ clean:
 $(BASIC_TABLES): mktab_basic
 	./mktab_basic
 
-mktab_basic: mktab_basic.c mktable_utils.o mktable.o
-	$(CC) $(CFLAGS) -I../include -o $@ $< mktable_utils.o mktable.o 
+mktab_basic: mktab_basic.o $(MKTABLE_HELPERS)
+	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 .c.o:
 	$(CC) $(CFLAGS) -I../include -c $<

@@ -12,21 +12,21 @@
 #define StdDeck_RANK(index)  ((index) % 13)
 #define StdDeck_SUIT(index)  ((index) / 13)
 
-#define StdDeck_Rank_2     0
-#define StdDeck_Rank_3     1
-#define StdDeck_Rank_4     2
-#define StdDeck_Rank_5     3
-#define StdDeck_Rank_6     4
-#define StdDeck_Rank_7     5
-#define StdDeck_Rank_8     6
-#define StdDeck_Rank_9     7
-#define StdDeck_Rank_TEN   8
-#define StdDeck_Rank_JACK  9
-#define StdDeck_Rank_QUEEN 10
-#define StdDeck_Rank_KING  11
-#define StdDeck_Rank_ACE   12
-#define StdDeck_Rank_COUNT 13
-#define StdDeck_Rank_FIRST StdDeck_Rank_2
+#define StdDeck_Rank_2      0
+#define StdDeck_Rank_3      1
+#define StdDeck_Rank_4      2
+#define StdDeck_Rank_5      3
+#define StdDeck_Rank_6      4
+#define StdDeck_Rank_7      5
+#define StdDeck_Rank_8      6
+#define StdDeck_Rank_9      7
+#define StdDeck_Rank_TEN    8
+#define StdDeck_Rank_JACK   9
+#define StdDeck_Rank_QUEEN  10
+#define StdDeck_Rank_KING   11
+#define StdDeck_Rank_ACE    12
+#define StdDeck_Rank_COUNT  13
+#define StdDeck_Rank_FIRST  StdDeck_Rank_2
 #define StdDeck_N_RANKMASKS (1 << StdDeck_Rank_COUNT)
 
 #define StdDeck_Suit_HEARTS   0
@@ -76,7 +76,25 @@ do {                                            \
   CardMask_OR((mask), (mask), _t1);             \
 } while (0)
 
-#if HAVE_INT64
+#ifdef HAVE_INT64                                                          
+#define StdDeck_CardMask_CARD_IS_SET(mask, index)                       \
+  (( (mask).cards_n & (Deck_MASK(index).cards_n)) != 0 )                 
+#else                                                                   
+#define StdDeck_CardMask_CARD_IS_SET(mask, index)                       \
+  ((( (mask).cards_nn.n1 & (Deck_MASK(index).cards_nn.n1)) != 0 )       \
+   || (( (mask).cards_nn.n2 & (Deck_MASK(index).cards_nn.n2)) != 0 ))   
+#endif
+
+#ifdef HAVE_INT64                                                          
+#define StdDeck_CardMask_ANY_SET(mask1, mask2)                          \
+  (( (mask1).cards_n & (mask2).cards_n) != 0 )                 
+#else                                                                   
+#define StdDeck_CardMask_ANY_SET(mask, index)                           \
+  ((( (mask1).cards_nn.n1 & (mask2).cards_nn.n1) != 0 )                 \
+   || (( (mask1).cards_nn.n2 & (mask2).cards_nn.n2) != 0 ))           
+#endif
+
+#ifdef HAVE_INT64
 #define StdDeck_CardMask_RESET(mask) \
   do { (mask).cards_n = 0; } while (0)
 #else
@@ -115,9 +133,6 @@ extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask outMask);
 #define Deck_printMask    StdDeck_printMask
 #define Deck_stringToMask StdDeck_stringToMask
 
-#define CardMask          StdDeck_CardMask 
-#define CardMask_OR       StdDeck_CardMask_OR
-
 #define Rank_2            StdDeck_Rank_2 
 #define Rank_3            StdDeck_Rank_3
 #define Rank_4            StdDeck_Rank_4 
@@ -140,6 +155,13 @@ extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask outMask);
 #define Suit_SPADES       StdDeck_Suit_SPADES
 #define Suit_FIRST        StdDeck_Suit_FIRST
 #define Suit_COUNT        StdDeck_Suit_COUNT
+
+#define CardMask               StdDeck_CardMask 
+#define CardMask_OR            StdDeck_CardMask_OR
+#define CardMask_SET           StdDeck_CardMask_SET
+#define CardMask_CARD_IS_SET   StdDeck_CardMask_CARD_IS_SET
+#define CardMask_ANY_SET       StdDeck_CardMask_ANY_SET
+#define CardMask_RESET         StdDeck_CardMask_RESET
 
 #endif
 

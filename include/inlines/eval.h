@@ -44,7 +44,7 @@
  */
 
 static inline uint32 
-_is_flush(CardMask cards, uint32 *flushranks )
+eval__is_flush(CardMask cards, uint32 *flushranks )
 {
     HandVal retval;
 
@@ -83,7 +83,7 @@ _is_flush(CardMask cards, uint32 *flushranks )
  */
 
 static inline uint32 
-_is_straight( uint32 ranks )
+eval__is_straight( uint32 ranks )
 {
     int st;
 
@@ -116,7 +116,7 @@ _is_straight( uint32 ranks )
 
 
 static inline HandVal 
-PokerHand_EVAL( CardMask cards, int n_cards )
+StdRules_HANDEVAL( CardMask cards, int n_cards )
 {
     HandVal retval, tempeval, tempeval2;
     uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
@@ -157,9 +157,9 @@ PokerHand_EVAL( CardMask cards, int n_cards )
 
     if (n_ranks >= 5)
       {
-        retval.handval_n = _is_flush(cards, &flushranks);
+        retval.handval_n = eval__is_flush(cards, &flushranks);
         if (retval.handval_n) {
-          tempeval.handval_n = _is_straight(flushranks);
+          tempeval.handval_n = eval__is_straight(flushranks);
           if (tempeval.handval_n) {
             retval.handval_n = 0;
             retval.handval.htype = HandType_STFLUSH;
@@ -167,7 +167,7 @@ PokerHand_EVAL( CardMask cards, int n_cards )
 /*-->*/     return retval.handval_n;
           }
         } else
-          retval.handval_n = _is_straight(ranks);
+          retval.handval_n = eval__is_straight(ranks);
       };
 
     if (four_mask) 
