@@ -15,4 +15,4 @@ if [ "x$1" = "x-d" ] ; then
    shift 2
 fi
 
-java org.pokersource.enum.SAIE "$@" "$DEADCARDS"
+java org.pokersource.enum.SAIE 0 0 "$@" "$DEADCARDS"
