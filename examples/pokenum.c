@@ -2,11 +2,14 @@
    Example showing how to calculate pot equity using the enumeration functions.
    See also hcmp2.c and hcmpn.c for slightly lower level examples.
 
+Note: games that use the joker are not yet implemented, though listed below.
+
 Usage: 
-$ pokenum [-mc niter] 
+$ pokenum [-mc niter] [-t]
           [-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]
           <pocket1> - <pocket2> - ... [ -- <board> ] [ / <dead> ]
-      -mc    
+      -t     terse output (one line, list of EV values)
+      -mc    sample monte-carlo style instead of full enumeration
       -h     holdem hi (default)
       -h8    holdem hi/lo 8-or-better
       -o     omaha hi
@@ -58,7 +61,8 @@ static int
 parseArgs(int argc, char **argv,
           enum_game_t *game, enum_sample_t *enumType, int *niter,
           StdDeck_CardMask pockets[], StdDeck_CardMask *board,
-          StdDeck_CardMask *dead, int *npockets, int *nboard) {
+          StdDeck_CardMask *dead, int *npockets, int *nboard,
+          int *terse) {
   /* we have a type problem: we define the masks here as
      StdDeck_CardMask, which makes it impossible to hold jokers.
      we need to redesign some of the deck typing to make this work... */
@@ -70,6 +74,7 @@ parseArgs(int argc, char **argv,
 
   state = ST_OPTIONS;
   *npockets = *nboard = ncards = 0;
+  *terse = 0;
   *game = game_holdem;
   *enumType = ENUM_EXHAUSTIVE;
   StdDeck_CardMask_RESET(*dead);
@@ -90,6 +95,8 @@ parseArgs(int argc, char **argv,
           if (*niter <= 0 || errno != 0)
             return 1;
           argv++; argc--;                       /* put card back in list */
+        } else if (strcmp(*argv, "-t") == 0) {
+          *terse = 1;
         } else if (strcmp(*argv, "-h") == 0) {
           *game = game_holdem;
         } else if (strcmp(*argv, "-h8") == 0) {
@@ -200,15 +207,15 @@ int
 main(int argc, char **argv) {
   enum_game_t game;
   enum_sample_t enumType;
-  int niter, npockets, nboard, err;
+  int niter, npockets, nboard, err, terse;
   StdDeck_CardMask pockets[ENUM_MAXPLAYERS];
   StdDeck_CardMask board;
   StdDeck_CardMask dead;
   enum_result_t result;
 
   if (parseArgs(argc, argv, &game, &enumType, &niter,
-                pockets, &board, &dead, &npockets, &nboard)) {
-    printf("usage: %s [-mc niter] [-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]\n",
+                pockets, &board, &dead, &npockets, &nboard, &terse)) {
+    printf("usage: %s [-t] [-mc niter] [-h|-h8|-o|-o8|-7s|-7s8|-7snsq|-r|-5d|-5d8|-5dnsq|-l|-l27]\n",
            argv[0]);
     printf("\t<pocket1> - <pocket2> - ... [ -- <board> ] [ / <dead> ] ]\n");
     return 1;
@@ -225,6 +232,9 @@ main(int argc, char **argv) {
     printf("enumeration function failed err=%d\n", err);
     return 1;
   }
-  enumResultPrint(&result, pockets, board);
+  if (terse)
+    enumResultPrintTerse(&result, pockets, board);
+  else
+    enumResultPrint(&result, pockets, board);
   return 0;
 }

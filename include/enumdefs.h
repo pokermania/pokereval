@@ -68,6 +68,9 @@ typedef struct {
 
 extern void enumResultPrint(enum_result_t *result, StdDeck_CardMask pockets[],
                             StdDeck_CardMask board);
+extern void enumResultPrintTerse(enum_result_t *result,
+                                 StdDeck_CardMask pockets[],
+                                 StdDeck_CardMask board);
 extern void enumResultClear(enum_result_t *result);
 extern int enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
                           StdDeck_CardMask board, StdDeck_CardMask dead,

@@ -4,6 +4,7 @@
         enumGameParams()	look up rule parameters by game type
         enumResultClear()	clear enumeration result object
         enumResultPrint()	print enumeration result object
+        enumResultPrintTerse()	print enumeration result object, tersely
         enumSample()		monte carlo sampling of outcomes
 
    Michael Maurer, Apr 2002
@@ -710,4 +711,14 @@ enumResultPrint(enum_result_t *result, StdDeck_CardMask pockets[],
       }
     }
   }
+}
+
+void
+enumResultPrintTerse(enum_result_t *result, StdDeck_CardMask pockets[],
+                     StdDeck_CardMask board) {
+  int i;
+
+  for (i=0; i<result->nplayers; i++)
+    printf("%8.6f ", result->ev[i] / result->nsamples);
+  printf("\n");
 }
