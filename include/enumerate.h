@@ -103,6 +103,44 @@
 }
 
 
+#define ENUMERATE_7_CARDS(cards_var, action)                            \
+{                                                                       \
+  int _i1, _i2, _i3, _i4, _i5, _i6, _i7;                                \
+  CardMask _card1, _card2, _card3, _card4, _card5, _card6, _card7,      \
+    _n2, _n3, _n4, _n5, _n6, _n7;                                       \
+                                                                        \
+  for (_i1 = Deck_N_CARDS-1; _i1 >= 0; _i1--) {                         \
+    _card1 = Deck_MASK(_i1);                                            \
+    for (_i2 = _i1-1; _i2 >= 0; _i2--) {                                \
+      _card2 = Deck_MASK(_i2);                                          \
+      CardMask_OR(_n2, _card1, _card2);                                 \
+      for (_i3 = _i2-1; _i3 >= 0; _i3--) {                              \
+        _card3 = Deck_MASK(_i3);                                        \
+	CardMask_OR(_n3, _n2, _card3);                                  \
+        for (_i4 = _i3-1; _i4 >= 0; _i4--) {                            \
+          _card4 = Deck_MASK(_i4);                                      \
+	  CardMask_OR(_n4, _n3, _card4);                                \
+          for (_i5 = _i4-1; _i5 >= 0; _i5--) {                          \
+            _card5 = Deck_MASK(_i5);                                    \
+            CardMask_OR(_n5, _n4, _card5);                              \
+            for (_i6 = _i5-1; _i6 >= 0; _i6--) {                        \
+              _card6 = Deck_MASK(_i6);                                  \
+              CardMask_OR(_n6, _n5, _card6);                            \
+              for (_i7 = _i6-1; _i7 >= 0; _i7--) {                      \
+                _card7 = Deck_MASK(_i7);                                \
+                CardMask_OR(_n7, _n6, _card7);                          \
+                cards_var = _n7;                                        \
+                do { action } while (0);                                \
+              };                                                        \
+            };                                                          \
+          };                                                            \
+        };                                                              \
+      };                                                                \
+    };                                                                  \
+  };                                                                    \
+}
+
+
 #define ENUMERATE_1_CARDS_D(cards_var, dead_cards, action)      \
 {                                                               \
   int _i1;                                                      \
