@@ -1,7 +1,6 @@
 #ifndef __ASTUDDECK_H__
 #define __ASTUDDECK_H__
 
-#define AStudDeck_FIRST_CARD   0
 #define AStudDeck_N_CARDS      32
 #define AStudDeck_MASK(index)  (AStudDeck_cardMasksTable[index])
 
@@ -68,7 +67,6 @@ extern int AStudDeck_stringToMask(char *inString, AStudDeck_CardMask *outMask);
 
 #ifdef USE_ASTUD_DECK
 
-#define Deck_FIRST_CARD   AStudDeck_FIRST_CARD
 #define Deck_N_CARDS      AStudDeck_N_CARDS
 #define Deck_MASK         AStudDeck_MASK
 #define Deck_RANK         AStudDeck_RANK
