@@ -12,7 +12,7 @@ LIB_CMD = @LIB_CMD@
 
 all: tests
 
-tests: digtest5@E@ digtest7@E@
+tests: digtest5@E@ digtest7@E@ joktest1@E@
 
 digtest5@E@ : digtest5@O@ $(LIBPOKER)
 	$(CC_EXE)
@@ -20,8 +20,11 @@ digtest5@E@ : digtest5@O@ $(LIBPOKER)
 digtest7@E@ : digtest7@O@ $(LIBPOKER)
 	$(CC_EXE)
 
+joktest1@E@ : joktest1@O@ $(LIBPOKER)
+	$(CC_EXE)
+
 clean:
-	$(RM) *@O@ core digtest5@E@ digtest7@E@
+	$(RM) *@O@ core digtest5@E@ digtest7@E@ joktest1@E@
 
 .c@O@:
 	$(CC_OBJ)
@@ -34,6 +37,11 @@ test : tests
 	fi
 	@echo -n "digtest7: 7-card hands..."
 	@if [ `./digtest7` = "03a86bd2deac3052bbe93256e0d7b156" ]; \
+		then echo "		Passed"; \
+		else echo "		Failed"; \
+	fi
+	@echo -n "joktest1: joker eval...  "
+	@if ./joktest1 > /dev/null ; \
 		then echo "		Passed"; \
 		else echo "		Failed"; \
 	fi
