@@ -13,6 +13,11 @@ public class Deck {
   private Deck() {    // don't let anybody instantiate us
   }
 
+  /* NOTE: This code is very sensitive to the constants and macros
+     defined in the C library.  If anything changes in the C library,
+     be very careful to inspect all the hard-coded values in this file.
+     TODO: unit tests to confirm consistency. */
+
   // must match values in deck_joker.h (and also deck_std.h, deck_astud.h)
   public static int SUIT_HEARTS		= 0;
   public static int SUIT_DIAMONDS	= 1;
@@ -95,6 +100,8 @@ public class Deck {
       @return bitmask of cards
   */
   public static long parseCardMask(String maskstr) {
+    if (maskstr.equalsIgnoreCase("nil"))
+      return 0;
     int ncards = 0;
     long mask = 0;
     int pos = 0;
@@ -154,6 +161,8 @@ public class Deck {
       @return string representation of the cards
   */
   public static String cardMaskString(long mask, String delim) {
+    if (mask == 0)
+      return "nil";
     StringBuffer result = new StringBuffer();
     long m = createCardMask(RANK_JOKER, SUIT_JOKER);
     if ((mask & m) != 0)
@@ -178,4 +187,11 @@ public class Deck {
     return cardMaskString(mask, " ");
   }
 
+  public static int numCards(long mask) {
+    int n = 0;
+    for (int i=0; i<=RANK_COUNT*SUIT_COUNT; i++)
+      if ((mask & (1L << i)) != 0)
+        n++;
+    return n;
+  }
 }
