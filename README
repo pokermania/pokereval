@@ -1,0 +1,72 @@
+This is the README file for the pokersource poker hand evaluator
+library.  The library may be obtained from the pokersource web site,
+www.pokersource.org.  
+
+
+To learn more about the features of the library, and how to get
+started using it, see the WHATS-HERE file in the root directory of the
+library distribution.  
+
+
+The PokerSource evaluator library is free software and is released
+under the terms of the GNU General Public License.
+
+
+Compiling -- Unix systems:
+
+This library uses the GNU Autoconf self-configuration mechanism, so
+compiling on a Unix system should be fairly simple.  Just enter the
+following commands: 
+  ./configure
+  make 
+  make test
+
+The "make test" command will run several test programs to ensure that
+everything works correctly.  On slow machines, the tests may take
+several minutes.  (Note: The make files may have some dependencies on GNU
+make; if this is the case, they may need to be edited before the
+library and test programs will compile properly.)  
+
+
+Compiling -- Windows, using cygwin: 
+
+If you have the cygwin package installed, you can build the library as
+per the directions above for Unix systems.  (You may need to create a
+link for /bin (some versions of cygwin don't do this properly on
+installation) so that the configure script can find /bin/sh and other
+required files.)  
+
+
+Compiling -- DOS / Windows: 
+
+The library can also be compiled using Microsoft Visual C++.  In each
+directory, special DOS makefiles are provided, called makefile.dos.
+To compile the library, make sure that the VC tools are on the path
+and that the LIB variable is properly set (VC provides a batch file,
+vcvars32.bat, to set this up), and enter the following commands:
+  cd lib
+  nmake -f makefile.dos
+  cd ..\examples
+  nmake -f makefile.dos
+  cd ..\tests
+  nmake -f makefile.dos
+
+You can't use make to run the test programs under Windows as you can
+on Unix, but you can run them (digtest5 and digtest7, in the tests
+directory) and compare the output value with the value in the make
+file (makefile.dos in the tests directory) to ensure that the right
+thing happened.  
+
+Once the library is built, you can use the resulting library
+(libpoker.lib) in other Visual C++ projects.  Make sure to put the
+include directory of the pokersource library package in the include
+path for projects that will be using the library.  
+
+
+
+Reporting bugs, suggesting improvements: 
+
+As of August 1999, the pokersource evaluator library is maintained by
+Brian Goetz.  Bug reports, suggestions for improvements, or candidates
+for inclusion should be sent to brian@quiotix.com.
+
