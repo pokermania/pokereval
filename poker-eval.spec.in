@@ -82,5 +82,5 @@ make install DESTDIR=${RPM_BUILD_ROOT}
 %{prefix}/lib/libpoker-eval.la
 
 %changelog
-* Wed Oct 29 2004 Jean-Chtistophe Duberga <jeanchristophe.duber@free.fr>
+* Wed Oct 29 2004 Jean-Christophe Duberga <jeanchristophe.duber@free.fr>
 - initial spec file for RedHat/Mandrake/... rpm based distributions.
