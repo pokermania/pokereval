@@ -2,11 +2,7 @@
 
 #include "poker_defs.h"
 
-#if defined(NONSTANDARD_DECK)
-#error "Cannot define NONSTANDARD_DECK for stdrules.c"
-#endif
-
-const char *StdRules_handTypeNames[HandType_COUNT] = {
+const char *StdRules_handTypeNames[StdRules_HandType_LAST+1] = {
   "NoPair",
   "OnePair",
   "TwoPair",
@@ -18,7 +14,7 @@ const char *StdRules_handTypeNames[HandType_COUNT] = {
   "StFlush"
 };
 
-const char *StdRules_handTypeNamesPadded[HandType_COUNT] = {
+const char *StdRules_handTypeNamesPadded[StdRules_HandType_LAST+1] = {
   "NoPair  ",
   "OnePair ",
   "TwoPair ",
@@ -30,7 +26,7 @@ const char *StdRules_handTypeNamesPadded[HandType_COUNT] = {
   "StFlush "
 };
 
-int StdRules_nSigCards[HandType_COUNT] = {
+int StdRules_nSigCards[StdRules_HandType_LAST+1] = {
   5, 
   4, 
   3, 
@@ -42,12 +38,13 @@ int StdRules_nSigCards[HandType_COUNT] = {
   1
 };
 
+
 int 
-HandVal_toString(HandVal handval, char *outString) {
+StdRules_HandVal_toString(HandVal handval, char *outString) {
   char *p = outString;
   int htype = HandVal_HANDTYPE(handval);
 
-  p += sprintf(outString, "%s (", handTypeNames[htype]);
+  p += sprintf(outString, "%s (", StdRules_handTypeNames[htype]);
   if (StdRules_nSigCards[htype] >= 1) 
     p += sprintf(p, "%c", 
                  StdDeck_rankChars[HandVal_TOP_CARD(handval)]);
@@ -69,12 +66,13 @@ HandVal_toString(HandVal handval, char *outString) {
 }
 
 int 
-HandVal_print(HandVal handval) {
+StdRules_HandVal_print(HandVal handval) {
   char buf[80];
   int n;
 
-  n = HandVal_toString(handval, buf);
+  n = StdRules_HandVal_toString(handval, buf);
   printf("%s", buf);
   return n;
 }
+
 

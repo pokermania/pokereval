@@ -1,3 +1,6 @@
+#ifndef __STDDECK_H__
+#define __STDDECK_H__
+
 #ifdef HAVE_INT64
 #define LongLong_OP(result, op1, op2, operation) \
   do { result = (op1) operation (op2); } while (0)
@@ -24,6 +27,7 @@
 #define StdDeck_Rank_ACE    12
 #define StdDeck_Rank_COUNT  13
 #define StdDeck_Rank_FIRST  StdDeck_Rank_2
+#define StdDeck_Rank_LAST   StdDeck_Rank_ACE
 #define StdDeck_N_RANKMASKS (1 << StdDeck_Rank_COUNT)
 
 #define StdDeck_RANK(index)  ((index) % StdDeck_Rank_COUNT)
@@ -35,6 +39,7 @@
 #define StdDeck_Suit_CLUBS    2
 #define StdDeck_Suit_SPADES   3
 #define StdDeck_Suit_FIRST    StdDeck_Suit_HEARTS
+#define StdDeck_Suit_LAST     StdDeck_Suit_SPADES
 #define StdDeck_Suit_COUNT    4
 
 typedef uint32 StdDeck_RankMask;
@@ -80,17 +85,17 @@ typedef union {
 
 #define StdDeck_CardMask_SET(mask, index)       \
 do {                                            \
-  CardMask _t1 = Deck_MASK(index);              \
-  CardMask_OR((mask), (mask), _t1);             \
+  StdDeck_CardMask _t1 = StdDeck_MASK(index);           \
+  StdDeck_CardMask_OR((mask), (mask), _t1);             \
 } while (0)
 
 #ifdef HAVE_INT64                                                          
 #define StdDeck_CardMask_CARD_IS_SET(mask, index)                       \
-  (( (mask).cards_n & (Deck_MASK(index).cards_n)) != 0 )                 
+  (( (mask).cards_n & (StdDeck_MASK(index).cards_n)) != 0 )                 
 #else                                                                   
 #define StdDeck_CardMask_CARD_IS_SET(mask, index)                       \
-  ((( (mask).cards_nn.n1 & (Deck_MASK(index).cards_nn.n1)) != 0 )       \
-   || (( (mask).cards_nn.n2 & (Deck_MASK(index).cards_nn.n2)) != 0 ))   
+  ((( (mask).cards_nn.n1 & (StdDeck_MASK(index).cards_nn.n1)) != 0 )    \
+   || (( (mask).cards_nn.n2 & (StdDeck_MASK(index).cards_nn.n2)) != 0 ))   
 #endif
 
 #ifdef HAVE_INT64                                                          
@@ -120,8 +125,8 @@ extern uint32   topFiveBitsTable[StdDeck_N_RANKMASKS];
 extern uint8       straightTable[StdDeck_N_RANKMASKS];
 extern StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
 
-extern const char StdDeck_rankChars[StdDeck_Rank_COUNT];
-extern const char StdDeck_suitChars[StdDeck_Suit_COUNT];
+extern const char StdDeck_rankChars[StdDeck_Rank_LAST+1];
+extern const char StdDeck_suitChars[StdDeck_Suit_LAST+1];
 
 extern int StdDeck_cardToString(int cardIndex, char *outString);
 extern int StdDeck_maskToString(StdDeck_CardMask cardMask, char *outString);
@@ -178,5 +183,6 @@ extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask);
 #define CardMask_CLUBS         StdDeck_CardMask_CLUBS
 #define CardMask_DIAMONDS      StdDeck_CardMask_DIAMONDS
 
-#endif
+#endif /* NONSTANDARD_DECK */
 
+#endif

@@ -8,6 +8,7 @@
 #define StdRules_HandType_QUADS     7
 #define StdRules_HandType_STFLUSH   8
 #define StdRules_HandType_FIRST     StdRules_HandType_NOPAIR
+#define StdRules_HandType_LAST      StdRules_HandType_STFLUSH
 #define StdRules_HandType_COUNT     9
 
 #define StdRules_FIVE_STRAIGHT \
@@ -17,10 +18,13 @@
   | (1 << StdDeck_Rank_4 ) \
   | (1 << StdDeck_Rank_5 ))
 
-extern const char *StdRules_handTypeNames[StdRules_HandType_COUNT];
-extern const char *StdRules_handTypeNamesPadded[StdRules_HandType_COUNT];
+extern const char *StdRules_handTypeNames[StdRules_HandType_LAST+1];
+extern const char *StdRules_handTypeNamesPadded[StdRules_HandType_LAST+1];
 
-extern int StdRules_nSigCards[StdRules_HandType_COUNT];
+extern int StdRules_nSigCards[StdRules_HandType_LAST+1];
+
+extern int StdRules_HandVal_toString(HandVal handval, char *outString); 
+extern int StdRules_HandVal_print(HandVal handval);
 
 
 #ifndef NONSTANDARD_RULES
@@ -39,6 +43,8 @@ extern int StdRules_nSigCards[StdRules_HandType_COUNT];
 #define handTypeNames        StdRules_handTypeNames
 #define handTypeNamesPadded  StdRules_handTypeNamesPadded
 #define nSigCards            StdRules_nSigCards
+#define HandVal_print        StdRules_HandVal_print
+#define HandVal_toString     StdRules_HandVal_toString
 
 #endif
 

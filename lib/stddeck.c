@@ -63,16 +63,16 @@ StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask) {
   for (p=inString; p < inString + strlen(inString); p++) {
     if (*p == ' ')
       continue;
-    for (rank=0; rank < StdDeck_Rank_COUNT; rank++) 
+    for (rank=StdDeck_Rank_FIRST; rank <= StdDeck_Rank_LAST; rank++) 
       if (StdDeck_rankChars[rank] == toupper(*p))
         break;
-    if (rank == StdDeck_Rank_COUNT)
+    if (rank > StdDeck_Rank_LAST)
       break;
     ++p;
-    for (suit=0; suit < StdDeck_Suit_COUNT; suit++) 
+    for (suit=StdDeck_Suit_FIRST; suit <= StdDeck_Suit_LAST; suit++) 
       if (StdDeck_suitChars[suit] == tolower(*p))
         break;
-    if (suit == StdDeck_Suit_COUNT)
+    if (suit > StdDeck_Suit_LAST)
       break;
     ++p;
     card = StdDeck_MAKE_CARD(rank, suit);
