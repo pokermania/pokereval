@@ -95,4 +95,5 @@ main(int argc, char **argv) {
                         ++totals[handval.handval.htype];
                       });
   dump_totals();
+  return 0;
 }
