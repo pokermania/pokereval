@@ -88,11 +88,13 @@ typedef union {
 #define JokerDeck_CardMask_SET_HEARTS(cm, ranks)   ((cm).cards.hearts=(ranks))
 #define JokerDeck_CardMask_SET_JOKER(cm, ranks)    ((cm).cards.joker=(ranks))
 
+#define JokerDeck_CardMask_NOT         StdDeck_CardMask_NOT
 #define JokerDeck_CardMask_OR          StdDeck_CardMask_OR
 #define JokerDeck_CardMask_AND         StdDeck_CardMask_AND
 #define JokerDeck_CardMask_XOR         StdDeck_CardMask_XOR
 #define JokerDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define JokerDeck_CardMask_RESET       StdDeck_CardMask_RESET
+#define JokerDeck_CardMask_UNSET       StdDeck_CardMask_UNSET
 #define JokerDeck_CardMask_IS_EMPTY    StdDeck_CardMask_IS_EMPTY
 
 #define JokerDeck_CardMask_toStd(jCards, sCards) \
@@ -179,6 +181,7 @@ extern Deck JokerDeck;
 #define Suit_COUNT        JokerDeck_Suit_COUNT
 
 #define CardMask               JokerDeck_CardMask 
+#define CardMask_NOT           JokerDeck_CardMask_NOT
 #define CardMask_OR            JokerDeck_CardMask_OR
 #define CardMask_XOR           JokerDeck_CardMask_XOR
 #define CardMask_AND           JokerDeck_CardMask_AND
@@ -186,6 +189,7 @@ extern Deck JokerDeck;
 #define CardMask_CARD_IS_SET   JokerDeck_CardMask_CARD_IS_SET
 #define CardMask_ANY_SET       JokerDeck_CardMask_ANY_SET
 #define CardMask_RESET         JokerDeck_CardMask_RESET
+#define CardMask_UNSET         JokerDeck_CardMask_UNSET
 
 #define CardMask_SPADES        JokerDeck_CardMask_SPADES
 #define CardMask_HEARTS        JokerDeck_CardMask_HEARTS

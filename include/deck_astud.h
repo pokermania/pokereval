@@ -45,11 +45,13 @@ typedef StdDeck_RankMask AStudDeck_RankMask;
 #define AStudDeck_CardMask_DIAMONDS StdDeck_CardMask_DIAMONDS
 #define AStudDeck_CardMask_HEARTS   StdDeck_CardMask_HEARTS
 
+#define AStudDeck_CardMask_NOT         StdDeck_CardMask_NOT
 #define AStudDeck_CardMask_OR          StdDeck_CardMask_OR
 #define AStudDeck_CardMask_AND         StdDeck_CardMask_AND
 #define AStudDeck_CardMask_XOR         StdDeck_CardMask_XOR
 #define AStudDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define AStudDeck_CardMask_RESET       StdDeck_CardMask_RESET
+#define AStudDeck_CardMask_UNSET       StdDeck_CardMask_UNSET
 #define AStudDeck_CardMask_IS_EMPTY    StdDeck_CardMask_IS_EMPTY
 
 #ifdef HAVE_INT64                                                          
@@ -118,6 +120,7 @@ extern Deck AStudDeck;
 #define Suit_COUNT        AStudDeck_Suit_COUNT
 
 #define CardMask               AStudDeck_CardMask 
+#define CardMask_NOT           AStudDeck_CardMask_NOT
 #define CardMask_OR            AStudDeck_CardMask_OR
 #define CardMask_XOR           AStudDeck_CardMask_XOR
 #define CardMask_AND           AStudDeck_CardMask_AND
@@ -125,6 +128,7 @@ extern Deck AStudDeck;
 #define CardMask_CARD_IS_SET   AStudDeck_CardMask_CARD_IS_SET
 #define CardMask_ANY_SET       AStudDeck_CardMask_ANY_SET
 #define CardMask_RESET         AStudDeck_CardMask_RESET
+#define CardMask_UNSET         AStudDeck_CardMask_UNSET
 
 #define CardMask_SPADES        AStudDeck_CardMask_SPADES
 #define CardMask_HEARTS        AStudDeck_CardMask_HEARTS

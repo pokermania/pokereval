@@ -105,6 +105,19 @@ typedef union {
 } while (0)
 #endif
 
+#ifdef HAVE_INT64
+#define StdDeck_CardMask_NOT(result, op1)                               \
+  do {                                                                  \
+    (result).cards_n = ~(op1).cards_n;                                  \
+  } while (0)
+#else
+#define StdDeck_CardMask_NOT(result, op1)                               \
+  do {                                                                  \
+    (result).cards_nn.n1 = ~(op1).cards_nn.n1;                          \
+    (result).cards_nn.n2 = ~(op1).cards_nn.n2;                          \
+  } while (0)
+#endif
+
 #define StdDeck_CardMask_OR(result, op1, op2) \
   StdDeck_CardMask_OP(result, op1, op2, |)
 
@@ -120,10 +133,18 @@ do {                                            \
   StdDeck_CardMask_OR((mask), (mask), _t1);             \
 } while (0)
 
+#define StdDeck_CardMask_UNSET(mask, index)       	\
+do {                                            	\
+  StdDeck_CardMask _t1 = StdDeck_MASK(index);           \
+  StdDeck_CardMask_NOT(_t1, _t1);	             	\
+  StdDeck_CardMask_AND((mask), (mask), _t1);            \
+} while (0)
+
 #ifdef HAVE_INT64                                                          
 #define StdDeck_CardMask_CARD_IS_SET(mask, index)                       \
   (( (mask).cards_n & (StdDeck_MASK(index).cards_n)) != 0 )                 
 #else                                                                   
+/* TODO: this looks wrong; should be ((mask.n1 & i.n1 != 0) || (i.n1 == 0)) */
 #define StdDeck_CardMask_CARD_IS_SET(mask, index)                       \
   ((( (mask).cards_nn.n1 & (StdDeck_MASK(index).cards_nn.n1)) != 0 )    \
    || (( (mask).cards_nn.n2 & (StdDeck_MASK(index).cards_nn.n2)) != 0 ))   
@@ -225,6 +246,7 @@ extern Deck StdDeck;
 #define Suit_COUNT        StdDeck_Suit_COUNT
 
 #define CardMask               StdDeck_CardMask 
+#define CardMask_NOT           StdDeck_CardMask_NOT
 #define CardMask_OR            StdDeck_CardMask_OR
 #define CardMask_XOR           StdDeck_CardMask_XOR
 #define CardMask_AND           StdDeck_CardMask_AND
@@ -232,6 +254,7 @@ extern Deck StdDeck;
 #define CardMask_CARD_IS_SET   StdDeck_CardMask_CARD_IS_SET
 #define CardMask_ANY_SET       StdDeck_CardMask_ANY_SET
 #define CardMask_RESET         StdDeck_CardMask_RESET
+#define CardMask_UNSET         StdDeck_CardMask_UNSET
 
 #define CardMask_SPADES        StdDeck_CardMask_SPADES
 #define CardMask_HEARTS        StdDeck_CardMask_HEARTS
