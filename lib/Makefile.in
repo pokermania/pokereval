@@ -3,7 +3,6 @@ LIB=libpoker.a
 MKTABLE_HELPERS = mktable.o mktable_utils.o
 
 OBJ=$(DERIVED_SOURCES:.c=.o) \
-	mktab_basic.o $(MKTABLE_HELPERS) \
 	stddeck.o stdrules.o evx.o \
 	astuddeck.o astudrules.o jokerdeck.o lowball.o \
 	md5c.o 
@@ -45,7 +44,7 @@ $(LIB): $(OBJ)
 	$(RANLIB) $(LIB)
 
 clean:
-	rm -f $(OBJ) $(LIB) $(DERIVED_SOURCES) $(PROGRAMS)
+	rm -f *.o core $(OBJ) $(LIB) $(DERIVED_SOURCES) $(PROGRAMS) 
 
 $(BASIC_TABLES): mktab_basic
 	./$<
