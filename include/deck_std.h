@@ -210,7 +210,6 @@ extern Deck StdDeck;
 #define Suit_COUNT        StdDeck_Suit_COUNT
 
 #define CardMask               StdDeck_CardMask 
-#define Deck_CardMask          StdDeck_CardMask
 #define CardMask_OR            StdDeck_CardMask_OR
 #define CardMask_SET           StdDeck_CardMask_SET
 #define CardMask_CARD_IS_SET   StdDeck_CardMask_CARD_IS_SET

@@ -39,5 +39,12 @@ GenericDeck_maskString(Deck *deck, void *cardMask);
 extern int
 GenericDeck_printCard(Deck *deck, int cardIndex);
 
+/* These are required by the ENUMERATE_ macros */
+
+#define Deck_CardMask    CardMask
+#define Deck_CardMask_OR CardMask_OR
+#define Deck_CardMask_RESET CardMask_RESET
+#define Deck_CardMask_ANY_SET CardMask_ANY_SET
 
 #endif
+
