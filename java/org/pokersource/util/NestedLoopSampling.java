@@ -35,6 +35,10 @@ public class NestedLoopSampling implements Enumeration {
     rand = new Random();
   }
 
+  public NestedLoopSampling(int[] limits) {
+    this(limits, Integer.MAX_VALUE);
+  }
+
   public boolean hasMoreElements() {
     return nsamples > 0;
   }
