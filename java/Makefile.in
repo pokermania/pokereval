@@ -10,7 +10,7 @@ SLIBJNI_CMD= @SLIBJNI_CMD@
 ifeq ($(JAVAC),jikes)
   JAVACOPTS += +E +P
   # TODO: improve on this jre best guess, perhaps in autoconf?
-  CLASSPATH := $(CLASSPATH):$(JDKHOME)/jre/lib/rt.jar
+  RTCLASSPATH := $(JDKHOME)/jre/lib/rt.jar
 endif
 
 JAVADOCDIR	:= javadoc
@@ -47,7 +47,7 @@ JAVADOC_HEADER		:= '<b>PokerSource Java API</b>'
 JAVADOC_BOTTOM		:= '<a href="http://www.pokersource.org/">PokerSource \
 			Home Page</a> - Learn how you can contribute!'
 JAVADOC_OVERVIEW	:= overview.html
-JAVADOC_CLASSPATH	:= .:$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR):$(CLASSPATH)
+JAVADOC_CLASSPATH	:= .:$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR)
 
 all: classes jnilib jarfile javadoc
 classes: $(CLASSFILES)
@@ -75,7 +75,7 @@ cleanclass:
 	$(RM) $(CLASSFILES)
 
 %.class: %.java
-	$(JAVAC) $(JAVACOPTS) -classpath .:$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR):$(CLASSPATH) $<
+	$(JAVAC) $(JAVACOPTS) -classpath .:$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR):$(RTCLASSPATH) $<
 
 pokerjni.h: $(JNI_CLASSFILES)
 	$(JAVAH) -o $@ -jni -force $(JNI_CLASSES)
@@ -88,7 +88,7 @@ $(JNILIB): $(JNI_OBJS)
 
 $(JNI_OBJS): $(JNI_HEADER)
 
-TEST_CLASSPATH := $(POKERSOURCE_JAR):$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR):$(CLASSPATH)
+TEST_CLASSPATH := $(POKERSOURCE_JAR):$(JUNIT_JAR):$(ORO_JAR):$(GETOPT_JAR)
 test: $(POKERSOURCE_JAR) $(JNILIB)
 	LD_LIBRARY_PATH=../lib:$$LD_LIBRARY_PATH \
 	  $(JAVA) -classpath $(TEST_CLASSPATH) org.pokersource.AllTests
