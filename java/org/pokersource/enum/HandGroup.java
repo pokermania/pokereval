@@ -15,11 +15,11 @@ import java.util.Set;
 */
 
 public interface HandGroup {
-  public String getGroupSpec();
-  public int numHands();
-  public long[] getHands();
-  public Set getHandSet();
-  public boolean isHandInGroup(long hand);
-  public String toString();
-  public String toStringAtomic();
+  String getGroupSpec();
+  int numHands();
+  long[] getHands();
+  Set getHandSet();
+  boolean isHandInGroup(long hand);
+  String toString();
+  String toStringAtomic();
 }
