@@ -3,6 +3,7 @@
 package org.pokersource.enum;
 import org.pokersource.game.Deck;
 import java.util.Set;
+import java.util.Iterator;
 
 /** Algorithms for computing subjective all-in equity.  SAIE is a player's pot
     equity given particular beliefs about the possible hands of the
@@ -74,8 +75,16 @@ public class SAIE {
         ev[i] += matchev[i] * matchprob;
       totalprob += matchprob;
     }
+    // Scale by the total probability of all matchups (this factor is less
+    // than one when the hand distributions are not disjoint).
     for (int i=0; i<nplayers; i++)
       ev[i] /= totalprob;
+    if (matchups != null) {
+      for (Iterator iter=matchups.iterator(); iter.hasNext(); ) {
+        HandMatchup matchup = (HandMatchup) iter.next();
+        matchup.matchProb /= totalprob;
+      }
+    }
   }
 
   /** Compute the subjective all-in equity of each player based on a
