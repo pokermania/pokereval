@@ -9,6 +9,7 @@
 #endif
 
 #ifdef HAVE_INT64
+
 #ifdef HAVE_LONG_LONG
 typedef unsigned long long      uint64;
 #elif SIZEOF_LONG == 8
@@ -18,6 +19,12 @@ typedef UINT64_TYPE             uint64;
 #else
 #error "Don't know what 64-bit integers are called"
 #endif
+
+#define LongLong_OP(result, op1, op2, operation) \
+  do { result = (op1) operation (op2); } while (0)
+#define LongLong_OR(result, op1, op2)  LongLong_OP(result, op1, op2, |)
+#define LongLong_AND(result, op1, op2) LongLong_OP(result, op1, op2, &)
+
 #endif
 
 typedef unsigned char  uint8;
