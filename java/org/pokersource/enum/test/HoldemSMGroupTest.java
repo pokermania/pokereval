@@ -7,13 +7,18 @@ import org.pokersource.game.Deck;
 import junit.framework.*;
 
 /**
-   @version $Revision$
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
 public class HoldemSMGroupTest extends TestCase {
   private HoldemSMGroup gSM1;
   private HoldemSMGroup gSM2;
+  private HoldemSMGroup gSM3;
+  private HoldemSMGroup gSM4;
+  private HoldemSMGroup gSM5;
+  private HoldemSMGroup gSM6;
+  private HoldemSMGroup gSM7;
+  private HoldemSMGroup gSM8;
   private HoldemSMGroup gSM9;
   private long AhAd;
   private long KhQh;
@@ -33,6 +38,12 @@ public class HoldemSMGroupTest extends TestCase {
   protected void setUp() {
     gSM1 = new HoldemSMGroup("SM1");
     gSM2 = new HoldemSMGroup("SM2");
+    gSM3 = new HoldemSMGroup("SM3");
+    gSM4 = new HoldemSMGroup("SM4");
+    gSM5 = new HoldemSMGroup("SM5");
+    gSM6 = new HoldemSMGroup("SM6");
+    gSM7 = new HoldemSMGroup("SM7");
+    gSM8 = new HoldemSMGroup("SM8");
     gSM9 = new HoldemSMGroup("SM9");
     AhAd = Deck.parseCardMask("AhAd");
     KhQh = Deck.parseCardMask("KhQh");
@@ -72,9 +83,24 @@ public class HoldemSMGroupTest extends TestCase {
   }
   
   public void testGetHands() {
-    assertEquals(6+6+6+6+4, gSM1.getHands().length);
-    assertEquals(6+4+4+4+12, gSM2.getHands().length);
-    assertEquals(784, gSM9.getHands().length);
+    assertEquals(6+6+6+6+4,
+                 gSM1.getHands().length);
+    assertEquals(6+4+4+4+12,
+                 gSM2.getHands().length);
+    assertEquals(6+4+4+4+4+12,
+                 gSM3.getHands().length);
+    assertEquals(4+12+6+4+4+4+12+4,
+                 gSM4.getHands().length);
+    assertEquals(6+4+4+4+12+12+12+4+4+4+4+4+4+4+4+4+4+4,
+                 gSM5.getHands().length);
+    assertEquals(6+12+6+4+12+12+4+4+4,
+                 gSM6.getHands().length);
+    assertEquals(6+12+4+4+12+6+12+4+6+4+4+4+4+4+4+4+4+4,
+                 gSM7.getHands().length);
+    assertEquals(12+4+12+12+12+4+4+4+4+12+4+12+12+4+12+12,
+                 gSM8.getHands().length);
+    assertEquals(784,
+                 gSM9.getHands().length);
   }
 
 }
