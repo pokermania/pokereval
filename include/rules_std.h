@@ -1,3 +1,12 @@
+/*
+   Note that this file has two #if .. #endif sections -- one for 
+   StdDeck macros to prevent double-inclusion, and one to define the 
+   generic Rules_ macros if RULES_STANDARD is defined 
+*/
+
+#ifndef __RULES_STD_H__
+#define __RULES_STD_H__
+
 #define StdRules_HandType_NOPAIR    0
 #define StdRules_HandType_ONEPAIR   1
 #define StdRules_HandType_TWOPAIR   2
@@ -26,8 +35,14 @@ extern int StdRules_nSigCards[StdRules_HandType_LAST+1];
 extern int StdRules_HandVal_toString(HandVal handval, char *outString); 
 extern int StdRules_HandVal_print(HandVal handval);
 
+#endif
 
-#ifndef NONSTANDARD_RULES
+#ifdef RULES_STANDARD
+
+#if defined(HandType_COUNT)
+#include "rules_undef.h"
+#endif
+
 #define HandType_NOPAIR    StdRules_HandType_NOPAIR    
 #define HandType_ONEPAIR   StdRules_HandType_ONEPAIR   
 #define HandType_TWOPAIR   StdRules_HandType_TWOPAIR   

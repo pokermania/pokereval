@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "poker_defs.h"
-#include "deck.h"
 
 
 const char StdDeck_rankChars[] = "23456789TJQKA";

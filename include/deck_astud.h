@@ -1,5 +1,11 @@
-#ifndef __ASTUDDECK_H__
-#define __ASTUDDECK_H__
+/*
+   Note that this file has two #if .. #endif sections -- one for 
+   StdDeck macros to prevent double-inclusion, and one to define the 
+   generic Deck_ macros if DECK_ASTUD is defined 
+*/
+
+#ifndef __DECK_ASTUD_H__
+#define __DECK_ASTUD_H__
 
 #define AStudDeck_N_CARDS      32
 #define AStudDeck_MASK(index)  (AStudDeck_cardMasksTable[index])
@@ -20,7 +26,8 @@
 #define AStudDeck_RANK(index)  (AStudDeck_Rank_FIRST \
                                 + ((index) % AStudDeck_Rank_COUNT))
 #define AStudDeck_SUIT(index)  ((index) / AStudDeck_Rank_COUNT)
-#define AStudDeck_MAKE_CARD(rank, suit) ((suit * AStudDeck_Rank_COUNT) + rank)
+#define AStudDeck_MAKE_CARD(rank, suit) ((suit * AStudDeck_Rank_COUNT) \
+                                         + ( rank - AStudDeck_Rank_FIRST ))
 
 #define AStudDeck_Suit_HEARTS   StdDeck_Suit_HEARTS
 #define AStudDeck_Suit_DIAMONDS StdDeck_Suit_DIAMONDS
@@ -40,7 +47,6 @@ typedef StdDeck_RankMask AStudDeck_RankMask;
 
 #define AStudDeck_CardMask_OR          StdDeck_CardMask_OR
 #define AStudDeck_CardMask_AND         StdDeck_CardMask_AND
-#define AStudDeck_CardMask_SET         StdDeck_CardMask_SET
 #define AStudDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define AStudDeck_CardMask_RESET       StdDeck_CardMask_RESET
 
@@ -53,30 +59,42 @@ typedef StdDeck_RankMask AStudDeck_RankMask;
    || (( (mask).cards_nn.n2 & (AStudDeck_MASK(index).cards_nn.n2)) != 0 ))   
 #endif
 
+#define AStudDeck_CardMask_SET(mask, index)     \
+do {                                            \
+  AStudDeck_CardMask _t1 = AStudDeck_MASK(index);         \
+  AStudDeck_CardMask_OR((mask), (mask), _t1);             \
+} while (0)
+
 extern AStudDeck_CardMask AStudDeck_cardMasksTable[AStudDeck_N_CARDS];
 
 extern const char AStudDeck_rankChars[AStudDeck_Rank_LAST+1];
 extern const char AStudDeck_suitChars[AStudDeck_Suit_LAST+1];
 
 extern int AStudDeck_cardToString(int cardIndex, char *outString);
-extern int AStudDeck_maskToString(AStudDeck_CardMask cardMask, char *outString);
-extern int AStudDeck_printCard(int cardIndex);
-extern int AStudDeck_printMask(AStudDeck_CardMask cardMask);
-extern int AStudDeck_stringToMask(char *inString, AStudDeck_CardMask *outMask);
+extern int AStudDeck_stringToCard(char *inString, int *outCard);
+
+#define AStudDeck_cardString(i) GenericDeck_cardString(AStudDeck, (i))
+#define AStudDeck_printCard(i)  GenericDeck_printCard(AStudDeck, (i))
+#define AStudDeck_printMask(m)  GenericDeck_printMask(AStudDeck, (m))
+#define AStudDeck_maskString(m) GenericDeck_maskString(AStudDeck, (m))
+#define AStudDeck_maskToString(m, s) GenericDeck_maskToString(AStudDeck, (m), (s))
+
+extern Deck AStudDeck;
+
+#endif
 
 
-#ifdef USE_ASTUD_DECK
+
+#ifdef DECK_ASTUD
+
+#if defined(Deck_N_CARDS)
+#include "deck_undef.h"
+#endif
 
 #define Deck_N_CARDS      AStudDeck_N_CARDS
 #define Deck_MASK         AStudDeck_MASK
 #define Deck_RANK         AStudDeck_RANK
 #define Deck_SUIT         AStudDeck_SUIT
-
-#define Deck_cardToString AStudDeck_cardToString
-#define Deck_maskToString AStudDeck_maskToString
-#define Deck_printCard    AStudDeck_printCard
-#define Deck_printMask    AStudDeck_printMask
-#define Deck_stringToMask AStudDeck_stringToMask
 
 #define Rank_7            AStudDeck_Rank_7 
 #define Rank_8            AStudDeck_Rank_8 
@@ -108,6 +126,7 @@ extern int AStudDeck_stringToMask(char *inString, AStudDeck_CardMask *outMask);
 #define CardMask_CLUBS         AStudDeck_CardMask_CLUBS
 #define CardMask_DIAMONDS      AStudDeck_CardMask_DIAMONDS
 
-#endif /* USE_ASTUD_DECK */
+#define CurDeck AStudDeck
 
-#endif
+#endif /* DECK_ASTUD */
+

@@ -1,5 +1,11 @@
-#ifndef __ASTUDRULES_H__
-#define __ASTUDRULES_H__
+/*
+   Note that this file has two #if .. #endif sections -- one for 
+   StdDeck macros to prevent double-inclusion, and one to define the 
+   generic Rules_ macros if RULES_ASTUD is defined 
+*/
+
+#ifndef __RULES_ASTUD_H__
+#define __RULES_ASTUD_H__
 
 #define AStudRules_HandType_NOPAIR    0
 #define AStudRules_HandType_ONEPAIR   1
@@ -28,7 +34,14 @@ extern int AStudRules_nSigCards[AStudRules_HandType_LAST+1];
 extern int AStudRules_HandVal_toString(HandVal handval, char *outString); 
 extern int AStudRules_HandVal_print(HandVal handval);
 
-#ifdef USE_ASTUD_RULES
+#endif
+
+#ifdef RULES_ASTUD
+
+#if defined(HandType_COUNT)
+#include "rules_undef.h"
+#endif
+
 #define HandType_NOPAIR    AStudRules_HandType_NOPAIR    
 #define HandType_ONEPAIR   AStudRules_HandType_ONEPAIR   
 #define HandType_TWOPAIR   AStudRules_HandType_TWOPAIR   
@@ -47,7 +60,5 @@ extern int AStudRules_HandVal_print(HandVal handval);
 #define nSigCards            AStudRules_nSigCards
 #define HandVal_print        AStudRules_HandVal_print
 #define HandVal_toString     AStudRules_HandVal_toString
-
-#endif
 
 #endif

@@ -1,8 +1,8 @@
 #include <stdio.h>
 
 #include "poker_defs.h"
-#include "astuddeck.h"
-#include "astudrules.h"
+#include "deck_astud.h"
+#include "rules_astud.h"
 
 const char *AStudRules_handTypeNames[AStudRules_HandType_LAST+1] = {
   "NoPair",

@@ -21,8 +21,8 @@
 #include <stdlib.h>
 
 #include "poker_defs.h"
+
 #include "inlines/eval.h"
-#include "handval_low.h"
 #include "inlines/eval_low.h"
 
 int gNCards;

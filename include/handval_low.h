@@ -47,10 +47,6 @@ typedef uint32 LowHandVal;
  + LowHandVal_FOURTH_CARD_VALUE(StdDeck_Rank_5+1)        \
  + LowHandVal_FIFTH_CARD_VALUE(StdDeck_Rank_4+1))         
 
-extern uint32  bottomFiveCardsTable[StdDeck_N_RANKMASKS];
-extern uint32  bottomFiveJokerTable[StdDeck_N_RANKMASKS];
-extern uint8        bottomCardTable[StdDeck_N_RANKMASKS];
-
 extern int LowHandVal_toString(LowHandVal hv, char *outString);
 extern int LowHandVal_print(LowHandVal handval);
 

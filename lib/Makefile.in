@@ -3,8 +3,8 @@ LIBPOKER=libpoker@A@
 MKTABLE_HELPERS = mktable@O@ mktable_utils@O@
 
 OBJ=$(DERIVED_SOURCES:.c=@O@) \
-	deck@O@ stddeck@O@ stdrules@O@ evx@O@ \
-	astuddeck@O@ astudrules@O@ jokerdeck@O@ lowball@O@ \
+	deck@O@ deck_std@O@ rules_std@O@ evx@O@ \
+	deck_astud@O@ rules_astud@O@ deck_joker@O@ lowball@O@ \
 	md5c@O@ 
 
 BASIC_TABLES = \

@@ -1,5 +1,11 @@
-#ifndef __STDDECK_H__
-#define __STDDECK_H__
+/*
+   Note that this file has two #if .. #endif sections -- one for 
+   StdDeck macros to prevent double-inclusion, and one to define the 
+   generic Deck_ macros if DECK_STANDARD is defined 
+*/
+
+#ifndef __DECK_STD_H__
+#define __DECK_STD_H__
 
 #define StdDeck_N_CARDS      52
 #define StdDeck_MASK(index)  (StdDeck_cardMasksTable[index])
@@ -129,14 +135,19 @@ do {                                            \
   do { (mask).cards_nn.n1 = (mask).cards_nn.n2 = 0; } while (0)
 #endif
 
-extern uint8          nBitsTable[StdDeck_N_RANKMASKS];
-extern uint32  topFiveCardsTable[StdDeck_N_RANKMASKS];
-extern uint32    topFiveBitTable[StdDeck_N_RANKMASKS];
-extern uint8        topCardTable[StdDeck_N_RANKMASKS];
-extern uint32        topBitTable[StdDeck_N_RANKMASKS];
-extern uint32    topTwoBitsTable[StdDeck_N_RANKMASKS];
-extern uint32   topFiveBitsTable[StdDeck_N_RANKMASKS];
-extern uint8       straightTable[StdDeck_N_RANKMASKS];
+extern uint8             nBitsTable[StdDeck_N_RANKMASKS];
+extern uint32     topFiveCardsTable[StdDeck_N_RANKMASKS];
+extern uint32       topFiveBitTable[StdDeck_N_RANKMASKS];
+extern uint8           topCardTable[StdDeck_N_RANKMASKS];
+extern uint32           topBitTable[StdDeck_N_RANKMASKS];
+extern uint32       topTwoBitsTable[StdDeck_N_RANKMASKS];
+extern uint32      topFiveBitsTable[StdDeck_N_RANKMASKS];
+extern uint8          straightTable[StdDeck_N_RANKMASKS];
+
+extern uint32  bottomFiveCardsTable[StdDeck_N_RANKMASKS];
+extern uint32  bottomFiveJokerTable[StdDeck_N_RANKMASKS];
+extern uint8        bottomCardTable[StdDeck_N_RANKMASKS];
+
 extern StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
 
 extern const char StdDeck_rankChars[StdDeck_Rank_LAST+1];
@@ -153,7 +164,18 @@ extern int StdDeck_stringToCard(char *inString, int *outCard);
 
 extern Deck StdDeck;
 
-#ifndef NONSTANDARD_DECK
+
+#endif
+
+
+
+
+#ifdef DECK_STANDARD
+
+#if defined(Deck_N_CARDS)
+#include "deck_undef.h"
+#endif
+
 #define Deck_N_CARDS      StdDeck_N_CARDS
 #define Deck_MASK         StdDeck_MASK
 #define Deck_RANK         StdDeck_RANK
@@ -196,6 +218,4 @@ extern Deck StdDeck;
 
 #define CurDeck StdDeck
 
-#endif /* NONSTANDARD_DECK */
-
-#endif
+#endif 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "poker_defs.h"
-#include "astuddeck.h"
+#include "deck_astud.h"
 #include "mktable.h"
 
 #define ACM_COMMENT_STRING \
@@ -22,7 +22,7 @@ doCardMaskTable(void) {
                   "AStudDeck_CardMask", 
                   AStudDeck_N_CARDS);
   MakeTable_comment(ACM_COMMENT_STRING);
-  MakeTable_extraCode("#include \"astuddeck.h\"");
+  MakeTable_extraCode("#include \"deck_astud.h\"");
   for (i=0; i<AStudDeck_N_CARDS; i++) {
     int suit = AStudDeck_SUIT(i);
     int rank = AStudDeck_RANK(i);

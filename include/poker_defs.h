@@ -1,6 +1,9 @@
 #ifndef __POKER_DEFS_H__
 #define __POKER_DEFS_H__
 
+
+/* Compiler-specific junk */
+
 #if defined(_MSC_VER)
 #define HAVE_INT64
 #define UINT64_TYPE unsigned __int64
@@ -11,6 +14,8 @@
 #define thread 
 #include "config.h"
 #endif
+
+/* 64-bit integer junk */
 
 #ifdef HAVE_INT64
 
@@ -28,8 +33,10 @@ typedef UINT64_TYPE             uint64;
   do { result = (op1) operation (op2); } while (0)
 #define LongLong_OR(result, op1, op2)  LongLong_OP(result, op1, op2, |)
 #define LongLong_AND(result, op1, op2) LongLong_OP(result, op1, op2, &)
+#define LongLong_XOR(result, op1, op2) LongLong_OP(result, op1, op2, ^)
 
 #endif
+
 
 typedef unsigned char  uint8;
 typedef   signed char   int8;
@@ -37,24 +44,11 @@ typedef unsigned short uint16;
 typedef unsigned int   uint32;
 
 #include "deck.h"
-#include "stddeck.h"
 #include "handval.h"
-#include "stdrules.h"
+#include "handval_low.h"
 #include "enumerate.h"
 
-#if !defined(NONSTANDARD_DECK) && !defined(NONSTANDARD_RULES)
-#define Hand_EVAL_N    StdDeck_StdRules_EVAL_N
-#define Hand_EVAL_TYPE StdDeck_StdRules_EVAL_TYPE
-#define Hand_EVAL_X5   StdDeck_StdRules_EVAL_X5
-#define Hand_EVAL_X7   StdDeck_StdRules_EVAL_X7
-#endif
-
-#if defined(NONSTANDARD_DECK) && defined(NONSTANDARD_RULES)
-
-#if defined(USE_ASTUD_DECK) && defined(USE_ASTUD_RULES)
-#define Hand_EVAL_N    AStudDeck_AStudRules_EVAL_N
-#endif
+#include "game_std.h"
 
 #endif
 
-#endif
