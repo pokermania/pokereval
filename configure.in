@@ -14,9 +14,11 @@ if test $target = "msdos"; then
   A=".lib"
   O=".obj"
   E=".exe"
+  SO=".dll"
   RM="del"
   RUN_IT="\$**"
   LIB_CMD="LIB /OUT:\$@ \$**"
+  SLIB_CMD="?????? need command to create DLL here"
   RANLIB="rem"
 else
   AC_CONFIG_HEADER(include/config.h)
@@ -26,6 +28,13 @@ else
   dnl Checks for programs.
   AC_PROG_RANLIB
   AC_PROG_CC
+
+  dnl Check for java support.
+  AC_CHECK_CLASSPATH
+  AC_PROG_JAVAC
+  AC_PROG_JAVA
+  AC_PATH_PROG(JAVAH,javah)
+  dnl ###### AC_CHECK_RQRD_CLASS(org.xml.sax.Parser)
 
   dnl Checks for header files.
   AC_HEADER_STDC
@@ -61,11 +70,14 @@ else
   A=".a"
   O=".o"
   E=""
+  SO=".so"
   RM="rm -f"
   CC_OBJ="-c -o \$@ \$^"
   CC_EXE="-o \$@ \$^"
   RUN_IT="./\$<"
-  LIB_CMD="\$(AR) cr \$@ $^"
+  LIB_CMD="\$(AR) cr \$@ \$^"
+  # hardcoding -shared in SLIB_CMD seems wrong (e.g., it is -G with solaris cc)
+  SLIB_CMD="\$(CC) -shared -o \$@ \$^"
 fi
 
 AC_SUBST(CC)
@@ -74,17 +86,21 @@ AC_SUBST(CC_EXE)
 AC_SUBST(CFLAGS)
 AC_SUBST(RANLIB)
 AC_SUBST(RM)
-AC_SUBST(A)
+
 AC_SUBST(O)
 AC_SUBST(E)
+AC_SUBST(A)
+AC_SUBST(SO)
 AC_SUBST(RUN_IT)
 AC_SUBST(LIB_CMD)
+AC_SUBST(SLIB_CMD)
 
-AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile include/Makefile)
+AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile include/Makefile java/Makefile)
 
 if test $target = "msdos"; then 
   mv lib/Makefile lib/Makefile.dos
   mv tests/Makefile tests/Makefile.dos
   mv examples/Makefile examples/Makefile.dos
   mv include/Makefile include/Makefile.dos
+  mv java/Makefile java/Makefile.dos
 fi

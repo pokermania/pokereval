@@ -1,4 +1,5 @@
 LIBPOKER=libpoker@A@
+SLIBPOKER=libpoker@SO@
 
 MKTABLE_HELPERS = mktable@O@ mktable_utils@O@
 
@@ -41,12 +42,16 @@ CC_OBJ = $(CC) $(CFLAGS) -I../include @CC_OBJ@
 CC_EXE = $(CC) $(CFLAGS) -I../include @CC_EXE@
 RUN_IT = @RUN_IT@
 LIB_CMD = @LIB_CMD@
+SLIB_CMD = @SLIB_CMD@
 
-all:	$(LIBPOKER) $(EVX_HEADERS)
+all:	$(LIBPOKER) $(SLIBPOKER) $(EVX_HEADERS)
 
 $(LIBPOKER): $(OBJ)
 	$(LIB_CMD)
 	$(RANLIB) $@
+
+$(SLIBPOKER): $(OBJ)
+	$(SLIB_CMD)
 
 clean:
 	$(RM) *@O@ core $(OBJ) $(LIBPOKER) $(DERIVED_SOURCES) $(PROGRAMS) 

@@ -4,11 +4,13 @@
 
 all:
 	(cd lib; $(MAKE))
+	(cd java; $(MAKE))
 	(cd tests; $(MAKE))
 	(cd examples; $(MAKE))
 
 clean:
 	(cd lib; $(MAKE) $@)
+	(cd java; $(MAKE) $@)
 	(cd tests; $(MAKE) $@)
 	(cd examples; $(MAKE) $@)
 	(cd include; $(MAKE) $@)

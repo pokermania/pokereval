@@ -8,5 +8,7 @@ their accompanying macros and functions need a reorganization.
 There is no makedepend support, so make doesn't know to recompile a file when
 an include file changes.  And there are lots of includes!
 
-
-
+The autoconf/configure tool is not being used to create the shared libraries
+in a platform-independent way.  The current configure.in hard-codes the
+commands to build *.a, *.so, and *.dll.  Building *.a works on any unix
+system, but building the *.so now only works with gcc.
