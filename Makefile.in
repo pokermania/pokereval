@@ -15,3 +15,28 @@ clean:
 
 test:
 	(cd tests; $(MAKE) $@)
+
+cleanconfig:
+	$(RM) -f config.log config.cache config.status
+
+release:
+	[ -n "$(RELEASE_NUMBER)" ] || echo "No RELEASE_NUMBER specified"
+	$(MAKE) clean cleanconfig
+	$(MAKE) poker-eval-$(RELEASE_NUMBER).tar.gz
+
+poker-eval-$(RELEASE_NUMBER).tar.gz:
+	DIR=/tmp/rel$$$$/poker-eval-$(RELEASE_NUMBER);\
+	mkdir -p $$DIR;\
+	cp -r . $$DIR;\
+	find $$DIR -name CVS | xargs rm -fr;\
+	find $$DIR -name .cvsignore | xargs rm -fr;\
+	find $$DIR -name Makefile | xargs rm -f;\
+	find $$DIR -name 'poker-eval-*.tar.gz' | xargs rm -f;\
+	tar cvf - -C /tmp/rel$$$$ poker-eval-$(RELEASE_NUMBER) | gzip -c > $@;\
+	rm -fr /tmp/rel$$$$
+
+.PHONY: ChangeLog
+ChangeLog:
+        cvs2cl.pl --tags --revisions
+
+Makefile: Makefile.in

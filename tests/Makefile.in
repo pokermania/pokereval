@@ -45,3 +45,5 @@ test : tests
 		then echo "		Passed"; \
 		else echo "		Failed"; \
 	fi
+
+Makefile: Makefile.in

@@ -45,3 +45,4 @@ clean:
 .c@O@:
 	$(CC_OBJ)
 
+Makefile: Makefile.in

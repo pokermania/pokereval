@@ -109,3 +109,4 @@ evx_gen5@O@:	evx_generate.c
 evx_gen7@O@:	evx_generate.c
 	$(CC_OBJ) -DCARDS_DEALT=7 
 
+Makefile: Makefile.in

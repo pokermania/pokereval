@@ -1,0 +1,7 @@
+poker-eval-110
+==============
+Added Omaha/Omaha8, JokerHigh, and Joker 8-or-better low
+evaluation.  Added a new enumeration layer, plus a
+montecarlo sampling option.  Added new examples pokenum,
+usedecks, and utest1.  Removed cmpN.c, which wasn't
+compatible with the current library.  Updated documentation.
