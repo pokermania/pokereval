@@ -17,6 +17,7 @@ clean:
 
 test:
 	(cd tests; $(MAKE) $@)
+	(cd java; $(MAKE) $@)
 
 cleanconfig:
 	$(RM) -f config.log config.cache config.status
