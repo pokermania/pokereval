@@ -30,6 +30,10 @@ public class HandGroup {
     return myhands.contains(new Long(hand));
   }
 
+  public int numHands() {
+    return myhands.size();
+  }
+
   public long[] getHands() {
     long[] hands = new long[myhands.size()];
     int nhands = 0;
