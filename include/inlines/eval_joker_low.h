@@ -1,3 +1,6 @@
+#ifndef __EVAL_JOKER_LOW_H__
+#define __EVAL_JOKER_LOW_H__
+
 #include <assert.h>
 #include "handval_low.h"
 #include "deck_joker.h"
@@ -46,3 +49,5 @@ JokerDeck_Lowball_EVAL(JokerDeck_CardMask cards, int n_cards) {
 
   return StdDeck_Lowball_EVAL(sCards, n_cards);
 }
+
+#endif

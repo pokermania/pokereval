@@ -20,8 +20,8 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef __EVAL_TYPEONLY_H__
-#define __EVAL_TYPEONLY_H__
+#ifndef __EVAL_TYPE_H__
+#define __EVAL_TYPE_H__
 
 #include "poker_defs.h"
 
