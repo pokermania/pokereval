@@ -59,6 +59,11 @@ typedef union {
   } cards;
 } StdDeck_CardMask;
 
+#define StdDeck_CardMask_SPADES(cm)   ((cm).cards.spades)
+#define StdDeck_CardMask_CLUBS(cm)    ((cm).cards.clubs)
+#define StdDeck_CardMask_DIAMONDS(cm) ((cm).cards.diamonds)
+#define StdDeck_CardMask_HEARTS(cm)   ((cm).cards.hearts)
+
 #if HAVE_INT64
 #define StdDeck_CardMask_OR(result, op1, op2) \
   LongLong_OR((result).cards_n, (op1).cards_n, (op2).cards_n) 
@@ -167,6 +172,11 @@ extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask);
 #define CardMask_CARD_IS_SET   StdDeck_CardMask_CARD_IS_SET
 #define CardMask_ANY_SET       StdDeck_CardMask_ANY_SET
 #define CardMask_RESET         StdDeck_CardMask_RESET
+
+#define CardMask_SPADES        StdDeck_CardMask_SPADES
+#define CardMask_HEARTS        StdDeck_CardMask_HEARTS
+#define CardMask_CLUBS         StdDeck_CardMask_CLUBS
+#define CardMask_DIAMONDS      StdDeck_CardMask_DIAMONDS
 
 #endif
 

@@ -40,10 +40,10 @@ int main( void )
   ENUMERATE_5_CARDS(cards, 
                     {
                       handval1 = Hand_EVAL_N(cards, 5);
-                      evxHandVal = Hand_EVAL_X5(cards.cards.clubs, 
-                                                cards.cards.diamonds,
-                                                cards.cards.hearts,
-                                                cards.cards.spades);
+                      evxHandVal = Hand_EVAL_X5(CardMask_CLUBS(cards), 
+                                                CardMask_DIAMONDS(cards),
+                                                CardMask_HEARTS(cards),
+                                                CardMask_SPADES(cards));
                       handval2 = EvxHandVal_toHandVal(evxHandVal);
                       if (handval1 != handval2)
                         {

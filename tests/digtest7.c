@@ -43,10 +43,10 @@ int main( void )
                     {
                       StdDeck_CardMask_OR(cards1, cards, peggedCards);
                       handval1 = Hand_EVAL_N(cards1, 7);
-                      evxHandVal = Hand_EVAL_X7(cards1.cards.clubs, 
-                                                cards1.cards.diamonds,
-                                                cards1.cards.hearts,
-                                                cards1.cards.spades);
+                      evxHandVal = Hand_EVAL_X7(CardMask_CLUBS(cards1), 
+                                                CardMask_DIAMONDS(cards1),
+                                                CardMask_HEARTS(cards1),
+                                                CardMask_SPADES(cards1));
                       handval2 = EvxHandVal_toHandVal(evxHandVal);
                       if (handval1 != handval2)
                         {

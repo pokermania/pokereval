@@ -43,28 +43,33 @@
  *
  */
 
+#define SC CardMask_CLUBS(cards)
+#define SD CardMask_DIAMONDS(cards)
+#define SH CardMask_HEARTS(cards)
+#define SS CardMask_SPADES(cards)
+
 static inline HandVal
 en__is_flush(CardMask cards, uint32 *flushranks )
 {
-  if (nBitsTable[cards.cards.spades] >= 5) {
-    *flushranks          = cards.cards.spades;
+  if (nBitsTable[SS] >= 5) {
+    *flushranks          = SS;
     return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[cards.cards.spades];
+      + topFiveCardsTable[SS];
   } 
-  else if (nBitsTable[cards.cards.clubs] >= 5) {
-    *flushranks          = cards.cards.clubs;
+  else if (nBitsTable[SC] >= 5) {
+    *flushranks          = SC;
     return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[cards.cards.clubs];
+      + topFiveCardsTable[SC];
   } 
-  else if (nBitsTable[cards.cards.diamonds] >= 5) {
-    *flushranks          = cards.cards.diamonds;
+  else if (nBitsTable[SD] >= 5) {
+    *flushranks          = SD;
     return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[cards.cards.diamonds];
+      + topFiveCardsTable[SD];
   } 
-  else if (nBitsTable[cards.cards.hearts] >= 5) {
-    *flushranks          = cards.cards.hearts;
+  else if (nBitsTable[SH] >= 5) {
+    *flushranks          = SH;
     return HandVal_HANDTYPE_VALUE(StdRules_HandType_FLUSH) 
-      + topFiveCardsTable[cards.cards.hearts];
+      + topFiveCardsTable[SH];
   } 
   else 
     return 0;
@@ -116,11 +121,6 @@ StdDeck_StdRules_EVAL_N( CardMask cards, int n_cards )
   uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
     n_dups, n_ranks, flushranks;
     
-#define SC cards.cards.clubs
-#define SD cards.cards.diamonds
-#define SH cards.cards.hearts
-#define SS cards.cards.spades
-
   retval = 0;
   ranks = SC | SD | SH | SS;
   n_ranks = nBitsTable[ranks];
@@ -252,6 +252,11 @@ StdDeck_StdRules_EVAL_N( CardMask cards, int n_cards )
   
   return retval;
 }
+
+#undef SC
+#undef SH
+#undef SD
+#undef SS
 
 #endif
 
