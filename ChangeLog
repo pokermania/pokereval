@@ -1,4 +1,4 @@
-Thu Dec 01 01:42:23 2004  Tim Showalter  <tjs@psaux.com>
+Thu Dec 02 3:00:00 2004  Tim Showalter  <tjs@psaux.com>
 
 	* Updated Mac builds; currently, things seem to build with only
 	  one config setting (--with-mac-target=darwin).
@@ -6,6 +6,11 @@ Thu Dec 01 01:42:23 2004  Tim Showalter  <tjs@psaux.com>
 	* bootstrap now checks for 'libtoolize' in both places, not 'libtool'
 	  (My Debian system has no 'libtool', but my Mac does, and it's
 	  not actually related to GNU libtool.)
+	* boostrap now moves configure.in aside to shut up all the programs
+	  that worry about configure.in's presence.
+	* Fink now detected; --with-fink will default to /sw, as the
+	  help claimed it did.
+	* Default Mac build type is now darwin, since we have no carbon build.
 
 Thu Nov 25 12:27:09 2004  Loic Dachary  <loic@gnu.org>
 
