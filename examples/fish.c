@@ -34,8 +34,7 @@ CardMask gDeadCards, gPeggedCards;
 
 static void
 parseArgs(int argc, char **argv) {
-  int i;
-  CardMask c;
+  int i, c;
 
   for (i = 1; i < argc; ++i) {
     if (argv[i][0] == '-') {
@@ -45,20 +44,20 @@ parseArgs(int argc, char **argv) {
       } 
       else if (strcmp(argv[i], "-d") == 0) {
 	if (++i == argc) goto error;
-        if (Deck_stringToMask(argv[i], &c) != 1)
+        if (Deck_stringToCard(argv[i], &c) == 0)
           goto error;
-        if (!CardMask_ANY_SET(gDeadCards, c)) {
-          CardMask_OR(gDeadCards, gDeadCards, c);
+        if (!CardMask_CARD_IS_SET(gDeadCards, c)) {
+          CardMask_SET(gDeadCards, c);
           ++gNDead;
         };
       } 
       else 
         goto error;
     } else {
-      if (Deck_stringToMask(argv[i], &c) != 1)
+      if (Deck_stringToCard(argv[i], &c) == 0)
         goto error;
-      if (!CardMask_ANY_SET(gPeggedCards, c)) {
-        CardMask_OR(gPeggedCards, gPeggedCards, c);
+      if (!CardMask_CARD_IS_SET(gPeggedCards, c)) {
+        CardMask_SET(gPeggedCards, c);
         ++gNPegged;
       };
     }
@@ -105,15 +104,10 @@ main(int argc, char **argv) {
                       });
 
   printf("%d boards", nHands);
-  if (gNPegged > 0) {
-    printf(" containing ");
-    Deck_printMask(gPeggedCards);
-  };
-  if (gNDead) {
-    printf(" with ");
-    Deck_printMask(gDeadCards);
-    printf(" removed");
-  };
+  if (gNPegged > 0) 
+    printf(" containing %s ", Deck_maskString(gPeggedCards));
+  if (gNDead) 
+    printf(" with %s removed ", Deck_maskString(gDeadCards));
   printf("\n");
 
   dump_totals();

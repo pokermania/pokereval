@@ -5,8 +5,10 @@
 #define HAVE_INT64
 #define UINT64_TYPE unsigned __int64
 #define inline __inline
+#define thread __declspec( thread )
 #define HAVE_SYS_STAT_H
 #else
+#define thread 
 #include "config.h"
 #endif
 
@@ -34,6 +36,7 @@ typedef   signed char   int8;
 typedef unsigned short uint16;
 typedef unsigned int   uint32;
 
+#include "deck.h"
 #include "stddeck.h"
 #include "handval.h"
 #include "stdrules.h"

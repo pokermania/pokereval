@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "poker_defs.h"
+#include "deck.h"
+
 
 const char StdDeck_rankChars[] = "23456789TJQKA";
 const char StdDeck_suitChars[] = "hdcs";
+
 
 int 
 StdDeck_cardToString(int cardIndex, char *outString) {
@@ -15,44 +18,46 @@ StdDeck_cardToString(int cardIndex, char *outString) {
 }
 
 
-int
-StdDeck_maskToString(StdDeck_CardMask cardMask, char *outString) {
-  int i;
-  char *p = outString;
-
-  for (i=StdDeck_N_CARDS-1; i >= 0; i--) {
-    if (StdDeck_CardMask_CARD_IS_SET(cardMask, i)) {
-      if (p > outString) *p++ = ' ';
-      p += StdDeck_cardToString(i, p);
-    };
-  };
-
-  *p = '\0';
-  return p - outString;
-}
-
-
-int
-StdDeck_printCard(int cardIndex) {
-  char buffer[80];
-  int n;
-
-  n = StdDeck_cardToString(cardIndex, buffer);
-  printf("%s", buffer);
-  return n;
-}
-
 int 
-StdDeck_printMask(StdDeck_CardMask cardMask) {
-  char buffer[80];
-  int n;
+StdDeck_stringToCard(char *inString, int *cardIndex) {
+  char *p;
+  int rank, suit;
 
-  n = StdDeck_maskToString(cardMask, buffer);
-  printf("%s", buffer);
+  p = inString;
+  for (rank=StdDeck_Rank_FIRST; rank <= StdDeck_Rank_LAST; rank++) 
+    if (StdDeck_rankChars[rank] == toupper(*p))
+      break;
+  if (rank > StdDeck_Rank_LAST)
+    goto noMatch;
+  ++p;
+  for (suit=StdDeck_Suit_FIRST; suit <= StdDeck_Suit_LAST; suit++) 
+    if (StdDeck_suitChars[suit] == tolower(*p))
+      break;
+  if (suit > StdDeck_Suit_LAST)
+    goto noMatch;
+  *cardIndex = StdDeck_MAKE_CARD(rank, suit);
+  return 2;
+
+ noMatch:
+  /* Didn't match anything, return failure */
+  return 0;
+}
+
+
+int
+StdDeck_maskToCards(void *cardMask, int cards[]) {
+  int i, n=0;
+  StdDeck_CardMask c = *((StdDeck_CardMask *) cardMask);
+
+  for (i=StdDeck_N_CARDS-1; i >= 0; i--) 
+    if (StdDeck_CardMask_CARD_IS_SET(c, i)) 
+      cards[n++] = i;
+
   return n;
 }
 
 
+#if 0
 int 
 StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask) {
   char *p;
@@ -81,6 +86,7 @@ StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask) {
     
   return n;
 }
+#endif
 
 #if 0
 int 
@@ -88,3 +94,12 @@ StdDeck_CardMask_nBitsSet(StdDeck_CardMask cards) {
   return 0;
 }
 #endif
+
+Deck StdDeck = { 
+  StdDeck_N_CARDS, 
+  "StandardDeck", 
+  StdDeck_cardToString, 
+  StdDeck_stringToCard,
+  StdDeck_maskToCards 
+};
+

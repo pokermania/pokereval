@@ -163,4 +163,4 @@ added.
           net for a long time.  Given a number of cards to be dealt and an
           optional set of dead cards, compute how many ways there are to 
           make each type of hand.  The five_card_hands program above is
-          equivalent to (but faster than) "fish -n 5".
+          equivalent to "fish -n 5".

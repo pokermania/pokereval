@@ -35,18 +35,17 @@ CardMask gDeadCards, gCommonCards, gPlayerCards[MAX_PLAYERS];
 
 static void
 parseArgs(int argc, char **argv) {
-  int i, seenSep = 0, cardCount = 0;
-  StdDeck_CardMask c;
+  int i, seenSep = 0, cardCount = 0, c;
 
   for (i = 1; i < argc; ++i) {
     if (argv[i][0] == '-') {
       if (strcmp(argv[i], "-d") == 0) {
 	if (++i == argc) goto error;
-        if (StdDeck_stringToMask(argv[i], &c) != 1)
+        if (StdDeck_stringToCard(argv[i], &c) == 0)
           goto error;
-        if (!CardMask_ANY_SET(gDeadCards, c)) {
+        if (!CardMask_CARD_IS_SET(gDeadCards, c)) {
           ++gNDead;
-          StdDeck_CardMask_OR(gDeadCards, gDeadCards, c);
+          StdDeck_CardMask_SET(gDeadCards, c);
         };
       } 
       else if (!strcmp(argv[i], "--"))
@@ -54,15 +53,15 @@ parseArgs(int argc, char **argv) {
       else
         goto error;
     } else {
-      if (StdDeck_stringToMask(argv[i], &c) != 1)
+      if (StdDeck_stringToCard(argv[i], &c) == 0)
         goto error;
       if (seenSep) {
-        StdDeck_CardMask_OR(gCommonCards, gCommonCards, c);
+        StdDeck_CardMask_SET(gCommonCards, c);
         ++gNCommon;
       }
       else {
         int i = cardCount / 2;
-        StdDeck_CardMask_OR(gPlayerCards[i], gPlayerCards[i], c);
+        StdDeck_CardMask_SET(gPlayerCards[i], c);
         gNPlayers = i+1;
         ++cardCount;
       };
@@ -140,26 +139,20 @@ int main( int argc, char *argv[] )
                       );
 
   printf("%ld boards", handCount);
-  if (gNCommon > 0) {
-    printf(" containing ");
-    Deck_printMask(gCommonCards);
-  };
-  if (gNDead) {
-    printf(" with ");
-    Deck_printMask(gDeadCards);
-    printf(" removed");
-  };
+  if (gNCommon > 0) 
+    printf(" containing %s ", Deck_maskString(gCommonCards));
+  if (gNDead) 
+    printf(" with %s removed ", Deck_maskString(gDeadCards));
   printf("\n");
+
   printf("  cards      win  %%win       loss  %%lose       tie  %%tie      EV\n");
-  for (i=0; i<gNPlayers; i++) {
-    printf("  ");
-    Deck_printMask(gPlayerCards[i]);
-    printf("  %7ld %6.2f   %7ld %6.2f   %7ld %6.2f     %6.4f\n", 
+  for (i=0; i<gNPlayers; i++) 
+    printf("  %s  %7ld %6.2f   %7ld %6.2f   %7ld %6.2f     %6.4f\n", 
+           Deck_maskString(gPlayerCards[i]), 
            winCount[i], 100.0*winCount[i]/handCount, 
            loseCount[i], 100.0*loseCount[i]/handCount, 
            tieCount[i], 100.0*tieCount[i]/handCount, 
            ev[i] / handCount);
-  };
 
   return 0;
   }

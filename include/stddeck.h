@@ -143,23 +143,15 @@ extern const char StdDeck_rankChars[StdDeck_Rank_LAST+1];
 extern const char StdDeck_suitChars[StdDeck_Suit_LAST+1];
 
 extern int StdDeck_cardToString(int cardIndex, char *outString);
-extern int StdDeck_maskToString(StdDeck_CardMask cardMask, char *outString);
-extern int StdDeck_printCard(int cardIndex);
-extern int StdDeck_printMask(StdDeck_CardMask cardMask);
-extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask);
+extern int StdDeck_stringToCard(char *inString, int *outCard);
 
+extern Deck StdDeck;
 
 #ifndef NONSTANDARD_DECK
 #define Deck_N_CARDS      StdDeck_N_CARDS
 #define Deck_MASK         StdDeck_MASK
 #define Deck_RANK         StdDeck_RANK
 #define Deck_SUIT         StdDeck_SUIT
-
-#define Deck_cardToString StdDeck_cardToString
-#define Deck_maskToString StdDeck_maskToString
-#define Deck_printCard    StdDeck_printCard
-#define Deck_printMask    StdDeck_printMask
-#define Deck_stringToMask StdDeck_stringToMask
 
 #define Rank_2            StdDeck_Rank_2 
 #define Rank_3            StdDeck_Rank_3
@@ -195,6 +187,8 @@ extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask);
 #define CardMask_HEARTS        StdDeck_CardMask_HEARTS
 #define CardMask_CLUBS         StdDeck_CardMask_CLUBS
 #define CardMask_DIAMONDS      StdDeck_CardMask_DIAMONDS
+
+#define CurDeck StdDeck
 
 #endif /* NONSTANDARD_DECK */
 
