@@ -1,9 +1,29 @@
+/*
+ * Copyright (C) 2002-2004 
+ *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 /* $Id$ */
 
 #ifndef ENUMDEFS_H
 #define ENUMDEFS_H
 
 #include "enumord.h"
+#include "pokereval_export.h"
 
 #define ENUM_MAXPLAYERS 12
 
@@ -75,23 +95,23 @@ typedef struct {
   enum_ordering_t *ordering;	/* detailed relative hand rank ordering */
 } enum_result_t;  
 
-extern void enumResultPrint(enum_result_t *result, StdDeck_CardMask pockets[],
+extern POKEREVAL_EXPORT void enumResultPrint(enum_result_t *result, StdDeck_CardMask pockets[],
                             StdDeck_CardMask board);
-extern void enumResultPrintTerse(enum_result_t *result,
+extern POKEREVAL_EXPORT void enumResultPrintTerse(enum_result_t *result,
                                  StdDeck_CardMask pockets[],
                                  StdDeck_CardMask board);
-extern void enumResultClear(enum_result_t *result);
-extern void enumResultFree(enum_result_t *result);
-extern int enumResultAlloc(enum_result_t *result, int nplayers,
+extern POKEREVAL_EXPORT void enumResultClear(enum_result_t *result);
+extern POKEREVAL_EXPORT void enumResultFree(enum_result_t *result);
+extern POKEREVAL_EXPORT int enumResultAlloc(enum_result_t *result, int nplayers,
                            enum_ordering_mode_t mode);
-extern int enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
+extern POKEREVAL_EXPORT int enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
                           StdDeck_CardMask board, StdDeck_CardMask dead,
                           int npockets, int nboard, int orderflag,
                           enum_result_t *result);
-extern int enumSample(enum_game_t game, StdDeck_CardMask pockets[],
+extern POKEREVAL_EXPORT int enumSample(enum_game_t game, StdDeck_CardMask pockets[],
                       StdDeck_CardMask board, StdDeck_CardMask dead,
                       int npockets, int nboard, int niter, int orderflag,
                       enum_result_t *result);
-extern enum_gameparams_t *enumGameParams(enum_game_t game);
+extern POKEREVAL_EXPORT enum_gameparams_t *enumGameParams(enum_game_t game);
 
 #endif

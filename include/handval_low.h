@@ -1,5 +1,26 @@
+/*
+ * Copyright (C) 1999-2004 
+ *           Brian Goetz <brian@quiotix.com>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 #ifndef __HANDVAL_LOW_H__
 #define __HANDVAL_LOW_H__
+
+#include "pokereval_export.h"
 
 typedef uint32 LowHandVal;
 
@@ -47,8 +68,8 @@ typedef uint32 LowHandVal;
  + LowHandVal_FOURTH_CARD_VALUE(StdDeck_Rank_5+1)        \
  + LowHandVal_FIFTH_CARD_VALUE(StdDeck_Rank_4+1))         
 
-extern int LowHandVal_toString(LowHandVal hv, char *outString);
-extern int LowHandVal_print(LowHandVal handval);
+extern POKEREVAL_EXPORT int LowHandVal_toString(LowHandVal hv, char *outString);
+extern POKEREVAL_EXPORT int LowHandVal_print(LowHandVal handval);
 
 #define Lowball_ROTATE_RANKS(ranks) \
 ((((ranks) & ~(1 << StdDeck_Rank_ACE)) << 1) \

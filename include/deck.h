@@ -1,5 +1,27 @@
+/*
+ * Copyright (C) 1999-2004 
+ *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Brian Goetz <brian@quiotix.com>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 #ifndef __DECK_H__
 #define __DECK_H__
+
+#include "pokereval_export.h"
 
 typedef int     Deck_cardToStringFn(int cardIndex, char *outString);
 typedef int     Deck_maskToCardsFn(void *cardMask, int cardIndices[]);
@@ -43,17 +65,17 @@ typedef struct {
 #define DnumCards(d, m) (GenericDeck_numCards(&(d), ((void *) &(m))))
 #define DmaskToString(d, m, s) (GenericDeck_maskString(&(d), ((void *) &(m)), (s)))
 
-extern char *
+extern POKEREVAL_EXPORT char *
 GenericDeck_cardString(Deck *deck, int cardIndex);
-extern int 
+extern POKEREVAL_EXPORT int 
 GenericDeck_printMask(Deck *deck, void *cardMask);
-extern int
+extern POKEREVAL_EXPORT int
 GenericDeck_maskToString(Deck *deck, void *cardMask, char *outString);
-extern char *
+extern POKEREVAL_EXPORT char *
 GenericDeck_maskString(Deck *deck, void *cardMask);
-extern int
+extern POKEREVAL_EXPORT int
 GenericDeck_printCard(Deck *deck, int cardIndex);
-extern int
+extern POKEREVAL_EXPORT int
 GenericDeck_numCards(Deck *deck, void *cardMask);
 
 /* These are required by the ENUMERATE_ macros */

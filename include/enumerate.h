@@ -1,3 +1,23 @@
+/*
+ * Copyright (C) 1999-2004 
+ *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Brian Goetz <brian@quiotix.com>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 /* $Id$
 
 Macros to enumerate combinations and permutations of the remaining
@@ -68,8 +88,15 @@ enumerating all possible ordered sets of subsets, this macro randomly samples
 them (with replacement).
 	num_iter -- type int, the number of samples to draw */
 
+#ifndef ENUMERATE_H
+#define ENUMERATE_H
+
 #include <stdio.h>
 #include <stdlib.h>
+
+#ifdef WIN32
+#define random rand
+#endif
 
 #define DECK_ENUMERATE_1_CARDS(deck, cards_var, action) \
 do {                                                    \
@@ -229,9 +256,9 @@ do {                                                                    \
 
 #define DECK_ENUMERATE_2_CARDS_D(deck, cards_var, dead_cards, action)   \
 do {                                                                    \
-  int _i1, _i2;                                                         \
-  deck##_CardMask _card1, _card2,                                       \
-    _n2;                                                                \
+  int _i1; int _i2;							\
+  deck##_CardMask _card1; deck##_CardMask _card2;			\
+  deck##_CardMask _n2;							\
                                                                         \
   for (_i1 = deck##_N_CARDS-1; _i1 >= 0; _i1--) {                       \
     _card1 = deck##_MASK(_i1);                                          \
@@ -353,10 +380,15 @@ do {                                                                    \
 #define DECK_ENUMERATE_N_CARDS_D(deck, cards_var, n_cards, dead_cards,     \
                                  action)                                   \
 do {                                                                       \
-  int _i1, _i2, _i3, _i4, _i5, _i6, _i7, _i8, _i9;                         \
-  deck##_CardMask _card1, _card2, _card3, _card4, _card5,                  \
-    _card6, _card7, _card8, _card9,                                        \
-    _n1, _n2, _n3, _n4, _n5, _n6, _n7, _n8, _n9;                           \
+  int _i1; int _i2; int _i3;						\
+  int _i4; int _i5; int _i6;						\
+  int _i7; int _i8; int _i9;						\
+  deck##_CardMask _card1; deck##_CardMask _card2; deck##_CardMask _card3; \
+  deck##_CardMask _card4; deck##_CardMask _card5; deck##_CardMask _card6; \
+  deck##_CardMask _card7; deck##_CardMask _card8; deck##_CardMask _card9; \
+  deck##_CardMask _n1; deck##_CardMask _n2; deck##_CardMask _n3;	\
+  deck##_CardMask _n4; deck##_CardMask _n5; deck##_CardMask _n6;	\
+  deck##_CardMask _n7; deck##_CardMask _n8; deck##_CardMask _n9;	\
                                                                            \
   _i1 = _i2 = _i3 = _i4 = _i5 = _i6 = _i7 = _i8 = _i9 = 0;                 \
   deck##_CardMask_RESET(_card9);                                           \
@@ -785,3 +817,4 @@ do {                                                    	\
 #define MONTECARLO_PERMUTATIONS_D(s, n, ss, dc, ni, a) \
   DECK_MONTECARLO_PERMUTATIONS(Deck, s, n, ss, dc, ni, a)
 
+#endif /* ENUMERATE_H */

@@ -1,4 +1,24 @@
 /*
+ * Copyright (C) 1999-2004 
+ *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Brian Goetz <brian@quiotix.com>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+/*
    Note that this file has two #if .. #endif sections -- one for 
    StdDeck macros to prevent double-inclusion, and one to define the 
    generic Deck_ macros if DECK_ASTUD is defined 
@@ -6,6 +26,8 @@
 
 #ifndef __DECK_ASTUD_H__
 #define __DECK_ASTUD_H__
+
+#include "pokereval_export.h"
 
 #define AStudDeck_N_CARDS      32
 #define AStudDeck_MASK(index)  (AStudDeck_cardMasksTable[index])
@@ -69,13 +91,13 @@ do {                                            \
   AStudDeck_CardMask_OR((mask), (mask), _t1);             \
 } while (0)
 
-extern AStudDeck_CardMask AStudDeck_cardMasksTable[AStudDeck_N_CARDS];
+extern POKEREVAL_EXPORT AStudDeck_CardMask AStudDeck_cardMasksTable[AStudDeck_N_CARDS];
 
-extern const char AStudDeck_rankChars[AStudDeck_Rank_LAST+1];
-extern const char AStudDeck_suitChars[AStudDeck_Suit_LAST+1];
+extern POKEREVAL_EXPORT const char AStudDeck_rankChars[AStudDeck_Rank_LAST+1];
+extern POKEREVAL_EXPORT const char AStudDeck_suitChars[AStudDeck_Suit_LAST+1];
 
-extern int AStudDeck_cardToString(int cardIndex, char *outString);
-extern int AStudDeck_stringToCard(char *inString, int *outCard);
+extern POKEREVAL_EXPORT int AStudDeck_cardToString(int cardIndex, char *outString);
+extern POKEREVAL_EXPORT int AStudDeck_stringToCard(char *inString, int *outCard);
 
 #define AStudDeck_cardString(i) GenericDeck_cardString(&AStudDeck, (i))
 #define AStudDeck_printCard(i)  GenericDeck_printCard(&AStudDeck, (i))
@@ -84,7 +106,7 @@ extern int AStudDeck_stringToCard(char *inString, int *outCard);
 #define AStudDeck_numCards(m) GenericDeck_numCards(&AStudDeck, ((void *) &(m)))
 #define AStudDeck_maskToString(m, s) GenericDeck_maskToString(&AStudDeck, ((void *) &(m)), (s))
 
-extern Deck AStudDeck;
+extern POKEREVAL_EXPORT Deck AStudDeck;
 
 #endif
 

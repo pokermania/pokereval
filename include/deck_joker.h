@@ -1,5 +1,27 @@
+/*
+ * Copyright (C) 2004 
+ *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Brian Goetz <brian@quiotix.com>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
 #ifndef __DECK_JOKER_H__
 #define __DECK_JOKER_H__
+
+#include "pokereval_export.h"
 
 #define JokerDeck_N_CARDS      53
 #define JokerDeck_MASK(index)  (JokerDeck_cardMasksTable[index])
@@ -142,12 +164,12 @@ do {                                              \
   JokerDeck_CardMask_OR((mask), (mask), _t1);     \
 } while (0)
 
-extern JokerDeck_CardMask JokerDeck_cardMasksTable[JokerDeck_N_CARDS];
+extern POKEREVAL_EXPORT JokerDeck_CardMask JokerDeck_cardMasksTable[JokerDeck_N_CARDS];
 
-extern uint8              jokerStraightTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint8              jokerStraightTable[StdDeck_N_RANKMASKS];
  
-extern int JokerDeck_cardToString(int cardIndex, char *outString);
-extern int JokerDeck_stringToCard(char *inString, int *outCard);
+extern POKEREVAL_EXPORT int JokerDeck_cardToString(int cardIndex, char *outString);
+extern POKEREVAL_EXPORT int JokerDeck_stringToCard(char *inString, int *outCard);
 
 #define JokerDeck_cardString(i) GenericDeck_cardString(&JokerDeck, (i))
 #define JokerDeck_printCard(i)  GenericDeck_printCard(&JokerDeck, (i))
@@ -156,7 +178,7 @@ extern int JokerDeck_stringToCard(char *inString, int *outCard);
 #define JokerDeck_numCards(m) GenericDeck_numCards(&JokerDeck, ((void *) &(m)))
 #define JokerDeck_maskToString(m, s) GenericDeck_maskToString(&JokerDeck, ((void *) &(m)), (s))
 
-extern Deck JokerDeck;
+extern POKEREVAL_EXPORT Deck JokerDeck;
 
 #endif
 

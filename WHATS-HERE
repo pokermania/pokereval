@@ -1,33 +1,25 @@
 What is this package?  
 
-This package is a free (GPL) toolkit for writing programs which
+This package is a free (GNU GPL) toolkit for writing programs which
 simulate or analyze poker games.
-
 
 Who is the target audience?  
 
-Mostly programmers.  The programs are all written in C, but as time
-goes on, bindings may be added for Java, VB, Perl, or other languages.
-There are Java Native Interface (JNI) wrappers around some of the
-library functions.  There are some demo programs which illustrate the
-features of the library, but which are not (at this time) flexible
-enough to be used without modification by end-users except for the
-most basic of simulations.
-
+Mostly programmers.  The programs are all written in C, but there are
+bindings for Python and Java. As time goes on, bindings may be added
+for Perl, lua, C# or other languages.
 
 Where did it come from?  
 
 Cliff Matthews wrote and released (under GPL) a fast poker hand
 evaluator several years ago, and this code is derived from that work.
 It has been improved over the years, with contributions from Mat
-Hostetter, Keith Miyake, Brian Goetz, Michael Maurer, and others.
-Most recently, the code has been repackaged and cleaned up
-substantially, so it is more suitable for general use and extension to
-other types of poker games.  This code is now maintained by Brian
-Goetz (brian@quiotix.com) and improvements and suggestions can be sent
-to him.  The latest version of the software can be found at
-www.pokersource.org.
-
+Hostetter, Keith Miyake, Brian Goetz, Michael Maurer, Tim Showalter,
+Loic Dachary and others. This code is now
+maintained by Loic Dachary <loic@gnu.org>, Tim Showalter <tjs@psaux.com>, 
+Michael Maurer <mjmaurer@users.sourceforge.net> and improvements and
+suggestions can be sent to them.  The latest version of the software
+can be found at http://sourceforge.net/projects/pokersource.
 
 What's in here?  
 
@@ -81,7 +73,8 @@ with Microsoft Visual C++.
 
 Where do I start?
 
-Start by looking at the example programs in the examples/ directory.
+Start by looking at the example programs in the examples/ directory (or
+somewhere in the documentation directory of the development package).
 In there, you will find several programs which do interesting and not
 so interesting things, and you will likely find these to be useful
 starting points for your own programs.
@@ -137,9 +130,6 @@ Evaluators:
   JokerDeck_Lowball_EVAL_N: An inline evaluator for lowball using a
           deck with a joker.
 
-  See also the Java JNI wrappers around these evaluation functions (more
-  info in java/javadoc).
-
 Enumerators:
   See enumerate.h for macros that enumerate every possible hand outcome
   and accumulate wins, losses, ties, and EV.  
@@ -151,15 +141,6 @@ Enumerators:
     DECK_MONTECARLO_PERMUTATIONS_D
 
   See enumerate.c for convenient functions that take advantage of these.
-  Also see the Java JNI wrappers around the enumerate.c functions (more
-  info in java/javadoc).
-    enumExhaustive()
-    enumSample()
-
-  A first draft of a subjective all-in equity (SAIE) calculator is now
-  part of the Java package (for more info see java/javadoc).  An example
-  SAIE calculation is to compute the pot equity of "Qh Jh" against the
-  set of "Sklansky/Malmulth group 1-2 hands" when the board is "Qd 4h 2s".
 
 Example programs:
 
@@ -194,6 +175,3 @@ Example programs:
 
   usedecks: Shows one way to use different decks and evaluation rules
           within the same program.
-
-  saie:   A script wrapping the java-based SAIE calculator.  See the script
-          itself for suggested usage.

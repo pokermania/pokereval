@@ -90,7 +90,11 @@ MakeTable_outputUInt64(uint64 arg) {
 #if defined(MSDOS)
   sprintf(buf, " { 0x%08x%08x } ", high, low);
 #else
+#ifdef WIN32
+  sprintf(buf, " { 0x%08x%08xi64 } ", high, low);
+#else
   sprintf(buf, " { 0x%08x%08xLL } ", high, low);
+#endif
 #endif
   MakeTable_outputString(buf);
 }

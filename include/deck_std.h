@@ -1,4 +1,24 @@
 /*
+ * Copyright (C) 2004 
+ *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Brian Goetz <brian@quiotix.com>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+/*
    Note that this file has two #if .. #endif sections -- one for 
    StdDeck macros to prevent double-inclusion, and one to define the 
    generic Deck_ macros if DECK_STANDARD is defined 
@@ -6,6 +26,8 @@
 
 #ifndef __DECK_STD_H__
 #define __DECK_STD_H__
+
+#include "pokereval_export.h"
 
 #define StdDeck_N_CARDS      52
 #define StdDeck_MASK(index)  (StdDeck_cardMasksTable[index])
@@ -98,7 +120,7 @@ typedef union {
 #define StdDeck_CardMask_OP(result, op1, op2, OP) \
   LongLong_OP((result).cards_n, (op1).cards_n, (op2).cards_n, OP);
 #else
-#define StdDeck_CardMask_OP(result, op1, op2, OP)
+#define StdDeck_CardMask_OP(result, op1, op2, OP) \
   do {                                                                  \
     (result.cards_nn.n1) = (op1.cards_nn.n1) OP (op2.cards_nn.n1);      \
     (result.cards_nn.n2) = (op1.cards_nn.n2) OP (op2.cards_nn.n2);      \
@@ -175,26 +197,26 @@ do {                                            	\
   ((mask).cards_nn.n1 == 0 && (mask).cards_nn.n2 == 0)
 #endif
 
-extern uint8             nBitsTable[StdDeck_N_RANKMASKS];
-extern uint32     topFiveCardsTable[StdDeck_N_RANKMASKS];
-extern uint32       topFiveBitTable[StdDeck_N_RANKMASKS];
-extern uint8           topCardTable[StdDeck_N_RANKMASKS];
-extern uint32           topBitTable[StdDeck_N_RANKMASKS];
-extern uint32       topTwoBitsTable[StdDeck_N_RANKMASKS];
-extern uint32      topFiveBitsTable[StdDeck_N_RANKMASKS];
-extern uint8          straightTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint8             nBitsTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint32     topFiveCardsTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint32       topFiveBitTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint8           topCardTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint32           topBitTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint32       topTwoBitsTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint32      topFiveBitsTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint8          straightTable[StdDeck_N_RANKMASKS];
 
-extern uint32  bottomFiveCardsTable[StdDeck_N_RANKMASKS];
-extern uint32  bottomFiveJokerTable[StdDeck_N_RANKMASKS];
-extern uint8        bottomCardTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint32  bottomFiveCardsTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint32  bottomFiveJokerTable[StdDeck_N_RANKMASKS];
+extern POKEREVAL_EXPORT uint8        bottomCardTable[StdDeck_N_RANKMASKS];
 
-extern StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
+extern POKEREVAL_EXPORT StdDeck_CardMask StdDeck_cardMasksTable[StdDeck_N_CARDS];
 
-extern const char StdDeck_rankChars[StdDeck_Rank_LAST+1];
-extern const char StdDeck_suitChars[StdDeck_Suit_LAST+1];
+extern POKEREVAL_EXPORT const char StdDeck_rankChars[StdDeck_Rank_LAST+1];
+extern POKEREVAL_EXPORT const char StdDeck_suitChars[StdDeck_Suit_LAST+1];
 
-extern int StdDeck_cardToString(int cardIndex, char *outString);
-extern int StdDeck_stringToCard(char *inString, int *outCard);
+extern POKEREVAL_EXPORT int StdDeck_cardToString(int cardIndex, char *outString);
+extern POKEREVAL_EXPORT int StdDeck_stringToCard(char *inString, int *outCard);
 
 #define StdDeck_cardString(i) GenericDeck_cardString(&StdDeck, (i))
 #define StdDeck_printCard(i)  GenericDeck_printCard(&StdDeck, (i))
@@ -203,7 +225,7 @@ extern int StdDeck_stringToCard(char *inString, int *outCard);
 #define StdDeck_numCards(m) GenericDeck_numCards(&StdDeck, ((void *) &(m)))
 #define StdDeck_maskToString(m, s) GenericDeck_maskToString(&StdDeck, ((void *) &(m)), (s))
 
-extern Deck StdDeck;
+extern POKEREVAL_EXPORT Deck StdDeck;
 
 
 #endif

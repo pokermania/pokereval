@@ -1,50 +1,69 @@
 #!/bin/sh -x
+#
+# Copyright (C) 2004 
+#           Michael Maurer <mjmaurer@users.sourceforge.net>
+#           Loic Dachary <loic@gnu.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+#
 # $Id$
 # utest1 -- unit tests for examples
 
-#pokenum -h Ac 7c - 5s 4s - Ks Kd
-pokenum -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h
-pokenum -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h / Ah
+#./pokenum -h Ac 7c - 5s 4s - Ks Kd
+./pokenum -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h
+./pokenum -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h / Ah
 
-#pokenum -h8 Ac 7c - 5s 4s - Ks Kd
-pokenum -h8 Ac 7c  5s 4s  Ks Kd -- 7h 2c 3h
+#./pokenum -h8 Ac 7c - 5s 4s - Ks Kd
+./pokenum -h8 Ac 7c  5s 4s  Ks Kd -- 7h 2c 3h
 
-#pokenum -o As Kh Qs Jh - 8h 8d 7h 6d
-pokenum -o As Kh Qs Jh - 8h 8d 7h 6d -- 8s Ts Jc
+#./pokenum -o As Kh Qs Jh - 8h 8d 7h 6d
+./pokenum -o As Kh Qs Jh - 8h 8d 7h 6d -- 8s Ts Jc
 
-#pokenum -o8 As Kh Qs Jh - 8h 8d 7h 6d
-pokenum -o8 As Kh Qs Jh - 8h 8d 7h 6d -- 8s Ts Jc
+#./pokenum -o8 As Kh Qs Jh - 8h 8d 7h 6d
+./pokenum -o8 As Kh Qs Jh - 8h 8d 7h 6d -- 8s Ts Jc
 
-pokenum -7s As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h
-pokenum -7s As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h / 5c 6c 7c
+./pokenum -7s As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h
+./pokenum -7s As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h / 5c 6c 7c
 
-pokenum -7s8 As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h
-pokenum -7s8 As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h / 5c 6c 7c
+./pokenum -7s8 As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h
+./pokenum -7s8 As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h / 5c 6c 7c
 
-pokenum -7snsq As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h
-pokenum -7snsq As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h / 5c 6c 7c
+./pokenum -7snsq As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h
+./pokenum -7snsq As Ah Ts Th 8h 8d - Kc Qc Jc Td 3c 2d - Ac 2h 3h 3d 7s 7h / 5c 6c 7c
 
-pokenum -r As 2s 3s 4s Kh - Th 9h 8h 7h 6h / Qd Jd Td 9d
+./pokenum -r As 2s 3s 4s Kh - Th 9h 8h 7h 6h / Qd Jd Td 9d
 
-pokenum -5d As Xx / Qh Td 9s - 8h 7h 4h 3h / Ks
-pokenum -5d As Ac / Qh Td 9s - 8h 7h Xx 3h / Ks
-pokenum -5d As Ac / Qh Td 9s - 8h 7h 4h 3h / Ks
-pokenum -5d8 As Ac / Qh Td 9s - 8h 7h 4h 3h / Ks
-pokenum -5dnsq As Ac / Qh Td 9s - 8h 7h 4h 3h / Ks
+./pokenum -5d As Xx / Qh Td 9s - 8h 7h 4h 3h / Ks
+./pokenum -5d As Ac / Qh Td 9s - 8h 7h Xx 3h / Ks
+./pokenum -5d As Ac / Qh Td 9s - 8h 7h 4h 3h / Ks
+./pokenum -5d8 As Ac / Qh Td 9s - 8h 7h 4h 3h / Ks
+./pokenum -5dnsq As Ac / Qh Td 9s - 8h 7h 4h 3h / Ks
 
-pokenum -l 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
-pokenum -l 5h 4h 3h 2h / 5s - 9s 6d 4c Xx / Kd
+./pokenum -l 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
+./pokenum -l 5h 4h 3h 2h / 5s - 9s 6d 4c Xx / Kd
 
-pokenum -l27 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
+./pokenum -l27 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
 
-pokenum -mc 10000 -h Ac 7c - 5s 4s - Ks Kd
-pokenum -mc 10000 -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h
-pokenum -mc 10000 -h8 Ac 7c - 5s 4s - Ks Kd
-pokenum -mc 10000 -o As Kh Qs Jh - 8h 8d 7h 6d
-pokenum -mc 10000 -o8 As Kh Qs Jh - 8h 8d 7h 6d
-pokenum -mc 10000 -7s As Ah Ts -  7c 6c 5c
-pokenum -mc 10000 -7s8 As Ah Ts - 7c 6c 5c
-pokenum -mc 10000 -7snsq As Ah Ts -  7c 6c 5c
-pokenum -mc 10000 -r As 2s 3s 4s Kh - Th 9h 8h 7h 6h / Qd Jd Td 9d
-pokenum -mc 10000 -l27 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
-pokenum -mc 10000 -l27 5h 4h 3h / 5s Qd - 9s 8h 6d / Kd Ks
+./pokenum -mc 10000 -h Ac 7c - 5s 4s - Ks Kd
+./pokenum -mc 10000 -h Ac 7c - 5s 4s - Ks Kd -- 7h 2c 3h
+./pokenum -mc 10000 -h8 Ac 7c - 5s 4s - Ks Kd
+./pokenum -mc 10000 -o As Kh Qs Jh - 8h 8d 7h 6d
+./pokenum -mc 10000 -o8 As Kh Qs Jh - 8h 8d 7h 6d
+./pokenum -mc 10000 -7s As Ah Ts -  7c 6c 5c
+./pokenum -mc 10000 -7s8 As Ah Ts - 7c 6c 5c
+./pokenum -mc 10000 -7snsq As Ah Ts -  7c 6c 5c
+./pokenum -mc 10000 -r As 2s 3s 4s Kh - Th 9h 8h 7h 6h / Qd Jd Td 9d
+./pokenum -mc 10000 -l27 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
+./pokenum -mc 10000 -l27 5h 4h 3h / 5s Qd - 9s 8h 6d / Kd Ks

@@ -1,4 +1,23 @@
 /*
+ * Copyright (C) 1999-2004 
+ *           Brian Goetz <brian@quiotix.com>
+ *           Loic Dachary <loic@gnu.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+/*
    Note that this file has two #if .. #endif sections -- one for 
    StdDeck macros to prevent double-inclusion, and one to define the 
    generic Rules_ macros if RULES_STANDARD is defined 
@@ -6,6 +25,8 @@
 
 #ifndef __RULES_JOKER_H__
 #define __RULES_JOKER_H__
+
+#include "pokereval_export.h"
 
 #define JokerRules_HandType_NOPAIR    0
 #define JokerRules_HandType_ONEPAIR   1
@@ -28,13 +49,13 @@
   | (1 << StdDeck_Rank_4 ) \
   | (1 << StdDeck_Rank_5 ))
 
-extern const char *JokerRules_handTypeNames[JokerRules_HandType_LAST+1];
-extern const char *JokerRules_handTypeNamesPadded[JokerRules_HandType_LAST+1];
+extern POKEREVAL_EXPORT const char *JokerRules_handTypeNames[JokerRules_HandType_LAST+1];
+extern POKEREVAL_EXPORT const char *JokerRules_handTypeNamesPadded[JokerRules_HandType_LAST+1];
 
-extern int JokerRules_nSigCards[JokerRules_HandType_LAST+1];
+extern POKEREVAL_EXPORT int JokerRules_nSigCards[JokerRules_HandType_LAST+1];
 
-extern int JokerRules_HandVal_toString(HandVal handval, char *outString); 
-extern int JokerRules_HandVal_print(HandVal handval);
+extern POKEREVAL_EXPORT int JokerRules_HandVal_toString(HandVal handval, char *outString); 
+extern POKEREVAL_EXPORT int JokerRules_HandVal_print(HandVal handval);
 
 #endif
 

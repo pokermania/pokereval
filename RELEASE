@@ -1,3 +1,7 @@
+poker-eval-124 (7 Nov 2004)
+============================
+The content of this file is moved to the standard NEWS file
+
 poker-eval-120 (25 Jun 2002)
 ============================
 Added java layer with JNI connection to C hand evaluation library; the
