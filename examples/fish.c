@@ -26,9 +26,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "poker_defs.h"
-#include "inlines/eval.h"
+#include "inlines/eval_type.h"
 
-int gNCards, gNPegged;
+int gNCards, gNPegged, gNDead;
 CardMask gDeadCards, gPeggedCards;
 
 static void
@@ -48,6 +48,7 @@ parseArgs(int argc, char **argv) {
         if (Deck_stringToMask(argv[i], &c) != 1)
           goto error;
         CardMask_OR(gDeadCards, gDeadCards, c);
+        ++gNDead;
       } 
       else 
         goto error;
@@ -78,22 +79,39 @@ static void dump_totals(void) {
 
 int 
 main(int argc, char **argv) {
-  CardMask hand, cards;
-  HandVal handval;
+  CardMask hand, deadCards, cards;
+  int handtype, nHands=0;
 
   gNCards = 7;
   CardMask_RESET(gDeadCards);
   CardMask_RESET(gPeggedCards);
   parseArgs(argc, argv);
+  CardMask_OR(deadCards, gDeadCards, gPeggedCards);
 
-  Deck_printMask(gPeggedCards);
-
-  ENUMERATE_N_CARDS_D(cards, (gNCards-gNPegged), gDeadCards, 
+  /* We use the fast and small EVAL_TYPE evaluator, since we only care 
+     about the hand type, not the particular cards.  If we cared about the
+     individual cards, we'd use EVAL_N.  
+   */
+  ENUMERATE_N_CARDS_D(cards, (gNCards-gNPegged), deadCards,
                       {
                         CardMask_OR(hand, cards, gPeggedCards);
-                        handval = Hand_EVAL_N(hand, gNCards);
-                        ++totals[HandVal_HANDTYPE(handval)];
+                        handtype = Hand_EVAL_TYPE(hand, gNCards);
+                        ++nHands;
+                        ++totals[handtype];
                       });
+
+  printf("%d boards", nHands);
+  if (gNPegged > 0) {
+    printf(" containing ");
+    Deck_printMask(gPeggedCards);
+  };
+  if (gNDead) {
+    printf(" with ");
+    Deck_printMask(gDeadCards);
+    printf(" removed");
+  };
+  printf("\n");
+
   dump_totals();
   return 0;
 }

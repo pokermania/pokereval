@@ -1,6 +1,7 @@
 /*
  *  eval_type.h: a fast poker hand evaluator -- evaluates only the hand type
- *  Should be small enough to stay in the L1 cache, if we're lucky. 
+ *  Should be small enough to stay in the L1 cache, if we're lucky.  Uses only
+ *  one 8K table.  
  *
  *  Copyright (C) 1999 Brian Goetz
  *
@@ -27,13 +28,13 @@
 extern uint8 nBitsAndStrTable[StdDeck_N_RANKMASKS];
 
 
-#define SC cards.cards.clubs
-#define SD cards.cards.diamonds
-#define SH cards.cards.hearts
-#define SS cards.cards.spades
+#define SC StdDeck_CardMask_CLUBS(cards)
+#define SD StdDeck_CardMask_DIAMONDS(cards)
+#define SH StdDeck_CardMask_HEARTS(cards)
+#define SS StdDeck_CardMask_SPADES(cards)
 
 static inline int 
-StdRules_EVAL_TYPEONLY( CardMask cards, int n_cards )
+StdDeck_StdRules_EVAL_TYPE( StdDeck_CardMask cards, int n_cards )
 {
   uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
     n_dups, is_st_or_fl = 0;

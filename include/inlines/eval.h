@@ -43,13 +43,13 @@
  *
  */
 
-#define SC CardMask_CLUBS(cards)
-#define SD CardMask_DIAMONDS(cards)
-#define SH CardMask_HEARTS(cards)
-#define SS CardMask_SPADES(cards)
+#define SC StdDeck_CardMask_CLUBS(cards)
+#define SD StdDeck_CardMask_DIAMONDS(cards)
+#define SH StdDeck_CardMask_HEARTS(cards)
+#define SS StdDeck_CardMask_SPADES(cards)
 
 static inline HandVal
-en__is_flush(CardMask cards, uint32 *flushranks )
+en__is_flush(StdDeck_CardMask cards, uint32 *flushranks )
 {
   if (nBitsTable[SS] >= 5) {
     *flushranks          = SS;
@@ -115,7 +115,7 @@ en__is_straight( uint32 ranks )
 
 
 static inline HandVal 
-StdDeck_StdRules_EVAL_N( CardMask cards, int n_cards )
+StdDeck_StdRules_EVAL_N( StdDeck_CardMask cards, int n_cards )
 {
   HandVal retval, tempeval, tempeval2;
   uint32 ranks, four_mask=0, three_mask=0, two_mask=0, 
