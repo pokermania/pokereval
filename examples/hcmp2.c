@@ -75,7 +75,7 @@ parseArgs(int argc, char **argv) {
 
 int main( int argc, char *argv[] )
 {
-  CardMask cards, common, c0, c1;
+  CardMask cards, p0, p1, c0, c1;
   HandVal h0, h1;
   int h0_count=0, h1_count=0, tie_count=0, count=0;
 
@@ -85,13 +85,15 @@ int main( int argc, char *argv[] )
   CardMask_RESET(gPlayerCards[1]);
   parseArgs(argc, argv);
 
+  CardMask_OR(p0, gPlayerCards[0], gCommonCards);
+  CardMask_OR(p1, gPlayerCards[1], gCommonCards);
+
   ENUMERATE_N_CARDS_D(cards, 5-gNCommon, gDeadCards, 
                       {
                         ++count;
-                        CardMask_OR(common, cards, gCommonCards);
-                        CardMask_OR(c0, gPlayerCards[0], common);
+                        CardMask_OR(c0, p0, cards);
                         h0 = PokerHand_EVAL_N(c0, 7);
-                        CardMask_OR(c1, gPlayerCards[1], common);
+                        CardMask_OR(c1, p1, cards);
                         h1 = PokerHand_EVAL_N(c1, 7);
 
                         if (h0 > h1)
