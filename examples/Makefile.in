@@ -1,0 +1,16 @@
+LIB = ../lib/libpoker.a
+
+CFLAGS = @CFLAGS@
+CC = @CC@
+
+all: five_card_hands 
+
+five_card_hands: five_card_hands.o $(LIB)
+	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+
+clean:
+	rm -f *.o five_card_hands 
+
+.c.o:
+	$(CC) $(CFLAGS) -I../include -c $<
+
