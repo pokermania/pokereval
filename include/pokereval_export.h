@@ -40,13 +40,13 @@
 #endif
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__) || defined( __BCPLUSPLUS__)  || defined( __MWERKS__)
-//	#  ifdef POKEREVAL_LIBRARY
+	#  ifdef POKEREVAL_LIBRARY
 	#    define POKEREVAL_EXPORT   __declspec(dllexport)
-        #    define RANDOM rand
-//	#  endif /* POKEREVAL_LIBRARY */
+	#  else
+	#    define POKEREVAL_EXPORT   "C"__declspec(dllimport)
+	#  endif /* POKEREVAL_LIBRARY */
 #else
 	#  define POKEREVAL_EXPORT
-        #  define RANDOM random
 #endif  
 
 
