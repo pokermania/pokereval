@@ -1,0 +1,39 @@
+LIB = ../lib/libpoker.a
+
+CFLAGS = @CFLAGS@
+CC = @CC@
+
+all: tests
+
+tests: eval-digest eval5-digest eval7-digest
+
+eval-digest : eval-digest.o
+	$(CC) $(CFLAGS) -o $@ $< $(LIB_POKER)
+
+eval5-digest : eval5-digest.o
+	$(CC) $(CFLAGS) -o $@ $< $(LIB_POKER)
+
+eval7-digest : eval7-digest.o
+	$(CC) $(CFLAGS) -o $@ $< $(LIB_POKER)
+
+clean:
+	rm -f *.o core \
+	eval-digest eval5-digest eval7-digest 
+
+.c.o:
+	$(CC) $(CFLAGS) -I../include -c $<
+
+test : tests
+	@if [ `./eval-digest` = "d0facbffc225197e0bf30a9501ddbab8" ]; \
+		then echo "eval-digest:		Passed"; \
+		else echo "eval-digest:		Failed"; \
+	fi
+	@if [ `./eval5-digest` = "d0facbffc225197e0bf30a9501ddbab8" ]; \
+		then echo "eval5-digest:		Passed"; \
+		else echo "eval5-digest:		Failed"; \
+	fi
+	@if [ `./eval7-digest` = "73844ddc4017d186d0e590c46f6d6b8e" ]; \
+		then echo "eval7-digest:		Passed"; \
+		else echo "eval7-digest:		Failed"; \
+	fi
+
