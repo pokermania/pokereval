@@ -64,27 +64,64 @@ AStudDeck_AStudRules_EVAL_N( AStudDeck_CardMask cards, int n_cards )
   n_ranks = nBitsTable[ranks];
 
   switch (stdHandType) {
-  case StdRules_HandType_STFLUSH:
   case StdRules_HandType_QUADS:
   case StdRules_HandType_FLUSH:
+    if (n_ranks >= 5) {
+      if ((SS & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+          + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+      else if ((SC & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+          + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+      else if ((SD & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+          + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+      else if ((SH & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+          + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+    };
+    return astudHandTypeMap[stdHandType] + stdCards;
+    break;
+
+  case StdRules_HandType_STFLUSH:
   case StdRules_HandType_STRAIGHT:
     return astudHandTypeMap[stdHandType] + stdCards;
     break;
 
   case StdRules_HandType_FULLHOUSE: 
     if (n_ranks >= 5) {
-      if (nBitsTable[SS] >= 5) 
-        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
-          + topFiveCardsTable[SS];
-      else if (nBitsTable[SC] >= 5) 
-        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
-          + topFiveCardsTable[SC];
-      else if (nBitsTable[SD] >= 5) 
-        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
-          + topFiveCardsTable[SD];
-      else if (nBitsTable[SH] >= 5) 
-        return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
-          + topFiveCardsTable[SH];
+      if (nBitsTable[SS] >= 5) {
+        if ((SS & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+            + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+        else 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
+            + topFiveCardsTable[SS];
+      }
+      else if (nBitsTable[SC] >= 5) {
+        if ((SC & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+            + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+        else 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
+            + topFiveCardsTable[SC];
+      }
+      else if (nBitsTable[SD] >= 5) {
+        if ((SD & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+            + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+        else 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
+            + topFiveCardsTable[SD];
+      }
+      else if (nBitsTable[SH] >= 5) {
+        if ((SH & AStudRules_TEN_STRAIGHT) == AStudRules_TEN_STRAIGHT) 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_STFLUSH) 
+            + HandVal_TOP_CARD_VALUE(AStudDeck_Rank_TEN);
+        else 
+          return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FLUSH) 
+            + topFiveCardsTable[SH];
+      }
     };
     return HandVal_HANDTYPE_VALUE(AStudRules_HandType_FULLHOUSE) + stdCards;
     break;
