@@ -1,0 +1,19 @@
+#
+# Makefile for top-level of the poker library, tests and sample programs
+#
+
+all:
+	(cd lib; make)
+	(cd tests; make)
+	(cd examples; make)
+
+clean:
+	(cd lib; make clean)
+	(cd tests; make clean)
+	(cd examples; make clean)
+
+test:
+	(cd tests; make clean)
+
+ 
+
