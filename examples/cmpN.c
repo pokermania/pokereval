@@ -1,8 +1,8 @@
 /*
  *  cmpN.c: a program to compare N pairs of hold'em hole cards at any
- *              point of the game (pre-flop, on the flop, turn or river).
+ *		point of the game (pre-flop, on the flop, turn or river).
  *          now expanded to omaha hi/lo8, 7stud, 7stud hi/lo8, lowball
- *              
+ *		
  *  Example:
  *
  *      cmpN -h  Tc Ac  3h Ah  9c 9h  --  8c 6h 7h
@@ -24,6 +24,7 @@
  *                -l Ac 3c 5s 7h - Kd -- 2s 3d 5h 6d 8h
  *              specifies a 1-card draw to a 75 vs. a pat 86.
  *              Use 'X' for the joker.
+ *     -5     5 stud high (same as 5 draw)
  *
  *  by Michael Maurer, Feb 1995
  *  Based on cmp2.c, which is Copyright (C) 1993, 1994  Clifford T. Matthews
@@ -48,7 +49,7 @@
 
 #include "poker.h"
 #include "eval.h"
-#include "mmpoker.h"
+#include "mypoker.h"
 
 
 PRIVATE char * sprintf_rank(char *buf, uint32 ranks, char suitchar)
@@ -58,11 +59,11 @@ PRIVATE char * sprintf_rank(char *buf, uint32 ranks, char suitchar)
     static char names[] = "AKQJT98765432";
 
     for (bit = 1 << ace, namep = names; bit; bit >>= 1, ++namep) {
-        if (ranks & bit) {
-           *buf++ = *namep;
-           *buf++ = suitchar;
-           *buf++ = ' ';
-        }
+	if (ranks & bit) {
+	   *buf++ = *namep;
+	   *buf++ = suitchar;
+	   *buf++ = ' ';
+	}
     }
     return buf;
 }
@@ -76,7 +77,7 @@ PRIVATE void mydump_uint64(char *buf, uint64 hand)
       buf = sprintf_rank(buf, cards.cards_t.diamonds, 'd');
       buf = sprintf_rank(buf, cards.cards_t.clubs,    'c');
       if (hand & joker64)
-         *buf++ = 'X', *buf++ = ' ', *buf++ = ' ';
+	 *buf++ = 'X', *buf++ = ' ', *buf++ = ' ';
       *buf = '\0';
    } else {
       char mybuf[128], *p=mybuf;
@@ -86,7 +87,7 @@ PRIVATE void mydump_uint64(char *buf, uint64 hand)
       p = sprintf_rank(p, cards.cards_t.diamonds, 'd');
       p = sprintf_rank(p, cards.cards_t.clubs,    'c');
       if (hand & joker64)
-         *p++ = 'X', *p++ = ' ', *p++ = ' ';
+	 *p++ = 'X', *p++ = ' ', *p++ = ' ';
       *p = '\0';
       fputs(mybuf,stdout);
    }
@@ -114,7 +115,7 @@ combination), use *_NESTED_LOOP_PERM instead. */
    bitpat = bitpat_arg;\
    for (bit=(uint64)1<<(MAXDECK-1), nbits=0; bit; bit>>=1) {\
       if (bit & bitpat)\
-         bits[++nbits] = bit;\
+	 bits[++nbits] = bit;\
    }\
    if (nbits<depth) {\
       printf("ERROR: Not enough cards\n");\
@@ -130,16 +131,16 @@ combination), use *_NESTED_LOOP_PERM instead. */
 
 #define END_NESTED_LOOP_COMB \
       for (j=depth; j>0; j--) {\
-         if (idx[j] < nbits-depth+j)\
-            break;\
+	 if (idx[j] < nbits-depth+j)\
+	    break;\
       }\
       if (j==0)\
-         break;\
+	 break;\
       idx[j]++;\
       ormask[j] = ormask[j-1] | bits[idx[j]];\
       for (j++; j<=depth; j++) {\
-         idx[j] = idx[j-1] + 1;\
-         ormask[j] = ormask[j-1] | bits[idx[j]];\
+	 idx[j] = idx[j-1] + 1;\
+	 ormask[j] = ormask[j-1] | bits[idx[j]];\
       }\
    }\
 }
@@ -148,11 +149,11 @@ combination), use *_NESTED_LOOP_PERM instead. */
 
 #define END_NESTED_LOOP_PERM \
       for (j=depth; j>0; j--) {\
-         if (bitpat & ~ormask[j-1] & (bits[idx[j]]-1))\
-            break;\
+	 if (bitpat & ~ormask[j-1] & (bits[idx[j]]-1))\
+	    break;\
       }\
       if (j==0)\
-         break;\
+	 break;\
       while (bits[++idx[j]] & ormask[j-1]);\
 /*      printf("\tmoving elem %d to slot %d\n", j, idx[j]);*/\
       ormask[j] = ormask[j-1] | bits[idx[j]];\
@@ -160,7 +161,7 @@ combination), use *_NESTED_LOOP_PERM instead. */
          idx[j] = 0;\
          while (bits[++idx[j]] & ormask[j-1]);\
 /*         printf("\t\tstarting elem %d at slot %d\n", j, idx[j]);*/\
-         ormask[j] = ormask[j-1] | bits[idx[j]];\
+	 ormask[j] = ormask[j-1] | bits[idx[j]];\
       }\
    }\
 }
@@ -169,16 +170,16 @@ combination), use *_NESTED_LOOP_PERM instead. */
 
 #define END_NESTED_LOOP_REPLACE \
       do {\
-         for (j=depth; j>0; j--) {\
-            if (idx[j] == depth)\
-               break;\
-         }\
-         if (j==0)\
-            break;\
-         idx[j]++;\
-         for (j++; j<=depth; j++) {\
-            idx[j] = 0;\
-         }\
+	 for (j=depth; j>0; j--) {\
+	    if (idx[j] == depth)\
+	       break;\
+	 }\
+	 if (j==0)\
+	    break;\
+	 idx[j]++;\
+	 for (j++; j<=depth; j++) {\
+	    idx[j] = 0;\
+	 }\
       } while ();\
    }\
 }
@@ -191,21 +192,21 @@ combination), use *_NESTED_LOOP_PERM instead. */
       cmd2;\
       cmd3;\
       if (val[i] > best)\
-         best = val[i];\
+	 best = val[i];\
    }\
    nbest = 0;\
    for (i=0; i<nplayers; i++) {\
       if (val[i]==best)\
-         nbest++;\
+	 nbest++;\
    }\
    hishare = 1.0/nbest;\
    for (i=0; i<nplayers; i++) {\
       if (val[i]==best) {\
-         ev[i] += hishare;\
-         if (nbest==1)\
-            nwin[i]++;\
-         else\
-            ntie[i]++;\
+	 ev[i] += hishare;\
+	 if (nbest==1)\
+	    nwin[i]++;\
+	 else\
+	    ntie[i]++;\
       }\
    }\
    nhands++;
@@ -221,17 +222,17 @@ combination), use *_NESTED_LOOP_PERM instead. */
       cmd2;\
       cmd3;\
       if (val[i] > best)\
-         best = val[i];\
+	 best = val[i];\
       if (LOval[i] < LObest)\
-         LObest = LOval[i];\
+	 LObest = LOval[i];\
    }\
    nbest = 0;\
    LOnbest = 0;\
    for (i=0; i<nplayers; i++) {\
       if (val[i]==best)\
-         nbest++;\
+	 nbest++;\
       if (LOval[i]==LObest)\
-         LOnbest++;\
+	 LOnbest++;\
    }\
    hishare = (LObest<=LOqual) ? 0.5 : 1;\
    if (nbest) hishare /= nbest;\
@@ -240,26 +241,26 @@ combination), use *_NESTED_LOOP_PERM instead. */
    for (i=0; i<nplayers; i++) {\
       if (val[i]==best) {\
 /*printf("HI:%d ",i);*/\
-         ev[i] += hishare;\
-         if (nbest==1)\
-            nwin[i]++;\
-         else\
-            ntie[i]++;\
-         if (nbest==1 && LObest>LOqual)\
-            nscoop[i]++;\
+	 ev[i] += hishare;\
+	 if (nbest==1)\
+	    nwin[i]++;\
+	 else\
+	    ntie[i]++;\
+	 if (nbest==1 && LObest>LOqual)\
+	    nscoop[i]++;\
       }\
       if (LOval[i]<=LOqual) {\
-         if (LOval[i]==LObest) {\
+	 if (LOval[i]==LObest) {\
 /*printf("LO:%d ",i);*/\
-            ev[i] += loshare;\
-            if (LOnbest==1)\
-               LOnwin[i]++;\
-            else\
-               LOntie[i]++;\
-            if (val[i]==best && nbest==1 && LOnbest==1)\
-               nscoop[i]++;\
-         } else\
-            LOnlose[i]++;\
+	    ev[i] += loshare;\
+	    if (LOnbest==1)\
+	       LOnwin[i]++;\
+	    else\
+	       LOntie[i]++;\
+	    if (val[i]==best && nbest==1 && LOnbest==1)\
+	       nscoop[i]++;\
+	 } else\
+	    LOnlose[i]++;\
       }\
    }\
 /*printf("\n");*/\
@@ -272,21 +273,21 @@ combination), use *_NESTED_LOOP_PERM instead. */
       cmd2;\
       cmd3;\
       if (LOval[i] < LObest)\
-         LObest = LOval[i];\
+	 LObest = LOval[i];\
    }\
    LOnbest = 0;\
    for (i=0; i<nplayers; i++) {\
       if (LOval[i]==LObest)\
-         LOnbest++;\
+	 LOnbest++;\
    }\
    loshare = 1.0/LOnbest;\
    for (i=0; i<nplayers; i++) {\
       if (LOval[i]==LObest) {\
-         ev[i] += loshare;\
-         if (LOnbest==1)\
-            LOnwin[i]++;\
-         else\
-            LOntie[i]++;\
+	 ev[i] += loshare;\
+	 if (LOnbest==1)\
+	    LOnwin[i]++;\
+	 else\
+	    LOntie[i]++;\
       }\
    }\
    nhands++;
@@ -300,7 +301,7 @@ PRIVATE int cmpN(int argc, char *argv[])
    uint32 nhands, best, LObest;
    uint32 val[MAXHANDS], nwin[MAXHANDS], ntie[MAXHANDS], nscoop[MAXHANDS];
    uint32 LOval[MAXHANDS], LOnwin[MAXHANDS], LOntie[MAXHANDS], LOnlose[MAXHANDS];
-   uint32 LOqual = ROUGH_EIGHT;                         /* 8 qualifier for low */
+   uint32 LOqual = ROUGH_EIGHT;				/* 8 qualifier for low */
    float ev[MAXHANDS], hishare, loshare;
    state_t state;
    game_t game = game_holdem;
@@ -317,85 +318,103 @@ PRIVATE int cmpN(int argc, char *argv[])
    state = HOLE;
    for (i=1; i<argc; i++) {
       card = string_to_card(argv[i]);
-      if (!card && *argv[i] == 'X')                     /* joker */
-         card = joker64;
+      if (!card && *argv[i] == 'X')			/* joker */
+	 card = joker64;
       if (!card && *argv[i] != '-') {
-         printf("ERROR: Malformed card \"%s\"\n", argv[i]);
-         return 1;
+	 printf("ERROR: Malformed card \"%s\"\n", argv[i]);
+	 return 1;
       }
       if (!strcmp(argv[i], "-h")) {
-         game = game_holdem;
-         continue;
+	 game = game_holdem;
+	 continue;
       }
       if (!strcmp(argv[i], "-h8")) {
-         game = game_holdem8;
-         continue;
+	 game = game_holdem8;
+	 continue;
       }
       if (!strcmp(argv[i], "-o")) {
-         game = game_omaha8;
-         continue;
+	 game = game_omaha8;
+	 continue;
       }
       if (!strcmp(argv[i], "-ohi")) {
-         game = game_omaha;
-         continue;
+	 game = game_omaha;
+	 continue;
       }
       if (!strcmp(argv[i], "-s")) {
-         game = game_7stud;
-         continue;
+	 game = game_7stud;
+	 continue;
       }
       if (!strcmp(argv[i], "-s8")) {
-         game = game_7stud8;
-         continue;
+	 game = game_7stud8;
+	 continue;
       }
       if (!strcmp(argv[i], "-l")) {
-         game = game_lowball;
-         continue;
+	 game = game_lowball;
+	 continue;
+      }
+      if (!strcmp(argv[i], "-5")) {
+	 game = game_5stud;
+	 continue;
+      }
+      if (!strcmp(argv[i], "-d")) {
+	if (++i == argc) {
+	  fprintf(stderr, "Missing card portion of -d\n");
+	  exit(1);
+	}
+	card = string_to_card(argv[i]);
+	if (!card) {
+	  fprintf(stderr, "Malformed card \"%s\"\n", argv[i]);
+	  exit(1);
+	} else {
+	  dead |= card;
+	}
+        continue;
       }
       if (*argv[i] == '-' && strcmp(argv[i],"--") && strcmp(argv[i],"-")) {
-         printf("ERROR: Unknown option \"%s\"\n", argv[i]);
-         return 1;
+	 printf("ERROR: Unknown option \"%s\"\n", argv[i]);
+	 return 1;
       }
       switch (state) {
        case HOLE:
        case DISCARD:
-         if (!strcmp(argv[i],"--")) {
-            if (game_params[game].maxboard > 0)
-               state = BOARD;
-            else {
-               state = HOLE;
-               nplayers++;
-            }
-         } else if (!strcmp(argv[i],"-")) {
-            if (game_params[game].maxboard > 0)
-               state = BOARD;
-            else
-               state = DISCARD;
-         } else {
-            if (state == HOLE) {
-               hole[nplayers] |= card;
-               nhole[nplayers]++;
-               if (nhole[nplayers] == game_params[game].maxhole &&
-                   game_params[game].maxboard > 0)
-                  nplayers++;
-            } else
-               discard[nplayers] |= card;
-         }
-         break;
+	 if (!strcmp(argv[i],"--")) {
+	    if (game_params[game].maxboard > 0)
+	       state = BOARD;
+	    else {
+	       state = HOLE;
+	       nplayers++;
+	    }
+	 } else if (!strcmp(argv[i],"-")) {
+	    if (game_params[game].maxboard > 0)
+	       state = BOARD;
+	    else
+	       state = DISCARD;
+	 } else {
+	    if (state == HOLE) {
+	       hole[nplayers] |= card;
+	       nhole[nplayers]++;
+	       if (nhole[nplayers] == game_params[game].maxhole &&
+		   game_params[game].maxboard > 0)
+		  nplayers++;
+	    } else
+	       discard[nplayers] |= card;
+	 }
+	 break;
        case BOARD:
-         board |= card;
-         nboard++;
-         break;
+	 board |= card;
+	 nboard++;
+	 break;
       }
       dead |= card;
 /*      printf("parsed %s, nplayers=%d\n", argv[i], nplayers);*/
    }
-   if (hole[nplayers] || discard[nplayers])             /* fix for null board */
+   if (hole[nplayers] || discard[nplayers])		/* fix for null board */
       nplayers++;
    for (i=0; i<nplayers; i++) {
       if (game_params[game].maxboard > 0 &&
-          nhole[i] < game_params[game].maxhole) {
-         printf("ERROR: Wrong number of hole cards\n");
-         return 1;
+	  nhole[i] < game_params[game].maxhole) {
+	 printf("ERROR: Wrong number of hole cards\n");
+	 return 1;
       }
    }
    deck = ~(~(uint64)0 << game_params[game].decksize);
@@ -406,8 +425,8 @@ PRIVATE int cmpN(int argc, char *argv[])
       printf("\nplayer %d: ", i);
       mydump_uint64(NULL,hole[i]);
       if (discard[i]) {
-         printf("/ ");
-         mydump_uint64(NULL,discard[i]);
+	 printf("/ ");
+	 mydump_uint64(NULL,discard[i]);
       }
    }
    printf("\nboard: ");
@@ -422,50 +441,51 @@ PRIVATE int cmpN(int argc, char *argv[])
     case game_holdem: {
        ndeal = game_params[game].maxboard - nboard;
        START_NESTED_LOOP_COMB(ndeal,live) {
-          common = ormask[depth] | board;
-          INNER_LOOP_HI(val[i] = eval(uint64_to_cards(hole[i] | common)),
-                        dum=2, dum=3);
+	  common = ormask[depth] | board;
+	  INNER_LOOP_HI(val[i] = eval(uint64_to_cards(hole[i] | common)),
+			dum=2, dum=3);
        } END_NESTED_LOOP_COMB;
     } break;
     case game_omaha: {
        ndeal = game_params[game].maxboard - nboard;
        START_NESTED_LOOP_COMB(ndeal,live) {
-          common = ormask[depth] | board;
-          INNER_LOOP_HI((val[i] = eval_omaha(uint64_to_cards(hole[i]),
-                                             uint64_to_cards(common))),
-                        dum=2,dum=3);
+	  common = ormask[depth] | board;
+	  INNER_LOOP_HI((val[i] = eval_omaha(uint64_to_cards(hole[i]),
+					     uint64_to_cards(common))),
+			dum=2,dum=3);
        } END_NESTED_LOOP_COMB;
     } break;
     case game_omaha8: {
        ndeal = game_params[game].maxboard - nboard;
        START_NESTED_LOOP_COMB(ndeal,live) {
-          common = ormask[depth] | board;
-          INNER_LOOP_HILO8((eval_omaha_hilo(uint64_to_cards(hole[i]),
-                                            uint64_to_cards(common),
-                                            &val[i], &LOval[i])),
-                           dum=2,dum=3);
+	  common = ormask[depth] | board;
+	  INNER_LOOP_HILO8((eval_omaha_hilo(uint64_to_cards(hole[i]),
+					    uint64_to_cards(common),
+					    &val[i], &LOval[i])),
+			   dum=2,dum=3);
        } END_NESTED_LOOP_COMB;
     } break;
     case game_holdem8: {
        ndeal = game_params[game].maxboard - nboard;
        START_NESTED_LOOP_COMB(ndeal,live) {
-          common = ormask[depth] | board;
-          INNER_LOOP_HILO8(cards_u hand = uint64_to_cards(hole[i] | common),
-                           val[i] = eval(hand),
-                           LOval[i] = eval_lowball5(hand));
+	  common = ormask[depth] | board;
+	  INNER_LOOP_HILO8(cards_u hand = uint64_to_cards(hole[i] | common),
+			   val[i] = eval(hand),
+			   LOval[i] = eval_lowball5(hand));
        } END_NESTED_LOOP_COMB;
     } break;
-    case game_7stud: {
+    case game_7stud:
+    case game_5stud: {
        uint8 start[MAXHANDS], end[MAXHANDS];
        for (ndeal=i=0; i<nplayers; i++) {
-          start[i] = ndeal;
-          ndeal += game_params[game].maxhole - nhole[i];
-          end[i] = ndeal;
+	  start[i] = ndeal;
+	  ndeal += game_params[game].maxhole - nhole[i];
+	  end[i] = ndeal;
        }
        START_NESTED_LOOP_PERM(ndeal,live) {
-          INNER_LOOP_HI(uint64 hand = hole[i] | (ormask[end[i]] & ~ormask[start[i]]),
-                        val[i] = eval(uint64_to_cards(hand)),
-                        dum=3);
+	  INNER_LOOP_HI(uint64 hand = hole[i] | (ormask[end[i]] & ~ormask[start[i]]),
+			val[i] = eval(uint64_to_cards(hand)),
+			dum=3);
        } END_NESTED_LOOP_PERM;
     } break;
     case game_7stud8: {
@@ -473,50 +493,50 @@ PRIVATE int cmpN(int argc, char *argv[])
        live = 0x00ff;
        ndeal = 3;
        START_NESTED_LOOP_PERM(ndeal,live) {
-          for (i=1; i<=nbits; i++) {
-             for (k=ndeal; k>0; k--)
-                if (idx[k]==i)
-                   break;
-             printf("%1d", k);
-          }
-          nhands++;
+	  for (i=1; i<=nbits; i++) {
+	     for (k=ndeal; k>0; k--)
+		if (idx[k]==i)
+		   break;
+	     printf("%1d", k);
+	  }
+	  nhands++;
        } END_NESTED_LOOP_PERM;
 #else
        uint8 start[MAXHANDS], end[MAXHANDS], nc, waste=1;
        for (ndeal=i=0; i<nplayers; i++) {
-          start[i] = ndeal;
-          nc = game_params[game].maxhole - nhole[i];
-          ndeal += nc;
-          end[i] = ndeal;
-          for (k=1; k<=nc; k++)
-             waste *= k;
+	  start[i] = ndeal;
+	  nc = game_params[game].maxhole - nhole[i];
+	  ndeal += nc;
+	  end[i] = ndeal;
+	  for (k=1; k<=nc; k++)
+	     waste *= k;
        }
        if (waste>1)
-          fprintf(stderr, "Due to algorithmic laziness, computation redundancy = %d\n", waste);
+	  fprintf(stderr, "Due to algorithmic laziness, computation redundancy = %d\n", waste);
        START_NESTED_LOOP_PERM(ndeal,live) {
-          INNER_LOOP_HILO8(cards_u hand = uint64_to_cards(hole[i] | (ormask[end[i]] & ~ormask[start[i]])),
-                           val[i] = eval(hand),
-                           LOval[i] = eval_lowball5(hand));
+	  INNER_LOOP_HILO8(cards_u hand = uint64_to_cards(hole[i] | (ormask[end[i]] & ~ormask[start[i]])),
+			   val[i] = eval(hand),
+			   LOval[i] = eval_lowball5(hand));
        } END_NESTED_LOOP_PERM;
 #endif
     } break;
     case game_lowball: {
        uint8 start[MAXHANDS], end[MAXHANDS], nc, waste=1;
        for (ndeal=i=0; i<nplayers; i++) {
-          start[i] = ndeal;
-          nc = game_params[game].maxhole - nhole[i];
-          ndeal += nc;
-          end[i] = ndeal;
-          for (k=1; k<=nc; k++)
-             waste *= k;
+	  start[i] = ndeal;
+	  nc = game_params[game].maxhole - nhole[i];
+	  ndeal += nc;
+	  end[i] = ndeal;
+	  for (k=1; k<=nc; k++)
+	     waste *= k;
        }
 #if 1
        if (waste>1)
-          fprintf(stderr, "Due to algorithmic laziness, computation redundancy >= %d\n", waste);
+	  fprintf(stderr, "Due to algorithmic laziness, computation redundancy >= %d\n", waste);
        START_NESTED_LOOP_PERM(ndeal,live) {
-          INNER_LOOP_LO(cards_u hand = uint64_to_cards(hole[i] | (ormask[end[i]] & ~ormask[start[i]])),
-                        LOval[i] = eval_lowball5(hand),
-                        dum=3);
+	  INNER_LOOP_LO(cards_u hand = uint64_to_cards(hole[i] | (ormask[end[i]] & ~ormask[start[i]])),
+			LOval[i] = eval_lowball5(hand),
+			dum=3);
        } END_NESTED_LOOP_PERM;
 #else
 #endif
@@ -532,15 +552,15 @@ PRIVATE int cmpN(int argc, char *argv[])
       printf("%d board%s containing ", nhands, (nhands==1) ? "" : "s");
       mydump_uint64(NULL,board);
       printf("\n%*s %7s %6s   %7s %6s   %7s %6s     %5s\n",
-             game==game_holdem ? -6 : -12,
-             "cards", "win", "%win", "lose", "%lose", "tie", "%tie", "EV");
+	     game==game_holdem ? -6 : -12,
+	     "cards", "win", "%win", "lose", "%lose", "tie", "%tie", "EV");
       for (i=0; i<nplayers; i++) {
-         mydump_uint64(NULL,hole[i]);
-         printf(" %7d %6.2f   %7d %6.2f   %7d %6.2f     %5.3f\n",
-                nwin[i], 100.0*nwin[i]/nhands,
-                nhands - nwin[i] - ntie[i], 100.0*(nhands - nwin[i] - ntie[i])/nhands,
-                ntie[i], 100.0*ntie[i]/nhands,
-                ev[i]/nhands);
+	 mydump_uint64(NULL,hole[i]);
+	 printf(" %7d %6.2f   %7d %6.2f   %7d %6.2f     %5.3f\n",
+		nwin[i], 100.0*nwin[i]/nhands,
+		nhands - nwin[i] - ntie[i], 100.0*(nhands - nwin[i] - ntie[i])/nhands,
+		ntie[i], 100.0*ntie[i]/nhands,
+		ev[i]/nhands);
       }
       break;
     case game_holdem8:
@@ -548,65 +568,66 @@ PRIVATE int cmpN(int argc, char *argv[])
       printf("%d board%s containing ", nhands, (nhands==1) ? "" : "s");
       mydump_uint64(NULL,board);
       printf("\n%*s%7s   %7s %7s %7s   %7s %7s %7s   %5s\n",
-             game==game_holdem8 ? -6 : -12,
-             "cards", "scoop",
-             "HIwin", "HIlos", "HItie",
-             "LOwin", "LOlos", "LOtie",
-             "EV");
+	     game==game_holdem8 ? -6 : -12,
+	     "cards", "scoop",
+	     "HIwin", "HIlos", "HItie",
+	     "LOwin", "LOlos", "LOtie",
+	     "EV");
       for (i=0; i<nplayers; i++) {
-         mydump_uint64(NULL,hole[i]);
-         printf("%7d   %7d %7d %7d   %7d %7d %7d   %5.3f\n",
-                nscoop[i],
-                nwin[i], nhands-nwin[i]-ntie[i], ntie[i],
-                LOnwin[i], LOnlose[i], LOntie[i],
-                ev[i]/nhands);
+	 mydump_uint64(NULL,hole[i]);
+	 printf("%7d   %7d %7d %7d   %7d %7d %7d   %5.3f\n",
+		nscoop[i],
+		nwin[i], nhands-nwin[i]-ntie[i], ntie[i],
+		LOnwin[i], LOnlose[i], LOntie[i],
+		ev[i]/nhands);
       }
       break;
     case game_7stud:
+    case game_5stud:
       printf("%d possible outcome%s", nhands, (nhands==1) ? "" : "s");
       printf("\n%18s %7s %6s   %7s %6s   %7s %6s     %5s\n",
-             "cards", "win", "%win", "lose", "%lose", "tie", "%tie", "EV");
+	     "cards", "win", "%win", "lose", "%lose", "tie", "%tie", "EV");
       for (i=0; i<nplayers; i++) {
-         mydump_uint64(buf,hole[i]);
-         printf("%-18s %7d %6.2f   %7d %6.2f   %7d %6.2f     %5.3f\n",
-                buf, nwin[i], 100.0*nwin[i]/nhands,
-                nhands - nwin[i] - ntie[i], 100.0*(nhands - nwin[i] - ntie[i])/nhands,
-                ntie[i], 100.0*ntie[i]/nhands,
-                ev[i]/nhands);
+	 mydump_uint64(buf,hole[i]);
+	 printf("%-18s %7d %6.2f   %7d %6.2f   %7d %6.2f     %5.3f\n",
+		buf, nwin[i], 100.0*nwin[i]/nhands,
+		nhands - nwin[i] - ntie[i], 100.0*(nhands - nwin[i] - ntie[i])/nhands,
+		ntie[i], 100.0*ntie[i]/nhands,
+		ev[i]/nhands);
       }
       break;
     case game_7stud8:
       printf("%d possible outcome%s", nhands, (nhands==1) ? "" : "s");
       printf("\n%-18s%6s  %6s %6s %6s  %6s %6s %6s  %5s\n",
-             "cards", "scoop",
-             "HIwin", "HIlos", "HItie",
-             "LOwin", "LOlos", "LOtie",
-             "EV");
+	     "cards", "scoop",
+	     "HIwin", "HIlos", "HItie",
+	     "LOwin", "LOlos", "LOtie",
+	     "EV");
       for (i=0; i<nplayers; i++) {
-         mydump_uint64(buf,hole[i]);
-         printf("%-18s%6d  %6d %6d %6d  %6d %6d %6d  %5.3f\n",
-                buf, nscoop[i],
-                nwin[i], nhands-nwin[i]-ntie[i], ntie[i],
-                LOnwin[i], LOnlose[i], LOntie[i],
-                ev[i]/nhands);
+	 mydump_uint64(buf,hole[i]);
+	 printf("%-18s%6d  %6d %6d %6d  %6d %6d %6d  %5.3f\n",
+		buf, nscoop[i],
+		nwin[i], nhands-nwin[i]-ntie[i], ntie[i],
+		LOnwin[i], LOnlose[i], LOntie[i],
+		ev[i]/nhands);
       }
       break;
     case game_lowball:
       printf("%d possible outcome%s", nhands, (nhands==1) ? "" : "s");
       printf("\n%-17s %7s %6s   %7s %6s   %7s %6s   %5s\n",
-             "cards", "win", "%win", "lose", "%lose", "tie", "%tie", "EV");
+	     "cards", "win", "%win", "lose", "%lose", "tie", "%tie", "EV");
       for (i=0; i<nplayers; i++) {
-         memset(buf,0,sizeof(buf));
-         mydump_uint64(buf,hole[i]);
-         if (discard[i]) {
-            strcat(buf,"/ ");
-            mydump_uint64(buf+strlen(buf), discard[i]);
-         }
-         printf("%-17s %7d %6.2f   %7d %6.2f   %7d %6.2f   %5.3f\n",
-                buf, LOnwin[i], 100.0*LOnwin[i]/nhands,
-                nhands - LOnwin[i] - LOntie[i], 100.0*(nhands - LOnwin[i] - LOntie[i])/nhands,
-                LOntie[i], 100.0*LOntie[i]/nhands,
-                ev[i]/nhands);
+	 memset(buf,0,sizeof(buf));
+	 mydump_uint64(buf,hole[i]);
+	 if (discard[i]) {
+	    strcat(buf,"/ ");
+	    mydump_uint64(buf+strlen(buf), discard[i]);
+	 }
+	 printf("%-17s %7d %6.2f   %7d %6.2f   %7d %6.2f   %5.3f\n",
+		buf, LOnwin[i], 100.0*LOnwin[i]/nhands,
+		nhands - LOnwin[i] - LOntie[i], 100.0*(nhands - LOnwin[i] - LOntie[i])/nhands,
+		LOntie[i], 100.0*LOntie[i]/nhands,
+		ev[i]/nhands);
       }
       break;
     default:
@@ -626,15 +647,15 @@ PUBLIC int main( int argc, char *argv[] )
       int fargc;
 
       while (fgets(buf,sizeof(buf),stdin)) {
-         fargv[0] = argv[0];
-         fargc = 1;
-         p = strtok(buf," \t\r\n");
-         while (p) {
-            fargv[fargc++] = p;
-            p = strtok(NULL," \t\r\n");
-         }
-         cmpN(fargc,fargv);
-         fflush(stdout);
+	 fargv[0] = argv[0];
+	 fargc = 1;
+	 p = strtok(buf," \t\r\n");
+	 while (p) {
+	    fargv[fargc++] = p;
+	    p = strtok(NULL," \t\r\n");
+	 }
+	 cmpN(fargc,fargv);
+	 fflush(stdout);
       }
    }
    return 0;
