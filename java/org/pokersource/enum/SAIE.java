@@ -11,7 +11,6 @@ import java.util.Enumeration;
     opponent(s) and assuming no further betting.  Beliefs about an opponent's
     hand distribution are represented by a BeliefVector object which maps each
     possible opponent hand to the probability of its occurrence.
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -9,7 +9,6 @@ import java.util.Iterator;
 /** Represents subjective beliefs about the possible hands held by a
     player.  Maintains a mapping from each hand to its probability of
     occurrence.
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

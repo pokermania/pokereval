@@ -3,7 +3,6 @@
 package org.pokersource.enum;
 
 /**
-   @version $Revision$
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -5,7 +5,6 @@ import org.pokersource.game.Deck;
 import junit.framework.*;
 
 /** Tests to ensure compatibility with the C-language macros.
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
  */
 

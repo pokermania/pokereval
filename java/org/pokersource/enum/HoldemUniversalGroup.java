@@ -6,7 +6,6 @@ import org.pokersource.game.Deck;
 import java.util.HashSet;
 
 /** A holdem hand group representing every possible starting Holdem hand.
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -5,7 +5,6 @@ package org.pokersource.game.test;
 import junit.framework.*;
 
 /**
-   @version $Revision$
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -6,7 +6,6 @@ package org.pokersource.game;
  Some utilities for working with cards and cardmasks in a way that is
  consistent with all decks used by the poker-eval C library.  We use
  the joker deck because it is a superset of the other decks.
- @version $Revision$
  @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -13,7 +13,6 @@ import org.apache.oro.text.regex.Perl5Matcher;
 
 /** A holdem hand group representing one exact starting hand such as
     "AhKh".
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -6,7 +6,6 @@ import org.pokersource.enum.*;
 import junit.framework.*;
 
 /**
-   @version $Revision$
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

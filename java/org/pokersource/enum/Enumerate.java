@@ -5,7 +5,6 @@ import org.pokersource.game.Deck;
 
 /** Algorithms for enumerating or sampling the outcomes of a poker hand
     matchup.
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

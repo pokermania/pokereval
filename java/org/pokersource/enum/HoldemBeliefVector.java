@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.StringTokenizer;
 
 /** A concrete implementation of BeliefVector for the game of Holdem.
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

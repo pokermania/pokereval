@@ -9,7 +9,6 @@ import java.util.Iterator;
 import junit.framework.*;
 
 /**
-   @version $Revision$
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

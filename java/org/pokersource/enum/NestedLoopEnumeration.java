@@ -22,7 +22,6 @@ import java.util.Enumeration;
 	{1, 2, 0}
 	{1, 2, 1}
 </pre>
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

@@ -30,7 +30,6 @@ import org.apache.oro.text.regex.Perl5Matcher;
       75+	offsuit 1-gap connector, J9-75
       74+	offsuit 2-gap connector, J8-74
 </pre>
-    @version $Revision$
     @author Michael Maurer <mjmaurer@yahoo.com>
 */
 

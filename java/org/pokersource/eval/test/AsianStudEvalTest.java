@@ -7,7 +7,6 @@ import org.pokersource.game.Deck;
 import junit.framework.*;
 
 /**
-   @version $Revision$
    @author Michael Maurer <mjmaurer@yahoo.com>
 */
 
