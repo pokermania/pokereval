@@ -12,6 +12,12 @@ The PokerSource evaluator library is free software and is released
 under the terms of the GNU General Public License.
 
 
+In order to compile the Java portions of the package, you will need the
+following packages available in your CLASSPATH:
+    Apache Oro regular expressions (org.apache.oro.*) [tested with v2.0.6]
+    JUnit test framework (junit.framework.*) [tested with v3.7]
+
+
 Compiling -- Unix systems:
 
 This library uses the GNU Autoconf self-configuration mechanism, so

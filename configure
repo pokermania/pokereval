@@ -1392,10 +1392,178 @@ echo "$ac_t""$ac_cv_prog_java_works" 1>&6
 
 
 
+  
+CLASS=`echo org.apache.oro.text.regex.Pattern|sed 's/\./_/g'`
+
+
+ac_var_name=`echo org.apache.oro.text.regex.Pattern | sed 's/\./_/g'`
+echo $ac_n "checking for org.apache.oro.text.regex.Pattern class""... $ac_c" 1>&6
+echo "configure:1402: checking for org.apache.oro.text.regex.Pattern class" >&5
+if eval "test \"`echo '$''{'ac_cv_class_$ac_var_name'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  
+if test x$ac_cv_prog_uudecode_base64 = xyes; then
+cat << \EOF > Test.uue
+begin-base64 644 Test.class
+yv66vgADAC0AKQcAAgEABFRlc3QHAAQBABBqYXZhL2xhbmcvT2JqZWN0AQAE
+bWFpbgEAFihbTGphdmEvbGFuZy9TdHJpbmc7KVYBAARDb2RlAQAPTGluZU51
+bWJlclRhYmxlDAAKAAsBAANlcnIBABVMamF2YS9pby9QcmludFN0cmVhbTsJ
+AA0ACQcADgEAEGphdmEvbGFuZy9TeXN0ZW0IABABABBNaXNzaW5nIGFyZ3Vt
+ZW50DAASABMBAAdwcmludGxuAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWCgAV
+ABEHABYBABNqYXZhL2lvL1ByaW50U3RyZWFtDAAYABkBAARleGl0AQAEKEkp
+VgoADQAXDAAcAB0BAAdmb3JOYW1lAQAlKExqYXZhL2xhbmcvU3RyaW5nOylM
+amF2YS9sYW5nL0NsYXNzOwoAHwAbBwAgAQAPamF2YS9sYW5nL0NsYXNzBwAi
+AQAgamF2YS9sYW5nL0NsYXNzTm90Rm91bmRFeGNlcHRpb24BAAY8aW5pdD4B
+AAMoKVYMACMAJAoAAwAlAQAKU291cmNlRmlsZQEACVRlc3QuamF2YQAhAAEA
+AwAAAAAAAgAJAAUABgABAAcAAABtAAMAAwAAACkqvgSiABCyAAwSD7YAFBBN
+uAAaKgMyuAAeTKcACE0EuAAaAUwDuAAasQABABMAGgAdACEAAQAIAAAAKgAK
+AAAACgAAAAsABgANAA4ADgATABAAEwASAB4AFgAiABgAJAAZACgAGgABACMA
+JAABAAcAAAAhAAEAAQAAAAUqtwAmsQAAAAEACAAAAAoAAgAAAAQABAAEAAEA
+JwAAAAIAKA==
+====
+EOF
+		if uudecode$EXEEXT Test.uue; then
+			:
+		else
+			echo "configure: 1430: uudecode had trouble decoding base 64 file 'Test.uue'" >&5
+			echo "configure: failed file was:" >&5
+			cat Test.uue >&5
+			ac_cv_prog_uudecode_base64=no
+		fi
+	rm -f Test.uue
+	if { ac_try='$JAVA $JAVAFLAGS Test org.apache.oro.text.regex.Pattern'; { (eval echo configure:1436: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } >/dev/null 2>&1; then
+		eval "ac_cv_class_$ac_var_name=yes"
+	else
+		eval "ac_cv_class_$ac_var_name=no"
+	fi
+	rm -f Test.class
+else
+	
+cat << \EOF > Test.java
+/* #line 1445 "configure" */
+import org.apache.oro.text.regex.Pattern;
+public class Test {
+
+}
+EOF
+if { ac_try='$JAVAC $JAVACFLAGS Test.java'; { (eval echo configure:1451: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } && test -s Test.class
+then
+  eval "ac_cv_class_$ac_var_name=yes"
+else
+  echo "configure: failed program was:" >&5
+  cat Test.java >&5
+  rm -fr Test*
+  eval "ac_cv_class_$ac_var_name=no"
+fi
+rm -fr Test*
+fi
+eval "ac_var_val=$`eval echo ac_cv_class_$ac_var_name`"
+eval "HAVE_$ac_var_name=$`echo ac_cv_class_$ac_var_val`"
+HAVE_LAST_CLASS=$ac_var_val
+if test x$ac_var_val = xyes; then
+	:
+else
+	:
+fi
+
+fi
+
+eval "ac_var_val=$`eval echo ac_cv_class_$ac_var_name`"
+echo "$ac_t""$ac_var_val" 1>&6
+
+if test "$HAVE_LAST_CLASS" = "no"; then
+        { echo "configure: error: Required class org.apache.oro.text.regex.Pattern missing, exiting." 1>&2; exit 1; }
+fi
+
+  
+CLASS=`echo junit.framework.TestCase|sed 's/\./_/g'`
+
+
+ac_var_name=`echo junit.framework.TestCase | sed 's/\./_/g'`
+echo $ac_n "checking for junit.framework.TestCase class""... $ac_c" 1>&6
+echo "configure:1486: checking for junit.framework.TestCase class" >&5
+if eval "test \"`echo '$''{'ac_cv_class_$ac_var_name'+set}'`\" = set"; then
+  echo $ac_n "(cached) $ac_c" 1>&6
+else
+  
+if test x$ac_cv_prog_uudecode_base64 = xyes; then
+cat << \EOF > Test.uue
+begin-base64 644 Test.class
+yv66vgADAC0AKQcAAgEABFRlc3QHAAQBABBqYXZhL2xhbmcvT2JqZWN0AQAE
+bWFpbgEAFihbTGphdmEvbGFuZy9TdHJpbmc7KVYBAARDb2RlAQAPTGluZU51
+bWJlclRhYmxlDAAKAAsBAANlcnIBABVMamF2YS9pby9QcmludFN0cmVhbTsJ
+AA0ACQcADgEAEGphdmEvbGFuZy9TeXN0ZW0IABABABBNaXNzaW5nIGFyZ3Vt
+ZW50DAASABMBAAdwcmludGxuAQAVKExqYXZhL2xhbmcvU3RyaW5nOylWCgAV
+ABEHABYBABNqYXZhL2lvL1ByaW50U3RyZWFtDAAYABkBAARleGl0AQAEKEkp
+VgoADQAXDAAcAB0BAAdmb3JOYW1lAQAlKExqYXZhL2xhbmcvU3RyaW5nOylM
+amF2YS9sYW5nL0NsYXNzOwoAHwAbBwAgAQAPamF2YS9sYW5nL0NsYXNzBwAi
+AQAgamF2YS9sYW5nL0NsYXNzTm90Rm91bmRFeGNlcHRpb24BAAY8aW5pdD4B
+AAMoKVYMACMAJAoAAwAlAQAKU291cmNlRmlsZQEACVRlc3QuamF2YQAhAAEA
+AwAAAAAAAgAJAAUABgABAAcAAABtAAMAAwAAACkqvgSiABCyAAwSD7YAFBBN
+uAAaKgMyuAAeTKcACE0EuAAaAUwDuAAasQABABMAGgAdACEAAQAIAAAAKgAK
+AAAACgAAAAsABgANAA4ADgATABAAEwASAB4AFgAiABgAJAAZACgAGgABACMA
+JAABAAcAAAAhAAEAAQAAAAUqtwAmsQAAAAEACAAAAAoAAgAAAAQABAAEAAEA
+JwAAAAIAKA==
+====
+EOF
+		if uudecode$EXEEXT Test.uue; then
+			:
+		else
+			echo "configure: 1514: uudecode had trouble decoding base 64 file 'Test.uue'" >&5
+			echo "configure: failed file was:" >&5
+			cat Test.uue >&5
+			ac_cv_prog_uudecode_base64=no
+		fi
+	rm -f Test.uue
+	if { ac_try='$JAVA $JAVAFLAGS Test junit.framework.TestCase'; { (eval echo configure:1520: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } >/dev/null 2>&1; then
+		eval "ac_cv_class_$ac_var_name=yes"
+	else
+		eval "ac_cv_class_$ac_var_name=no"
+	fi
+	rm -f Test.class
+else
+	
+cat << \EOF > Test.java
+/* #line 1529 "configure" */
+import junit.framework.TestCase;
+public class Test {
+
+}
+EOF
+if { ac_try='$JAVAC $JAVACFLAGS Test.java'; { (eval echo configure:1535: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } && test -s Test.class
+then
+  eval "ac_cv_class_$ac_var_name=yes"
+else
+  echo "configure: failed program was:" >&5
+  cat Test.java >&5
+  rm -fr Test*
+  eval "ac_cv_class_$ac_var_name=no"
+fi
+rm -fr Test*
+fi
+eval "ac_var_val=$`eval echo ac_cv_class_$ac_var_name`"
+eval "HAVE_$ac_var_name=$`echo ac_cv_class_$ac_var_val`"
+HAVE_LAST_CLASS=$ac_var_val
+if test x$ac_var_val = xyes; then
+	:
+else
+	:
+fi
+
+fi
+
+eval "ac_var_val=$`eval echo ac_cv_class_$ac_var_name`"
+echo "$ac_t""$ac_var_val" 1>&6
+
+if test "$HAVE_LAST_CLASS" = "no"; then
+        { echo "configure: error: Required class junit.framework.TestCase missing, exiting." 1>&2; exit 1; }
+fi
+
   # Extract the first word of "javah", so it can be a program name with args.
 set dummy javah; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1399: checking for $ac_word" >&5
+echo "configure:1567: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_JAVAH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1430,7 +1598,7 @@ fi
   # Extract the first word of "javadoc", so it can be a program name with args.
 set dummy javadoc; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1434: checking for $ac_word" >&5
+echo "configure:1602: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_JAVADOC'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1464,7 +1632,7 @@ fi
 
 
     echo $ac_n "checking how to run the C preprocessor""... $ac_c" 1>&6
-echo "configure:1468: checking how to run the C preprocessor" >&5
+echo "configure:1636: checking how to run the C preprocessor" >&5
 # On Suns, sometimes $CPP names a directory.
 if test -n "$CPP" && test -d "$CPP"; then
   CPP=
@@ -1479,13 +1647,13 @@ else
   # On the NeXT, cc -E runs the code through the compiler's parser,
   # not just through cpp.
   cat > conftest.$ac_ext <<EOF
-#line 1483 "configure"
+#line 1651 "configure"
 #include "confdefs.h"
 #include <assert.h>
 Syntax Error
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1489: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1657: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   :
@@ -1496,13 +1664,13 @@ else
   rm -rf conftest*
   CPP="${CC-cc} -E -traditional-cpp"
   cat > conftest.$ac_ext <<EOF
-#line 1500 "configure"
+#line 1668 "configure"
 #include "confdefs.h"
 #include <assert.h>
 Syntax Error
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1506: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1674: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   :
@@ -1513,13 +1681,13 @@ else
   rm -rf conftest*
   CPP="${CC-cc} -nologo -E"
   cat > conftest.$ac_ext <<EOF
-#line 1517 "configure"
+#line 1685 "configure"
 #include "confdefs.h"
 #include <assert.h>
 Syntax Error
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1523: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1691: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   :
@@ -1544,12 +1712,12 @@ fi
 echo "$ac_t""$CPP" 1>&6
 
 echo $ac_n "checking for ANSI C header files""... $ac_c" 1>&6
-echo "configure:1548: checking for ANSI C header files" >&5
+echo "configure:1716: checking for ANSI C header files" >&5
 if eval "test \"`echo '$''{'ac_cv_header_stdc'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1553 "configure"
+#line 1721 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 #include <stdarg.h>
@@ -1557,7 +1725,7 @@ else
 #include <float.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1561: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1729: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1574,7 +1742,7 @@ rm -f conftest*
 if test $ac_cv_header_stdc = yes; then
   # SunOS 4.x string.h does not declare mem*, contrary to ANSI.
 cat > conftest.$ac_ext <<EOF
-#line 1578 "configure"
+#line 1746 "configure"
 #include "confdefs.h"
 #include <string.h>
 EOF
@@ -1592,7 +1760,7 @@ fi
 if test $ac_cv_header_stdc = yes; then
   # ISC 2.0.2 stdlib.h does not declare free, contrary to ANSI.
 cat > conftest.$ac_ext <<EOF
-#line 1596 "configure"
+#line 1764 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 EOF
@@ -1613,7 +1781,7 @@ if test "$cross_compiling" = yes; then
   :
 else
   cat > conftest.$ac_ext <<EOF
-#line 1617 "configure"
+#line 1785 "configure"
 #include "confdefs.h"
 #include <ctype.h>
 #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
@@ -1624,7 +1792,7 @@ if (XOR (islower (i), ISLOWER (i)) || toupper (i) != TOUPPER (i)) exit(2);
 exit (0); }
 
 EOF
-if { (eval echo configure:1628: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:1796: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   :
 else
@@ -1649,12 +1817,12 @@ fi
 
 
     echo $ac_n "checking for working const""... $ac_c" 1>&6
-echo "configure:1653: checking for working const" >&5
+echo "configure:1821: checking for working const" >&5
 if eval "test \"`echo '$''{'ac_cv_c_const'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1658 "configure"
+#line 1826 "configure"
 #include "confdefs.h"
 
 int main() {
@@ -1703,7 +1871,7 @@ ccp = (char const *const *) p;
 
 ; return 0; }
 EOF
-if { (eval echo configure:1707: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+if { (eval echo configure:1875: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
   rm -rf conftest*
   ac_cv_c_const=yes
 else
@@ -1724,21 +1892,21 @@ EOF
 fi
 
   echo $ac_n "checking for inline""... $ac_c" 1>&6
-echo "configure:1728: checking for inline" >&5
+echo "configure:1896: checking for inline" >&5
 if eval "test \"`echo '$''{'ac_cv_c_inline'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   ac_cv_c_inline=no
 for ac_kw in inline __inline__ __inline; do
   cat > conftest.$ac_ext <<EOF
-#line 1735 "configure"
+#line 1903 "configure"
 #include "confdefs.h"
 
 int main() {
 } $ac_kw foo() {
 ; return 0; }
 EOF
-if { (eval echo configure:1742: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+if { (eval echo configure:1910: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
   rm -rf conftest*
   ac_cv_c_inline=$ac_kw; break
 else
@@ -1764,14 +1932,14 @@ EOF
 esac
 
   echo $ac_n "checking whether byte ordering is bigendian""... $ac_c" 1>&6
-echo "configure:1768: checking whether byte ordering is bigendian" >&5
+echo "configure:1936: checking whether byte ordering is bigendian" >&5
 if eval "test \"`echo '$''{'ac_cv_c_bigendian'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   ac_cv_c_bigendian=unknown
 # See if sys/param.h defines the BYTE_ORDER macro.
 cat > conftest.$ac_ext <<EOF
-#line 1775 "configure"
+#line 1943 "configure"
 #include "confdefs.h"
 #include <sys/types.h>
 #include <sys/param.h>
@@ -1782,11 +1950,11 @@ int main() {
 #endif
 ; return 0; }
 EOF
-if { (eval echo configure:1786: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+if { (eval echo configure:1954: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
   rm -rf conftest*
   # It does; now see whether it defined to BIG_ENDIAN or not.
 cat > conftest.$ac_ext <<EOF
-#line 1790 "configure"
+#line 1958 "configure"
 #include "confdefs.h"
 #include <sys/types.h>
 #include <sys/param.h>
@@ -1797,7 +1965,7 @@ int main() {
 #endif
 ; return 0; }
 EOF
-if { (eval echo configure:1801: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+if { (eval echo configure:1969: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
   rm -rf conftest*
   ac_cv_c_bigendian=yes
 else
@@ -1817,7 +1985,7 @@ if test "$cross_compiling" = yes; then
     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
 else
   cat > conftest.$ac_ext <<EOF
-#line 1821 "configure"
+#line 1989 "configure"
 #include "confdefs.h"
 main () {
   /* Are we little or big endian?  From Harbison&Steele.  */
@@ -1830,7 +1998,7 @@ main () {
   exit (u.c[sizeof (long) - 1] == 1);
 }
 EOF
-if { (eval echo configure:1834: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:2002: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   ac_cv_c_bigendian=no
 else
@@ -1854,7 +2022,7 @@ EOF
 fi
 
   echo $ac_n "checking size of long""... $ac_c" 1>&6
-echo "configure:1858: checking size of long" >&5
+echo "configure:2026: checking size of long" >&5
 if eval "test \"`echo '$''{'ac_cv_sizeof_long'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1862,7 +2030,7 @@ else
     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
 else
   cat > conftest.$ac_ext <<EOF
-#line 1866 "configure"
+#line 2034 "configure"
 #include "confdefs.h"
 #include <stdio.h>
 main()
@@ -1873,7 +2041,7 @@ main()
   exit(0);
 }
 EOF
-if { (eval echo configure:1877: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:2045: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   ac_cv_sizeof_long=`cat conftestval`
 else
@@ -1893,7 +2061,7 @@ EOF
 
 
   echo $ac_n "checking size of int""... $ac_c" 1>&6
-echo "configure:1897: checking size of int" >&5
+echo "configure:2065: checking size of int" >&5
 if eval "test \"`echo '$''{'ac_cv_sizeof_int'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1901,7 +2069,7 @@ else
     { echo "configure: error: can not run test program while cross compiling" 1>&2; exit 1; }
 else
   cat > conftest.$ac_ext <<EOF
-#line 1905 "configure"
+#line 2073 "configure"
 #include "confdefs.h"
 #include <stdio.h>
 main()
@@ -1912,7 +2080,7 @@ main()
   exit(0);
 }
 EOF
-if { (eval echo configure:1916: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
+if { (eval echo configure:2084: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext} && (./conftest; exit) 2>/dev/null
 then
   ac_cv_sizeof_int=`cat conftestval`
 else
@@ -1935,17 +2103,17 @@ EOF
 do
 ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
-echo "configure:1939: checking for $ac_hdr" >&5
+echo "configure:2107: checking for $ac_hdr" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1944 "configure"
+#line 2112 "configure"
 #include "confdefs.h"
 #include <$ac_hdr>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1949: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:2117: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1975,17 +2143,17 @@ done
 do
 ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6
-echo "configure:1979: checking for $ac_hdr" >&5
+echo "configure:2147: checking for $ac_hdr" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1984 "configure"
+#line 2152 "configure"
 #include "confdefs.h"
 #include <$ac_hdr>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1989: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:2157: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out | grep -v "^conftest.${ac_ext}\$"`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -2013,16 +2181,16 @@ done
 
 
     echo $ac_n "checking if compiler supports long long integer types""... $ac_c" 1>&6
-echo "configure:2017: checking if compiler supports long long integer types" >&5
+echo "configure:2185: checking if compiler supports long long integer types" >&5
   cat > conftest.$ac_ext <<EOF
-#line 2019 "configure"
+#line 2187 "configure"
 #include "confdefs.h"
 
 int main() {
  long long a; 
 ; return 0; }
 EOF
-if { (eval echo configure:2026: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
+if { (eval echo configure:2194: \"$ac_compile\") 1>&5; (eval $ac_compile) 2>&5; }; then
   rm -rf conftest*
   cf_longlong=yes
 else

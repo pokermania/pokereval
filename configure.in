@@ -34,6 +34,8 @@ else
   AC_CHECK_CLASSPATH
   AC_PROG_JAVAC
   AC_PROG_JAVA
+  AC_CHECK_RQRD_CLASS(org.apache.oro.text.regex.Pattern)
+  AC_CHECK_RQRD_CLASS(junit.framework.TestCase)
   AC_PATH_PROG(JAVAH,javah)
   AC_PATH_PROG(JAVADOC,javadoc)
 
