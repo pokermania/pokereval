@@ -1,5 +1,7 @@
 Fri Dec 03 13:31:20 2004  Loic Dachary  <loic@gnu.org>
 
+	* Release 0.125
+
 	* config/build.m4 : removed because too complex to maintain
 
 	* configure.ac, bootstrap: lower autoconf requirements to 2.53

@@ -25,11 +25,15 @@
 #
 # 
 EXTRA_DIST = \
-	config/build.m4 config/ccache.m4 bootstrap \
+	config/ccache.m4 bootstrap \
 	examples/Makefile.dos \
 	include/Makefile.dos \
 	lib/Makefile.dos \
 	tests/Makefile.dos \
+	mktab_astud.vcproj  mktab_evx.vcproj	mktab_lowball.vcproj  poker-eval.vcproj \
+	mktab_basic.vcproj  mktab_joker.vcproj	mktab_packed.vcproj \
+	poker-eval.sln \
+	WHATS-HERE.Java \
 	WHATS-HERE
 
 SUBDIRS = \
