@@ -20,6 +20,7 @@
 
 
 #include	<stdio.h>
+#include	<stdlib.h>
 #include	"poker_defs.h"
 #include        "inlines/eval.h"
 #include	"inlines/evx7.h"

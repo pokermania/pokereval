@@ -69,10 +69,10 @@ $(JOKER_TABLES): mktab_joker@E@
 $(LOWBALL_TABLES): mktab_lowball@E@
 	$(RUN_IT)
 
-../include/inlines/evx5.h:	evx_gen5@E@
+../include/inlines/evx5.h:	evx_gen5@E@ evx_preamble.cfrag
 	$(RUN_IT) >  $@
 
-../include/inlines/evx7.h:	evx_gen7@E@
+../include/inlines/evx7.h:	evx_gen7@E@ evx_preamble.cfrag
 	$(RUN_IT) >  $@
 
 
