@@ -56,6 +56,7 @@ typedef uint32 HandVal;
 #define HandVal_FOURTH_CARD_VALUE(c) ((c) << HandVal_FOURTH_CARD_SHIFT)
 #define HandVal_FIFTH_CARD_VALUE(c)  ((c) << HandVal_FIFTH_CARD_SHIFT)
 
+#define HandVal_NOTHING 0
 
 extern int 
 HandVal_toString(HandVal handval, char *outString); 
