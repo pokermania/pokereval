@@ -21,18 +21,19 @@
 
 #include	<stdio.h>
 #include	<signal.h>
+
 #include	"poker_defs.h"
 #include	"inlines/eval.h"
 
 /* #define VERBOSE */
 
-uint32 totals[HandType_COUNT];
+uint32 totals[HandType_LAST+1];
 
 
 void dump_totals(void) {
   int i;
   
-  for (i = HandType_FIRST; i < HandType_COUNT; i++)
+  for (i = HandType_FIRST; i <= HandType_LAST; i++)
     printf("%s:  %d\n", handTypeNamesPadded[i], totals[i]);
 }
 
@@ -41,7 +42,7 @@ void dump_totals(void) {
 #define DUMP_HAND do {                          \
   Deck_printMask(cards);                        \
   printf(": ");                                 \
-  Rules_printHandval(handval);                  \
+  HandVal_print(handval);                       \
   printf("\n");                                 \
 } while (0)
 #else

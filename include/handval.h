@@ -58,9 +58,4 @@ typedef uint32 HandVal;
 
 #define HandVal_NOTHING 0
 
-extern int 
-HandVal_toString(HandVal handval, char *outString); 
-extern int 
-HandVal_print(HandVal handval);
-
 #endif

@@ -25,6 +25,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "poker_defs.h"
 #include "inlines/eval_type.h"
 
@@ -68,12 +69,12 @@ parseArgs(int argc, char **argv) {
 }
 
 
-uint32 totals[HandType_COUNT];
+uint32 totals[HandType_LAST+1];
 
 static void dump_totals(void) {
   int i;
   
-  for (i = HandType_FIRST; i < HandType_COUNT; i++)
+  for (i = HandType_FIRST; i <= HandType_LAST; i++)
     printf("%s:  %d\n", handTypeNamesPadded[i], totals[i]);
 }
 

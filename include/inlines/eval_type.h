@@ -110,4 +110,10 @@ StdDeck_StdRules_EVAL_TYPE( StdDeck_CardMask cards, int n_cards )
   };
 
 }
+
+#undef SC
+#undef SH
+#undef SD
+#undef SS
+
 #endif

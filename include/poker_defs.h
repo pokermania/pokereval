@@ -37,4 +37,12 @@ typedef unsigned int   uint32;
 #define Hand_EVAL_X7   StdDeck_StdRules_EVAL_X7
 #endif
 
+#if defined(NONSTANDARD_DECK) && defined(NONSTANDARD_RULES)
+
+#if defined(USE_ASTUD_DECK) && defined(USE_ASTUD_RULES)
+#define Hand_EVAL_N    AStudDeck_AStudRules_EVAL_N
+#endif
+
+#endif
+
 #endif

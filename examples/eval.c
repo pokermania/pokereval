@@ -19,21 +19,22 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "poker_defs.h"
 #include "inlines/eval.h"
 
 int gNCards;
-StdDeck_CardMask gCards;
+CardMask gCards;
 
 static void
 parseArgs(int argc, char **argv) {
   int i;
-  StdDeck_CardMask c;
+  CardMask c;
 
   for (i = 1; i < argc; ++i) {
-    if (StdDeck_stringToMask(argv[i], &c) != 1)
+    if (Deck_stringToMask(argv[i], &c) != 1)
       goto error;
-    StdDeck_CardMask_OR(gCards, gCards, c);
+    CardMask_OR(gCards, gCards, c);
     ++gNCards;
   }
   
@@ -50,7 +51,7 @@ main(int argc, char **argv) {
   HandVal handval;
 
   gNCards = 0;
-  StdDeck_CardMask_RESET(gCards);
+  CardMask_RESET(gCards);
   parseArgs(argc, argv);
 
   handval = Hand_EVAL_N(gCards, gNCards);

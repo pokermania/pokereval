@@ -40,6 +40,7 @@ extern int AStudRules_HandVal_print(HandVal handval);
 #define HandType_STFLUSH   AStudRules_HandType_STFLUSH    
 #define HandType_FIRST     AStudRules_HandType_FIRST  
 #define HandType_COUNT     AStudRules_HandType_COUNT     
+#define HandType_LAST      AStudRules_HandType_LAST
 
 #define handTypeNames        AStudRules_handTypeNames
 #define handTypeNamesPadded  AStudRules_handTypeNamesPadded

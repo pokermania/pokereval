@@ -7,6 +7,9 @@ MakeTable_begin(const char *tableName,
 extern void
 MakeTable_comment(const char *commentString);
 
+extern void
+MakeTable_extraCode(const char *codeString);
+
 extern void 
 MakeTable_outputString(const char *string);
 

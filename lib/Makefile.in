@@ -4,7 +4,7 @@ MKTABLE_HELPERS = mktable.o mktable_utils.o
 
 OBJ=$(DERIVED_SOURCES:.c=.o) \
 	mktab_basic.o $(MKTABLE_HELPERS) \
-	stddeck.o stdrules.o evx.o handval.o \
+	stddeck.o stdrules.o evx.o \
 	astuddeck.o astudrules.o \
 	md5c.o 
 

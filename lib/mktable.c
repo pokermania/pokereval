@@ -58,6 +58,17 @@ MakeTable_comment(const char *commentString) {
       fprintf(gCFile, "/*\n%s\n */\n\n", commentString);
 }
 
+void
+MakeTable_extraCode(const char *codeString) {
+  if (!gInUse) 
+    fprintf(stderr, "MakeTable_extraCode called before _begin\n");
+  else if (gHeaderDone) 
+    fprintf(stderr, "MakeTable_extraCode called after first table entry\n");
+  else 
+    if (gCFile) 
+      fprintf(gCFile, "%s \n", codeString);
+}
+
 void 
 MakeTable_outputString(const char *string) {
   if (!gHeaderDone)
