@@ -1,3 +1,9 @@
+/* TODO -- review and fix code for hands with >5 cards, in particular
+ hands like KK77442, KKK7733, 777KK33, 333KK77, 4444KKK. */
+
+#ifndef __EVAL_LOW_H__
+#define __EVAL_LOW_H__
+
 #include <assert.h>
 #include "handval_low.h"
 
@@ -30,14 +36,17 @@ StdDeck_Lowball_EVAL(StdDeck_CardMask cards, int n_cards) {
   sd = StdDeck_CardMask_DIAMONDS(cards);
   sh = StdDeck_CardMask_HEARTS(cards);
 
+  ss = Lowball_ROTATE_RANKS(ss);
+  sc = Lowball_ROTATE_RANKS(sc);
+  sd = Lowball_ROTATE_RANKS(sd);
+  sh = Lowball_ROTATE_RANKS(sh);
+
   ranks = sc | ss | sd | sh;
-  ranks = Lowball_ROTATE_RANKS(ranks);
   if (nBitsTable[ranks] >= 5) 
     return LowHandVal_HANDTYPE_VALUE(StdRules_HandType_NOPAIR) 
       + bottomFiveCardsTable[ranks];
   else {
     dups = (sc&sd) | (sh & (sc|sd)) | (ss & (sh|sc|sd));
-    dups = Lowball_ROTATE_RANKS(dups);
     t = bottomCardTable[dups];
 
     switch (nBitsTable[ranks]) {
@@ -49,6 +58,7 @@ StdDeck_Lowball_EVAL(StdDeck_CardMask cards, int n_cards) {
 
     case 3:
       if (nBitsTable[dups] == 2) {
+        /* TODO: does this assume 5-card hand?  e.g., not quads plus pair */
         tt = bottomCardTable[dups ^ (1 << t)];
         return LowHandVal_HANDTYPE_VALUE(StdRules_HandType_TWOPAIR)
           + LowHandVal_TOP_CARD_VALUE(tt) 
@@ -57,6 +67,7 @@ StdDeck_Lowball_EVAL(StdDeck_CardMask cards, int n_cards) {
              << (2*LowHandVal_CARD_WIDTH));
       }
       else {
+        /* TODO: does this assume 5-card hand?  e.g., not full house plus pair */
         t = bottomCardTable[dups];
         return LowHandVal_HANDTYPE_VALUE(StdRules_HandType_TRIPS) 
           + LowHandVal_TOP_CARD_VALUE(t)
@@ -67,8 +78,8 @@ StdDeck_Lowball_EVAL(StdDeck_CardMask cards, int n_cards) {
 
     case 2:
       if (nBitsTable[dups] == 2) {
+        /* TODO: does this assume 5-card hand?  e.g., not two trips */
         trips = dups & (sc ^ ss ^ sd ^ sh);
-        trips = Lowball_ROTATE_RANKS(trips);
         t = bottomCardTable[trips];
         return LowHandVal_HANDTYPE_VALUE(StdRules_HandType_FULLHOUSE)
           + LowHandVal_TOP_CARD_VALUE(t) 
@@ -87,3 +98,4 @@ StdDeck_Lowball_EVAL(StdDeck_CardMask cards, int n_cards) {
   return 0;
 }
 
+#endif
