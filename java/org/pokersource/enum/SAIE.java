@@ -2,6 +2,7 @@
 
 package org.pokersource.enum;
 import org.pokersource.game.Deck;
+import java.util.Set;
 
 /** Algorithms for computing subjective all-in equity.  SAIE is a player's pot
     equity given particular beliefs about the possible hands of the
@@ -22,10 +23,15 @@ public class SAIE {
       @param board bitmask of cards already dealt to board (can be zero)
       @param dead bitmask of cards that cannot appear in any hand or on
       the board (can be zero)
-      @param ev output result is each player's expected pot equity */
+      @param ev output: ev[i] player i's all-in pot equity
+      @param matchups output: set of HandMatchup objects, one for each matchup
+  */
   public static void FlopGameSAIE(int gameType,
                                   BeliefVector[] handDistribs,
-                                  long board, long dead, double[] ev) {
+                                  long board, long dead,
+                                  double ev[], Set matchups) {
+    if (matchups != null)
+      matchups.clear();
     int nplayers = handDistribs.length;
     long[][] hands = new long[nplayers][];
     int[] nhands = new int[nplayers];
@@ -58,6 +64,11 @@ public class SAIE {
       // heavy lifting for this matchup: enumerate all outcomes
       Enumerate.PotEquity(gameType, 0, curhands, board, dead, matchev);
 
+      if (matchups != null) { // save to Collection if requested
+        HandMatchup matchup = new HandMatchup(matchprob, curhands, matchev);
+        matchups.add(matchup);
+      }
+
       // accumulate this matchup into totals
       for (int i=0; i<nplayers; i++)
         ev[i] += matchev[i] * matchprob;
@@ -65,6 +76,24 @@ public class SAIE {
     }
     for (int i=0; i<nplayers; i++)
       ev[i] /= totalprob;
+  }
+
+  /** Compute the subjective all-in equity of each player based on a
+      belief distribution for each player's hands.  Typical usage is
+      to fix one player's cards and allow the other players' cards to
+      range over a distribution; however, it is valid for all players to
+      have multiple possible hands.
+      @param gameType One of Enumerate.GAME_HOLDEM, etc.
+      @param handDistribs the hand distribution belief vector for each player
+      @param board bitmask of cards already dealt to board (can be zero)
+      @param dead bitmask of cards that cannot appear in any hand or on
+      the board (can be zero)
+      @param ev output: ev[i] player i's all-in pot equity
+  */
+  public static void FlopGameSAIE(int gameType,
+                                  BeliefVector[] handDistribs,
+                                  long board, long dead, double[] ev) {
+    FlopGameSAIE(gameType, handDistribs, board, dead, ev, null);
   }
 
   public static void main(String[] args) {
