@@ -3,10 +3,73 @@
   int _i1;                                      \
   CardMask _card;                               \
                                                 \
-  for (i1 = Deck_N_CARDS-1; _i1 >= 0; _i1--) {  \
+  for (_i1 = Deck_N_CARDS-1; _i1 >= 0; _i1--) { \
     _card = Deck_MASK(_i1);                     \
     cards_var = _card;                          \
     do { action } while (0);                    \
+  };                                            \
+}
+
+#define ENUMERATE_2_CARDS(cards_var, action)    \
+{                                               \
+  int _i1, _i2;                                 \
+  CardMask _card1, _card2,                      \
+    _n2;                                        \
+                                                \
+  for (_i1 = Deck_N_CARDS-1; _i1 >= 0; _i1--) { \
+    _card1 = Deck_MASK(_i1);                    \
+    for (_i2 = _i1-1; _i2 >= 0; _i2--) {        \
+      _card2 = Deck_MASK(_i2);                  \
+      CardMask_OR(_n2, _card1, _card2);         \
+      cards_var = _n2;                          \
+      do { action } while (0);                  \
+    };                                          \
+  };                                            \
+}                                               \
+
+#define ENUMERATE_3_CARDS(cards_var, action)    \
+{                                               \
+  int _i1, _i2, _i3;                            \
+  CardMask _card1, _card2, _card3,              \
+    _n2, _n3;                                   \
+                                                \
+  for (_i1 = Deck_N_CARDS-1; _i1 >= 0; _i1--) { \
+    _card1 = Deck_MASK(_i1);                    \
+    for (_i2 = _i1-1; _i2 >= 0; _i2--) {        \
+      _card2 = Deck_MASK(_i2);                  \
+      CardMask_OR(_n2, _card1, _card2);         \
+      for (_i3 = _i2-1; _i3 >= 0; _i3--) {      \
+        _card3 = Deck_MASK(_i3);                \
+	CardMask_OR(_n3, _n2, _card3);          \
+        cards_var = _n3;                        \
+        do { action } while (0);                \
+      };                                        \
+    };                                          \
+  };                                            \
+}
+
+#define ENUMERATE_4_CARDS(cards_var, action)    \
+{                                               \
+  int _i1, _i2, _i3, _i4;                       \
+  CardMask _card1, _card2, _card3, _card4,      \
+    _n2, _n3, _n4;                              \
+                                                \
+  for (_i1 = Deck_N_CARDS-1; _i1 >= 0; _i1--) { \
+    _card1 = Deck_MASK(_i1);                    \
+    for (_i2 = _i1-1; _i2 >= 0; _i2--) {        \
+      _card2 = Deck_MASK(_i2);                  \
+      CardMask_OR(_n2, _card1, _card2);         \
+      for (_i3 = _i2-1; _i3 >= 0; _i3--) {      \
+        _card3 = Deck_MASK(_i3);                \
+	CardMask_OR(_n3, _n2, _card3);          \
+        for (_i4 = _i3-1; _i4 >= 0; _i4--) {    \
+          _card4 = Deck_MASK(_i4);              \
+	  CardMask_OR(_n4, _n3, _card4);        \
+          cards_var = _n4;                      \
+          do { action } while (0);              \
+        };                                      \
+      };                                        \
+    };                                          \
   };                                            \
 }
 
