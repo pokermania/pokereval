@@ -1,39 +1,51 @@
+#
+# If we do a ./configure --target=msdos, it will generate Makefile.dos 
+# makefiles so that the package can be reasonably easily compiled with
+# Visual C.  These files can then be rolled into the distribution.  
+#
+
 AC_INIT(lib/stddeck.c)
-AC_CONFIG_HEADER(include/config.h)
 
-AC_CANONICAL_SYSTEM
+if test $target = "msdos"; then 
+  CC=cl
+  CFLAGS="-O1 -nologo -DNDEBUG -MD"
+else
+  AC_CONFIG_HEADER(include/config.h)
 
-dnl Checks for programs.
-AC_PROG_RANLIB
-AC_PROG_CC
+  AC_CANONICAL_SYSTEM
 
-dnl Checks for header files.
-AC_HEADER_STDC
+  dnl Checks for programs.
+  AC_PROG_RANLIB
+  AC_PROG_CC
 
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
-AC_C_INLINE
-AC_C_BIGENDIAN
-AC_CHECK_SIZEOF(long)
-AC_CHECK_SIZEOF(int)
+  dnl Checks for header files.
+  AC_HEADER_STDC
 
-dnl Check for existence of "long long" type
-AC_MSG_CHECKING(if compiler supports long long integer types)
-AC_TRY_COMPILE([],
-               [ long long a; ],
-               [cf_longlong=yes],
-               [cf_longlong=no])
-AC_MSG_RESULT($cf_longlong)
-test $cf_longlong = yes && AC_DEFINE(HAVE_INT64)
-test $cf_longlong = yes && AC_DEFINE(HAVE_LONG_LONG)
+  dnl Checks for typedefs, structures, and compiler characteristics.
+  AC_C_CONST
+  AC_C_INLINE
+  AC_C_BIGENDIAN
+  AC_CHECK_SIZEOF(long)
+  AC_CHECK_SIZEOF(int)
 
-if test $GCC = yes; then 
-  CFLAGS="-g -O4 -Wall -Winline -finline-functions -fomit-frame-pointer"
-  case "$target" in
-    # At one point, -m486 -malign-double showed better performance, but
-    # now it doesn't appear to be so
-    i?86-*) CFLAGS="$CFLAGS";;
-  esac
+  dnl Check for existence of "long long" type
+  AC_MSG_CHECKING(if compiler supports long long integer types)
+  AC_TRY_COMPILE([],
+                 [ long long a; ],
+                 [cf_longlong=yes],
+                 [cf_longlong=no])
+  AC_MSG_RESULT($cf_longlong)
+  test $cf_longlong = yes && AC_DEFINE(HAVE_INT64)
+  test $cf_longlong = yes && AC_DEFINE(HAVE_LONG_LONG)
+
+  if test $GCC = yes; then 
+    CFLAGS="-g -O4 -Wall -Winline -finline-functions -fomit-frame-pointer"
+    case "$target" in
+      # At one point, -m486 -malign-double showed better performance, but
+      # now it doesn't appear to be so
+      i?86-*) CFLAGS="$CFLAGS";;
+    esac
+  fi
 fi
 
 AC_SUBST(CC)
@@ -42,3 +54,9 @@ AC_SUBST(RANLIB)
 
 AC_OUTPUT(Makefile lib/Makefile tests/Makefile examples/Makefile)
 
+if test $target = "msdos"; then 
+  mv Makefile Makefile.dos
+  mv lib/Makefile lib/Makefile.dos
+  mv tests/Makefile tests/Makefile.dos
+  mv examples/Makefile examples/Makefile.dos
+fi
