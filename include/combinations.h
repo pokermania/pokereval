@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002-2004 
- *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Michael Maurer <mjmaurer@yahoo.com>
  *           Loic Dachary <loic@gnu.org>
  *
  * This program is free software; you can redistribute it and/or modify

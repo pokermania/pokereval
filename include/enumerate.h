@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2004 
- *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Michael Maurer <mjmaurer@yahoo.com>
  *           Brian Goetz <brian@quiotix.com>
  *           Loic Dachary <loic@gnu.org>
  *

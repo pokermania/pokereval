@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2002
- *           Michael Maurer <mjmaurer@users.sourceforge.net>
+ *           Michael Maurer <mjmaurer@yahoo.com>
  *           Brian Goetz <brian@quiotix.com>
  *
  * This program is free software; you can redistribute it and/or modify
