@@ -23,12 +23,12 @@
 #include "inlines/evx_inlines.h"
 
 static inline uint32
-StdRules_EVAL_X%d (rank_set_t clubs, 
-                   rank_set_t diamonds, 
-                   rank_set_t hearts,
-                   rank_set_t spades)
+StdRules_EVAL_X%d (StdDeck_RankMask clubs, 
+                   StdDeck_RankMask diamonds, 
+                   StdDeck_RankMask hearts,
+                   StdDeck_RankMask spades)
 {
-  rank_set_t ranks, flush_suit, three_info, all_pairs;
+  StdDeck_RankMask ranks, flush_suit, three_info, all_pairs;
   uint32 retval;
 
   ranks = clubs | diamonds | hearts | spades;
