@@ -26,8 +26,9 @@ import java.util.Enumeration;
 */
 
 public class NestedLoopEnumeration implements Enumeration {
-  private int[] next;
-  private int[] limits;
+  private int[] next;       // our private copy of the next element
+  private int[] elem;       // a copy of the next element we return in next()
+  private int[] limits;     // loop limits for each dimension
 
   /** Initializes a nested loop iterator with limits.length dimensions.
       @param limits limits[i] is the upper limit of the ith nested loop (the
@@ -36,6 +37,7 @@ public class NestedLoopEnumeration implements Enumeration {
   public NestedLoopEnumeration(int[] limits) {
     this.limits = limits;
     next = new int[limits.length];
+    elem = new int[limits.length];
     for (int i=0; i<limits.length; i++) {
       if (limits[i] <= 0)
         throw new IllegalArgumentException("limits must be positive");
@@ -55,7 +57,8 @@ public class NestedLoopEnumeration implements Enumeration {
   public Object nextElement() {
     if (next == null)
       return null;
-    int[] elem = (int[]) next.clone();
+    for (int i=0; i<next.length; i++)
+      elem[i] = next[i];
     next[limits.length-1]++;    // increment least-significant dimension
     for (int i=limits.length-1; i>=0; i--) { // check for carries
       if (next[i] == limits[i]) { // need to carry

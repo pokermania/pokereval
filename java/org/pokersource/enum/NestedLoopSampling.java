@@ -12,7 +12,8 @@ import java.util.Random;
 
 public class NestedLoopSampling implements Enumeration {
   private int nsamples;
-  private int[] limits;
+  private int[] elem;       // a copy of the next element we return in next()
+  private int[] limits;     // loop limits for each dimension
   private Random rand;
 
   /** Initializes a nested loop sampler with limits.length dimensions.
@@ -30,6 +31,7 @@ public class NestedLoopSampling implements Enumeration {
     }
     this.nsamples = nsamples;
     this.limits = limits;
+    elem = new int[limits.length];
     rand = new Random();
   }
 
@@ -45,7 +47,6 @@ public class NestedLoopSampling implements Enumeration {
   public Object nextElement() {
     if (nsamples == 0)
       return null;
-    int[] elem = new int[limits.length];
     for (int i=0; i<limits.length; i++)
       elem[i] = rand.nextInt(limits[i]);
     nsamples--;
