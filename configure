@@ -1312,7 +1312,9 @@ EOF
 if test $GCC = yes; then 
   CFLAGS="-g -O4 -Wall -Winline -finline-functions -fomit-frame-pointer"
   case "$target" in
-    i?86-*) CFLAGS="$CFLAGS -m486 -malign-double";;
+    # At one point, -m486 -malign-double showed better performance, but
+    # now it doesn't appear to be so
+    i?86-*) CFLAGS="$CFLAGS";;
   esac
 fi
 
