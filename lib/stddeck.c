@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include "poker_defs.h"
 
 const char StdDeck_rankChars[] = "23456789TJKQA";
@@ -53,12 +54,36 @@ StdDeck_printMask(StdDeck_CardMask cardMask) {
 }
 
 
-#if 0
 int 
 StdDeck_stringToMask(char *inString, StdDeck_CardMask outMask) {
-  return 0;
+  char *p;
+  int n=0, rank, suit, card;
+
+  StdDeck_CardMask_RESET(outMask);
+  for (p=inString; p < inString + strlen(inString); p++) {
+    if (*p == ' ')
+      continue;
+    for (rank=0; rank < StdDeck_Rank_COUNT; rank++) 
+      if (StdDeck_rankChars[rank] == toupper(*p))
+        break;
+    if (rank == StdDeck_Rank_COUNT)
+      break;
+    ++p;
+    for (suit=0; suit < StdDeck_Suit_COUNT; suit++) 
+      if (StdDeck_suitChars[suit] == tolower(*p))
+        break;
+    if (suit == StdDeck_Suit_COUNT)
+      break;
+    ++p;
+    card = StdDeck_MAKE_CARD(rank, suit);
+    StdDeck_CardMask_SET(outMask, card);
+    ++n;
+  }
+    
+  return n;
 }
 
+#if 0
 int 
 StdDeck_CardMask_nBitsSet(StdDeck_CardMask cards) {
   return 0;
