@@ -55,11 +55,11 @@ StdDeck_printMask(StdDeck_CardMask cardMask) {
 
 
 int 
-StdDeck_stringToMask(char *inString, StdDeck_CardMask outMask) {
+StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask) {
   char *p;
   int n=0, rank, suit, card;
 
-  StdDeck_CardMask_RESET(outMask);
+  StdDeck_CardMask_RESET(*outMask);
   for (p=inString; p < inString + strlen(inString); p++) {
     if (*p == ' ')
       continue;
@@ -76,7 +76,7 @@ StdDeck_stringToMask(char *inString, StdDeck_CardMask outMask) {
       break;
     ++p;
     card = StdDeck_MAKE_CARD(rank, suit);
-    StdDeck_CardMask_SET(outMask, card);
+    StdDeck_CardMask_SET(*outMask, card);
     ++n;
   }
     

@@ -122,7 +122,7 @@ extern int StdDeck_cardToString(int cardIndex, char *outString);
 extern int StdDeck_maskToString(StdDeck_CardMask cardMask, char *outString);
 extern int StdDeck_printCard(int cardIndex);
 extern int StdDeck_printMask(StdDeck_CardMask cardMask);
-extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask outMask);
+extern int StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask);
 
 
 #ifndef NONSTANDARD_DECK
