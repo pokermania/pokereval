@@ -22,9 +22,13 @@
 
 #include "poker_defs.h"
 #include "inlines/eval.h"
+#include "handval_low.h"
+#include "inlines/eval_low.h"
 
 int gNCards;
 CardMask gCards;
+int gLow=0;
+int gHighLow=0;
 
 static void
 parseArgs(int argc, char **argv) {
@@ -32,16 +36,22 @@ parseArgs(int argc, char **argv) {
   CardMask c;
 
   for (i = 1; i < argc; ++i) {
-    if (Deck_stringToMask(argv[i], &c) != 1)
-      goto error;
-    CardMask_OR(gCards, gCards, c);
-    ++gNCards;
+    if (!strcmp(argv[i], "-low"))
+      gLow = 1;
+    else if (!strcmp(argv[i], "-hl")) 
+      gHighLow = 1;
+    else {
+      if (Deck_stringToMask(argv[i], &c) != 1)
+        goto error;
+      CardMask_OR(gCards, gCards, c);
+      ++gNCards;
+    };
   }
   
   return;
 
  error:
-  fprintf(stderr, "Usage: eval cards \n");
+  fprintf(stderr, "Usage: eval [ -low ] [ -hl ] cards \n");
   exit(0);
 }
 
@@ -49,17 +59,27 @@ parseArgs(int argc, char **argv) {
 int 
 main(int argc, char **argv) {
   HandVal handval;
+  LowHandVal low;
 
   gNCards = 0;
   CardMask_RESET(gCards);
   parseArgs(argc, argv);
 
-  handval = Hand_EVAL_N(gCards, gNCards);
+  if (!gLow) {
+    handval = Hand_EVAL_N(gCards, gNCards);
+    Deck_printMask(gCards);
+    printf(": ");                                 
+    HandVal_print(handval);                  
+    printf("\n");                                 
+  };
 
-  Deck_printMask(gCards);
-  printf(": ");                                 
-  HandVal_print(handval);                  
-  printf("\n");                                 
+  if (gLow || gHighLow) {
+    low = StdDeck_Lowball8_EVAL(gCards, gNCards);
+    Deck_printMask(gCards);
+    printf(" (low): ");
+    LowHandVal_print(low);                  
+    printf("\n");                                 
+  };
 
   return 0;
 }
