@@ -1,7 +1,10 @@
 // $Id$
 
 package org.pokersource.enum;
-import org.pokersource.eval.*;
+import org.pokersource.game.Deck;
+
+/** Algorithms for enumerating or sampling the outcomes of a poker hand
+    matchup. */
 
 public class Enumerate {
   // must match enum_game_t definitions in enumdefs.h
@@ -47,8 +50,25 @@ public class Enumerate {
                                       double[] ev);
   
   /**
+     Compute all-in pot equity of each player's hand, either by complete
+     enumeration of outcomes or by monte carlo sampling.
+     @param gameType specifies game (holdem, omaha, etc)
+     @param nsamples number of monte carlo samples; if 0, full enumeration
+     @param pockets pockets[i] is bitmask of player i's cards
+     @param board board is bitmask of board cards
+     @param dead dead is bitmask of dead cards
+     @param ev output: ev[i] is pot equity of player i
+   */
+  public static native void PotEquity(int gameType,
+                                      int nsamples,
+                                      long[] pockets,
+                                      long board,
+                                      long dead,
+                                      double[] ev);
+  
+  /**
      A simple test of Enumerate methods.
-     Compare to "pokenum -h ks kh ad td 9c 8c -- kd jd th / As 2h.
+     Compare to "pokenum -h ks kh ad td 9c 8c -- kd jd th / As 2h".
   */
   public static void main(String[] args) {
     int[][] pocketRanks = new int[3][2];
@@ -58,36 +78,36 @@ public class Enumerate {
     int[] deadRanks = new int[2];
     int[] deadSuits = new int[2];
     // player 0 has Ks Kh
-    pocketRanks[0][0] = StandardEval.RANK_KING;
-    pocketSuits[0][0] = StandardEval.SUIT_SPADES;
-    pocketRanks[0][1] = StandardEval.RANK_KING;
-    pocketSuits[0][1] = StandardEval.SUIT_HEARTS;
+    pocketRanks[0][0] = Deck.RANK_KING;
+    pocketSuits[0][0] = Deck.SUIT_SPADES;
+    pocketRanks[0][1] = Deck.RANK_KING;
+    pocketSuits[0][1] = Deck.SUIT_HEARTS;
 
     // player 1 has Ad Td
-    pocketRanks[1][0] = StandardEval.RANK_ACE;
-    pocketSuits[1][0] = StandardEval.SUIT_DIAMONDS;
-    pocketRanks[1][1] = StandardEval.RANK_TEN;
-    pocketSuits[1][1] = StandardEval.SUIT_DIAMONDS;
+    pocketRanks[1][0] = Deck.RANK_ACE;
+    pocketSuits[1][0] = Deck.SUIT_DIAMONDS;
+    pocketRanks[1][1] = Deck.RANK_TEN;
+    pocketSuits[1][1] = Deck.SUIT_DIAMONDS;
 
     // player 2 has 9c 8c
-    pocketRanks[2][0] = StandardEval.RANK_9;
-    pocketSuits[2][0] = StandardEval.SUIT_CLUBS;
-    pocketRanks[2][1] = StandardEval.RANK_8;
-    pocketSuits[2][1] = StandardEval.SUIT_CLUBS;
+    pocketRanks[2][0] = Deck.RANK_9;
+    pocketSuits[2][0] = Deck.SUIT_CLUBS;
+    pocketRanks[2][1] = Deck.RANK_8;
+    pocketSuits[2][1] = Deck.SUIT_CLUBS;
 
     // the board is Kd Jd Th
-    boardRanks[0] = StandardEval.RANK_KING;
-    boardSuits[0] = StandardEval.SUIT_DIAMONDS;
-    boardRanks[1] = StandardEval.RANK_JACK;
-    boardSuits[1] = StandardEval.SUIT_DIAMONDS;
-    boardRanks[2] = StandardEval.RANK_TEN;
-    boardSuits[2] = StandardEval.SUIT_HEARTS;
+    boardRanks[0] = Deck.RANK_KING;
+    boardSuits[0] = Deck.SUIT_DIAMONDS;
+    boardRanks[1] = Deck.RANK_JACK;
+    boardSuits[1] = Deck.SUIT_DIAMONDS;
+    boardRanks[2] = Deck.RANK_TEN;
+    boardSuits[2] = Deck.SUIT_HEARTS;
 
     // another player folded As 2h
-    deadRanks[0] = StandardEval.RANK_ACE;
-    deadSuits[0] = StandardEval.SUIT_SPADES;
-    deadRanks[1] = StandardEval.RANK_2;
-    deadSuits[1] = StandardEval.SUIT_HEARTS;
+    deadRanks[0] = Deck.RANK_ACE;
+    deadSuits[0] = Deck.SUIT_SPADES;
+    deadRanks[1] = Deck.RANK_2;
+    deadSuits[1] = Deck.SUIT_HEARTS;
 
     double[] ev = new double[pocketRanks.length];
     try {

@@ -12,6 +12,35 @@
 #include "rules_std.h"
 
 int
+numCardsStandard(StdDeck_CardMask mask)
+{
+  int r, s;
+  int nbits = 0;
+  for (r=StdDeck_Rank_FIRST; r<=StdDeck_Rank_LAST; r++) {
+    for (s=StdDeck_Suit_FIRST; s<=StdDeck_Suit_LAST; s++) {
+      StdDeck_CardMask card = StdDeck_MASK(StdDeck_MAKE_CARD(r, s));
+      if (StdDeck_CardMask_ANY_SET(mask, card))
+        nbits++;
+    }
+  }
+  return nbits;
+}
+
+StdDeck_CardMask
+parseLongStandard(jlong lmask)
+{
+  int i;
+  jlong flag;
+  StdDeck_CardMask mask;
+
+  StdDeck_CardMask_RESET(mask);
+  for (i=0, flag=1; i<StdDeck_N_CARDS; i++, flag<<=1)
+    if (lmask & flag)
+      StdDeck_CardMask_SET(mask, i);
+  return mask;
+}      
+
+int
 parseStandardRanksSuits(JNIEnv *env, jintArray ranks, jintArray suits,
                         StdDeck_CardMask *mcards, int *ncards)
 {
@@ -94,6 +123,25 @@ parseJokerRanksSuits(JNIEnv *env, jintArray ranks, jintArray suits,
   return status;
 }
 
+int
+numCardsJoker(JokerDeck_CardMask mask)
+{
+  int r, s;
+  int nbits = 0;
+  JokerDeck_CardMask card;
+  for (r=JokerDeck_Rank_FIRST; r<=JokerDeck_Rank_LAST; r++) {
+    for (s=JokerDeck_Suit_FIRST; s<=JokerDeck_Suit_LAST; s++) {
+      card = JokerDeck_MASK(JokerDeck_MAKE_CARD(r, s));
+      if (JokerDeck_CardMask_ANY_SET(mask, card))
+        nbits++;
+    }
+  }
+  card = JokerDeck_MASK(JokerDeck_JOKER);
+  if (JokerDeck_CardMask_ANY_SET(mask, card))
+    nbits++;
+  return nbits;
+}
+
 
 /******************************************************************************
   Asian Stud deck
@@ -115,13 +163,13 @@ parseAsianStudRanksSuits(JNIEnv *env, jintArray ranks, jintArray suits,
   *ncards = 0;
   if (nranks != nsuits) {
     status = 1;
-    goto release;
+    goto release3;
   }
   for (i=0; i<nranks; i++) {
     int card = AStudDeck_MAKE_CARD(jranks[i], jsuits[i]);
     if (AStudDeck_CardMask_CARD_IS_SET(*mcards, card)) {
       status = 1;
-      goto release;
+      goto release3;
     }
     AStudDeck_CardMask_SET(*mcards, card);
     (*ncards)++;
@@ -130,9 +178,24 @@ parseAsianStudRanksSuits(JNIEnv *env, jintArray ranks, jintArray suits,
   printf("In C: Hand %s\n", DmaskString(AStudDeck, *mcards));
 #endif
 
- release:
+ release3:
   (*env)->ReleaseIntArrayElements(env, ranks, jranks, JNI_ABORT);
   (*env)->ReleaseIntArrayElements(env, suits, jsuits, JNI_ABORT);
   return status;
+}
+
+int
+numCardsAsianStud(AStudDeck_CardMask mask)
+{
+  int r, s;
+  int nbits = 0;
+  for (r=AStudDeck_Rank_FIRST; r<=AStudDeck_Rank_LAST; r++) {
+    for (s=AStudDeck_Suit_FIRST; s<=AStudDeck_Suit_LAST; s++) {
+      AStudDeck_CardMask card = AStudDeck_MASK(AStudDeck_MAKE_CARD(r, s));
+      if (AStudDeck_CardMask_ANY_SET(mask, card))
+        nbits++;
+    }
+  }
+  return nbits;
 }
 

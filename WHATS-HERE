@@ -155,8 +155,12 @@ Enumerators:
     enumExhaustive()
     enumSample()
 
-Example programs: There are several examples provided, with more being
-added.  
+  A first draft of a subjective all-in equity (SAIE) calculator is now
+  part of the Java package (for more info see java/javadoc).  An example
+  SAIE calculation is to compute the pot equity of "Qh Jh" against the
+  set of "Sklansky/Malmulth group 1-2 hands" when the board is "Qd 4h 2s".
+
+Example programs:
 
   five_card_hands: Enumerate all possible five card hands, evaluate them, 
           and tabulate the results by hand type.  Since this uses the 

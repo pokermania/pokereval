@@ -1,24 +1,9 @@
 // $Id$
 
 package org.pokersource.eval;
+import org.pokersource.game.Deck;
 
 public class AsianStudEval {
-  // must match values in deck_astud.h
-  public static int SUIT_HEARTS		= 0;
-  public static int SUIT_DIAMONDS	= 1;
-  public static int SUIT_CLUBS		= 2;
-  public static int SUIT_SPADES		= 3;
-
-  // must match values in deck_astud.h
-  public static int RANK_7	= 5;
-  public static int RANK_8	= 6;
-  public static int RANK_9	= 7;
-  public static int RANK_TEN	= 8;
-  public static int RANK_JACK	= 9;
-  public static int RANK_QUEEN	= 10;
-  public static int RANK_KING	= 11;
-  public static int RANK_ACE	= 12;
-
   static {
     System.loadLibrary("poker");
     System.loadLibrary("pokerjni");
@@ -35,18 +20,13 @@ public class AsianStudEval {
   public static void main(String[] args) {
     int[] ranks = new int[5];
     int[] suits = new int[5];
-    ranks[0] = RANK_ACE;	suits[0] = SUIT_HEARTS;
-    ranks[1] = RANK_7;		suits[1] = SUIT_HEARTS;
-    ranks[2] = RANK_8;		suits[2] = SUIT_HEARTS;
-    ranks[3] = RANK_9;		suits[3] = SUIT_SPADES;
-    ranks[4] = RANK_TEN;	suits[4] = SUIT_SPADES;
-    System.out.println("In Java: cards=[" +
-                       " " + ranks[0] + ":" + suits[0] +
-                       " " + ranks[1] + ":" + suits[1] +
-                       " " + ranks[2] + ":" + suits[2] +
-                       " " + ranks[3] + ":" + suits[3] +
-                       " " + ranks[4] + ":" + suits[4] +
-                       "]");
+    ranks[0] = Deck.RANK_ACE;	suits[0] = Deck.SUIT_HEARTS;
+    ranks[1] = Deck.RANK_7;	suits[1] = Deck.SUIT_HEARTS;
+    ranks[2] = Deck.RANK_8;	suits[2] = Deck.SUIT_HEARTS;
+    ranks[3] = Deck.RANK_9;	suits[3] = Deck.SUIT_SPADES;
+    ranks[4] = Deck.RANK_TEN;	suits[4] = Deck.SUIT_SPADES;
+    long mask = Deck.createCardMask(ranks, suits);
+    System.out.println("In Java: cards=[" + Deck.cardMaskString(mask) + "]");
     try {
       long hival = EvalHigh(ranks, suits);
       System.out.println("In Java: hival=" + hival + "\n");

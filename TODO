@@ -12,3 +12,5 @@ The autoconf/configure tool is not being used to create the shared libraries
 in a platform-independent way.  The current configure.in hard-codes the
 commands to build *.a, *.so, and *.dll.  Building *.a works on any unix
 system, but building the *.so now only works with gcc.
+
+Add Java unit tests.
