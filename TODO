@@ -1,0 +1,12 @@
+Lowball evaluation in eval_low.h is broken for certain 6- and 7-card hands, 
+such as full house plus pair, and quads plus trips.
+
+Joker decks and Asian stud decks are not supported in pokenum, thanks to
+inconvenient design of the deck and card mask types.  These types and
+their accompanying macros and functions need a reorganization.
+
+There is no makedepend support, so make doesn't know to recompile a file when
+an include file changes.  And there are lots of includes!
+
+
+

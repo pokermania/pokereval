@@ -164,3 +164,10 @@ added.
           optional set of dead cards, compute how many ways there are to 
           make each type of hand.  The five_card_hands program above is
           equivalent to "fish -n 5".
+
+  pokenum: Similar to hcmpn, but for more games than just holdem.  Also, uses
+          higher level enumeration functions that wrap the low level
+          enumeration macros.
+
+  usedecks: Shows one way to use different decks and evaluation rules
+          within the same program.
