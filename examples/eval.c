@@ -74,10 +74,14 @@ main(int argc, char **argv) {
   };
 
   if (gLow || gHighLow) {
-    low = StdDeck_Lowball_EVAL(gCards, gNCards);
+#if defined(Hand_EVAL_LOW)
+    low = Hand_EVAL_LOW(gCards, gNCards);
     printf("%s (low): ", Deck_maskString(gCards));
     LowHandVal_print(low);                  
     printf("\n");                                 
+#else
+    printf("Low evaluator not available \n");
+#endif
   };
 
   return 0;

@@ -9,6 +9,8 @@
 #define Hand_EVAL_X5    StdDeck_StdRules_EVAL_X5
 #define Hand_EVAL_X7    StdDeck_StdRules_EVAL_X7
 
+#define Hand_EVAL_LOW   StdDeck_Lowball_EVAL
+
 #undef  DECK_STANDARD
 #undef  RULES_STANDARD
 
