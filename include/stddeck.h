@@ -9,9 +9,6 @@
 #define StdDeck_N_CARDS      52
 #define StdDeck_MASK(index)  (StdDeck_cardMasksTable[index])
 
-#define StdDeck_RANK(index)  ((index) % 13)
-#define StdDeck_SUIT(index)  ((index) / 13)
-
 #define StdDeck_Rank_2      0
 #define StdDeck_Rank_3      1
 #define StdDeck_Rank_4      2
@@ -28,6 +25,10 @@
 #define StdDeck_Rank_COUNT  13
 #define StdDeck_Rank_FIRST  StdDeck_Rank_2
 #define StdDeck_N_RANKMASKS (1 << StdDeck_Rank_COUNT)
+
+#define StdDeck_RANK(index)  ((index) % StdDeck_Rank_COUNT)
+#define StdDeck_SUIT(index)  ((index) / StdDeck_Rank_COUNT)
+#define StdDeck_MAKE_CARD(rank, suit) ((suit * StdDeck_Rank_COUNT) + rank)
 
 #define StdDeck_Suit_HEARTS   0
 #define StdDeck_Suit_DIAMONDS 1
