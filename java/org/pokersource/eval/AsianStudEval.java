@@ -23,9 +23,15 @@ public class AsianStudEval {
     System.loadLibrary("poker");
     System.loadLibrary("pokerjni");
   }
+
+  /** Evaluate an asian stud deck poker hand for high.
+      @param ranks ranks[i] is rank of ith card
+      @param suits suits[i] is suit of ith card
+      @return integer code denoting hand value (higher beats lower)
+  */
   public static native long EvalHigh(int[] ranks, int[] suits);
   
-  // a simple test
+  /** A simple demonstration of AsianStudEval methods. */
   public static void main(String[] args) {
     int[] ranks = new int[5];
     int[] suits = new int[5];

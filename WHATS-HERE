@@ -8,10 +8,11 @@ Who is the target audience?
 
 Mostly programmers.  The programs are all written in C, but as time
 goes on, bindings may be added for Java, VB, Perl, or other languages.
-There are some demo programs which illustrate the features of the
-library, but which are not (at this time) flexible enough to be used
-without modification by end-users except for the most basic of
-simulations.  
+There are Java Native Interface (JNI) wrappers around some of the
+library functions.  There are some demo programs which illustrate the
+features of the library, but which are not (at this time) flexible
+enough to be used without modification by end-users except for the
+most basic of simulations.
 
 
 Where did it come from?  
@@ -136,6 +137,23 @@ Evaluators:
   JokerDeck_Lowball_EVAL_N: An inline evaluator for lowball using a
           deck with a joker.
 
+  See also the Java JNI wrappers around these evaluation functions (more
+  info in java/javadoc).
+
+Enumerators:
+  See enumerate.h for macros that enumerate every possible hand outcome
+  and accumulate wins, losses, ties, and EV.  
+    DECK_ENUMERATE_x_CARDS
+    DECK_ENUMERATE_x_CARDS_D
+    DECK_MONTECARLO_N_CARDS_D
+    DECK_ENUMERATE_PERMUTATIONS_D
+    DECK_MONTECARLO_PERMUTATIONS_D
+
+  See enumerate.c for convenient functions that take advantage of these.
+  Also see the Java JNI wrappers around the enumerate.c functions (more
+  info in java/javadoc).
+    enumExhaustive()
+    enumSample()
 
 Example programs: There are several examples provided, with more being
 added.  

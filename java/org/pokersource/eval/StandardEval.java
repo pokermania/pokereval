@@ -28,11 +28,29 @@ public class StandardEval {
     System.loadLibrary("poker");
     System.loadLibrary("pokerjni");
   }
+
+  /** Evaluate a standard deck poker hand for high.
+      @param ranks ranks[i] is rank of ith card
+      @param suits suits[i] is suit of ith card
+      @return integer code denoting hand value (higher beats lower)
+  */
   public static native long EvalHigh(int[] ranks, int[] suits);
+
+  /** Evaluate a standard deck poker hand for low (no qualifier).
+      @param ranks ranks[i] is rank of ith card
+      @param suits suits[i] is suit of ith card
+      @return integer code denoting hand value (higher beats lower)
+  */
   public static native long EvalLow(int[] ranks, int[] suits);
+
+  /** Evaluate a standard deck poker hand for low (8 qualifier).
+      @param ranks ranks[i] is rank of ith card
+      @param suits suits[i] is suit of ith card
+      @return integer code denoting hand value (higher beats lower)
+  */
   public static native long EvalLow8(int[] ranks, int[] suits);
   
-  // a simple test
+  /** A simple demonstration of StandardEval methods. */
   public static void main(String[] args) {
     int[] ranks = new int[5];
     int[] suits = new int[5];

@@ -16,6 +16,7 @@ if test $target = "msdos"; then
   E=".exe"
   SO=".dll"
   RM="del"
+  MKDIR="mkdir"
   RUN_IT="\$**"
   LIB_CMD="LIB /OUT:\$@ \$**"
   SLIB_CMD="?????? need command to create DLL here"
@@ -34,7 +35,7 @@ else
   AC_PROG_JAVAC
   AC_PROG_JAVA
   AC_PATH_PROG(JAVAH,javah)
-  dnl ###### AC_CHECK_RQRD_CLASS(org.xml.sax.Parser)
+  AC_PATH_PROG(JAVADOC,javadoc)
 
   dnl Checks for header files.
   AC_HEADER_STDC
@@ -72,6 +73,7 @@ else
   E=""
   SO=".so"
   RM="rm -f"
+  MKDIR="mkdir"
   CC_OBJ="-c -o \$@ \$^"
   CC_EXE="-o \$@ \$^"
   RUN_IT="./\$<"
@@ -84,6 +86,7 @@ AC_SUBST(CC)
 AC_SUBST(CC_OBJ)
 AC_SUBST(CC_EXE)
 AC_SUBST(CFLAGS)
+AC_SUBST(MKDIR)
 AC_SUBST(RANLIB)
 AC_SUBST(RM)
 

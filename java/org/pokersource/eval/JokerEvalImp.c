@@ -2,54 +2,16 @@
 
 #include <stdio.h>
 #include <jni.h>
-#include "pokerjni.h"
-#include "jniutil.h"
+#include "pokerjni.h"	/* javah output for us to implement */
+#include "jniutil.h"	/* JNI help like exception throwing */
+#include "poker_defs.h"	/* poker-eval basics */
+#include "pokutil.h"	/* poker-eval help like card parsing */
 
-#include "poker_defs.h"
+#include "deck_joker.h"
+#include "rules_joker.h"
 #include "inlines/eval_joker.h"
 #include "inlines/eval_joker_low.h"
 #include "inlines/eval_joker_low8.h"
-/*#include "deck_joker.h"*/
-/*#include "rules_joker.h"*/
-
-static int
-parseRanksSuits(JNIEnv *env, jintArray ranks, jintArray suits,
-                JokerDeck_CardMask *mcards, int *ncards)
-{
-  int i, status = 0;
-  jsize nranks = (*env)->GetArrayLength(env, ranks);
-  jsize nsuits = (*env)->GetArrayLength(env, suits);
-  jint *jranks = (*env)->GetIntArrayElements(env, ranks, 0);
-  jint *jsuits = (*env)->GetIntArrayElements(env, suits, 0);
-
-  JokerDeck_CardMask_RESET(*mcards);
-  *ncards = 0;
-  if (nranks != nsuits) {
-    status = 1;
-    goto release;
-  }
-  for (i=0; i<nranks; i++) {
-    int card;
-    if (jranks[i] == JokerDeck_Rank_LAST + 1) {
-      /* encode joker as any card with rank one higher than highest; this
-         corresponds to rank 13 */
-      card = JokerDeck_JOKER;
-    } else {
-      card = JokerDeck_MAKE_CARD(jranks[i], jsuits[i]);
-    }
-    if (JokerDeck_CardMask_CARD_IS_SET(*mcards, card)) {
-      status = 1;
-      goto release;
-    }
-    JokerDeck_CardMask_SET(*mcards, card);
-    (*ncards)++;
-  }
-
- release:
-  (*env)->ReleaseIntArrayElements(env, ranks, jranks, 0);
-  (*env)->ReleaseIntArrayElements(env, suits, jsuits, 0);
-  return status;
-}
 
 JNIEXPORT jlong JNICALL Java_org_pokersource_eval_JokerEval_EvalHigh
    (JNIEnv *env, jclass class, jintArray ranks, jintArray suits)
@@ -58,7 +20,7 @@ JNIEXPORT jlong JNICALL Java_org_pokersource_eval_JokerEval_EvalHigh
   JokerDeck_CardMask mcards;
   HandVal hival;
   
-  if (parseRanksSuits(env, ranks, suits, &mcards, &ncards)) {
+  if (parseJokerRanksSuits(env, ranks, suits, &mcards, &ncards)) {
     jniThrow(env, class, "unable to parse input cards");
     return (jlong)0;
   }
@@ -79,7 +41,7 @@ JNIEXPORT jlong JNICALL Java_org_pokersource_eval_JokerEval_EvalLow
   JokerDeck_CardMask mcards;
   LowHandVal loval;
   
-  if (parseRanksSuits(env, ranks, suits, &mcards, &ncards)) {
+  if (parseJokerRanksSuits(env, ranks, suits, &mcards, &ncards)) {
     jniThrow(env, class, "unable to parse input cards");
     return (jlong)0;
   }
@@ -100,7 +62,7 @@ JNIEXPORT jlong JNICALL Java_org_pokersource_eval_JokerEval_EvalLow8
   JokerDeck_CardMask mcards;
   LowHandVal lo8val;
   
-  if (parseRanksSuits(env, ranks, suits, &mcards, &ncards)) {
+  if (parseJokerRanksSuits(env, ranks, suits, &mcards, &ncards)) {
     jniThrow(env, class, "unable to parse input cards");
     return (jlong)0;
   }
