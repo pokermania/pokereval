@@ -32,12 +32,26 @@ replacement).
 	num_iter -- type int, the number of samples to draw
 
 ------------------------------------------------------------------------
+DECK_ENUMERATE_COMBINATIONS_D(deck, set_var, num_sets, set_sizes, 
+                              dead_cards, action).
+Visits every ordered set of set_sizes[i]-sized card unordered subsets of deck
+'deck'.  This is intended for games such as stud or draw, where each player
+will receive his own cards, and the number of received cards may differ among
+players.
+        set_var -- type deck##_CardMask[], for use in action code, gives 
+                   the set of cards dealt to each player in this iteration,
+                   declared by caller
+        num_sets -- type int, dimension of set_sizes array (number of players)
+        set_sizes -- type int[], number of cards to be received by each player
+        dead_cards -- type deck##_CardMask, the set of cards not to deal
+        action -- C code to run in macro inner loop
+
+------------------------------------------------------------------------
 DECK_ENUMERATE_PERMUTATIONS_D(deck, set_var, num_sets, set_sizes, 
                               dead_cards, action).
-Visits every ordered set of set_sizes[i]-sized card subsets of deck 'deck'.
-This is intended for games such as stud or draw, where each player will
-receive his own cards, and the number of received cards may differ among
-players.
+Visits every ordered set of set_sizes[i]-sized card ordered subsets of deck
+'deck'.  This is intended for games in which each player receives his own
+cards and the order of received cards is important.
         set_var -- type deck##_CardMask[], for use in action code, gives 
                    the set of cards dealt to each player in this iteration,
                    declared by caller
@@ -52,8 +66,7 @@ DECK_MONTECARLO_PERMUTATIONS_D(deck, set_var, num_sets, set_sizes,
 Like DECK_ENUMERATE_PERMUTATIONS_D(), but but instead of exhaustively
 enumerating all possible ordered sets of subsets, this macro randomly samples
 them (with replacement).
-	num_iter -- type int, the number of samples to draw
-*/
+	num_iter -- type int, the number of samples to draw */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -557,10 +570,90 @@ do {                                                                       \
   }                                                                        \
 } while (0)
 
+#include "combinations.h"
+#define DECK_ENUMERATE_COMBINATIONS_D(deck, set_var, num_sets, set_sizes, \
+                                      dead_cards, action) \
+do { \
+  Combinations *_combos; \
+  int *_ncombo; \
+  int *_curIndex; \
+  int **_curElem; \
+  deck##_CardMask *_curHand; \
+  deck##_CardMask _avail; \
+  deck##_CardMask _unavail; \
+  int _lowestRoll; \
+  int _couldIncr; \
+  int _i, _j, _k; \
+   \
+  _combos = (Combinations *) malloc(num_sets * sizeof(Combinations)); \
+  _ncombo = (int *) malloc(num_sets * sizeof(int)); \
+  _curIndex = (int *) malloc(num_sets * sizeof(int)); \
+  _curElem = (int **) malloc(num_sets * sizeof(int)); \
+  _curHand = (deck##_CardMask *) malloc(num_sets * sizeof(deck##_CardMask)); \
+  for (_i=0; _i<num_sets; _i++) { \
+    _combos[_i] = init_combinations(deck##_N_CARDS, set_sizes[_i]); \
+    _ncombo[_i] = num_combinations(_combos[_i]); \
+    _curElem[_i] = (int *) malloc(set_sizes[_i] * sizeof(int)); \
+  } \
+  _unavail = dead_cards; \
+  _lowestRoll = 0; \
+  do { \
+    /* for each player rolling over, find the lowest available hand */ \
+    for (_i=_lowestRoll; _i<num_sets; _i++) { \
+      /* for each candidate hand for player i */ \
+      for (_j=0; _j<_ncombo[_i]; _j++) { \
+        get_combination(_combos[_i], _j, _curElem[_i]); \
+        deck##_CardMask_RESET(set_var[_i]); \
+        for (_k=0; _k<set_sizes[_i]; _k++) \
+          deck##_CardMask_SET(set_var[_i], _curElem[_i][_k]); \
+        if (!deck##_CardMask_ANY_SET(_unavail, set_var[_i])) \
+          break;	/* this hand is available for player i */ \
+      } \
+      if (_j == _ncombo[_i]) { printf("not enough cards\n"); exit(1); } \
+      deck##_CardMask_OR(_unavail, _unavail, set_var[_i]); \
+      _curIndex[_i] = _j; \
+    } \
+ \
+    { action } \
+ \
+    /* Now increment the least significant player's hand, and if it overflows, \
+       carry into the next player's hand.  Set lowestRoll to the most \
+       significant player whose hand overflowed. */ \
+    _couldIncr = 0; \
+    for (_i=num_sets-1; _i>=0; _i--) { \
+      deck##_CardMask_NOT(_avail, set_var[_i]); \
+      deck##_CardMask_AND(_unavail, _unavail, _avail); \
+      for (_j=_curIndex[_i]+1; _j<_ncombo[_i]; _j++) { \
+        get_combination(_combos[_i], _j, _curElem[_i]); \
+        deck##_CardMask_RESET(set_var[_i]); \
+        for (_k=0; _k<set_sizes[_i]; _k++) \
+          deck##_CardMask_SET(set_var[_i], _curElem[_i][_k]); \
+        if (!deck##_CardMask_ANY_SET(_unavail, set_var[_i])) \
+          break;	/* this hand is available for player i */ \
+      } \
+      if (_j < _ncombo[_i]) { \
+        deck##_CardMask_OR(_unavail, _unavail, set_var[_i]); \
+        _curIndex[_i] = _j; \
+        _couldIncr = 1; \
+        _lowestRoll = _i + 1; \
+        break; \
+      } \
+    } \
+  } while (_couldIncr); \
+  for (_i=0; _i<num_sets; _i++) { \
+    free_combinations(_combos[_i]); \
+    free(_curElem[_i]); \
+  } \
+  free(_combos); \
+  free(_ncombo); \
+  free(_curIndex); \
+  free(_curElem); \
+  free(_curHand); \
+} while (0)
 
 #define DECK_ENUMERATE_PERMUTATIONS_D(deck, set_var, num_sets, set_sizes, \
                                       dead_cards, action)                 \
-{                                                                         \
+do {                                                                      \
   deck##_CardMask _orMask[deck##_N_CARDS+1];                              \
   int _i, _j, _t, _index, _nLiveCards, _nCards,                           \
     _liveCards[deck##_N_CARDS], _indices[deck##_N_CARDS+1];               \
@@ -620,7 +713,7 @@ do {                                                                       \
       };                                                                  \
     };                                                                    \
   };                                                                      \
-}
+} while (0)
 
 #define DECK_MONTECARLO_N_CARDS_D(deck, cards_var, dead_cards,	\
                                   num_cards, num_iter, action)	\

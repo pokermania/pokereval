@@ -12,7 +12,7 @@ LIB_CMD = @LIB_CMD@
 
 all: tests
 
-tests: digtest5@E@ digtest7@E@ joktest1@E@
+tests: digtest5@E@ digtest7@E@ joktest1@E@ enumtest1@E@ enumtest2@E@ enumtest3@E@
 
 digtest5@E@ : digtest5@O@ $(LIBPOKER)
 	$(CC_EXE)
@@ -23,13 +23,41 @@ digtest7@E@ : digtest7@O@ $(LIBPOKER)
 joktest1@E@ : joktest1@O@ $(LIBPOKER)
 	$(CC_EXE)
 
+enumtest1@E@ : enumtest1@O@ $(LIBPOKER)
+	$(CC_EXE)
+
+enumtest2@E@ : enumtest2@O@ $(LIBPOKER)
+	$(CC_EXE)
+
+enumtest3@E@ : enumtest3@O@ $(LIBPOKER)
+	$(CC_EXE)
+
 clean:
 	$(RM) *@O@ core digtest5@E@ digtest7@E@ joktest1@E@
+	$(RM) enumtest1@E@ enumtest2@E@ enumtest3@E@
 
 .c@O@:
 	$(CC_OBJ)
 
 test : tests
+	@echo -n "enumtest1: enumeration test 1...  "
+	@if [ `./enumtest1 6 3 | md5sum - | awk '{print $$1}'` \
+		= 425daf38998180d6f261ac6801d589dd ] ; \
+		then echo "		Passed"; \
+		else echo "		Failed"; \
+	fi
+	@echo -n "enumtest2: enumeration test 2...  "
+	@if [ `./enumtest2 | md5sum - | awk '{print $$1}'` \
+		= 1e144704f542b3046c174bcfc3c1f2a2 ] ; \
+		then echo "		Passed"; \
+		else echo "		Failed"; \
+	fi
+	@echo -n "enumtest3: enumeration test 3...  "
+	@if [ `./enumtest3 | md5sum - | awk '{print $$1}'` \
+		= 8eca9e9a0aa0e4ad71acafbc8a93da4a ] ; \
+		then echo "		Passed"; \
+		else echo "		Failed"; \
+	fi
 	@echo -n "digtest5: 5-card hands..."
 	@if [ `./digtest5` = "1f066feff1a8b3406fe069c05c4ba17d" ]; \
 		then echo "		Passed"; \

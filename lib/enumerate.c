@@ -344,7 +344,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 7 - StdDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(StdDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(StdDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_7STUD);
 
@@ -353,7 +353,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 7 - StdDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(StdDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(StdDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_7STUD8);
 
@@ -362,7 +362,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 7 - StdDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(StdDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(StdDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_7STUDNSQ);
 
@@ -371,7 +371,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 7 - StdDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(StdDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(StdDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_RAZZ);
 
@@ -382,7 +382,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 5 - JokerDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(JokerDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(JokerDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_5DRAW);
 #endif
@@ -396,7 +396,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 5 - JokerDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(JokerDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(JokerDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_5DRAW8);
 #endif
@@ -410,7 +410,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 5 - JokerDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(JokerDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(JokerDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_5DRAWNSQ);
 #endif
@@ -424,7 +424,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 5 - JokerDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(JokerDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(JokerDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_LOWBALL);
 #endif
@@ -436,7 +436,7 @@ enumExhaustive(enum_game_t game, StdDeck_CardMask pockets[],
     int numToDeal[ENUM_MAXPLAYERS];
     for (i=0; i<npockets; i++)
       numToDeal[i] = 5 - StdDeck_numCards(pockets[i]);
-    DECK_ENUMERATE_PERMUTATIONS_D(StdDeck, unsharedCards,
+    DECK_ENUMERATE_COMBINATIONS_D(StdDeck, unsharedCards,
                                   npockets, numToDeal,
                                   dead, INNER_LOOP_LOWBALL27);
 
