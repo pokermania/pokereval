@@ -87,6 +87,9 @@ int main( int argc, char *argv[] )
 
   CardMask_OR(p0, gPlayerCards[0], gCommonCards);
   CardMask_OR(p1, gPlayerCards[1], gCommonCards);
+  CardMask_OR(gDeadCards, gDeadCards, gCommonCards);
+  CardMask_OR(gDeadCards, gDeadCards, gPlayerCards[0]);
+  CardMask_OR(gDeadCards, gDeadCards, gPlayerCards[1]);
 
   ENUMERATE_N_CARDS_D(cards, 5-gNCommon, gDeadCards, 
                       {

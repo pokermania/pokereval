@@ -3,7 +3,7 @@ LIB = ../lib/libpoker.a
 CFLAGS = @CFLAGS@
 CC = @CC@
 
-PROGRAMS = five_card_hands seven_card_hands fish eval hcmp2
+PROGRAMS = five_card_hands seven_card_hands fish eval hcmp2 hcmpn
 
 all : $(PROGRAMS)
 
@@ -20,6 +20,9 @@ eval: eval.o $(LIB)
 	$(CC) $(CFLAGS) -o $@ $< $(LIB)
 
 hcmp2: hcmp2.o $(LIB)
+	$(CC) $(CFLAGS) -o $@ $< $(LIB)
+
+hcmpn: hcmpn.o $(LIB)
 	$(CC) $(CFLAGS) -o $@ $< $(LIB)
 
 clean:
