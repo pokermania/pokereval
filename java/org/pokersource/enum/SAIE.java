@@ -108,10 +108,17 @@ public class SAIE {
   }
 
   public static void main(String[] args) {
-    int nplayers = args.length - 2;
+    int nmatchups = Integer.parseInt(args[0]);
+    int noutcomes = Integer.parseInt(args[1]);
+    int nplayers = args.length - 4;
+    System.out.println("nplayers=" + nplayers + 
+                       ", nmatchups=" + nmatchups +
+                       ((nmatchups == 0) ? " (enumerate)" : " (sample)") +
+                       ", noutcomes=" + noutcomes +
+                       ((noutcomes == 0) ? " (enumerate)" : " (sample)"));
     HoldemBeliefVector[] beliefs = new HoldemBeliefVector[nplayers];
     for (int i=0; i<nplayers; i++) {
-      beliefs[i] = new HoldemBeliefVector(args[i]);
+      beliefs[i] = new HoldemBeliefVector(args[i+2]);
       System.out.println("beliefs[" + i + "].toString = " +
                          beliefs[i].toString());
       System.out.println("beliefs[" + i + "].toStringAtomic = " +
@@ -123,7 +130,7 @@ public class SAIE {
     System.out.println("dead = " + Deck.cardMaskString(dead));
 
     double[] totalev = new double[nplayers];
-    FlopGameSAIE(Enumerate.GAME_HOLDEM, 0, 0,
+    FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
                  beliefs, board, dead, totalev, null);
     for (int i=0; i<nplayers; i++) {
       System.out.println("FlopGameSAIE: totalev[" + i + "] = " + totalev[i]);

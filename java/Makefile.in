@@ -78,11 +78,13 @@ develtest: $(CLASSFILES)
 	java org.pokersource.enum.HoldemSMGroup SM2
 	java org.pokersource.enum.HoldemUniversalGroup
 	java org.pokersource.enum.HoldemBeliefVector "AhKh" "AA KK:50 QQ:20"
-	java org.pokersource.enum.SAIE "AhKh" "AKs" "4h 5h 6h" ""
-	java org.pokersource.enum.SAIE "87s+" "77" "7h 6h 5h" ""
-	java org.pokersource.enum.SAIE "KhQc" "SM1 SM2 SM3" "4h 5h 3d" ""
-	java org.pokersource.enum.SAIE "KhQc" "SM1 SM2 SM3 SM4 SM5" "4h 5h 3d" ""
-	java org.pokersource.enum.SAIE "KhQc" "<any>" "4h 5h 3d" ""
+	java org.pokersource.enum.SAIE 0 0 "AhKh" "AKs" "4h 5h 6h" ""
+	java org.pokersource.enum.SAIE 0 0 "87s+" "77" "7h 6h 5h" ""
+	java org.pokersource.enum.SAIE 0 0 "KhQc" "SM1 SM2 SM3" "4h 5h 3d" ""
+	java org.pokersource.enum.SAIE 0 0 "KhQc" "SM1 SM2 SM3 SM4 SM5" "4h 5h 3d" ""
+	java org.pokersource.enum.SAIE 0 0 "KhQc" "<any>" "4h 5h 3d" ""
+	java org.pokersource.enum.SAIE 100 0 "KhQc" "<any>" "4h 5h 3d" ""
+	java org.pokersource.enum.SAIE 100 0 "SM1 SM2" "<any>" "4h 5h 3d" ""
 
 Makefile: Makefile.in
 .PHONY: javadoc

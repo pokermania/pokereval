@@ -145,5 +145,25 @@ public class SAIETest extends TestCase {
     checkEV(ev, matchups);
   }
 
+  public void testFlopGameSAIE_Multiway() {
+    double[] ev = new double[4];
+    HashMap matchups = new HashMap();
+    int nmatchups;
+    int noutcomes;
+
+    // KhQc vs "SM1 SM2 SM3" vs "SM1 SM2 SM3 SM4 SM5" vs "65s"
+    // with board of 5h4h3d
+    nmatchups = 1000;
+    noutcomes = 0;
+    SAIE.FlopGameSAIE(Enumerate.GAME_HOLDEM, nmatchups, noutcomes,
+                      new BeliefVector[] {bv1, bv2, bv3, bv5},
+                      mask5h4h3d, 0, ev, matchups);
+    assertEquals(0.12, ev[0], 2e-02);
+    assertEquals(0.20, ev[1], 2e-02);
+    assertEquals(0.19, ev[2], 2e-02);
+    assertEquals(0.49, ev[3], 5e-02);
+    checkEV(ev, matchups);
+  }
+
 }
 
