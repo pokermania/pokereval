@@ -712,6 +712,7 @@ enumResultFree(enum_result_t *result) {
     if (result->ordering->hist != NULL)
       free(result->ordering->hist);
     free(result->ordering);
+    result->ordering = NULL;
   }
 }
 
@@ -743,6 +744,7 @@ enumResultAlloc(enum_result_t *result, int nplayers,
   result->ordering->hist = (int *) calloc(nentries, sizeof(int));
   if (result->ordering->hist == NULL) {
     free(result->ordering);
+    result->ordering = NULL;
     return 1;
   }
   return 0;
