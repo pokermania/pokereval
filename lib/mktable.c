@@ -8,7 +8,7 @@
 static const char *gTableName, *gFileName, *gTableType;
 static int gTableSize;
 static int gInUse = 0, gHeaderDone=0, gLineCount;
-static FILE *gCFile, *gHFile;
+static FILE *gCFile;
 
 void
 MakeTable_begin(const char *tableName,
