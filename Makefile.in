@@ -19,7 +19,7 @@ test:
 	(cd tests; $(MAKE) $@)
 	(cd java; $(MAKE) $@)
 
-javadoc jarfile:
+javadoc jarfile cleanclass:
 	(cd java; $(MAKE) $@)
 
 cleanconfig:
@@ -27,7 +27,7 @@ cleanconfig:
 
 release:
 	[ -n "$(RELEASE_NUMBER)" ] || echo "No RELEASE_NUMBER specified"
-	$(MAKE) clean cleanconfig javadoc jarfile
+	$(MAKE) clean cleanconfig javadoc jarfile cleanclass
 	$(MAKE) poker-eval-$(RELEASE_NUMBER).tar.gz
 
 poker-eval-$(RELEASE_NUMBER).tar.gz:
