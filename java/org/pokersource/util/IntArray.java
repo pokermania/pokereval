@@ -25,8 +25,8 @@ public class IntArray implements Comparable {
   private void computeHash() {
     // hash = values.hashCode()  --- WRONG: not equal for equal arrays
     hash = values.length;
-    for (int i=0; i<values.length; i++)
-      hash = (hash << 1) ^ (new Integer(values[i])).hashCode();
+    for (int i=0; i<values.length && i<32; i++)
+      hash = 31 * hash + values[i];
   }
 
   public int hashCode() {
