@@ -29,7 +29,7 @@
 #define SH AStudDeck_CardMask_HEARTS(cards)
 #define SS AStudDeck_CardMask_SPADES(cards)
 
-static astudHandTypeMap[StdRules_HandType_LAST+1] = {
+static uint32 astudHandTypeMap[StdRules_HandType_LAST+1] = {
   HandVal_HANDTYPE_VALUE(AStudRules_HandType_NOPAIR), 
   HandVal_HANDTYPE_VALUE(AStudRules_HandType_ONEPAIR), 
   HandVal_HANDTYPE_VALUE(AStudRules_HandType_TWOPAIR), 
