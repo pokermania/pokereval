@@ -27,6 +27,16 @@
  "top five bits set in the input rank mask. "
 #define T5C_FILENAME "t_topfivecards"
 
+#define T5B_COMMENT_STRING \
+ "topFiveBitsTable[].  Maps 13-bit rank masks to a rank mask with the \n" \
+ "the five bits set which were the top five bits set in the input rank mask."
+#define T5B_FILENAME "t_topfivebits"
+
+#define T2B_COMMENT_STRING \
+ "topFiveBitsTable[].  Maps 13-bit rank masks to a rank mask with the \n" \
+ "the two bits set which were the top two bits set in the input rank mask."
+#define T2B_FILENAME "t_toptwobits"
+
 #define NB_COMMENT_STRING \
  "nBitsTable[].  Maps 13-bit rank masks to the number of bits that are set\n" \
  "in the mask. "
@@ -38,6 +48,15 @@
  "no straight, even though zero corresponds to deuce, but since there\n"     \
  "is no such thing as a deuce-high straight, that's OK. "
 #define ST_FILENAME "t_straight"
+
+#define RM_COMMENT_STRING \
+ "StdDeck_rankMasksTable[].  Maps card ranks (2..A) to a cardmask which\n"   \
+ "has all the bits set except the bits corresponding to the cards whose\n"   \
+ "have the input rank.  This is a quick way to mask off all the cards of\n"  \
+ "a specific rank."
+#define RM_FILENAME "t_rankmasks"
+
+
 
 static void 
 doNBitsTable(void) {
@@ -119,6 +138,55 @@ doTopFiveCardsTable(void) {
 
 
 static void 
+doTopFiveBitsTable(void) {
+  int i;
+
+  MakeTable_begin("topFiveBitsTable", 
+                  T5B_FILENAME, 
+                  "uint32", 
+                  StdDeck_N_RANKMASKS);
+  MakeTable_comment(T5B_COMMENT_STRING);
+  for (i=0; i < StdDeck_N_RANKMASKS; i++) {
+    uint32 retval, temp, n;
+
+    n = i;
+    temp = top_bit_func( n );  retval  = temp;  n &= ~temp;
+    temp = top_bit_func( n );  retval |= temp;  n &= ~temp;
+    temp = top_bit_func( n );  retval |= temp;  n &= ~temp;
+    temp = top_bit_func( n );  retval |= temp;  n &= ~temp;
+    temp = top_bit_func( n );  retval |= temp;
+
+    MakeTable_outputUInt32(retval);
+  };
+
+  MakeTable_end();
+}
+
+
+static void 
+doTopTwoBitsTable(void) {
+  int i;
+
+  MakeTable_begin("topTwoBitsTable", 
+                  T2B_FILENAME, 
+                  "uint32", 
+                  StdDeck_N_RANKMASKS);
+  MakeTable_comment(T2B_COMMENT_STRING);
+  for (i=0; i < StdDeck_N_RANKMASKS; i++) {
+    uint32 retval, n;
+
+    n = i;
+    retval = top_bit_func(n);
+    n ^= retval;
+    retval |= top_bit_func(n);
+    MakeTable_outputUInt32(retval);
+  };
+
+  MakeTable_end();
+}
+
+
+static void 
 doStraightTable(void) {
   int i;
 
@@ -127,22 +195,8 @@ doStraightTable(void) {
                   "uint8", 
                   StdDeck_N_RANKMASKS);
   MakeTable_comment(ST_COMMENT_STRING);
-  for (i=0; i < StdDeck_N_RANKMASKS; i++) {
-    uint32 ranks, ranks2, val;
-
-    ranks = i;
-    val = 0;
-    if ( (ranks2  = ranks & (ranks << 1)) &&
-         (ranks2 &=         (ranks << 2)) &&
-         (ranks2 &=         (ranks << 3)) &&
-         (ranks2 &=         (ranks << 4)) ) {
-      val = top_card_func(ranks2);
-    } 
-    else if ((ranks & StdRules_FIVE_STRAIGHT) == StdRules_FIVE_STRAIGHT) 
-      val = StdDeck_Rank_5;
-
-    MakeTable_outputUInt8(val);
-  };
+  for (i=0; i < StdDeck_N_RANKMASKS; i++) 
+    MakeTable_outputUInt8(straight_func(i));
 
   MakeTable_end();
 }
@@ -152,7 +206,6 @@ static void
 doCardMaskTable(void) {
   StdDeck_CardMask c;
   int i;
-  char buf[80];
 
   MakeTable_begin("StdDeck_cardMasksTable", 
                   CM_FILENAME, 
@@ -176,21 +229,61 @@ doCardMaskTable(void) {
 #if HAVE_INT64
     MakeTable_outputUInt64(c.cards_n);
 #else
-    sprintf(buf, " { { 0x%08x, 0x%08x } } ", c.cards_nn.n1, c.cards_nn.n2);
-    MakeTable_outputString(buf);
+    {
+      char buf[80];
+      sprintf(buf, " { { 0x%08x, 0x%08x } } ", c.cards_nn.n1, c.cards_nn.n2);
+      MakeTable_outputString(buf);
+    };
 #endif
   };
 
   MakeTable_end();
 }
-    
+
+
+static void 
+doRankMaskTable(void) {
+  int i;
+
+  MakeTable_begin("StdDeck_rankMasksTable", 
+                  RM_FILENAME, 
+                  "StdDeck_CardMask", 
+                  StdDeck_Rank_COUNT);
+  MakeTable_comment(RM_COMMENT_STRING);
+  for (i=0; i < StdDeck_Rank_COUNT; i++) {
+    StdDeck_CardMask c;
+
+    StdDeck_CardMask_RESET(c);
+    c.cards.spades   = (1 << i);
+    c.cards.hearts   = (1 << i);
+    c.cards.diamonds = (1 << i);
+    c.cards.clubs    = (1 << i);
+
+#if HAVE_INT64
+    MakeTable_outputUInt64(~c.cards_n);
+#else
+    { 
+      char buf[80];
+      sprintf(buf, " { { 0x%08x, 0x%08x } } ", ~c.cards_nn.n1, ~c.cards_nn.n2);
+      MakeTable_outputString(buf);
+    };
+#endif
+  };
+
+  MakeTable_end();
+}
+
+
 int 
 main(int argc, char **argv) {
   doCardMaskTable();
+  doRankMaskTable();
   doNBitsTable();
   doTopCardTable();
   doTopBitTable();
   doTopFiveCardsTable();
+  doTopFiveBitsTable();
+  doTopTwoBitsTable();
   doStraightTable();
 
   return 0;

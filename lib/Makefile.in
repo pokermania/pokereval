@@ -8,13 +8,16 @@ OBJ=$(DERIVED_SOURCES:.c=.o) \
 	md5c.o
 
 BASIC_TABLES = \
-	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_cardmasks.c \
-	t_straight.c 
+	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_topfivebits.c \
+        t_toptwobits.c t_cardmasks.c t_rankmasks.c t_straight.c 
 PACKED_TABLES = \
 	t_nbitsandstr.c
-TABLE_PROGRAMS = mktab_basic mktab_packed
+EVX_TABLES = \
+	t_evx_pairval.c t_evx_strval.c t_evx_tripsval.c t_evx_flushcards.c
 
-DERIVED_SOURCES = $(BASIC_TABLES) $(PACKED_TABLES)
+TABLE_PROGRAMS = mktab_basic mktab_packed mktab_evx
+
+DERIVED_SOURCES = $(BASIC_TABLES) $(PACKED_TABLES) $(EVX_TABLES)
 
 CC = @CC@ 
 CFLAGS = @CFLAGS@ 
@@ -36,10 +39,16 @@ $(BASIC_TABLES): mktab_basic
 $(PACKED_TABLES): mktab_packed
 	./mktab_packed
 
+$(EVX_TABLES): mktab_evx
+	./mktab_evx
+
 mktab_basic: mktab_basic.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 mktab_packed: mktab_packed.o $(MKTABLE_HELPERS)
+	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+
+mktab_evx: mktab_evx.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 .c.o:
