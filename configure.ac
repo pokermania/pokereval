@@ -66,6 +66,7 @@ AC_CHECK_TYPES([long long, int64])
 AC_CONFIG_FILES([tests/run], [chmod 544 tests/run])
 AC_CONFIG_FILES([Makefile
 	         poker-eval.pc
+		 poker-eval.spec
                  lib/Makefile
                  include/Makefile
                  examples/Makefile
