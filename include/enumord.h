@@ -123,12 +123,14 @@ extern void enum_ordering_rank(int *hands, int noqual,
 
 /* the number of elements in the hist[] array */
 #define ENUM_ORDERING_NENTRIES(nplayers) \
-  (ENUM_ORDERING_NBITS(nplayers) < 0 \
+  (((nplayers > ENUM_ORDERING_MAXPLAYERS) || \
+    ENUM_ORDERING_NBITS(nplayers) < 0) \
    ? -1 : (1 << (nplayers * ENUM_ORDERING_NBITS(nplayers))))
 
 /* the number of elements in the hist[] array in high/low games */
 #define ENUM_ORDERING_NENTRIES_HILO(nplayers) \
-  (ENUM_ORDERING_NBITS(nplayers) < 0 \
+  (((nplayers > ENUM_ORDERING_MAXPLAYERS_HILO) || \
+    ENUM_ORDERING_NBITS(nplayers) < 0) \
    ? -1 : (1 << (2 * nplayers * ENUM_ORDERING_NBITS(nplayers))))
 
 /* Compute the integer encoding of a given array of relative hand rankings.
