@@ -146,6 +146,14 @@ do {                                            \
   do { (mask).cards_nn.n1 = (mask).cards_nn.n2 = 0; } while (0)
 #endif
 
+#ifdef HAVE_INT64
+#define StdDeck_CardMask_IS_EMPTY(mask) \
+  ((mask).cards_n == 0)
+#else
+#define StdDeck_CardMask_IS_EMPTY(mask) \
+  ((mask).cards_nn.n1 == 0 && (mask).cards_nn.n2 == 0)
+#endif
+
 extern uint8             nBitsTable[StdDeck_N_RANKMASKS];
 extern uint32     topFiveCardsTable[StdDeck_N_RANKMASKS];
 extern uint32       topFiveBitTable[StdDeck_N_RANKMASKS];
@@ -167,11 +175,12 @@ extern const char StdDeck_suitChars[StdDeck_Suit_LAST+1];
 extern int StdDeck_cardToString(int cardIndex, char *outString);
 extern int StdDeck_stringToCard(char *inString, int *outCard);
 
-#define StdDeck_cardString(i) GenericDeck_cardString(StdDeck, (i))
-#define StdDeck_printCard(i)  GenericDeck_printCard(StdDeck, (i))
-#define StdDeck_printMask(m)  GenericDeck_printMask(StdDeck, (m))
-#define StdDeck_maskString(m) GenericDeck_maskString(StdDeck, (m))
-#define StdDeck_maskToString(m, s) GenericDeck_maskToString(StdDeck, (m), (s))
+#define StdDeck_cardString(i) GenericDeck_cardString(&StdDeck, (i))
+#define StdDeck_printCard(i)  GenericDeck_printCard(&StdDeck, (i))
+#define StdDeck_printMask(m)  GenericDeck_printMask(&StdDeck, ((void *) &(m)))
+#define StdDeck_maskString(m) GenericDeck_maskString(&StdDeck, ((void *) &(m)))
+#define StdDeck_numCards(m) GenericDeck_numCards(&StdDeck, ((void *) &(m)))
+#define StdDeck_maskToString(m, s) GenericDeck_maskToString(&StdDeck, ((void *) &(m)), (s))
 
 extern Deck StdDeck;
 

@@ -40,6 +40,12 @@ GenericDeck_maskString(Deck *deck, void *cardMask) {
 }
 
 
+int
+GenericDeck_numCards(Deck *deck, void *cardMask) {
+  return (*deck->numCards)(cardMask);
+}
+
+
 char *
 GenericDeck_cardString(Deck *deck, int cardIndex) {
   static thread char outString[16];

@@ -54,10 +54,22 @@ AStudDeck_maskToCards(void *cardMask, int cards[]) {
   return n;
 }
 
+int 
+AStudDeck_NumCards(void *cardMask) {
+  AStudDeck_CardMask c = *((AStudDeck_CardMask *) cardMask);
+  int i;
+  int ncards = 0;
+  for (i=0; i<AStudDeck_N_CARDS; i++)
+    if (AStudDeck_CardMask_CARD_IS_SET(c, i))
+      ncards++;
+  return ncards;
+}
+
 Deck AStudDeck = { 
   AStudDeck_N_CARDS, 
   "AsianStudDeck", 
   AStudDeck_cardToString, 
   AStudDeck_stringToCard,
-  AStudDeck_maskToCards 
+  AStudDeck_maskToCards,
+  AStudDeck_NumCards
 };

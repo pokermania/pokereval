@@ -50,6 +50,7 @@ typedef StdDeck_RankMask AStudDeck_RankMask;
 #define AStudDeck_CardMask_XOR         StdDeck_CardMask_XOR
 #define AStudDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define AStudDeck_CardMask_RESET       StdDeck_CardMask_RESET
+#define AStudDeck_CardMask_IS_EMPTY    StdDeck_CardMask_IS_EMPTY
 
 #ifdef HAVE_INT64                                                          
 #define AStudDeck_CardMask_CARD_IS_SET(mask, index)                       \
@@ -74,11 +75,12 @@ extern const char AStudDeck_suitChars[AStudDeck_Suit_LAST+1];
 extern int AStudDeck_cardToString(int cardIndex, char *outString);
 extern int AStudDeck_stringToCard(char *inString, int *outCard);
 
-#define AStudDeck_cardString(i) GenericDeck_cardString(AStudDeck, (i))
-#define AStudDeck_printCard(i)  GenericDeck_printCard(AStudDeck, (i))
-#define AStudDeck_printMask(m)  GenericDeck_printMask(AStudDeck, (m))
-#define AStudDeck_maskString(m) GenericDeck_maskString(AStudDeck, (m))
-#define AStudDeck_maskToString(m, s) GenericDeck_maskToString(AStudDeck, (m), (s))
+#define AStudDeck_cardString(i) GenericDeck_cardString(&AStudDeck, (i))
+#define AStudDeck_printCard(i)  GenericDeck_printCard(&AStudDeck, (i))
+#define AStudDeck_printMask(m)  GenericDeck_printMask(&AStudDeck, ((void *) &(m)))
+#define AStudDeck_maskString(m) GenericDeck_maskString(&AStudDeck, ((void *) &(m)))
+#define AStudDeck_numCards(m) GenericDeck_numCards(&AStudDeck, ((void *) &(m)))
+#define AStudDeck_maskToString(m, s) GenericDeck_maskToString(&AStudDeck, ((void *) &(m)), (s))
 
 extern Deck AStudDeck;
 

@@ -87,18 +87,23 @@ StdDeck_stringToMask(char *inString, StdDeck_CardMask *outMask) {
 }
 #endif
 
-#if 0
-int 
-StdDeck_CardMask_nBitsSet(StdDeck_CardMask cards) {
-  return 0;
+int
+StdDeck_NumCards(void *cardMask) {
+  StdDeck_CardMask c = *((StdDeck_CardMask *) cardMask);
+  int i;
+  int ncards = 0;
+  for (i=0; i<StdDeck_N_CARDS; i++)
+    if (StdDeck_CardMask_CARD_IS_SET(c, i))
+      ncards++;
+  return ncards;
 }
-#endif
 
 Deck StdDeck = { 
   StdDeck_N_CARDS, 
   "StandardDeck", 
   StdDeck_cardToString, 
   StdDeck_stringToCard,
-  StdDeck_maskToCards 
+  StdDeck_maskToCards,
+  StdDeck_NumCards
 };
 

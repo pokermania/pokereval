@@ -48,11 +48,22 @@ JokerDeck_stringToCard(char *inString, int *cardIndex) {
     return StdDeck_stringToCard(inString, cardIndex);
 }
 
+int 
+JokerDeck_NumCards(void *cardMask) {
+  JokerDeck_CardMask c = *((JokerDeck_CardMask *) cardMask);
+  int i;
+  int ncards = 0;
+  for (i=0; i<JokerDeck_N_CARDS; i++)
+    if (JokerDeck_CardMask_CARD_IS_SET(c, i))
+      ncards++;
+  return ncards;
+}
 
 Deck JokerDeck = { 
   JokerDeck_N_CARDS, 
   "JokerDeck", 
   JokerDeck_cardToString, 
   JokerDeck_stringToCard,
-  JokerDeck_maskToCards 
+  JokerDeck_maskToCards,
+  JokerDeck_NumCards
 };

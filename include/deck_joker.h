@@ -93,6 +93,7 @@ typedef union {
 #define JokerDeck_CardMask_XOR         StdDeck_CardMask_XOR
 #define JokerDeck_CardMask_ANY_SET     StdDeck_CardMask_ANY_SET
 #define JokerDeck_CardMask_RESET       StdDeck_CardMask_RESET
+#define JokerDeck_CardMask_IS_EMPTY    StdDeck_CardMask_IS_EMPTY
 
 #define JokerDeck_CardMask_toStd(jCards, sCards) \
 do { \
@@ -125,11 +126,12 @@ extern uint8              jokerStraightTable[StdDeck_N_RANKMASKS];
 extern int JokerDeck_cardToString(int cardIndex, char *outString);
 extern int JokerDeck_stringToCard(char *inString, int *outCard);
 
-#define JokerDeck_cardString(i) GenericDeck_cardString(JokerDeck, (i))
-#define JokerDeck_printCard(i)  GenericDeck_printCard(JokerDeck, (i))
-#define JokerDeck_printMask(m)  GenericDeck_printMask(JokerDeck, (m))
-#define JokerDeck_maskString(m) GenericDeck_maskString(JokerDeck, (m))
-#define JokerDeck_maskToString(m, s) GenericDeck_maskToString(JokerDeck, (m), (s))
+#define JokerDeck_cardString(i) GenericDeck_cardString(&JokerDeck, (i))
+#define JokerDeck_printCard(i)  GenericDeck_printCard(&JokerDeck, (i))
+#define JokerDeck_printMask(m)  GenericDeck_printMask(&JokerDeck, ((void *) &(m)))
+#define JokerDeck_maskString(m) GenericDeck_maskString(&JokerDeck, ((void *) &(m)))
+#define JokerDeck_numCards(m) GenericDeck_numCards(&JokerDeck, ((void *) &(m)))
+#define JokerDeck_maskToString(m, s) GenericDeck_maskToString(&JokerDeck, ((void *) &(m)), (s))
 
 extern Deck JokerDeck;
 
