@@ -156,6 +156,7 @@ Enumerate_PotEquity(JNIEnv *env, jint gameType, jint nsamples,
   StdDeck_CardMask board, dead, pockets[ENUM_MAXPLAYERS];
   enum_result_t result;
 
+  enumResultClear(&result);
   nplayers = (*env)->GetArrayLength(env, lpockets);
   if (nplayers > ENUM_MAXPLAYERS) {
     jniThrow(env, "too many players");
@@ -189,6 +190,10 @@ Enumerate_PotEquity(JNIEnv *env, jint gameType, jint nsamples,
     err = enumSample(gameType, pockets, board, dead, nplayers, nboard, nsamples,
                      orderflag, &result);
   }
+  if (err != 0) {
+    jniThrow(env, "internal error in C library");
+    goto cleanup;
+  }
 #ifdef DEBUG
   enumResultPrint(&result, pockets, board);
   fflush(stdout);
@@ -199,14 +204,17 @@ Enumerate_PotEquity(JNIEnv *env, jint gameType, jint nsamples,
     result.ev[i] /= result.nsamples;
   (*env)->SetDoubleArrayRegion(env, ev, 0, nplayers, (jdouble *)result.ev);
   if ((*env)->ExceptionOccurred(env) != NULL)
-    return;
+    goto cleanup;
 
   /* copy ordering information to Java side, if requested */
   if (orderflag) {
     copyOrdering(env, &result, orderKeys, orderVals);
     if ((*env)->ExceptionOccurred(env) != NULL)
-      return;
+      goto cleanup;
   }
+
+ cleanup:
+  enumResultFree(&result);
   return;
 }
 
