@@ -35,26 +35,28 @@ if $have_libtool ; then : ; else
 	DIE=1
 fi
 
-have_autoconf=false
-if autoconf --version < /dev/null > /dev/null 2>&1 ; then
-	autoconf_version=`autoconf --version | grep 'autoconf (GNU Autoconf)' | sed 's/^[^0-9]*\([0-9].[0-9.]*\).*/\1/'`
-	case $autoconf_version in
-		2.5[3-9])
-			have_autoconf=true
-			;;
-	esac
-fi
-if $have_autoconf ; then : ; else
+autoconf=''
+for at in autoconf autoconf-2.53 autoconf-2.54 autoconf-2.55 autoconf-2.56 autoconf-2.57 autoconf-2.58 autoconf-2.59; do
+	if $at --version < /dev/null > /dev/null 2>&1 ; then
+		at_version=`$at --version | grep -i 'autoconf' | sed 's/^[^0-9]*\(.*\)/\1/'`
+		case $at_version in
+			2.5?) 
+				autoconf="$at"
+				;;
+		esac
+	fi
+done
+if test -z $autoconf ; then
 	echo "You need autoconf >= 2.53 installed to compile $PROJECT."
 	DIE=1
 fi
 
 automake=''
-for am in automake automake-1.7; do
+for am in automake automake-1.7 automake-1.8 automake-1.9; do
 	if $am --version < /dev/null > /dev/null 2>&1 ; then
 		am_version=`$am --version | grep 'automake (GNU automake)' | sed 's/^[^0-9]*\(.*\)/\1/'`
 		case $am_version in
-			1.7*) 
+			1.[789]*) 
 				automake="$am"
 				;;
 		esac
@@ -66,11 +68,11 @@ if test -z $automake ; then
 fi
 
 aclocal=''
-for acl in aclocal aclocal-1.7; do
+for acl in aclocal aclocal-1.7 aclocal-1.8 aclocal-1.9 ; do
 	if $acl --version < /dev/null > /dev/null 2>&1 ; then
 		acl_version=`$acl --version | grep 'aclocal (GNU automake)' | sed 's/^[^0-9]*\(.*\)/\1/'`
 		case $acl_version in
-			1.7*) 
+			1.[789]*) 
 				aclocal="$acl"
 				;;
 		esac
