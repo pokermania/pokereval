@@ -5,7 +5,7 @@ MKTABLE_HELPERS = mktable.o mktable_utils.o
 OBJ=$(DERIVED_SOURCES:.c=.o) \
 	mktab_basic.o $(MKTABLE_HELPERS) \
 	stddeck.o stdrules.o evx.o \
-	astuddeck.o astudrules.o \
+	astuddeck.o astudrules.o jokerdeck.o lowball.o \
 	md5c.o 
 
 BASIC_TABLES = \
@@ -16,12 +16,22 @@ PACKED_TABLES = \
 EVX_TABLES = \
 	t_evx_pairval.c t_evx_strval.c t_evx_tripsval.c t_evx_flushcards.c
 ASTUD_TABLES = t_astudcardmasks.c
+JOKER_TABLES = t_jokercardmasks.c
+LOWBALL_TABLES = t_botfivecards.c t_botcard.c t_botfivecardsj.c
 
 EVX_HEADERS = ../include/inlines/evx5.h ../include/inlines/evx7.h
 
-PROGRAMS = mktab_basic mktab_packed mktab_evx mktab_astud evx_gen5 evx_gen7
+PROGRAMS = mktab_basic mktab_packed mktab_evx mktab_astud mktab_joker \
+	   mktab_lowball \
+	   evx_gen5 evx_gen7
 
-DERIVED_SOURCES = $(BASIC_TABLES) $(PACKED_TABLES) $(EVX_TABLES) $(ASTUD_TABLES)
+DERIVED_SOURCES = \
+	$(BASIC_TABLES) \
+	$(PACKED_TABLES) \
+	$(EVX_TABLES) \
+	$(ASTUD_TABLES) \
+	$(JOKER_TABLES) \
+	$(LOWBALL_TABLES) 
 
 CC = @CC@ 
 CFLAGS = @CFLAGS@ 
@@ -49,6 +59,12 @@ $(EVX_TABLES): mktab_evx
 $(ASTUD_TABLES): mktab_astud
 	./$<
 
+$(JOKER_TABLES): mktab_joker
+	./$<
+
+$(LOWBALL_TABLES): mktab_lowball
+	./$<
+
 ../include/inlines/evx5.h:	evx_gen5
 	./$<  >  $@
 
@@ -66,6 +82,12 @@ mktab_evx: mktab_evx.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 mktab_astud: mktab_astud.o $(MKTABLE_HELPERS)
+	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+
+mktab_joker: mktab_joker.o $(MKTABLE_HELPERS)
+	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+
+mktab_lowball: mktab_lowball.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 evx_gen5:	evx_gen5.o

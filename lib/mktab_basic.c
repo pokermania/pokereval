@@ -23,7 +23,7 @@
 
 #define T5C_COMMENT_STRING \
  "topFiveCardsTable[].  Maps 13-bit rank masks to a HandVal structure with\n" \
- "the xxx_bit fields set.  The fields correspond to the rank values of the\n" \
+ "the xx_card fields set.  The fields correspond to the rank values of the\n" \
  "top five bits set in the input rank mask. "
 #define T5C_FILENAME "t_topfivecards"
 

@@ -23,8 +23,7 @@ StdDeck_maskToString(StdDeck_CardMask cardMask, char *outString) {
   for (i=StdDeck_N_CARDS-1; i >= 0; i--) {
     if (StdDeck_CardMask_CARD_IS_SET(cardMask, i)) {
       if (p > outString) *p++ = ' ';
-      *p++ = StdDeck_rankChars[StdDeck_RANK(i)];
-      *p++ = StdDeck_suitChars[StdDeck_SUIT(i)];
+      p += StdDeck_cardToString(i, p);
     };
   };
 

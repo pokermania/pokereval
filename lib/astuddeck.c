@@ -24,8 +24,7 @@ AStudDeck_maskToString(AStudDeck_CardMask cardMask, char *outString) {
   for (i=AStudDeck_N_CARDS-1; i >= 0; i--) {
     if (AStudDeck_CardMask_CARD_IS_SET(cardMask, i)) {
       if (p > outString) *p++ = ' ';
-      *p++ = AStudDeck_rankChars[AStudDeck_RANK(i)];
-      *p++ = AStudDeck_suitChars[AStudDeck_SUIT(i)];
+      p += StdDeck_cardToString(i, p);
     };
   };
 
