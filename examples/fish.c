@@ -92,7 +92,7 @@ main(int argc, char **argv) {
                       {
                         StdDeck_CardMask_OR(hand, cards, gPeggedCards);
                         handval = StdRules_HANDEVAL(hand, gNCards);
-                        ++totals[handval.handval.htype];
+                        ++totals[StdRules_HandVal_HANDTYPE(handval)];
                       });
   dump_totals();
   return 0;

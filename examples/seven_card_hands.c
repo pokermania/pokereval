@@ -56,7 +56,7 @@ int main( void )
   ENUMERATE_7_CARDS(cards, 
                     {
                       handval = PokerHand_EVAL_N(cards, 7);
-                      ++totals[handval.handval.htype];
+                      ++totals[HandVal_HANDTYPE(handval)];
                       DUMP_HAND;
                     });
 
