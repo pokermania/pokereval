@@ -1,3 +1,8 @@
+#ifndef __EVAL_LOW8_H__
+#define __EVAL_LOW8_H__
+
+#include "handval_low.h"
+
 static inline LowHandVal 
 StdDeck_Lowball8_EVAL(StdDeck_CardMask cards, int n_cards) {
   uint32 ranks, retval;
@@ -14,3 +19,4 @@ StdDeck_Lowball8_EVAL(StdDeck_CardMask cards, int n_cards) {
     return LowHandVal_NOTHING;
 }
 
+#endif
