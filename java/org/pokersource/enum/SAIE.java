@@ -4,7 +4,10 @@ package org.pokersource.enum;
 import org.pokersource.game.Deck;
 import org.pokersource.util.NestedLoopEnumeration;
 import org.pokersource.util.NestedLoopSampling;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Iterator;
 import java.util.Enumeration;
@@ -80,10 +83,16 @@ public class SAIE {
     if (nmatchups == 0) {
       enum = new NestedLoopEnumeration(nhands);
     } else {
-      enum = new NestedLoopSampling(nhands, nmatchups);
+      enum = new NestedLoopSampling(nhands);
     }
+    int nvisited = 0;
   mainloop:
-    while (enum.hasMoreElements()) { // loop over all hand matchups
+    // loop over all hand matchups, or over a sample of matchups
+    // TODO: if no more cards to come, this is better done by evaluating
+    // each player's hands just once and then comparing values in matchups;
+    // probably makes sense as a separate method.
+    while (enum.hasMoreElements() &&
+           (nmatchups == 0 || nvisited < nmatchups)) {
       int[] indices = (int[]) enum.nextElement();
       long unavail2 = unavail1;
       double matchprob = 1;     // the probability of this matchup
@@ -98,7 +107,8 @@ public class SAIE {
           continue mainloop;
       }
 
-      // heavy lifting for this matchup: enumerate all outcomes
+      // heavy lifting for this matchup: enumerate all outcomes, keeping track
+      // of relative hand rank orderings if requested
       if (orderings == null) {
         // simply compute EV, no need to track rank orderings
         Enumerate.PotEquity(gameType, noutcomes, curhands, board, dead,
@@ -112,7 +122,8 @@ public class SAIE {
         accumulateOrderings(orderings, orderKeys[0], orderVals[0]);
       }
 
-      if (matchups != null) { // save to Collection if requested
+      // save this matchup to a Collection, if requested
+      if (matchups != null) {
         HandMatchup matchup = new HandMatchup(curhands);
         MatchupOutcome outcome = new MatchupOutcome(matchprob, matchev);
         MatchupOutcome existing = (MatchupOutcome) matchups.get(matchup);
@@ -126,9 +137,11 @@ public class SAIE {
       for (int i=0; i<nplayers; i++)
         ev[i] += matchev[i] * matchprob;
       totalprob += matchprob;
+      nvisited++;
     }
-    if (totalprob == 0)
-      throw new IllegalArgumentException("no matchups sampled: increase nmatchups?");
+    if (nvisited == 0 || totalprob == 0)
+      throw new IllegalArgumentException("no matchups sampled");
+
     // Scale by the total probability of all matchups (this factor is less
     // than one when the hand distributions are not disjoint).
     for (int i=0; i<nplayers; i++)
@@ -162,7 +175,7 @@ public class SAIE {
     long dead = Deck.parseCardMask(args[args.length-1]);
     System.out.println("board = " + Deck.cardMaskString(board));
     System.out.println("dead = " + Deck.cardMaskString(dead));
-
+ 
     double[] totalev = new double[nplayers];
     TreeMap orderings = new TreeMap();
     FlopGameSAIE(Enumerate.GAME_HOLDEM8, nmatchups, noutcomes,
