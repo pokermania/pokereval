@@ -1,6 +1,8 @@
 AC_INIT(lib/stddeck.c)
 AC_CONFIG_HEADER(include/config.h)
 
+AC_CANONICAL_SYSTEM
+
 dnl Checks for programs.
 AC_PROG_RANLIB
 AC_PROG_CC
@@ -26,7 +28,10 @@ test $cf_longlong = yes && AC_DEFINE(HAVE_INT64)
 test $cf_longlong = yes && AC_DEFINE(HAVE_LONG_LONG)
 
 if test $GCC = yes; then 
-  CFLAGS="-g -O4 -Wall -finline-functions -Winline -fomit-frame-pointer"
+  CFLAGS="-g -O4 -Wall -Winline -finline-functions -fomit-frame-pointer"
+  case "$target" in
+    i?86-*) CFLAGS="$CFLAGS -m486 -malign-double";;
+  esac
 fi
 
 AC_SUBST(CC)
