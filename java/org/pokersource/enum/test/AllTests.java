@@ -16,6 +16,7 @@ public class AllTests {
     suite.addTest(new TestSuite(HoldemAtomicGroupTest.class));
     suite.addTest(new TestSuite(HoldemBeliefVectorTest.class));
     suite.addTest(new TestSuite(HoldemCanonGroupTest.class));
+    suite.addTest(new TestSuite(HoldemHandGroupFactoryTest.class));
     suite.addTest(new TestSuite(HoldemSMGroupTest.class));
     suite.addTest(new TestSuite(HoldemUniversalGroupTest.class));
     suite.addTest(new TestSuite(NestedLoopEnumerationTest.class));

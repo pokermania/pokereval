@@ -1,6 +1,7 @@
 // $Id$
 
 package org.pokersource.enum;
+import java.util.HashMap;
 
 /** Creates instances of HoldemHandGroup objects from their string
     representations.  Use of this factory is preferred to directly calling the
@@ -8,6 +9,7 @@ package org.pokersource.enum;
 */
 
 public class HoldemHandGroupFactory {
+  /** Set of registered classes that we know how to instantiate. */
   private static Class[] groupClasses = {
     HoldemAtomicGroup.class,
     HoldemCanonGroup.class,
@@ -15,8 +17,16 @@ public class HoldemHandGroupFactory {
     HoldemAbdulGroup.class,
     HoldemUniversalGroup.class,
   };
+
+  /* Cache of hand groups already instantiated. */
+  private static HashMap cache = new HashMap();
+
   public static HoldemHandGroup getInstance(String groupSpec) {
-    HoldemHandGroup group = null;
+    HoldemHandGroup group;
+    // First try cache
+    group = (HoldemHandGroup) cache.get(groupSpec);
+    if (group != null)
+      return group;
     // Loop through the known classes that can parse holdem hand groups and
     // try each in turn.  If one throws an exception, try another until we
     // run out.
@@ -42,6 +52,8 @@ public class HoldemHandGroupFactory {
     if (group == null)
       throw new java.lang.IllegalArgumentException("cannot parse spec: " +
                                                    groupSpec);
+    // Save in cache
+    cache.put(groupSpec, group);
     return group;
   }
 }
