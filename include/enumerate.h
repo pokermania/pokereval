@@ -1,4 +1,62 @@
+/* $Id$
+
+Macros to enumerate combinations and permutations of the remaining
+cards in a deck.  Each macro accepts an argument containing code that
+is executed in the inner loop of the enumeration.
+
+------------------------------------------------------------------------
+DECK_ENUMERATE_x_CARDS(deck, cards_var, action)
+Visits every x-card subset of deck 'deck'.  For each subset, sets 'cards'
+to the cards in the subset and invokes the code in 'var_action'.
+	x = {1..7} 
+        deck -- type Deck, one of {StdDeck, JokerDeck, AStudDeck}
+        cards_var -- type deck##_CardMask, for use in action code, contains
+        	     the current subset of cards, declared by caller
+        action -- C code to run in macro inner loop
+
+
+------------------------------------------------------------------------
+DECK_ENUMERATE_x_CARDS_D(deck, cards_var, dead_cards, action)
+Similar to DECK_ENUMERATE_x_CARDS(), but cards in 'dead_cards' are not
+included in any subset.
+  	dead_cards -- type deck##_CardMask, the set of cards not to deal
+
+
+------------------------------------------------------------------------
+DECK_MONTECARLO_N_CARDS_D(deck, cards_var, dead_cards,
+                          num_cards, num_iter, action)
+Similar to DECK_ENUMERATE_x_CARDS(), but instead of exhaustively enumerating
+all possible subsets, this macro randomly samples the subsets (with
+replacement).
+	num_cards -- type int, the number of cards to store in cards_var
+	num_iter -- type int, the number of samples to draw
+
+------------------------------------------------------------------------
+DECK_ENUMERATE_PERMUTATIONS_D(deck, set_var, num_sets, set_sizes, 
+                              dead_cards, action).
+Visits every ordered set of set_sizes[i]-sized card subsets of deck 'deck'.
+This is intended for games such as stud or draw, where each player will
+receive his own cards, and the number of received cards may differ among
+players.
+        set_var -- type deck##_CardMask[], for use in action code, gives 
+                   the set of cards dealt to each player in this iteration,
+                   declared by caller
+        num_sets -- type int, dimension of set_sizes array (number of players)
+        set_sizes -- type int[], number of cards to be received by each player
+        dead_cards -- type deck##_CardMask, the set of cards not to deal
+        action -- C code to run in macro inner loop
+
+------------------------------------------------------------------------
+DECK_MONTECARLO_PERMUTATIONS_D(deck, set_var, num_sets, set_sizes, 
+                               dead_cards, num_iter, action)
+Like DECK_ENUMERATE_PERMUTATIONS_D(), but but instead of exhaustively
+enumerating all possible ordered sets of subsets, this macro randomly samples
+them (with replacement).
+	num_iter -- type int, the number of samples to draw
+*/
+
 #include <stdio.h>
+#include <stdlib.h>
 
 #define DECK_ENUMERATE_1_CARDS(deck, cards_var, action) \
 do {                                                    \
@@ -564,6 +622,47 @@ do {                                                                       \
   };                                                                      \
 }
 
+#define DECK_MONTECARLO_N_CARDS_D(deck, cards_var, dead_cards,	\
+                                  num_cards, num_iter, action)	\
+do {                                                    	\
+  int _i, _j, _c;                                              	\
+  								\
+  for (_i=0; _i<num_iter; _i++) {				\
+    deck##_CardMask _used;					\
+    _used = dead_cards;						\
+    deck##_CardMask_RESET(cards_var);				\
+    for (_j=0; _j<num_cards; _j++) {				\
+      do {							\
+        _c = random() % deck##_N_CARDS;				\
+      } while (deck##_CardMask_CARD_IS_SET(_used, _c));		\
+      deck##_CardMask_SET(cards_var, _c);			\
+      deck##_CardMask_SET(_used, _c);				\
+    }								\
+    { action };                                         	\
+  };                                                    	\
+} while (0)
+
+#define DECK_MONTECARLO_PERMUTATIONS_D(deck, set_var, num_sets, set_sizes, \
+                                       dead_cards, num_iter, action)	\
+do {                                                    	\
+  int _i, _j, _k, _c;                                           \
+  								\
+  for (_i=0; _i<num_iter; _i++) {				\
+    deck##_CardMask _used;					\
+    _used = dead_cards;						\
+    for (_j=0; _j<num_sets; _j++) {				\
+      deck##_CardMask_RESET(set_var[_j]);			\
+      for (_k=0; _k<set_sizes[_j]; _k++) {			\
+        do {							\
+          _c = random() % deck##_N_CARDS;			\
+        } while (deck##_CardMask_CARD_IS_SET(_used, _c));	\
+        deck##_CardMask_SET(set_var[_j], _c);			\
+        deck##_CardMask_SET(_used, _c);				\
+      }								\
+    }								\
+    { action };                                         	\
+  };                                                    	\
+} while (0)
 
 #define ENUMERATE_1_CARDS(c,a) DECK_ENUMERATE_1_CARDS(Deck, c, a)
 #define ENUMERATE_2_CARDS(c,a) DECK_ENUMERATE_2_CARDS(Deck, c, a)
@@ -580,8 +679,16 @@ do {                                                                       \
 #define ENUMERATE_7_CARDS_D(c,d,a) DECK_ENUMERATE_7_CARDS_D(Deck, c, d, a)
 
 #define ENUMERATE_N_CARDS(c,n,a) DECK_ENUMERATE_N_CARDS(Deck, c, n, a)
-#define ENUMERATE_N_CARDS_D(c,n,d,a) DECK_ENUMERATE_N_CARDS_D(Deck, c, n, d, a)
+
+#define ENUMERATE_N_CARDS_D(c,n,d,a) \
+  DECK_ENUMERATE_N_CARDS_D(Deck, c, n, d, a)
 
 #define ENUMERATE_PERMUTATIONS_D(s, n, ss, dc, a) \
   DECK_ENUMERATE_PERMUTATIONS(Deck, s, n, ss, dc, a)
+
+#define MONTECARLO_N_CARDS_D(c,n,d,nc,ni,a) \
+  DECK_MONTECARLO_N_CARDS_D(Deck, c, n, d, nc, ni, a)
+
+#define MONTECARLO_PERMUTATIONS_D(s, n, ss, dc, ni, a) \
+  DECK_MONTECARLO_PERMUTATIONS(Deck, s, n, ss, dc, ni, a)
 
