@@ -1,14 +1,14 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.HoldemUniversalGroup;
 import org.pokersource.game.Deck;
 
-import junit.framework.*;
-
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemUniversalGroupTest extends TestCase {
   private HoldemUniversalGroup univ;
@@ -17,13 +17,15 @@ public class HoldemUniversalGroupTest extends TestCase {
   private long KhQs;
   private long Td9d;
   private long Td9c;
-  
+
   public HoldemUniversalGroupTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HoldemUniversalGroupTest.class);
   }
+
   protected void setUp() {
     univ = new HoldemUniversalGroup("<any>");
     AhAd = Deck.parseCardMask("AhAd");
@@ -36,7 +38,7 @@ public class HoldemUniversalGroupTest extends TestCase {
   public void testToString() {
     assertEquals("<any>", univ.toString());
   }
-  
+
   public void testIsHandInGroup() {
     assertTrue(univ.isHandInGroup(AhAd));
     assertTrue(univ.isHandInGroup(KhQh));
@@ -44,7 +46,7 @@ public class HoldemUniversalGroupTest extends TestCase {
     assertTrue(univ.isHandInGroup(Td9d));
     assertTrue(univ.isHandInGroup(Td9c));
   }
-  
+
   public void testGetHands() {
     assertEquals(1326, univ.getHands().length);
   }

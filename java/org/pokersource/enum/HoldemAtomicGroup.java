@@ -1,23 +1,19 @@
 // $Id$
 
 package org.pokersource.enum;
+
+import org.apache.oro.text.regex.*;
 import org.pokersource.game.Deck;
 
 import java.util.HashSet;
-import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.MatchResult;
-import org.apache.oro.text.regex.MatchResult;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
 
 /** A holdem hand group representing one exact starting hand such as
-    "AhKh".
-    @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ "AhKh".
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemAtomicGroup extends BaseHandGroup
-  implements HoldemHandGroup {
+        implements HoldemHandGroup {
   private static Perl5Compiler compiler;
   private static Perl5Matcher matcher;
   private static Pattern atomicPattern;
@@ -27,15 +23,15 @@ public class HoldemAtomicGroup extends BaseHandGroup
     matcher = new Perl5Matcher();
     try {
       atomicPattern = compiler.compile
-        ("^([AKQJT98765432])([shdc])([AKQJT98765432])([shdc])$");
+              ("^([AKQJT98765432])([shdc])([AKQJT98765432])([shdc])$");
     } catch (MalformedPatternException e) {
       throw new RuntimeException("BUG: " + e.toString());
     }
   }
 
   /** Convert specific starting hand to HoldemAtomicGroup object.
-      @param groupSpec starting hand (e.g., AhKd, 8h3s)
-  */
+   @param groupSpec starting hand (e.g., AhKd, 8h3s)
+   */
   public HoldemAtomicGroup(String groupSpec) {
     myspec = groupSpec;
     myhands = new HashSet();
@@ -49,7 +45,7 @@ public class HoldemAtomicGroup extends BaseHandGroup
       addAtomic(rank1, suit1, rank2, suit2);
     } else {
       throw new IllegalArgumentException("unable to parse groupSpec: " +
-                                         groupSpec);
+              groupSpec);
     }
   }
 
@@ -66,6 +62,6 @@ public class HoldemAtomicGroup extends BaseHandGroup
     String groupSpec = args[0];
     HoldemAtomicGroup g = new HoldemAtomicGroup(groupSpec);
     System.out.println("spec=" + groupSpec + ", parsed=" + g.toString() +
-                       ", atomic=" + g.toStringAtomic());
+            ", atomic=" + g.toStringAtomic());
   }
 }

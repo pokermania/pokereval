@@ -1,24 +1,27 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
-import java.io.IOException;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.HandGroup;
+import org.pokersource.enum.HoldemHandOrdering;
+
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.*;
-
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemHandOrderingTest extends TestCase {
   private static final String SAMPLE_PATH = "sample1.hho";
   private HoldemHandOrdering hho1;
-  
+
   public HoldemHandOrderingTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HoldemHandOrderingTest.class);
   }

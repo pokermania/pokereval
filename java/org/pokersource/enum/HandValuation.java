@@ -1,18 +1,20 @@
 // $Id$
 
 package org.pokersource.enum;
+
 import org.pokersource.util.ValueSortedMap;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
 /**
-   Maintains a mapping from HandGroup to numeric value; defines methods for
-   sorting and selecting subsets of hand groups based on their numeric value.
+ Maintains a mapping from HandGroup to numeric value; defines methods for
+ sorting and selecting subsets of hand groups based on their numeric value.
 
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HandValuation {
   /** ValueSortedMap of {HandGroup, Double} giving value of each hand. */
@@ -21,10 +23,12 @@ public class HandValuation {
   public HandValuation() {
     values = new ValueSortedMap();
   }
+
   public HandValuation(String path) throws IOException {
     this();
     fromFile(path);
   }
+
   public HandValuation(InputStream stream) throws IOException {
     this();
     fromStream(stream);
@@ -54,30 +58,30 @@ public class HandValuation {
   }
 
   /** Get all groups whose numeric value is less than the threshold.  The
-      groups will be sorted in increasing order of their numeric value. */
+   groups will be sorted in increasing order of their numeric value. */
   public HandGroup[] less(double threshold) {
     List l = values.less(new Double(threshold));
     return (HandGroup[]) l.toArray(new HandGroup[l.size()]);
   }
 
   /** Get all groups whose numeric value is less than or equal to the
-      threshold.  The groups will be sorted in increasing order of their
-      numeric value. */
+   threshold.  The groups will be sorted in increasing order of their
+   numeric value. */
   public HandGroup[] lessEqual(double threshold) {
     List l = values.less(new Double(threshold + 1e-10));
     return (HandGroup[]) l.toArray(new HandGroup[l.size()]);
   }
 
   /** Get all groups whose numeric value is greater than the threshold.  The
-      groups will be sorted in increasing order of their numeric value. */
+   groups will be sorted in increasing order of their numeric value. */
   public HandGroup[] greater(double threshold) {
     List l = values.greaterEqual(new Double(threshold + 1e-10));
     return (HandGroup[]) l.toArray(new HandGroup[l.size()]);
   }
 
   /** Get all groups whose numeric value is greater than or equal to the
-      threshold.  The groups will be sorted in increasing order of their
-      numeric value. */
+   threshold.  The groups will be sorted in increasing order of their
+   numeric value. */
   public HandGroup[] greaterEqual(double threshold) {
     List l = values.greaterEqual(new Double(threshold));
     return (HandGroup[]) l.toArray(new HandGroup[l.size()]);
@@ -85,7 +89,7 @@ public class HandValuation {
 
   public String toString() {
     StringBuffer buf = new StringBuffer();
-    for (Iterator iter=values.keyList().iterator(); iter.hasNext();) {
+    for (Iterator iter = values.keyList().iterator(); iter.hasNext();) {
       HandGroup hg = (HandGroup) iter.next();
       Double d = (Double) values.get(hg);
       if (buf.length() > 0)
@@ -111,25 +115,25 @@ public class HandValuation {
 
     groups = hv.less(30);
     System.out.print("Groups scoring <  30: ");
-    for (int i=0; i<groups.length; i++)
+    for (int i = 0; i < groups.length; i++)
       System.out.print(groups[i] + " ");
     System.out.println();
 
     groups = hv.lessEqual(30);
     System.out.print("Groups scoring <= 30: ");
-    for (int i=0; i<groups.length; i++)
+    for (int i = 0; i < groups.length; i++)
       System.out.print(groups[i] + " ");
     System.out.println();
 
     groups = hv.greater(30);
     System.out.print("Groups scoring >  30: ");
-    for (int i=0; i<groups.length; i++)
+    for (int i = 0; i < groups.length; i++)
       System.out.print(groups[i] + " ");
     System.out.println();
 
     groups = hv.greaterEqual(30);
     System.out.print("Groups scoring >= 30: ");
-    for (int i=0; i<groups.length; i++)
+    for (int i = 0; i < groups.length; i++)
       System.out.print(groups[i] + " ");
     System.out.println();
   }

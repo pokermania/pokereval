@@ -1,14 +1,15 @@
 // $Id$
 
 package org.pokersource.util.test;
-import org.pokersource.util.*;
-import java.util.*;
 
-import junit.framework.*;
+import junit.framework.TestCase;
+import org.pokersource.util.ValueSortedMap;
+
+import java.util.List;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class ValueSortedMapTest extends TestCase {
   ValueSortedMap vsm1;
@@ -16,6 +17,7 @@ public class ValueSortedMapTest extends TestCase {
   public ValueSortedMapTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(ValueSortedMapTest.class);
   }
@@ -95,6 +97,6 @@ public class ValueSortedMapTest extends TestCase {
 
   public void testToString() {
     assertEquals("C:30.0 D:40.0 E:40.0 F:40.0 B:70.0 A:80.0",
-                 vsm1.toString());
+            vsm1.toString());
   }
 }

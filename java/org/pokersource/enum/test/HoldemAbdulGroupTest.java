@@ -1,14 +1,14 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.HoldemAbdulGroup;
 import org.pokersource.game.Deck;
 
-import junit.framework.*;
-
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemAbdulGroupTest extends TestCase {
   private HoldemAbdulGroup g99;
@@ -26,10 +26,11 @@ public class HoldemAbdulGroupTest extends TestCase {
   private HoldemAbdulGroup g76;
   private HoldemAbdulGroup g75;
   private HoldemAbdulGroup g74;
-  
+
   public HoldemAbdulGroupTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HoldemAbdulGroupTest.class);
   }
@@ -69,7 +70,7 @@ public class HoldemAbdulGroupTest extends TestCase {
     assertEquals("75+", g75.toString());
     assertEquals("74+", g74.toString());
   }
-  
+
   public void testIsHandInGroup() {
     assertTrue(g99.isHandInGroup(Deck.parseCardMask("9h9d")));
     assertTrue(!g99.isHandInGroup(Deck.parseCardMask("8h8d")));
@@ -267,23 +268,23 @@ public class HoldemAbdulGroupTest extends TestCase {
     assertTrue(!g74.isHandInGroup(Deck.parseCardMask("6h2h")));
 
   }
-  
+
   public void testGetHands() {
-    assertEquals(6*6, g99.getHands().length);
-    assertEquals(4*4, gATs.getHands().length);
-    assertEquals(3*4, gKTs.getHands().length);
-    assertEquals(2*4, gQTs.getHands().length);
-    assertEquals(7*4, g9xs.getHands().length);
-    assertEquals(5*4, g76s.getHands().length);
-    assertEquals(5*4, g75s.getHands().length);
-    assertEquals(5*4, g74s.getHands().length);
-    assertEquals(4*12, gAT.getHands().length);
-    assertEquals(3*12, gKT.getHands().length);
-    assertEquals(2*12, gQT.getHands().length);
-    assertEquals(7*12, g9x.getHands().length);
-    assertEquals(5*12, g76.getHands().length);
-    assertEquals(5*12, g75.getHands().length);
-    assertEquals(5*12, g74.getHands().length);
+    assertEquals(6 * 6, g99.getHands().length);
+    assertEquals(4 * 4, gATs.getHands().length);
+    assertEquals(3 * 4, gKTs.getHands().length);
+    assertEquals(2 * 4, gQTs.getHands().length);
+    assertEquals(7 * 4, g9xs.getHands().length);
+    assertEquals(5 * 4, g76s.getHands().length);
+    assertEquals(5 * 4, g75s.getHands().length);
+    assertEquals(5 * 4, g74s.getHands().length);
+    assertEquals(4 * 12, gAT.getHands().length);
+    assertEquals(3 * 12, gKT.getHands().length);
+    assertEquals(2 * 12, gQT.getHands().length);
+    assertEquals(7 * 12, g9x.getHands().length);
+    assertEquals(5 * 12, g76.getHands().length);
+    assertEquals(5 * 12, g75.getHands().length);
+    assertEquals(5 * 12, g74.getHands().length);
   }
 
 }

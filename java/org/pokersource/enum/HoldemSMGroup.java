@@ -1,18 +1,18 @@
 // $Id$
 
 package org.pokersource.enum;
-import org.pokersource.game.*;
+
 import java.util.HashSet;
 import java.util.StringTokenizer;
 
 /** A holdem hand group representing sets of starting hands corresponding
-    to Sklansky & Malmuth groups.  "SM1" is group 1, etc., with "SM9"
-    defined to be all hands not included in groups 1-8.
-    @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ to Sklansky & Malmuth groups.  "SM1" is group 1, etc., with "SM9"
+ defined to be all hands not included in groups 1-8.
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemSMGroup extends BaseHandGroup
-  implements HoldemHandGroup {
+        implements HoldemHandGroup {
   private static String[] smdefs = {
     // group 1
     "AA KK QQ JJ AKs",
@@ -40,17 +40,17 @@ public class HoldemSMGroup extends BaseHandGroup
 
     // group 9
     ("A8 A7 A6 A5 A4 A3 A2" +
-     " K8 K7 K6 K5 K4 K3 K2" +
-     " Q7s Q6s Q5s Q4s Q3s Q2s Q8 Q7 Q6 Q5 Q4 Q3 Q2" +
-     " J6s J5s J4s J3s J2s J7 J6 J5 J4 J3 J2" +
-     " T6s T5s T4s T3s T2s T7 T6 T5 T4 T3 T2" +
-     " 95s 94s 93s 92s 97 96 95 94 93 92" +
-     " 84s 83s 82s 86 85 84 83 82" +
-     " 73s 72s 75 74 73 72" +
-     " 63s 62s 64 63 62" +
-     " 52s 53 52" +
-     " 43 42" +
-     " 32")
+          " K8 K7 K6 K5 K4 K3 K2" +
+          " Q7s Q6s Q5s Q4s Q3s Q2s Q8 Q7 Q6 Q5 Q4 Q3 Q2" +
+          " J6s J5s J4s J3s J2s J7 J6 J5 J4 J3 J2" +
+          " T6s T5s T4s T3s T2s T7 T6 T5 T4 T3 T2" +
+          " 95s 94s 93s 92s 97 96 95 94 93 92" +
+          " 84s 83s 82s 86 85 84 83 82" +
+          " 73s 72s 75 74 73 72" +
+          " 63s 62s 64 63 62" +
+          " 52s 53 52" +
+          " 43 42" +
+          " 32")
   };
 
   private int mygroup;
@@ -59,19 +59,19 @@ public class HoldemSMGroup extends BaseHandGroup
     char c0 = groupSpec.charAt(0);
     char c1 = groupSpec.charAt(1);
     char c2 = groupSpec.charAt(2);
-    if (groupSpec.length() != 3 ||c0 != 'S' || c1 != 'M' ||
-        !Character.isDigit(c2))
+    if (groupSpec.length() != 3 || c0 != 'S' || c1 != 'M' ||
+            !Character.isDigit(c2))
       throw new IllegalArgumentException("invalid groupSpec: " + groupSpec);
     myspec = groupSpec;
-    mygroup = Integer.valueOf(groupSpec.substring(2,3)).intValue();
+    mygroup = Integer.valueOf(groupSpec.substring(2, 3)).intValue();
     String smgroups = smdefs[mygroup - 1];
     StringTokenizer st = new StringTokenizer(smgroups);
     myhands = new HashSet();
     while (st.hasMoreTokens()) {
       String canonSpec = st.nextToken();
       HoldemCanonGroup canon = (HoldemCanonGroup)
-        HoldemHandGroupFactory.getInstance(canonSpec,
-                                           HoldemCanonGroup.class);
+              HoldemHandGroupFactory.getInstance(canonSpec,
+                      HoldemCanonGroup.class);
       myhands.addAll(canon.myhands);
     }
   }
@@ -80,6 +80,6 @@ public class HoldemSMGroup extends BaseHandGroup
     String groupSpec = args[0];
     HoldemSMGroup g = new HoldemSMGroup(groupSpec);
     System.out.println("spec=" + groupSpec + ", parsed=" + g.toString() +
-                       ", atomic=" + g.toStringAtomic());
+            ", atomic=" + g.toStringAtomic());
   }
 }

@@ -1,11 +1,12 @@
 // $Id$
 
 package org.pokersource.game.test;
+
+import junit.framework.TestCase;
 import org.pokersource.game.Deck;
-import junit.framework.*;
 
 /** Tests to ensure compatibility with the C-language macros.
-    @author Michael Maurer <mjmaurer@yahoo.com>
+ @author Michael Maurer <mjmaurer@yahoo.com>
  */
 
 public class DeckTest extends TestCase {
@@ -31,20 +32,21 @@ public class DeckTest extends TestCase {
   public DeckTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(DeckTest.class);
   }
 
   protected void setUp() {
     // should match results of macros in deck_std.h
-    indexAs = 3*13 + 12;
-    indexAh = 0*13 + 12;
-    indexAd = 1*13 + 12;
-    indexAc = 2*13 + 12;
-    index2s = 3*13 + 0;
-    index2h = 0*13 + 0;
-    index2d = 1*13 + 0;
-    index2c = 2*13 + 0;
+    indexAs = 3 * 13 + 12;
+    indexAh = 0 * 13 + 12;
+    indexAd = 1 * 13 + 12;
+    indexAc = 2 * 13 + 12;
+    index2s = 3 * 13 + 0;
+    index2h = 0 * 13 + 0;
+    index2d = 1 * 13 + 0;
+    index2c = 2 * 13 + 0;
     maskAs = 1L << indexAs;
     maskAh = 1L << indexAh;
     maskAd = 1L << indexAd;
@@ -100,7 +102,7 @@ public class DeckTest extends TestCase {
     assertEquals(maskAs, Deck.createCardMask(Deck.RANK_ACE, Deck.SUIT_SPADES));
     // should match macro JokerDeck_MASK in deck_joker.h
     assertEquals(maskJoker,
-                 Deck.createCardMask(Deck.RANK_JOKER, Deck.SUIT_JOKER));
+            Deck.createCardMask(Deck.RANK_JOKER, Deck.SUIT_JOKER));
     // create hand with "As Ah 2h"
     int[] ranks = {Deck.RANK_ACE, Deck.RANK_ACE, Deck.RANK_2};
     int[] suits = {Deck.SUIT_SPADES, Deck.SUIT_HEARTS, Deck.SUIT_HEARTS};
@@ -108,7 +110,7 @@ public class DeckTest extends TestCase {
     long expected = maskAs | maskAh | mask2h;
     assertEquals(expected, mask);
   }
-  
+
   public void testParseCardMask() {
     long mask = Deck.parseCardMask("As Ah 2h");
     long expected = maskAs | maskAh | mask2h;
@@ -119,14 +121,14 @@ public class DeckTest extends TestCase {
     assertEquals("Td", Deck.cardString(Deck.RANK_TEN, Deck.SUIT_DIAMONDS));
     assertEquals("Xx", Deck.cardString(Deck.RANK_JOKER, Deck.SUIT_JOKER));
   }
-  
+
   public void testParseRank() {
     assertEquals(Deck.RANK_ACE, Deck.parseRank("A"));
     assertEquals(Deck.RANK_TEN, Deck.parseRank("T"));
     assertEquals(Deck.RANK_2, Deck.parseRank("2"));
     assertEquals(Deck.RANK_JOKER, Deck.parseRank("X"));
   }
-  
+
   public void testParseSuit() {
     assertEquals(Deck.SUIT_SPADES, Deck.parseSuit("s"));
     assertEquals(Deck.SUIT_HEARTS, Deck.parseSuit("h"));

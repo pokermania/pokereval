@@ -1,19 +1,23 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.HoldemHandGroup;
+import org.pokersource.enum.HoldemHandGroupFactory;
+import org.pokersource.enum.HoldemHandOrdering;
+import org.pokersource.enum.ThresholdHandGroup;
 import org.pokersource.game.Deck;
 
-import junit.framework.*;
-
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemHandGroupFactoryTest extends TestCase {
   public HoldemHandGroupFactoryTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HoldemHandGroupFactoryTest.class);
   }
@@ -47,7 +51,7 @@ public class HoldemHandGroupFactoryTest extends TestCase {
       ThresholdHandGroup.registerHandValuation("SAMPLE1", hho);
       HoldemHandGroup gt = HoldemHandGroupFactory.getInstance("SAMPLE1>0.95");
       // SAMPLE1>0.95 is [AJs AQs 77 AKs 88 99 TT JJ QQ KK AA]
-      assertEquals(4+4+6+4+6+6+6+6+6+6+6, gt.numHands());
+      assertEquals(4 + 4 + 6 + 4 + 6 + 6 + 6 + 6 + 6 + 6 + 6, gt.numHands());
       assertTrue(!gt.isHandInGroup(Deck.parseCardMask("6h6d")));
       assertTrue(!gt.isHandInGroup(Deck.parseCardMask("AhTh")));
       assertTrue(!gt.isHandInGroup(Deck.parseCardMask("AhKd")));

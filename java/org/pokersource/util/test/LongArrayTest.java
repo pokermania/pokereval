@@ -1,13 +1,13 @@
 // $Id$
 
 package org.pokersource.util.test;
-import org.pokersource.util.*;
 
-import junit.framework.*;
+import junit.framework.TestCase;
+import org.pokersource.util.LongArray;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class LongArrayTest extends TestCase {
   LongArray a1, a2, a3, a4;
@@ -15,15 +15,16 @@ public class LongArrayTest extends TestCase {
   public LongArrayTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(LongArrayTest.class);
   }
 
   public void setUp() {
-    a1 = new LongArray(new long[] {1, 1, 1});
-    a2 = new LongArray(new long[] {1, 1, 1});
-    a3 = new LongArray(new long[] {1, 2, 3});
-    a4 = new LongArray(new long[] {1, 1});
+    a1 = new LongArray(new long[]{1, 1, 1});
+    a2 = new LongArray(new long[]{1, 1, 1});
+    a3 = new LongArray(new long[]{1, 2, 3});
+    a4 = new LongArray(new long[]{1, 1});
   }
 
   public void testEquals() {

@@ -1,32 +1,33 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
 
-import junit.framework.*;
+import junit.framework.TestCase;
+import org.pokersource.enum.HandMatchup;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HandMatchupTest extends TestCase {
   HandMatchup hm1;
   HandMatchup hm2;
   HandMatchup hm3;
   HandMatchup hm4;
-  
+
   public HandMatchupTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HandMatchupTest.class);
   }
 
   protected void setUp() {
-    hm1 = new HandMatchup(new long[] {1, 2, 3, 4});
-    hm2 = new HandMatchup(new long[] {1, 2, 3, 4});
-    hm3 = new HandMatchup(new long[] {6, 7, 8, 9});
-    hm4 = new HandMatchup(new long[] {1, 2, 3});
+    hm1 = new HandMatchup(new long[]{1, 2, 3, 4});
+    hm2 = new HandMatchup(new long[]{1, 2, 3, 4});
+    hm3 = new HandMatchup(new long[]{6, 7, 8, 9});
+    hm4 = new HandMatchup(new long[]{1, 2, 3});
   }
 
   public void testEquals() {

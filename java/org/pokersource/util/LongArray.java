@@ -3,15 +3,15 @@
 package org.pokersource.util;
 
 /**
-   A wrapper around a long[] that is suitable for use as a key in a Map.  The
-   equals() method is defined such that A.equals(B) iff A.values[i] ==
-   B.values[i] for all elements i.  Similarly, the hashCode() method is
-   defined so that A.equals(B) implies A.hashCode() == B.hashCode().  The
-   compareTo() method is defined lexicographically, with shorter arrays
-   comparing less than longer arrays having the same starting elements.
-   
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ A wrapper around a long[] that is suitable for use as a key in a Map.  The
+ equals() method is defined such that A.equals(B) iff A.values[i] ==
+ B.values[i] for all elements i.  Similarly, the hashCode() method is
+ defined so that A.equals(B) implies A.hashCode() == B.hashCode().  The
+ compareTo() method is defined lexicographically, with shorter arrays
+ comparing less than longer arrays having the same starting elements.
+
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class LongArray implements Comparable {
   public long values[];
@@ -25,8 +25,8 @@ public class LongArray implements Comparable {
   private void computeHash() {
     // hash = values.hashCode()  --- WRONG: not equal for equal arrays
     hash = values.length;
-    for (int i=0; i<values.length && i<32; i++)
-      hash = 31 * hash + ((int)(values[i] ^ (values[i] >>> 32)));
+    for (int i = 0; i < values.length && i < 32; i++)
+      hash = 31 * hash + ((int) (values[i] ^ (values[i] >>> 32)));
   }
 
   public int hashCode() {
@@ -40,7 +40,7 @@ public class LongArray implements Comparable {
 
   public int compareTo(Object o) {
     LongArray other = (LongArray) o;
-    for (int i=0; i<this.values.length; i++) {
+    for (int i = 0; i < this.values.length; i++) {
       if (i >= other.values.length)
         return 1;
       else if (this.values[i] < other.values[i])
@@ -57,7 +57,7 @@ public class LongArray implements Comparable {
 
   public String toString() {
     StringBuffer buf = new StringBuffer();
-    for (int i=0; i<values.length; i++) {
+    for (int i = 0; i < values.length; i++) {
       if (i > 0)
         buf.append(" ");
       buf.append(values[i]);

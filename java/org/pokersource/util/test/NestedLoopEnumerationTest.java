@@ -1,18 +1,19 @@
 // $Id$
 
 package org.pokersource.util.test;
-import org.pokersource.util.*;
 
-import junit.framework.*;
+import junit.framework.TestCase;
+import org.pokersource.util.NestedLoopEnumeration;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class NestedLoopEnumerationTest extends TestCase {
   public NestedLoopEnumerationTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(NestedLoopEnumerationTest.class);
   }
@@ -34,11 +35,11 @@ public class NestedLoopEnumerationTest extends TestCase {
       {1, 2, 1}
     };
     NestedLoopEnumeration enum = new NestedLoopEnumeration(limits);
-    for (int i=0; i<expected.length; i++) {
+    for (int i = 0; i < expected.length; i++) {
       assertTrue(enum.hasMoreElements());
       int[] elem = (int[]) enum.nextElement();
       assertEquals(expected[i].length, elem.length);
-      for (int j=0; j<expected[i].length; j++)
+      for (int j = 0; j < expected[i].length; j++)
         assertEquals(expected[i][j], elem[j]);
     }
     assertTrue(!enum.hasMoreElements());

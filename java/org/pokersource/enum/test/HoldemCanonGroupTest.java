@@ -1,15 +1,16 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import java.util.Iterator;
-import org.pokersource.enum.*;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.HoldemCanonGroup;
 import org.pokersource.game.Deck;
 
-import junit.framework.*;
+import java.util.Iterator;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemCanonGroupTest extends TestCase {
   private HoldemCanonGroup gAA;
@@ -20,10 +21,11 @@ public class HoldemCanonGroupTest extends TestCase {
   private long KhQs;
   private long Td9d;
   private long Td9c;
-  
+
   public HoldemCanonGroupTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HoldemCanonGroupTest.class);
   }
@@ -44,7 +46,7 @@ public class HoldemCanonGroupTest extends TestCase {
     assertEquals("KQs", gKQs.toString());
     assertEquals("T9", gT9.toString());
   }
-  
+
   public void testIsHandInGroup() {
     assertTrue(gAA.isHandInGroup(AhAd));
     assertTrue(!gAA.isHandInGroup(KhQh));
@@ -64,7 +66,7 @@ public class HoldemCanonGroupTest extends TestCase {
     assertTrue(!gT9.isHandInGroup(Td9d));
     assertTrue(gT9.isHandInGroup(Td9c));
   }
-  
+
   public void testGetHands() {
     assertEquals(6, gAA.getHands().length);
     assertEquals(4, gKQs.getHands().length);
@@ -80,5 +82,5 @@ public class HoldemCanonGroupTest extends TestCase {
     }
     assertEquals(169, ngroups);
   }
-    
+
 }

@@ -1,21 +1,24 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
 
-import junit.framework.*;
+import junit.framework.TestCase;
+import org.pokersource.enum.HandGroup;
+import org.pokersource.enum.HandValuation;
+import org.pokersource.enum.HoldemHandGroupFactory;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HandValuationTest extends TestCase {
   private static final String SAMPLE_PATH = "sample2.hev";
   private HandValuation hv;
-  
+
   public HandValuationTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HandValuationTest.class);
   }

@@ -1,26 +1,28 @@
 // $Id$
 
 package org.pokersource.enum;
+
 import org.pokersource.game.Deck;
-import java.util.Set;
+
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 /** Implements the HandGroup interface in a way that will work for most
-    poker games.  Subclasses can override if necessary.
-    @see HandGroup
-    @see HoldemHandGroup
-    @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ poker games.  Subclasses can override if necessary.
+ @see HandGroup
+ @see HoldemHandGroup
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class BaseHandGroup implements HandGroup, Comparable {
   /** String representation of hand group.  Subclasses should accept this
-      string in the constructor and save it here. */
+   string in the constructor and save it here. */
   String myspec;
 
   /** Set of Long objects, each a bitmask for one hand.  Subclasses should,
-      in their constructor, convert myspec into the set of corresponding
-      hands.  The set should be immutable once set in the constructor. */
+   in their constructor, convert myspec into the set of corresponding
+   hands.  The set should be immutable once set in the constructor. */
   HashSet myhands;
 
   // subclasses should have constructor of form: <init>(String groupSpec);
@@ -34,12 +36,12 @@ public class BaseHandGroup implements HandGroup, Comparable {
   }
 
   /** Returns an array of atomic hands (each encoded as a long).
-      @see org.pokersource.game.Deck
-  */
+   @see org.pokersource.game.Deck
+   */
   public long[] getHands() {
     long[] hands = new long[myhands.size()];
     int nhands = 0;
-    for (Iterator i = myhands.iterator(); i.hasNext(); )
+    for (Iterator i = myhands.iterator(); i.hasNext();)
       hands[nhands++] = ((Long) i.next()).longValue();
     return hands;
   }
@@ -58,7 +60,7 @@ public class BaseHandGroup implements HandGroup, Comparable {
 
   public String toStringAtomic() {
     StringBuffer buf = new StringBuffer();
-    for (Iterator i = myhands.iterator(); i.hasNext(); ) {
+    for (Iterator i = myhands.iterator(); i.hasNext();) {
       long hand = ((Long) i.next()).longValue();
       if (buf.length() > 1)
         buf.append(" ");

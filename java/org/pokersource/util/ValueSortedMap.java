@@ -1,20 +1,23 @@
 // $Id$
 
 package org.pokersource.util;
+
 import java.util.*;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class ValueSortedMap {
   private static class ValueEntry implements Comparable {
     public Object key;
     public Comparable value;
+
     public ValueEntry(Object key, Comparable value) {
       this.key = key;
       this.value = value;
     }
+
     public int compareTo(Object o) {
       ValueEntry other = (ValueEntry) o;
       int cmp = this.value.compareTo(other.value);
@@ -24,9 +27,9 @@ public class ValueSortedMap {
         if (this.key != null && other.key != null) {
           // if keys are not null, we try to compare them
           if (this.key.getClass() == other.key.getClass() &&
-              this.key instanceof Comparable &&
-              other.key instanceof Comparable) {
-            cmp = ((Comparable)this.key).compareTo(other.key);
+                  this.key instanceof Comparable &&
+                  other.key instanceof Comparable) {
+            cmp = ((Comparable) this.key).compareTo(other.key);
           } else {
             int h1 = this.key.hashCode();
             int h2 = other.key.hashCode();
@@ -56,7 +59,7 @@ public class ValueSortedMap {
 
   private List toKeyList(List velist) {
     ArrayList keylist = new ArrayList(velist.size());
-    for (int i=0; i<velist.size(); i++) {
+    for (int i = 0; i < velist.size(); i++) {
       ValueEntry dve = (ValueEntry) velist.get(i);
       keylist.add(i, dve.key);
     }
@@ -74,7 +77,7 @@ public class ValueSortedMap {
     Collections.sort(al);
     ValueEntry thresh = new ValueEntry(null, threshold);
     int upper = 0;
-    for (int i=0; i<al.size(); i++) {
+    for (int i = 0; i < al.size(); i++) {
       ValueEntry ve = (ValueEntry) al.get(i);
       if (ve.compareTo(thresh) >= 0)
         break;
@@ -88,7 +91,7 @@ public class ValueSortedMap {
     Collections.sort(al);
     ValueEntry thresh = new ValueEntry(null, threshold);
     int upper = 0;
-    for (int i=0; i<al.size(); i++) {
+    for (int i = 0; i < al.size(); i++) {
       ValueEntry ve = (ValueEntry) al.get(i);
       if (ve.compareTo(thresh) > 0)
         break;
@@ -102,7 +105,7 @@ public class ValueSortedMap {
     Collections.sort(al);
     ValueEntry thresh = new ValueEntry(null, threshold);
     int lower = al.size();
-    for (int i=al.size()-1; i>=0; i--) {
+    for (int i = al.size() - 1; i >= 0; i--) {
       ValueEntry ve = (ValueEntry) al.get(i);
       if (ve.compareTo(thresh) <= 0)
         break;
@@ -116,7 +119,7 @@ public class ValueSortedMap {
     Collections.sort(al);
     ValueEntry thresh = new ValueEntry(null, threshold);
     int lower = al.size();
-    for (int i=al.size()-1; i>=0; i--) {
+    for (int i = al.size() - 1; i >= 0; i--) {
       ValueEntry ve = (ValueEntry) al.get(i);
       if (ve.compareTo(thresh) < 0)
         break;
@@ -128,7 +131,7 @@ public class ValueSortedMap {
   public String toString() {
     StringBuffer buf = new StringBuffer();
     TreeSet ts = new TreeSet(values.values());
-    for (Iterator iter=ts.iterator(); iter.hasNext();) {
+    for (Iterator iter = ts.iterator(); iter.hasNext();) {
       ValueEntry dve = (ValueEntry) iter.next();
       if (buf.length() > 0)
         buf.append(" ");
@@ -150,14 +153,14 @@ public class ValueSortedMap {
     lkeys = hv.less(new Double(30));
     keys = lkeys.toArray();
     System.out.print("Groups scoring <  30: ");
-    for (int i=0; i<keys.length; i++)
+    for (int i = 0; i < keys.length; i++)
       System.out.print(keys[i] + " ");
     System.out.println();
 
     lkeys = hv.greaterEqual(new Double(30));
     keys = lkeys.toArray();
     System.out.print("Groups scoring >= 30: ");
-    for (int i=0; i<keys.length; i++)
+    for (int i = 0; i < keys.length; i++)
       System.out.print(keys[i] + " ");
     System.out.println();
   }

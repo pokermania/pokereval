@@ -2,16 +2,18 @@
 
 package org.pokersource.enum.test;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class AllTests {
-  public static void main (String[] args) {
+  public static void main(String[] args) {
     junit.textui.TestRunner.run(suite());
   }
+
   public static Test suite() {
     TestSuite suite = new TestSuite("All org.pokersource.enum tests");
     suite.addTest(new TestSuite(EnumerateTest.class));

@@ -1,14 +1,14 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.Enumerate;
 import org.pokersource.game.Deck;
 
-import junit.framework.*;
-
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class EnumerateTest extends TestCase {
   private int[][] pocketRanks;
@@ -20,13 +20,15 @@ public class EnumerateTest extends TestCase {
   private long[] pockets;
   private long board;
   private long dead;
-  
+
   public EnumerateTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(EnumerateTest.class);
   }
+
   protected void setUp() {
     pocketRanks = new int[3][2];
     pocketSuits = new int[3][2];
@@ -77,9 +79,9 @@ public class EnumerateTest extends TestCase {
   public void assertEquals(int[][] expected,
                            int[][] observed) {
     assertEquals(expected.length, observed.length);
-    for (int i=0; i<expected.length; i++) {
+    for (int i = 0; i < expected.length; i++) {
       assertEquals(expected[i].length, observed[i].length);
-      for (int j=0; j<expected[i].length; j++) {
+      for (int j = 0; j < expected[i].length; j++) {
         assertEquals(expected[i][j], observed[i][j]);
       }
     }
@@ -88,11 +90,11 @@ public class EnumerateTest extends TestCase {
   public void assertEquals(int[][][] expected,
                            int[][][] observed) {
     assertEquals(expected.length, observed.length);
-    for (int i=0; i<expected.length; i++) {
+    for (int i = 0; i < expected.length; i++) {
       assertEquals(expected[i].length, observed[i].length);
-      for (int j=0; j<expected[i].length; j++) {
+      for (int j = 0; j < expected[i].length; j++) {
         assertEquals(expected[i][j].length, observed[i][j].length);
-        for (int k=0; k<expected[i][j].length; k++) {
+        for (int k = 0; k < expected[i][j].length; k++) {
           assertEquals(expected[i][j][k], observed[i][j][k]);
         }
       }
@@ -114,7 +116,7 @@ public class EnumerateTest extends TestCase {
     int[][][] orderKeys = new int[1][][];
     int[][] orderVals = new int[1][];
     Enumerate.PotEquity(Enumerate.GAME_HOLDEM, 0, pockets, board, dead, ev,
-                        orderKeys, orderVals);
+            orderKeys, orderVals);
     assertEquals(0.531707317073, ev[0], 1e-10);
     assertEquals(0.392682926829, ev[1], 1e-10);
     assertEquals(0.075609756098, ev[2], 1e-10);
@@ -141,7 +143,7 @@ public class EnumerateTest extends TestCase {
     int[][][] orderKeys = new int[1][][];
     int[][] orderVals = new int[1][];
     Enumerate.PotEquity(Enumerate.GAME_HOLDEM8, 0, pockets, board, dead, ev,
-                        orderKeys, orderVals);
+            orderKeys, orderVals);
     assertEquals(0.119601328904, ev[0], 1e-10);
     assertEquals(0.373754152824, ev[1], 1e-10);
     assertEquals(0.506644518272, ev[2], 1e-10);

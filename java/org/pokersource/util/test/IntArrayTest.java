@@ -1,13 +1,13 @@
 // $Id$
 
 package org.pokersource.util.test;
-import org.pokersource.util.*;
 
-import junit.framework.*;
+import junit.framework.TestCase;
+import org.pokersource.util.IntArray;
 
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class IntArrayTest extends TestCase {
   IntArray a1, a2, a3, a4;
@@ -15,15 +15,16 @@ public class IntArrayTest extends TestCase {
   public IntArrayTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(IntArrayTest.class);
   }
 
   public void setUp() {
-    a1 = new IntArray(new int[] {1, 1, 1});
-    a2 = new IntArray(new int[] {1, 1, 1});
-    a3 = new IntArray(new int[] {1, 2, 3});
-    a4 = new IntArray(new int[] {1, 1});
+    a1 = new IntArray(new int[]{1, 1, 1});
+    a2 = new IntArray(new int[]{1, 1, 1});
+    a3 = new IntArray(new int[]{1, 2, 3});
+    a4 = new IntArray(new int[]{1, 1});
   }
 
   public void testEquals() {

@@ -1,14 +1,14 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.HoldemSMGroup;
 import org.pokersource.game.Deck;
 
-import junit.framework.*;
-
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemSMGroupTest extends TestCase {
   private HoldemSMGroup gSM1;
@@ -27,10 +27,11 @@ public class HoldemSMGroupTest extends TestCase {
   private long Td9c;
   private long _7d3c;
 
-  
+
   public HoldemSMGroupTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HoldemSMGroupTest.class);
   }
@@ -58,7 +59,7 @@ public class HoldemSMGroupTest extends TestCase {
     assertEquals("SM2", gSM2.toString());
     assertEquals("SM9", gSM9.toString());
   }
-  
+
   public void testIsHandInGroup() {
     assertTrue(gSM1.isHandInGroup(AhAd));
     assertTrue(!gSM1.isHandInGroup(KhQh));
@@ -81,7 +82,7 @@ public class HoldemSMGroupTest extends TestCase {
     assertTrue(!gSM9.isHandInGroup(Td9c));
     assertTrue(gSM9.isHandInGroup(_7d3c));
   }
-  
+
   public void testGetHands() {
     // 6+6+6+6+4 = 28
     assertEquals(28, gSM1.getHands().length);
@@ -114,10 +115,10 @@ public class HoldemSMGroupTest extends TestCase {
   public void testDisjoint() {
     HoldemSMGroup[] groups = {gSM1, gSM2, gSM3, gSM4, gSM5,
                               gSM6, gSM7, gSM8, gSM9};
-    for (int i=0; i<groups.length; i++) {
+    for (int i = 0; i < groups.length; i++) {
       long[] hands = groups[i].getHands();
-      for (int j=0; j<hands.length; j++) {
-        for (int k=0; k<groups.length; k++) {
+      for (int j = 0; j < hands.length; j++) {
+        for (int k = 0; k < groups.length; k++) {
           boolean isSameGroup = (i == k);
           boolean isMember = groups[k].isHandInGroup(hands[j]);
           assertTrue(isSameGroup == isMember);
@@ -125,5 +126,5 @@ public class HoldemSMGroupTest extends TestCase {
       }
     }
   }
-    
+
 }

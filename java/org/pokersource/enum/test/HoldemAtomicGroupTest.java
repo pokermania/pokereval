@@ -1,14 +1,14 @@
 // $Id$
 
 package org.pokersource.enum.test;
-import org.pokersource.enum.*;
+
+import junit.framework.TestCase;
+import org.pokersource.enum.HoldemAtomicGroup;
 import org.pokersource.game.Deck;
 
-import junit.framework.*;
-
 /**
-   @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemAtomicGroupTest extends TestCase {
   private HoldemAtomicGroup gAhAd;
@@ -19,13 +19,15 @@ public class HoldemAtomicGroupTest extends TestCase {
   private long KhQs;
   private long Td9d;
   private long Td9c;
-  
+
   public HoldemAtomicGroupTest(String name) {
     super(name);
   }
+
   public static void main(String args[]) {
     junit.textui.TestRunner.run(HoldemAtomicGroupTest.class);
   }
+
   protected void setUp() {
     gAhAd = new HoldemAtomicGroup("AhAd");
     gKhQh = new HoldemAtomicGroup("KhQh");
@@ -42,7 +44,7 @@ public class HoldemAtomicGroupTest extends TestCase {
     assertEquals("KhQh", gKhQh.toString());
     assertEquals("Td9c", gTd9c.toString());
   }
-  
+
   public void testIsHandInGroup() {
     assertTrue(gAhAd.isHandInGroup(AhAd));
     assertTrue(!gAhAd.isHandInGroup(KhQh));
@@ -62,7 +64,7 @@ public class HoldemAtomicGroupTest extends TestCase {
     assertTrue(!gTd9c.isHandInGroup(Td9d));
     assertTrue(gTd9c.isHandInGroup(Td9c));
   }
-  
+
   public void testGetHands() {
     assertEquals(1, gAhAd.getHands().length);
     assertEquals(1, gKhQh.getHands().length);

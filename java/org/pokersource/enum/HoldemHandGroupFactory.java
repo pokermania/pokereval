@@ -1,15 +1,16 @@
 // $Id$
 
 package org.pokersource.enum;
+
 import java.util.HashMap;
 
 /** Creates instances of HoldemHandGroup-implementing objects from their
-    string representations.  Use of this factory is preferred to directly
-    calling the constructors of subclasses, as the factory maintains a cache
-    of immutable instances.
+ string representations.  Use of this factory is preferred to directly
+ calling the constructors of subclasses, as the factory maintains a cache
+ of immutable instances.
 
-    @author Michael Maurer <mjmaurer@yahoo.com>
-*/
+ @author Michael Maurer <mjmaurer@yahoo.com>
+ */
 
 public class HoldemHandGroupFactory {
   private HoldemHandGroupFactory() {    // don't let anybody instantiate us
@@ -29,15 +30,15 @@ public class HoldemHandGroupFactory {
   private static HashMap cache = new HashMap();
 
   /** Try to parse groupSpec using class gclass.  If parsing succeeds,
-      returns new group object; if parsing fails, returns null; if something
-      unexpected happens, throws a runtime exception. */
+   returns new group object; if parsing fails, returns null; if something
+   unexpected happens, throws a runtime exception. */
   private static HoldemHandGroup tryGetInstance(Class gclass,
                                                 String groupSpec) {
     HoldemHandGroup group = null;
     try {
       java.lang.reflect.Constructor ctor =
-        gclass.getConstructor(new Class[] {String.class});
-      group = (HoldemHandGroup) ctor.newInstance(new Object[] {groupSpec});
+              gclass.getConstructor(new Class[]{String.class});
+      group = (HoldemHandGroup) ctor.newInstance(new Object[]{groupSpec});
     } catch (java.lang.reflect.InvocationTargetException e) {
       Throwable te = e.getTargetException();
       if (te instanceof IllegalArgumentException) {
@@ -55,7 +56,7 @@ public class HoldemHandGroupFactory {
   }
 
   /** Tries to parse groupSpec into a hand group using the gclass constructor.
-      If gclass fails to parse groupSpec, throws a runtime exception. */
+   If gclass fails to parse groupSpec, throws a runtime exception. */
   public static HoldemHandGroup getInstance(String groupSpec, Class gclass) {
     HoldemHandGroup group;
     // First try cache
@@ -71,8 +72,8 @@ public class HoldemHandGroupFactory {
   }
 
   /** Tries to parse groupSpec into a hand group using the constructors of the
-      list of known classes.  If all known classes fail to parse groupSpec,
-      throws a runtime exception. */
+   list of known classes.  If all known classes fail to parse groupSpec,
+   throws a runtime exception. */
   public static HoldemHandGroup getInstance(String groupSpec) {
     HoldemHandGroup group;
     // First try cache
@@ -82,7 +83,7 @@ public class HoldemHandGroupFactory {
     // Loop through the known classes that can parse holdem hand groups and
     // try each in turn.  If one fails to parse groupSpec, try another until we
     // run out.
-    for (int i=0; i<groupClasses.length && group == null; i++) {    
+    for (int i = 0; i < groupClasses.length && group == null; i++) {
       group = tryGetInstance(groupClasses[i], groupSpec);
     }
     if (group == null)
