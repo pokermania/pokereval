@@ -41,3 +41,20 @@ top_card_func( uint32 n )
   return retval;
 }
 
+
+uint32
+straight_func( uint32 n ) {
+  uint32 ranks, ranks2;
+
+  ranks = n;
+  if ( (ranks2  = ranks & (ranks << 1)) &&
+       (ranks2 &=         (ranks << 2)) &&
+       (ranks2 &=         (ranks << 3)) &&
+       (ranks2 &=         (ranks << 4)) ) {
+    return top_card_func(ranks2);
+  } 
+  else if ((ranks & StdRules_FIVE_STRAIGHT) == StdRules_FIVE_STRAIGHT) 
+    return StdDeck_Rank_5;
+
+  return 0;
+}

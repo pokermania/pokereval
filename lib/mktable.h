@@ -31,3 +31,4 @@ MakeTable_end(void);
 extern uint32 n_bits_func(uint32 arg);
 extern uint32 top_card_func(uint32 arg);
 extern uint32 top_bit_func(uint32 arg);
+extern uint32 straight_func(uint32 arg);

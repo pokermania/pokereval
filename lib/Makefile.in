@@ -10,8 +10,11 @@ OBJ=$(DERIVED_SOURCES:.c=.o) \
 BASIC_TABLES = \
 	t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_cardmasks.c \
 	t_straight.c 
+BITSAND_TABLES = \
+	t_nbitsandstr.c
+TABLE_PROGRAMS = mktab_basic mktab_bitsand
 
-DERIVED_SOURCES = $(BASIC_TABLES)
+DERIVED_SOURCES = $(BASIC_TABLES) $(BITSAND_TABLES)
 
 CC = @CC@ 
 CFLAGS = @CFLAGS@ 
@@ -25,15 +28,18 @@ $(LIB): $(OBJ)
 	$(RANLIB) $(LIB)
 
 clean:
-	rm -f $(OBJ) $(LIB) $(DERIVED_SOURCES) mktables core makeswitch.o \
-			makeswitch ../include/eval7.h  \
-			makeswitch5.o makeswitch5 \
-			../include/eval5.h
+	rm -f $(OBJ) $(LIB) $(DERIVED_SOURCES) $(TABLE_PROGRAMS)
 
 $(BASIC_TABLES): mktab_basic
 	./mktab_basic
 
+$(BITSAND_TABLES): mktab_bitsand
+	./mktab_bitsand
+
 mktab_basic: mktab_basic.o $(MKTABLE_HELPERS)
+	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
+
+mktab_bitsand: mktab_bitsand.o $(MKTABLE_HELPERS)
 	$(CC) $(CFLAGS) -I../include -o $@ $< $(MKTABLE_HELPERS)
 
 .c.o:
