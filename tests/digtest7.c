@@ -38,7 +38,13 @@ int main( void )
 
 
   ctx = MD5Begin();
-  StdDeck_stringToMask("Ad Ah", &peggedCards);
+  StdDeck_CardMask_RESET(peggedCards);
+  StdDeck_CardMask_SET(peggedCards, 
+                       StdDeck_MAKE_CARD(StdDeck_Rank_ACE, 
+                                         StdDeck_Suit_DIAMONDS));
+  StdDeck_CardMask_SET(peggedCards, 
+                       StdDeck_MAKE_CARD(StdDeck_Rank_ACE, 
+                                         StdDeck_Suit_HEARTS));
   ENUMERATE_5_CARDS_D(cards, peggedCards, 
                     {
                       StdDeck_CardMask_OR(cards1, cards, peggedCards);

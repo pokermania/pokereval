@@ -145,6 +145,12 @@ extern const char StdDeck_suitChars[StdDeck_Suit_LAST+1];
 extern int StdDeck_cardToString(int cardIndex, char *outString);
 extern int StdDeck_stringToCard(char *inString, int *outCard);
 
+#define StdDeck_cardString(i) GenericDeck_cardString(StdDeck, (i))
+#define StdDeck_printCard(i)  GenericDeck_printCard(StdDeck, (i))
+#define StdDeck_printMask(m)  GenericDeck_printMask(StdDeck, (m))
+#define StdDeck_maskString(m) GenericDeck_maskString(StdDeck, (m))
+#define StdDeck_maskToString(m, s) GenericDeck_maskToString(StdDeck, (m), (s))
+
 extern Deck StdDeck;
 
 #ifndef NONSTANDARD_DECK
