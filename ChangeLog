@@ -5,7 +5,7 @@ Fri Dec 17 13:41:28 2004  Loic Dachary  <loic@gnu.org>
 
 Fri Dec 10 14:16:27 2004  Loic Dachary  <loic@gnu.org>
 
-	* Release 0.125
+	* Release 0.126
 
 	* include/pokereval_export.h: accomodate dynamic/static libraries
 
