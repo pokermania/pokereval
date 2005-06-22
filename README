@@ -22,14 +22,16 @@ compiling on a GNU/Linux and Unix system should be fairly simple.
 
 To build both the C library and the examples:
   ./configure
+  ( cd lib && make build_tables )
   make 
 
 To build and run the tests:
 
   ./configure
-  make test
+  ( cd lib && make build_tables )
+  make check
 
-The "make test" command will run several test programs to ensure that
+The "make check" command will run several test programs to ensure that
 everything works correctly.  On slow machines, the tests may take
 several minutes.
 
