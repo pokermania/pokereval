@@ -3,7 +3,7 @@ Priority: optional
 Section: devel
 Maintainer: Loic Dachary (OuoU) <loic@debian.org>
 Build-Depends: debhelper (>= 4.0.0), libtool, automake1.7, autoconf
-Standards-Version: 3.6.1.1
+Standards-Version: 3.6.2.1
 
 Package: libpoker-eval-dev
 Section: devel

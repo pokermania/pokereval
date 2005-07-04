@@ -1,5 +1,5 @@
 /*
- *  evx_generate.c: a program to generate the the switch files for the
+ *  evx_generate.c: a program to generate the switch files for the
  *  eval_exactly_5 and eval_exactly_7 (evx) evaluators
  *
  *  Copyright (C) 1994-99    Clifford T. Matthews, Brian Goetz

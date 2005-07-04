@@ -20,6 +20,7 @@
 #include "inlines/eval.h"
 #include "inlines/eval_low.h"
 #include "inlines/eval_low8.h"
+#include "inlines/eval_low27.h"
 #include "inlines/eval_joker_low.h"
 #include "inlines/eval_omaha.h"
 #include "deck_std.h"
@@ -287,7 +288,7 @@ static enum_gameparams_t enum_gameparams[] = {
     StdDeck_CardMask _hand;						\
     StdDeck_CardMask_OR(_hand, pockets[i], unsharedCards[i]);		\
     hival[i] = HandVal_NOTHING;						\
-    loval[i] = StdDeck_StdRules_EVAL_N(_hand, 5);			\
+    loval[i] = StdDeck_Lowball27_EVAL_N(_hand, 5);			\
     err = 0;								\
   })
 

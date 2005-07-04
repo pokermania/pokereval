@@ -54,6 +54,7 @@
 ./pokenum -l 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
 ./pokenum -l 5h 4h 3h 2h / 5s - 9s 6d 4c Xx / Kd
 
+./pokenum -l27 As 2s 3s 4s 5d - Ac 3c 4c 5c 6d
 ./pokenum -l27 5h 4h 3h 2h / 5s - 9s 8h 6d 4c / Kd
 
 ./pokenum -mc 10000 -h Ac 7c - 5s 4s - Ks Kd

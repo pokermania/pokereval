@@ -51,6 +51,7 @@ nobase_pkginclude_HEADERS = \
 	inlines/eval_joker_low8.h \
 	inlines/eval_low.h \
 	inlines/eval_low8.h \
+	inlines/eval_low27.h \
 	inlines/eval_omaha.h \
 	inlines/eval_type.h \
 	inlines/evx5.h \
