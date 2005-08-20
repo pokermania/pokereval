@@ -3,11 +3,14 @@ What is this package?
 This package is a free (GNU GPL) toolkit for writing programs which
 simulate or analyze poker games.
 
+
 Who is the target audience?  
 
-Mostly programmers.  The programs are all written in C, but there are
-bindings for Python and Java. As time goes on, bindings may be added
-for Perl, lua, C# or other languages.
+Mostly programmers.  The programs are all written in C, but there is
+a binding for Python. A binding for Java also exists but is not
+shipped with the distribution because it requires maintainance. It
+can be found in the CVS tree. 
+
 
 Where did it come from?  
 
@@ -21,6 +24,7 @@ Michael Maurer <mjmaurer@yahoo.com> and improvements and
 suggestions can be sent to them.  The latest version of the software
 can be found at http://sourceforge.net/projects/pokersource.
 
+
 What's in here?  
 
 Lots of cool stuff, including: 
@@ -30,7 +34,6 @@ Lots of cool stuff, including:
  - several different types of hand evaluators for common games
    (straight poker, asian stud, lowball, omaha)
  - some sample programs which give a flavor for what can be done.
-
 
 Why so many evaluators?
 

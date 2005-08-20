@@ -68,8 +68,6 @@ vcvars32.bat, to set this up), and enter the following commands:
   cd ..\tests
   nmake -f makefile.dos
 
-The Java layer is not supported yet on Windows.
-
 You can't use make to run the test programs under Windows as you can
 on Unix, but you can run them (digtest5 and digtest7, in the tests
 directory) and compare the output value with the value in the make
@@ -89,8 +87,8 @@ http://sourceforge.net/projects/pokersource/
 
 Reporting bugs, suggesting improvements
 =======================================
-As of November 2004, the poker-eval library is maintained by
-Brian Goetz.  Bug reports, suggestions for improvements, or candidates
+As of August 2005, the poker-eval library is maintained by
+Loic Dachary.  Bug reports, suggestions for improvements, or candidates
 for inclusion should be sent to
      Loic Dachary <loic@gnu.org>
      Tim Showalter <tjs@psaux.com> 
