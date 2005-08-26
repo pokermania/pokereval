@@ -19,13 +19,13 @@
  */
 
 
-#include	<getopt.h>
 #include	<stdio.h>
 #include	<stdlib.h>
 #include	<string.h>
 #include	<signal.h>
 
 #include	"poker_defs.h"
+#include	"getopt_w32.h"
 #include	"inlines/eval.h"
 
 /* #define VERBOSE */

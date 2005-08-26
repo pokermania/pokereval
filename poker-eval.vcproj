@@ -13,17 +13,18 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(LIB_MKSP)\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="4"
 			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="2"
+			DeleteExtensionsOnClean="*.obj;*.ilk;*.pdb;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.bat;*.lib;*.exp;$(TargetPath)">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				OptimizeForProcessor="0"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="&quot;.\include&quot;;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;_USRDLL;POKEREVAL_LIBRARY"
 				StringPooling="FALSE"
 				MinimalRebuild="TRUE"
@@ -74,18 +75,19 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(LIB_MKSP)\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="obj\$(ConfigurationName)"
 			ConfigurationType="4"
 			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="2"
+			DeleteExtensionsOnClean="*.obj;*.ilk;*.pdb;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.bat;*.lib;*.exp;$(TargetPath)">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="FALSE"
-				AdditionalIncludeDirectories="include"
+				AdditionalIncludeDirectories="&quot;.\include&quot;;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;_USRDLL;POKEREVAL_LIBRARY"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -141,7 +143,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="lib\combinations.c">
+				RelativePath=".\lib\combinations.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -156,7 +158,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\deck.c">
+				RelativePath=".\lib\deck.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -171,7 +173,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\deck_astud.c">
+				RelativePath=".\lib\deck_astud.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -186,7 +188,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\deck_joker.c">
+				RelativePath=".\lib\deck_joker.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -201,7 +203,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\deck_std.c">
+				RelativePath=".\lib\deck_std.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -216,7 +218,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\enumerate.c">
+				RelativePath=".\lib\enumerate.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -231,10 +233,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\lib\enumord.c">
-			</File>
-			<File
-				RelativePath="lib\evx.c">
+				RelativePath=".\lib\evx.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -249,7 +248,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\lowball.c">
+				RelativePath=".\lib\lowball.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -264,7 +263,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\md5c.c">
+				RelativePath=".\lib\rules_astud.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -279,7 +278,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\rules_astud.c">
+				RelativePath=".\lib\rules_joker.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -294,22 +293,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="lib\rules_joker.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="lib\rules_std.c">
+				RelativePath=".\lib\rules_std.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -388,72 +372,65 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
-				RelativePath="include\combinations.h">
+				RelativePath=".\include\combinations.h">
 			</File>
 			<File
-				RelativePath="include\deck.h">
+				RelativePath=".\include\deck.h">
 			</File>
 			<File
-				RelativePath="include\deck_astud.h">
+				RelativePath=".\include\deck_astud.h">
 			</File>
 			<File
-				RelativePath="include\deck_joker.h">
+				RelativePath=".\include\deck_joker.h">
 			</File>
 			<File
-				RelativePath="include\deck_std.h">
+				RelativePath=".\include\deck_std.h">
 			</File>
 			<File
-				RelativePath="include\deck_undef.h">
+				RelativePath=".\include\deck_undef.h">
 			</File>
 			<File
-				RelativePath="include\enumdefs.h">
+				RelativePath=".\include\enumdefs.h">
 			</File>
 			<File
-				RelativePath="include\enumerate.h">
+				RelativePath=".\include\enumerate.h">
 			</File>
 			<File
-				RelativePath="include\evx_defs.h">
+				RelativePath=".\include\evx_defs.h">
 			</File>
 			<File
-				RelativePath="include\game_astud.h">
+				RelativePath=".\include\game_astud.h">
 			</File>
 			<File
-				RelativePath="include\game_joker.h">
+				RelativePath=".\include\game_joker.h">
 			</File>
 			<File
-				RelativePath="include\game_std.h">
+				RelativePath=".\include\game_std.h">
 			</File>
 			<File
-				RelativePath="include\handval.h">
+				RelativePath=".\include\handval.h">
 			</File>
 			<File
-				RelativePath="include\handval_low.h">
+				RelativePath=".\include\handval_low.h">
 			</File>
 			<File
-				RelativePath="include\md5c.h">
+				RelativePath=".\include\poker_defs.h">
 			</File>
 			<File
-				RelativePath="include\poker_defs.h">
+				RelativePath=".\include\pokereval_export.h">
 			</File>
 			<File
-				RelativePath="include\pokereval_export.h">
+				RelativePath=".\include\rules_astud.h">
 			</File>
 			<File
-				RelativePath="include\rules_astud.h">
+				RelativePath=".\include\rules_joker.h">
 			</File>
 			<File
-				RelativePath="include\rules_joker.h">
+				RelativePath=".\include\rules_std.h">
 			</File>
 			<File
-				RelativePath="include\rules_std.h">
+				RelativePath=".\include\rules_undef.h">
 			</File>
-			<File
-				RelativePath="include\rules_undef.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 	</Files>
 	<Globals>
