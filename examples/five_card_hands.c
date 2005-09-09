@@ -25,7 +25,11 @@
 #include	<signal.h>
 
 #include	"poker_defs.h"
+#if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__) || defined( __BCPLUSPLUS__)  || defined( __MWERKS__)
 #include	"getopt_w32.h"
+#else
+#include        <getopt.h>
+#endif
 #include	"inlines/eval.h"
 
 /* #define VERBOSE */

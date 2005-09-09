@@ -24,6 +24,9 @@ endif
 ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
 	INSTALL_PROGRAM += -s
 endif
+ifneq (ccache,$(findstring ccache,$(DEB_BUILD_OPTIONS)))
+	WITHOUT_CCACHE = --without-ccache
+endif
 
 # shared library versions, option 1
 version=2.0.5
@@ -38,7 +41,7 @@ config.status: configure.ac
 	dh_testdir
 	# Add here commands to configure the package.
 	sh bootstrap
-	sh ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
+	sh ./configure ${WITHOUT_CCACHE} --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
 
 
 build: build-stamp
