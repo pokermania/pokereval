@@ -1,12 +1,12 @@
 Thu Sep 22 2005  Loic Dachary  <loic@gnu.org>
 
-	* Release 0.128
+	* Release 128.0
 
 	* Portability and test fixes.
 
 Mon Jul 04 16:55:02 2005  Loic Dachary  <loic@gnu.org>
 
-	* Release 0.127	
+	* Release 127.0	
 
 	* include/inlines/eval_low27.h: A-5 is not a straight
 
@@ -17,21 +17,21 @@ Fri Dec 17 13:41:28 2004  Loic Dachary  <loic@gnu.org>
 
 Fri Dec 10 14:16:27 2004  Loic Dachary  <loic@gnu.org>
 
-	* Release 0.126
+	* Release 126.0
 
 	* include/pokereval_export.h: accomodate dynamic/static libraries
 
 	* include/std_deck.h: do not use non portable const 
 	
-Fri Dec 03 13:31:20 2004  Loic Dachary  <loic@gnu.org>
+Fri Dec 03 13:31:2200.04  Loic Dachary  <loic@gnu.org>
 
-	* Release 0.125
+	* Release 125.0
 
 	* config/build.m4 : removed because too complex to maintain
 
 	* configure.ac, bootstrap: lower autoconf requirements to 2.53
 
-Thu Dec 02 3:00:00 2004  Tim Showalter  <tjs@psaux.com>
+Thu Dec 02 3:00:0200.04  Tim Showalter  <tjs@psaux.com>
 
 	* Updated Mac builds; currently, things seem to build with only
 	  one config setting (--with-mac-target=darwin).
@@ -55,7 +55,7 @@ Mon Nov 15 20:20:43 2004  Loic Dachary  <loic@gnu.org>
 
 Sun Nov 07 15:53:27 2004  Loic Dachary  <loic@gnu.org>
 
-	* Release 0.124
+	* Release 124.0
 	
 	* include/enumerate.h: apply macro/comma related patch from Martin Stjernholm
 	  http://sourceforge.net/mailarchive/forum.php?thread_id=5586390&forum_id=40226
