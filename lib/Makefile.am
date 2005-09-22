@@ -24,7 +24,9 @@
 #  Loic Dachary <loic@gnu.org>
 #
 # 
-MAINTAINERCLEANFILES = Makefile.in
+MAINTAINERCLEANFILES = \
+	Makefile.in \
+	$(TABLES)
 
 INCLUDES = -I$(top_srcdir)/include
 
@@ -43,6 +45,14 @@ EVX_TABLES = \
 ASTUD_TABLES = t_astudcardmasks.c
 LOWBALL_TABLES = t_botfivecards.c t_botcard.c t_botfivecardsj.c
 
+TABLES = \
+	$(BASIC_TABLES) \
+	$(JOKER_TABLES) \
+	$(PACKED_TABLES) \
+	$(EVX_TABLES) \
+	$(ASTUD_TABLES) \
+	$(LOWBALL_TABLES)
+
 libpoker_eval_la_SOURCES = \
 	combinations.c \
 	deck.c \
@@ -56,12 +66,7 @@ libpoker_eval_la_SOURCES = \
 	rules_astud.c \
 	rules_joker.c \
 	rules_std.c \
-	$(BASIC_TABLES) \
-	$(JOKER_TABLES) \
-	$(PACKED_TABLES) \
-	$(EVX_TABLES) \
-	$(ASTUD_TABLES) \
-	$(LOWBALL_TABLES)
+	$(TABLES)
 
 noinst_HEADERS = \
 	mktable.h

@@ -2,6 +2,8 @@ Thu Sep 22 2005  Loic Dachary  <loic@gnu.org>
 
 	* Release 128.0
 
+	* lib/Makefile.am: remove generated tables on maintainer-clean
+
 	* Portability and test fixes.
 
 Mon Jul 04 16:55:02 2005  Loic Dachary  <loic@gnu.org>

@@ -3,12 +3,21 @@
 
 include /usr/share/cdbs/1/rules/debhelper.mk
 
+#
+# This triggers an extra configure but is needed when building from
+# the CVS because the CVS contains an old configure that should not
+# be removed for now. Should the configure be removed, uncomment the
+# lines after the include and remove the rm from this target to avoid
+# the extra configure.
+#
 clean:: $(DEB_BUILDDIR)/config.status
+	rm -f $(DEB_SRCDIR)/configure $(DEB_SRCDIR)/*cdbs-*
 
 include /usr/share/cdbs/1/class/autotools.mk
 
-clean::
-	rm -f $(DEB_SRCDIR)/configure $(DEB_SRCDIR)/*cdbs-*
+# see the comment above
+#clean::
+#	rm -f $(DEB_SRCDIR)/configure $(DEB_SRCDIR)/*cdbs-*
 
 ifneq (ccache,$(findstring ccache,$(DEB_BUILD_OPTIONS)))
         DEB_CONFIGURE_EXTRA_FLAGS += --without-ccache
