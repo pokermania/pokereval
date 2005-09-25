@@ -8,7 +8,7 @@ Standards-Version: 3.6.2.1
 Package: libpoker-eval-dev
 Section: devel
 Architecture: any
-Depends: libpoker-eval (= ${Source-Version})
+Depends: libpoker-eval (= ${Source-Version}), pkg-config
 Description: poker hand evaluator library development files
  This package is a free (GNU GPL) toolkit for writing programs which
  simulate or analyze poker games.
