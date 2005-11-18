@@ -59,8 +59,8 @@
 				ProxyFileName="mktab_packed_p.c"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="&quot;$(TargetPath)&quot; /RegServer"/>
+				Description="running $(OutDir)\$(TargetFileName)"
+				CommandLine="$(OutDir)\$(TargetFileName)"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool

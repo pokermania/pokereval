@@ -48,7 +48,9 @@
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="running $(OutDir)\$(TargetFileName)"
+				CommandLine="$(OutDir)\$(TargetFileName)"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
