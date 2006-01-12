@@ -104,4 +104,4 @@ build_tables: $(noinst_PROGRAMS) evx_preamble.cfrag
 	./evx_gen5 > $(top_srcdir)/include/inlines/evx5.h
 	./evx_gen7 > $(top_srcdir)/include/inlines/evx7.h
 
-libpoker_eval_la_LDFLAGS = -version-info 1:0:0
+libpoker_eval_la_LDFLAGS = -no-undefined -version-info 1:0:0
