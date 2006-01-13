@@ -1,5 +1,9 @@
 Thu Sep 22 2005  Loic Dachary  <loic@gnu.org>
 
+	* examples/five_card_hands.c: getopt_w32 not available on cygwin
+
+Thu Sep 22 2005  Loic Dachary  <loic@gnu.org>
+
 	* Release 128.0
 
 	* lib/Makefile.am: remove generated tables on maintainer-clean
