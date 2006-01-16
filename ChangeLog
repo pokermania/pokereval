@@ -1,4 +1,8 @@
-Thu Sep 22 2005  Loic Dachary  <loic@gnu.org>
+Sat Jan 14 2006  Loic Dachary  <loic@gnu.org>
+
+	* Release 129.0
+
+	* lib/Makefile.am: -no-undefined for libtool to work with cygwin
 
 	* examples/five_card_hands.c: getopt_w32 not available on cygwin
 
