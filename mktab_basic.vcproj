@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="mktab_basic"
 	ProjectGUID="{FEF5F6D8-D0D3-44D3-B821-2BEF75046F3C}"
+	RootNamespace="mktab_basic"
 	Keyword="AtlProj">
 	<Platforms>
 		<Platform
@@ -109,7 +110,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				OutputFile="$(OutDir)/mktap_basic.exe"
+				OutputFile="$(OutDir)/mktab_basic.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"

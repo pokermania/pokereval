@@ -137,7 +137,7 @@
 		</Configuration>
 		<Configuration
 			Name="profile|Win32"
-			OutputDirectory="$(LIB_MKSP)\$(ConfigurationName)"
+			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			UseOfATL="0"
