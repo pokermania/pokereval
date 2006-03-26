@@ -27,7 +27,7 @@ enum_rankelem_compare(const void *p1, const void *p2) {
 }
 
 void
-enum_ordering_rank(int *hands, int noqual, int nplayers, int *ranks,
+enum_ordering_rank(HandVal *hands, int noqual, int nplayers, int *ranks,
                    int reverse)
 {
   enum_rankelem_t elems[ENUM_ORDERING_MAXPLAYERS];

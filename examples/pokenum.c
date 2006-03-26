@@ -222,7 +222,7 @@ int
 main(int argc, char **argv) {
   enum_game_t game;
   enum_sample_t enumType;
-  int niter, npockets, nboard, err, terse, orderflag;
+  int niter = 0, npockets, nboard, err, terse, orderflag;
   StdDeck_CardMask pockets[ENUM_MAXPLAYERS];
   StdDeck_CardMask board;
   StdDeck_CardMask dead;

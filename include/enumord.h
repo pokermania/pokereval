@@ -105,6 +105,7 @@
 #define ENUMORD_H
 
 #include "pokereval_export.h"
+#include "poker_defs.h"
 
 /* largest integer N such that N * ENUM_ORDERING_NBITS(N) < 32 */
 #define ENUM_ORDERING_MAXPLAYERS 7
@@ -134,7 +135,7 @@ typedef struct {
 } enum_ordering_t;
 
 extern POKEREVAL_EXPORT int enum_nbits[ENUM_ORDERING_MAXPLAYERS+1];
-extern POKEREVAL_EXPORT void enum_ordering_rank(int *hands, int noqual,
+extern POKEREVAL_EXPORT void enum_ordering_rank(HandVal *hands, int noqual,
                                int nplayers, int *ranks, int reverse);
 
 /* the bit field size for one player's relative hand rank */

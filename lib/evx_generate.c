@@ -74,7 +74,7 @@ main ()
 
     fstat (fileno(fp), &sbuf);
     p = malloc(sbuf.st_size + 1);
-    fread (p, sbuf.st_size, 1, fp);
+    (void)fread (p, sbuf.st_size, 1, fp);
     p[sbuf.st_size] = 0;
     printf (p, CARDS_DEALT);
   }

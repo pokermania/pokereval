@@ -1,6 +1,8 @@
-Mon Mar 13 2006  Loic Dachary  <loic@gnu.org>
+Sun Mar 26 2006  Loic Dachary  <loic@gnu.org>
 
 	* Release 130.0
+
+	* lib/enumord.c (enum_ordering_rank): fix signedness
 
 Sat Jan 14 2006  Loic Dachary  <loic@gnu.org>
 

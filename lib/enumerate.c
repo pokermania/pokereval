@@ -742,7 +742,7 @@ enumResultAlloc(enum_result_t *result, int nplayers,
   result->ordering->mode = mode;
   result->ordering->nplayers = nplayers;
   result->ordering->nentries = nentries;
-  result->ordering->hist = (int *) calloc(nentries, sizeof(int));
+  result->ordering->hist = (unsigned int *) calloc(nentries, sizeof(int));
   if (result->ordering->hist == NULL) {
     free(result->ordering);
     result->ordering = NULL;

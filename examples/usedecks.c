@@ -178,8 +178,8 @@ testOmaha8(const char *holestr, const char *boardstr) {
   int nboard;
   int c;
   int ret;
-  HandVal hival;
-  LowHandVal loval;
+  HandVal hival = 0;
+  LowHandVal loval = 0;
   char str[80], hstr[80], bstr[80];
   char *p;
 
