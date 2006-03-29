@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2004 Mekensleep
+# Copyright (C) 2004-2006 Mekensleep
 #
 # Mekensleep
 # 24 rue vieille du temple
@@ -34,7 +34,8 @@ EXTRA_DIST = \
 	mktab_basic.vcproj  mktab_joker.vcproj	mktab_packed.vcproj \
 	poker-eval.sln \
 	WHATS-HERE.Java \
-	WHATS-HERE
+	WHATS-HERE \
+	$(wildcard gentoo/dev-games/poker-eval/*.ebuild)
 
 SUBDIRS = \
 	lib \
