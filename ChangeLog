@@ -1,6 +1,6 @@
 Thu Apr 13 2006  Loic Dachary  <loic@gnu.org>
 
-	* Release 130.0
+	* Release 131.0
 
 	* include/poker_config.h.in, poker-eval/include/poker_defs.h,
 	poker-eval/configure.ac, poker-eval/include/config.h.in,
@@ -39,6 +39,8 @@ Thu Apr 13 2006  Loic Dachary  <loic@gnu.org>
          numbers for the configure 	
 
 Sun Mar 26 2006  Loic Dachary  <loic@gnu.org>
+
+	* Release 130.0
 
 	* gentoo packaging files.
 	
