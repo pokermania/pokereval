@@ -1,6 +1,44 @@
-Sun Mar 26 2006  Loic Dachary  <loic@gnu.org>
+Thu Apr 13 2006  Loic Dachary  <loic@gnu.org>
 
 	* Release 130.0
+
+	* include/poker_config.h.in, poker-eval/include/poker_defs.h,
+	poker-eval/configure.ac, poker-eval/include/config.h.in,
+	poker-eval/include/deck_joker.h, poker-eval/include/deck_std.h:
+
+	Neil Burch <burch@cs.ualberta.ca>
+	
+         - configure tests for the existance of int64 and sets the HAVE_INT64 define
+         - configure tests for the existance of long long and sets HAVE_LONG_LONG
+         - in include/poker_defs.h, the definition of CardMasks only uses
+           HAVE_INT64 to determine whether to use 64 bit integers or not,
+           so 32 bit integers will be used even if long long is defined
+         - also, if HAVE_INT64 _is_ defined (which is true if int64 was
+           discovered to be a valid type by configure), it will then check if
+           HAVE_LONG_LONG is defined and try to do a typedef of uint64 to long long.
+         
+         
+         Further, it tests for <inttypes.h> and uses that in the tests, but
+         never includes it in the source, even if it exists and was the reason
+         why other tests in configure succeeded.  Finally, on all of the
+         machines I have access to (SGI Origin, a multiprocessor IBM Power 5
+         machine, 32 bit and 64 bit Linux PCs, and some miscellaneous Sun
+         boxen) <inttypes.h> defines int64_t, not int64.
+         
+         There is also a small problem where the initialisation of the static
+         tables will fail if HAVE_INT64 is defined, because the CardMask union
+         will only define the single 64 bit integer, and the initialisers are
+         all pairs of 32 bit integers.
+         
+         I've include some patches below.  They check for a native int64,
+         int64_t, and long long, and will define HAVE_INT64 if any of those are
+         found, and create a typedef for uint64 if it was not native.  It also
+         causes both the pair of 32 bit integers as well as the 64 bit integer
+         to be in the CardMask union so the initialisation of the static
+         CardMask tables still works correctly.  I'm also pretty sure the line
+         numbers for the configure 	
+
+Sun Mar 26 2006  Loic Dachary  <loic@gnu.org>
 
 	* gentoo packaging files.
 	

@@ -65,12 +65,11 @@
 typedef uint32 StdDeck_RankMask;
 
 typedef union {
-#ifdef HAVE_INT64
-  uint64  cards_n;
-#else
   struct {
     uint32 n1, n2;
   } cards_nn;
+#ifdef HAVE_INT64
+  uint64  cards_n;
 #endif
   struct {
     /* There are multiple ways to define these fields.  We could pack the

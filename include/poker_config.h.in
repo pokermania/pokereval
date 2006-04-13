@@ -23,8 +23,12 @@
 
 /* Define if your compiler supports "long long" for 64 bit integers */
 #undef HAVE_INT64
+#undef HAVE_INT64_T
 #undef HAVE_LONG_LONG
 
 /* Integer sizes */
 #undef SIZEOF_INT
 #undef SIZEOF_LONG
+
+/* Check if we have/need the inttypes include file */
+#undef HAVE_INTTYPES_H
