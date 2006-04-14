@@ -21,10 +21,13 @@
    byte first (like Motorola and SPARC, unlike Intel and VAX).  */
 #undef WORDS_BIGENDIAN
 
+/* Define if your compiler supports "uint64_t" for 64 bit integers */
+#undef HAVE_UINT64_T
 /* Define if your compiler supports "long long" for 64 bit integers */
-#undef HAVE_INT64
-#undef HAVE_INT64_T
 #undef HAVE_LONG_LONG
+
+/* Define if type "int8" is defined already */
+#undef HAVE_INT8
 
 /* Integer sizes */
 #undef SIZEOF_INT
@@ -32,3 +35,7 @@
 
 /* Check if we have/need the inttypes include file */
 #undef HAVE_INTTYPES_H
+/* Check if we have/need the stdint include file */
+#undef HAVE_STDINT_H
+/* Check if we have/need the sys/types include file */
+#undef HAVE_SYS_TYPES_H

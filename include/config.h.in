@@ -3,11 +3,8 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
-/* Define to 1 if the system has the type `int64'. */
-#undef HAVE_INT64
-
-/* Define to 1 if the system has the type `int64_t'. */
-#undef HAVE_INT64_T
+/* Define to 1 if the system has the type `int8'. */
+#undef HAVE_INT8
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
@@ -35,6 +32,9 @@
 
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if the system has the type `uint64_t'. */
+#undef HAVE_UINT64_T
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H

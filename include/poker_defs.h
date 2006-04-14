@@ -25,7 +25,6 @@
 /* Compiler-specific junk */
 
 #if defined(_MSC_VER)
-#define HAVE_INT64
 #define UINT64_TYPE unsigned __int64
 #define inline __inline
 #define thread __declspec( thread )
@@ -35,29 +34,35 @@
 #include "poker_config.h"
 #endif
 
+#ifdef HAVE_SYS_TYPES_H
+#include <sys/types.h>
+#endif
 #ifdef HAVE_INTTYPES_H
 #include <inttypes.h>
+#else
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#endif
 #endif
 
 /* 64-bit integer junk */
 
-#ifndef HAVE_INT64
-#ifdef HAVE_INT64_T
+#undef USE_INT64
+#ifdef HAVE_UINT64_T
 typedef uint64_t		uint64;
-#define HAVE_INT64 1
+#define USE_INT64 1
 #elif defined(HAVE_LONG_LONG)
 typedef unsigned long long      uint64;
-#define HAVE_INT64 1
+#define USE_INT64 1
 #elif SIZEOF_LONG == 8
 typedef unsigned long           uint64;
-#define HAVE_INT64 1
+#define USE_INT64 1
 #elif defined(UINT64_TYPE)
 typedef UINT64_TYPE             uint64;
-#define HAVE_INT64 1
-#endif
+#define USE_INT64 1
 #endif
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
 #define LongLong_OP(result, op1, op2, operation) \
   do { result = (op1) operation (op2); } while (0)
 #define LongLong_OR(result, op1, op2)  LongLong_OP(result, op1, op2, |)
@@ -67,7 +72,9 @@ typedef UINT64_TYPE             uint64;
 
 
 typedef unsigned char  uint8;
+#ifndef HAVE_INT8
 typedef   signed char   int8;
+#endif
 typedef unsigned short uint16;
 typedef unsigned int   uint32;
 

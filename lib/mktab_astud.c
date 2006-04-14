@@ -37,7 +37,7 @@ doCardMaskTable(void) {
     else if (suit == AStudDeck_Suit_SPADES)
       c.cards.spades = (1 << rank);
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
     MakeTable_outputUInt64(c.cards_n);
 #else
     {

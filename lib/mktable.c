@@ -79,7 +79,7 @@ MakeTable_outputString(const char *string) {
             (gLineCount == gTableSize ? "" : ","));
 }
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
 void 
 MakeTable_outputUInt64(uint64 arg) {
   uint32 high, low;

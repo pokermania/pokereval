@@ -65,11 +65,12 @@
 typedef uint32 StdDeck_RankMask;
 
 typedef union {
+#ifdef USE_INT64
+  uint64  cards_n;
+#else
   struct {
     uint32 n1, n2;
   } cards_nn;
-#ifdef HAVE_INT64
-  uint64  cards_n;
 #endif
   struct {
     /* There are multiple ways to define these fields.  We could pack the
@@ -115,7 +116,7 @@ typedef union {
 #define StdDeck_CardMask_SET_DIAMONDS(cm, ranks) ((cm).cards.diamonds=(ranks))
 #define StdDeck_CardMask_SET_HEARTS(cm, ranks)   ((cm).cards.hearts=(ranks))
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
 #define StdDeck_CardMask_OP(result, op1, op2, OP) \
   LongLong_OP((result).cards_n, (op1).cards_n, (op2).cards_n, OP);
 #else
@@ -126,7 +127,7 @@ typedef union {
 } while (0)
 #endif
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
 #define StdDeck_CardMask_NOT(result, op1)                               \
   do {                                                                  \
     (result).cards_n = ~(op1).cards_n;                                  \
@@ -161,7 +162,7 @@ do {                                            	\
   StdDeck_CardMask_AND((mask), (mask), _t1);            \
 } while (0)
 
-#ifdef HAVE_INT64                                                          
+#ifdef USE_INT64                                                          
 #define StdDeck_CardMask_CARD_IS_SET(mask, index)                       \
   (( (mask).cards_n & (StdDeck_MASK(index).cards_n)) != 0 )                 
 #else                                                                   
@@ -171,7 +172,7 @@ do {                                            	\
    || (( (mask).cards_nn.n2 & (StdDeck_MASK(index).cards_nn.n2)) != 0 ))   
 #endif
 
-#ifdef HAVE_INT64                                                          
+#ifdef USE_INT64                                                          
 #define StdDeck_CardMask_ANY_SET(mask1, mask2)                          \
   (( (mask1).cards_n & (mask2).cards_n) != 0 )                 
 #else                                                                   
@@ -180,7 +181,7 @@ do {                                            	\
    || (( (mask1).cards_nn.n2 & (mask2).cards_nn.n2) != 0 ))           
 #endif
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
 #define StdDeck_CardMask_RESET(mask) \
   do { (mask).cards_n = 0; } while (0)
 #else
@@ -188,7 +189,7 @@ do {                                            	\
   do { (mask).cards_nn.n1 = (mask).cards_nn.n2 = 0; } while (0)
 #endif
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
 #define StdDeck_CardMask_IS_EMPTY(mask) \
   ((mask).cards_n == 0)
 #else

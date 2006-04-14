@@ -65,11 +65,12 @@ typedef StdDeck_RankMask JokerDeck_RankMask;
    in JokerDeck_CardMask agree with the definition for StdDeck_CardMask!  
 */
 typedef union {
+#ifdef USE_INT64
+  uint64  cards_n;
+#else
   struct {
     uint32 n1, n2;
   } cards_nn;
-#ifdef HAVE_INT64
-  uint64  cards_n;
 #endif
   struct {
 #ifdef WORDS_BIGENDIAN
@@ -148,7 +149,7 @@ do { \
   }\
 } while (0)
 
-#ifdef HAVE_INT64                                                          
+#ifdef USE_INT64                                                          
 #define JokerDeck_CardMask_CARD_IS_SET(mask, index)                       \
   (( (mask).cards_n & (JokerDeck_MASK(index).cards_n)) != 0 )                 
 #else                                                                   

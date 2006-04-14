@@ -70,7 +70,7 @@ AC_CHECK_SIZEOF(long)
 AC_CHECK_SIZEOF(int)
 AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(sys/stat.h)
-AC_CHECK_TYPES([long long, int64, int64_t])
+AC_CHECK_TYPES([long long, uint64_t, int8])
 
 # Generate files
 AC_CONFIG_FILES([tests/run], [chmod 544 tests/run])

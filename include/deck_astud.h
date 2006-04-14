@@ -76,7 +76,7 @@ typedef StdDeck_RankMask AStudDeck_RankMask;
 #define AStudDeck_CardMask_UNSET       StdDeck_CardMask_UNSET
 #define AStudDeck_CardMask_IS_EMPTY    StdDeck_CardMask_IS_EMPTY
 
-#ifdef HAVE_INT64                                                          
+#ifdef USE_INT64                                                          
 #define AStudDeck_CardMask_CARD_IS_SET(mask, index)                       \
   (( (mask).cards_n & (AStudDeck_MASK(index).cards_n)) != 0 )                 
 #else                                                                   

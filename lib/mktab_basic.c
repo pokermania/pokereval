@@ -223,7 +223,7 @@ doCardMaskTable(void) {
     else if (suit == StdDeck_Suit_SPADES)
       c.cards.spades = (1 << rank);
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
     MakeTable_outputUInt64(c.cards_n);
 #else
     {
@@ -256,7 +256,7 @@ doMaskRankTable(void) {
     c.cards.diamonds = (1 << i);
     c.cards.clubs    = (1 << i);
 
-#ifdef HAVE_INT64
+#ifdef USE_INT64
     MakeTable_outputUInt64(~c.cards_n);
 #else
     { 
