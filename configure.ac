@@ -28,9 +28,10 @@
 
 AC_PREREQ(2.53)
 AC_INIT(poker-eval, 130.0)
+AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE()
-AC_CONFIG_HEADERS([include/config.h include/poker_config.h])
+AC_CONFIG_HEADER([include/config.h include/poker_config.h])
 AC_CONFIG_SRCDIR([lib/deck.c])
 
 # Checks for programs.
@@ -67,7 +68,6 @@ AC_C_CONST
 AC_C_INLINE
 AC_C_BIGENDIAN
 AC_CHECK_SIZEOF(long)
-AC_CHECK_SIZEOF(int)
 AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(sys/stat.h)
 AC_CHECK_TYPES([long long, uint64_t, int8])

@@ -1,6 +1,28 @@
-Thu Apr 13 2006  Loic Dachary  <loic@gnu.org>
+Sat Apr 15 2006  Loic Dachary  <loic@gnu.org>
 
 	* Release 130.0
+
+	* configure.ac: all auxiliary files in config
+
+	* bootstrap: prefer autoreconf
+
+	* include/poker_config.h.in: prevent re-definition of autoconf symbols
+
+	* configure.ac: dont compute sizeof int
+
+	* include/poker_defs.h: remove MSC #define HAVE_SYS_STAT_H
+
+	* include/inlines/evx7.h, include/inlines/evx5.h: commit the files 
+	  because they are stable enough and won't change a bit in the next
+	  month / years
+
+	* lib/t_*.c: removed from distribution and generated at build time
+	
+	* examples/Makefile.am (EXTRA_DIST): *.vcproj + getopt_w32.c
+
+	* update all copyright dates + change sf.net to gna.org
+
+Thu Apr 13 2006  Loic Dachary  <loic@gnu.org>
 
 	* include/poker_config.h.in, poker-eval/include/poker_defs.h,
 	poker-eval/configure.ac, poker-eval/include/config.h.in,

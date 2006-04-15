@@ -27,6 +27,10 @@
 #include "config.h"
 #endif /* HAVE_CONFIG_H */
 
+#if defined(_MSC_VER)
+#define HAVE_SYS_STAT_H
+#endif /* defined(_MSC_VER) */
+
 #ifdef HAVE_SYS_STAT_H
 #include <sys/stat.h>
 #endif

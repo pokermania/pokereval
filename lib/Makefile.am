@@ -32,7 +32,9 @@ INCLUDES = -I$(top_srcdir)/include
 
 lib_LTLIBRARIES = libpoker-eval.la
 
-EXTRA_DIST = evx_preamble.cfrag
+EXTRA_DIST = \
+	evx_preamble.cfrag \
+	${POKER_EVAL_SOURCES}
 
 BASIC_TABLES = \
         t_nbits.c t_topbit.c t_topcard.c t_topfivecards.c t_topfivebits.c \
@@ -53,7 +55,7 @@ TABLES = \
 	$(ASTUD_TABLES) \
 	$(LOWBALL_TABLES)
 
-libpoker_eval_la_SOURCES = \
+POKER_EVAL_SOURCES = \
 	combinations.c \
 	deck.c \
 	deck_astud.c \
@@ -65,7 +67,10 @@ libpoker_eval_la_SOURCES = \
 	lowball.c \
 	rules_astud.c \
 	rules_joker.c \
-	rules_std.c \
+	rules_std.c
+
+nodist_libpoker_eval_la_SOURCES = \
+	$(POKER_EVAL_SOURCES) \
 	$(TABLES)
 
 noinst_HEADERS = \
@@ -84,24 +89,49 @@ noinst_PROGRAMS = \
 	evx_gen7
 
 mktab_basic_SOURCES = mktab_basic.c $(MKTABLE_HELPERS)
+
+${BASIC_TABLES}: mktab_basic 
+	./mktab_basic
+
 mktab_joker_SOURCES = mktab_joker.c $(MKTABLE_HELPERS)
+
+${JOKER_TABLES}: mktab_joker 
+	./mktab_joker
+
 mktab_packed_SOURCES = mktab_packed.c $(MKTABLE_HELPERS)
+
+${PACKED_TABLES}: mktab_packed 
+	./mktab_packed
+
 mktab_evx_SOURCES = mktab_evx.c $(MKTABLE_HELPERS)
+
+${EVX_TABLES}: mktab_evx 
+	./mktab_evx
+
 mktab_astud_SOURCES = mktab_astud.c $(MKTABLE_HELPERS)
+
+${ASTUD_TABLES}: mktab_astud 
+	./mktab_astud
+
 mktab_lowball_SOURCES = mktab_lowball.c $(MKTABLE_HELPERS)
+
+${LOWBALL_TABLES}: mktab_lowball 
+	./mktab_lowball
+
 evx_gen5_SOURCES = evx_generate.c 
 evx_gen5_CPPFLAGS = -DCARDS_DEALT=5
 evx_gen7_SOURCES = evx_generate.c
 evx_gen7_CPPFLAGS = -DCARDS_DEALT=7
 
-build_tables: $(noinst_PROGRAMS) evx_preamble.cfrag
-	./mktab_basic
-	./mktab_joker
-	./mktab_packed
-	./mktab_evx
-	./mktab_astud
-	./mktab_lowball
-	./evx_gen5 > $(top_srcdir)/include/inlines/evx5.h
-	./evx_gen7 > $(top_srcdir)/include/inlines/evx7.h
+all-local: evx_gen5 evx_gen7 evx_preamble.cfrag
+	if [ -w $(top_srcdir)/include/inlines/evx5.h ] ; then \
+		./evx_gen5 > $(top_srcdir)/include/inlines/evx5.h ; \
+	fi
+	if [ -w $(top_srcdir)/include/inlines/evx7.h ] ; then \
+		./evx_gen7 > $(top_srcdir)/include/inlines/evx7.h ; \
+	fi
+
+clean-local:
+	rm -f t_*.c
 
 libpoker_eval_la_LDFLAGS = -no-undefined -version-info 1:0:0

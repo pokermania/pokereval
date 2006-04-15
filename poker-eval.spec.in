@@ -8,7 +8,7 @@ Version:	%ver
 Release:	%rel
 Copyright:	GPL
 Source:         %{name}-%{version}.tar.bz2  
-URL:            http://pokersource.sourceforge.net
+URL:            http://gna.org/projects/pokersource/
 Group:		Games/Cards		
 BuildRoot:	/tmp/%{name}-%{version}-%{rel}-root
 Docdir:		%{prefix}/doc

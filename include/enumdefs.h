@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2004 
+ * Copyright (C) 2002-2006
  *           Michael Maurer <mjmaurer@yahoo.com>
  *           Loic Dachary <loic@gnu.org>
  *

@@ -1,6 +1,10 @@
 Release 130.0
 
+Autotools CPP macros conflict resolved.
+
 64 bits fixes.
+
+Architecture dependent tables removed from distribution and generated at build time.
 
 Portability fixes.
 

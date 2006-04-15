@@ -21,14 +21,14 @@ This library uses the GNU Autoconf self-configuration mechanism, so
 compiling on a GNU/Linux and Unix system should be fairly simple.  
 
 To build both the C library and the examples:
+  autoreconf --install
   ./configure
-  ( cd lib && make build_tables )
   make 
 
 To build and run the tests:
 
+  autoreconf --install
   ./configure
-  ( cd lib && make build_tables )
   make check
 
 The "make check" command will run several test programs to ensure that
@@ -82,7 +82,7 @@ path for projects that will be using the library.
 Download
 ========
 The library may be obtained from the pokersource project at
-http://sourceforge.net/projects/pokersource/
+http://gna.org/projects/pokersource/
 
 
 Reporting bugs, suggesting improvements
@@ -96,4 +96,4 @@ for inclusion should be sent to
 
 You can also check out the pokersource user group at
 http://groups.yahoo.com/group/pokersource or the mailing list
-at https://lists.sourceforge.net/lists/listinfo/pokersource-users
+at https://mail.gna.org/listinfo/pokersource-users/

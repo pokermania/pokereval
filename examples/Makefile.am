@@ -28,7 +28,7 @@ MAINTAINERCLEANFILES = Makefile.in
 
 INCLUDES = -I$(top_srcdir)/include
 
-EXTRA_DIST = utest1
+EXTRA_DIST = utest1 getopt_w32.c getopt_w32.h $(wildcard *.vcproj) 
 
 TESTS = utest1
 

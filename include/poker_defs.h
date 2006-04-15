@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1999-2004 
+ * Copyright (C) 1999-2006 
  *           Brian Goetz <brian@quiotix.com>
  *           Loic Dachary <loic@gnu.org>
  *           Igor Kravtchenko <igor@obraz.net>
@@ -25,24 +25,23 @@
 /* Compiler-specific junk */
 
 #if defined(_MSC_VER)
-#define UINT64_TYPE unsigned __int64
-#define inline __inline
-#define thread __declspec( thread )
-#define HAVE_SYS_STAT_H
+#  define UINT64_TYPE unsigned __int64
+#  define inline __inline
+#  define thread __declspec( thread )
 #else
-#define thread 
-#include "poker_config.h"
+#  define thread 
+#  include "poker_config.h"
 #endif
 
 #ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
+#  include <sys/types.h>
 #endif
 #ifdef HAVE_INTTYPES_H
-#include <inttypes.h>
+#  include <inttypes.h>
 #else
-#ifdef HAVE_STDINT_H
-#include <stdint.h>
-#endif
+#  ifdef HAVE_STDINT_H
+#    include <stdint.h>
+#  endif
 #endif
 
 /* 64-bit integer junk */
@@ -73,7 +72,7 @@ typedef UINT64_TYPE             uint64;
 
 typedef unsigned char  uint8;
 #ifndef HAVE_INT8
-typedef   signed char   int8;
+typedef signed char   int8;
 #endif
 typedef unsigned short uint16;
 typedef unsigned int   uint32;

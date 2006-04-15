@@ -25,13 +25,9 @@
 #
 # 
 EXTRA_DIST = \
-	config/ccache.m4 bootstrap \
-	examples/Makefile.dos \
-	include/Makefile.dos \
-	lib/Makefile.dos \
-	tests/Makefile.dos \
-	mktab_astud.vcproj  mktab_evx.vcproj	mktab_lowball.vcproj  poker-eval.vcproj \
-	mktab_basic.vcproj  mktab_joker.vcproj	mktab_packed.vcproj \
+	config/ccache.m4 \
+	$(wildcard */*.dos) \
+	$(wildcard *.vcproj) \
 	poker-eval.sln \
 	WHATS-HERE.Java \
 	WHATS-HERE \
@@ -43,25 +39,8 @@ SUBDIRS = \
 	tests \
 	examples
 
-MAINTAINERCLEANFILES = \
-	INSTALL \
-	Makefile.in \
-	aclocal.m4 \
-	compile \
-	config.guess \
-	config.rpath \
-	include/stamp-h1 \
-	config.sub \
-	configure \
-	depcomp \
-	install-sh \
-	ltmain.sh \
-	missing \
-	mkinstalldirs
-
-DISTCLEANFILES = \
-	config.log \
-	config.status
+MAINTAINERCLEANFILES = INSTALL Makefile.in aclocal.m4 configure \
+	$(filter-out %.m4,$(wildcard config/[a-z]*)) 
 
 pkgconfigdir = ${libdir}/pkgconfig
 pkgconfig_DATA = poker-eval.pc

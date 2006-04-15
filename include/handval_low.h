@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1999-2004 
+ * Copyright (C) 1999-2006
  *           Brian Goetz <brian@quiotix.com>
  *           Loic Dachary <loic@gnu.org>
  *

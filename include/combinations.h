@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2004 
+ * Copyright (C) 2002-2006 
  *           Michael Maurer <mjmaurer@yahoo.com>
  *           Loic Dachary <loic@gnu.org>
  *
@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-/* $Id$ */
+
 /* Public declarations for combinations.c */
 /* Michael Maurer, Jun 2002 */
 

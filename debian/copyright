@@ -1,7 +1,7 @@
 This package was debianized by Loic Dachary (OuoU) <loic@debian.org> on
 Fri, 20 Feb 2004 15:03:24 +0100.
 
-It was downloaded from http://sf.net/projects/pokersource/
+It was downloaded from http://gna.org/projects/pokersource/
 
 Upstream Author: Loic Dachary <loic@gnu.org>, Michael Maurer <mjmaurer@yahoo.com>
 
@@ -18,8 +18,8 @@ Copyright:
 
    You should have received a copy of the GNU General Public License
    along with this package; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-   02111-1307, USA.
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+   MA 02110-1301, USA.
 
 On Debian systems, the complete text of the GNU General
 Public License can be found in `/usr/share/common-licenses/GPL'.

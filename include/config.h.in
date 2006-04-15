@@ -57,9 +57,6 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
-/* The size of a `int', as computed by sizeof. */
-#undef SIZEOF_INT
-
 /* The size of a `long', as computed by sizeof. */
 #undef SIZEOF_LONG
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 1999-2004 
+ * Copyright (C) 1999-2006 
  *           Michael Maurer <mjmaurer@yahoo.com>
  *           Brian Goetz <brian@quiotix.com>
  *           Loic Dachary <loic@gnu.org>
@@ -18,8 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-/* $Id$
-
+/*
 Macros to enumerate combinations and permutations of the remaining
 cards in a deck.  Each macro accepts an argument containing code that
 is executed in the inner loop of the enumeration.
