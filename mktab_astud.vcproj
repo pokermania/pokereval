@@ -50,7 +50,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="running $(OutDir)\$(TargetFileName)"
-				CommandLine="$(OutDir)\$(TargetFileName)"/>
+				CommandLine="cd $(ProjectDir)/lib
+$(TargetPath)"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -107,7 +108,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="running $(OutDir)\$(TargetFileName)"
-				CommandLine="$(OutDir)\$(TargetFileName)"/>
+				CommandLine="cd $(ProjectDir)/lib
+$(TargetPath)"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -164,7 +166,8 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="running $(OutDir)\$(TargetFileName)"
-				CommandLine="$(OutDir)\$(TargetFileName)"/>
+				CommandLine="cd $(ProjectDir)/lib
+$(TargetPath)"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool

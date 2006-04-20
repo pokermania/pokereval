@@ -439,64 +439,64 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="t_astudcardmasks.c">
+				RelativePath="lib\t_astudcardmasks.c">
 			</File>
 			<File
-				RelativePath="t_botcard.c">
+				RelativePath="lib\t_botcard.c">
 			</File>
 			<File
-				RelativePath="t_botfivecards.c">
+				RelativePath="lib\t_botfivecards.c">
 			</File>
 			<File
-				RelativePath="t_botfivecardsj.c">
+				RelativePath="lib\t_botfivecardsj.c">
 			</File>
 			<File
-				RelativePath="t_cardmasks.c">
+				RelativePath="lib\t_cardmasks.c">
 			</File>
 			<File
-				RelativePath="t_evx_flushcards.c">
+				RelativePath="lib\t_evx_flushcards.c">
 			</File>
 			<File
-				RelativePath="t_evx_pairval.c">
+				RelativePath="lib\t_evx_pairval.c">
 			</File>
 			<File
-				RelativePath="t_evx_strval.c">
+				RelativePath="lib\t_evx_strval.c">
 			</File>
 			<File
-				RelativePath="t_evx_tripsval.c">
+				RelativePath="lib\t_evx_tripsval.c">
 			</File>
 			<File
-				RelativePath="t_jokercardmasks.c">
+				RelativePath="lib\t_jokercardmasks.c">
 			</File>
 			<File
-				RelativePath="t_jokerstraight.c">
+				RelativePath="lib\t_jokerstraight.c">
 			</File>
 			<File
-				RelativePath="t_maskrank.c">
+				RelativePath="lib\t_maskrank.c">
 			</File>
 			<File
-				RelativePath="t_nbits.c">
+				RelativePath="lib\t_nbits.c">
 			</File>
 			<File
-				RelativePath="t_nbitsandstr.c">
+				RelativePath="lib\t_nbitsandstr.c">
 			</File>
 			<File
-				RelativePath="t_straight.c">
+				RelativePath="lib\t_straight.c">
 			</File>
 			<File
-				RelativePath="t_topbit.c">
+				RelativePath="lib\t_topbit.c">
 			</File>
 			<File
-				RelativePath="t_topcard.c">
+				RelativePath="lib\t_topcard.c">
 			</File>
 			<File
-				RelativePath="t_topfivebits.c">
+				RelativePath="lib\t_topfivebits.c">
 			</File>
 			<File
-				RelativePath="t_topfivecards.c">
+				RelativePath="lib\t_topfivecards.c">
 			</File>
 			<File
-				RelativePath="t_toptwobits.c">
+				RelativePath="lib\t_toptwobits.c">
 			</File>
 		</Filter>
 		<Filter
