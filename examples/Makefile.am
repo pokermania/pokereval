@@ -30,7 +30,7 @@ INCLUDES = -I$(top_srcdir)/include
 
 EXTRA_DIST = utest1 getopt_w32.c getopt_w32.h $(wildcard *.vcproj) 
 
-TESTS = utest1
+#TESTS = utest1
 
 noinst_PROGRAMS = \
 	eval \
