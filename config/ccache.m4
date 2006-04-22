@@ -2,7 +2,7 @@
 #
 # Use ccache (http://ccache.samba.org) to boost compilation.
 
-AC_DEFUN(AM_PATH_CCACHE,
+AC_DEFUN([AM_PATH_CCACHE],
 [
 AC_ARG_WITH( ccache,
     [  --with-ccache           use ccache for compiling (default=auto)],

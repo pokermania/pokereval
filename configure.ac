@@ -27,9 +27,9 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.53)
-AC_INIT(poker-eval, 130.0)
+AC_INIT(poker-eval, 131.0)
 AC_CONFIG_AUX_DIR(config)
-AC_CANONICAL_TARGET
+AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE()
 AC_CONFIG_HEADER([include/config.h include/poker_config.h])
 AC_CONFIG_SRCDIR([lib/deck.c])
@@ -38,6 +38,7 @@ AC_CONFIG_SRCDIR([lib/deck.c])
 AC_PROG_MAKE_SET
 AC_GNU_SOURCE
 AC_PROG_CPP
+AC_PROG_CC
 AM_PATH_CCACHE
 AC_PROG_LIBTOOL
 AC_PATH_PROG([AWK], [awk])

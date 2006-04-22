@@ -1,5 +1,11 @@
 Sat Apr 15 2006  Loic Dachary  <loic@gnu.org>
 
+	* Release 131.0
+
+	* include */*.dos && prevent creation of * dir
+
+	* update all copyright notices
+
 	* Release 130.0
 
 	* configure.ac: all auxiliary files in config
