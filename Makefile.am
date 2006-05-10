@@ -35,7 +35,8 @@ EXTRA_DIST = \
 	poker-eval.sln \
 	WHATS-HERE.Java \
 	WHATS-HERE \
-	$(wildcard gentoo/dev-games/poker-eval/*.ebuild)
+	$(wildcard gentoo/dev-games/poker-eval/*.ebuild) \
+	poker-eval.nsi
 
 SUBDIRS = \
 	lib \
