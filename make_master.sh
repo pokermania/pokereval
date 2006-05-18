@@ -26,4 +26,4 @@ DOCS="\
 rsync -av $DOCS $DISTDIR/doc/
 rsync -av ${SRCDIR}/ChangeLog $DISTDIR/doc/changelog
 
-rsync -avr ${SRCDIR}/examples/ ${DISTDIR}/examples/ --include='*.vcproj' --include='*.c'
+rsync -avr ${SRCDIR}/examples/ ${DISTDIR}/examples/ --include='*.vcproj' --include='*.c' --exclude='**'
