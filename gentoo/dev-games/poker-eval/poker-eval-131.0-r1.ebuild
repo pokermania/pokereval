@@ -1,19 +1,15 @@
-# Copyright 1999-2005 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
-# $Header$
-
 inherit eutils
 
 DESCRIPTION="poker hand evaluator"
-HOMEPAGE="http://pokersource.sourceforge.net/"
-MY_P="${PN}_${PV}.orig.tar.gz"
-SRC_URI="http://mekensleep.org/gnulinux/gentoo/distfiles/${MY_P}"
+HOMEPAGE="http://pokersource.org/poker-eval/"
+MY_P="${PN}-${PV}.tar.gz"
+SRC_URI="http://download.gna.org/pokersource/sources/${MY_P}"
 SLOT="0"
 LICENSE="GPL-2.1"
 KEYWORDS="x86"
 IUSE=""
 
-DEPEND="dev-util/pkgconfig sys-devel/libtool"
+DEPEND=""
 
 src_unpack() {
 	unpack ${MY_P}
