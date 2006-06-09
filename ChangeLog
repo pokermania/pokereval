@@ -1,6 +1,12 @@
-Sat Apr 15 2006  Loic Dachary  <loic@gnu.org>
+Fri Jun 09 2006  Cedric Pinson  <cpinson@freesheep.org>
 
 	* Release 131.0
+
+	* gentoo/dev-games/pypoker-eval/poker-eval-131.0-r1.ebuild:
+	Update gentoo package
+
+Sat Apr 15 2006  Loic Dachary  <loic@gnu.org>
+
 
 	* include */*.dos && prevent creation of * dir
 
