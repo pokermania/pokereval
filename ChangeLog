@@ -4,6 +4,8 @@ Fri Jun 16 2006  Loic Dachary  <loic@dachary.org>
 
 	* configure.ac: s/AC_CONFIG_HEADER/AM_CONFIG_HEADER/
 
+	* make-master.sh, poker-eval.nsi : windows bundle scripts
+
 Fri Jun 09 2006  Cedric Pinson  <cpinson@freesheep.org>
 
 	* gentoo/dev-games/pypoker-eval/poker-eval-131.0-r1.ebuild:

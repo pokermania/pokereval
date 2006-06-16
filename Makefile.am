@@ -36,7 +36,8 @@ EXTRA_DIST = \
 	WHATS-HERE.Java \
 	WHATS-HERE \
 	$(wildcard gentoo/dev-games/poker-eval/*.ebuild) \
-	poker-eval.nsi
+	poker-eval.nsi \
+	make_master.sh
 
 SUBDIRS = \
 	lib \
