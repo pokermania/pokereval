@@ -27,11 +27,11 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.53)
-AC_INIT(poker-eval, 131.0)
+AC_INIT(poker-eval, 132.0)
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE()
-AC_CONFIG_HEADER([include/config.h include/poker_config.h])
+AM_CONFIG_HEADER([include/config.h include/poker_config.h])
 AC_CONFIG_SRCDIR([lib/deck.c])
 
 # Checks for programs.

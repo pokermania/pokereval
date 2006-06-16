@@ -1,12 +1,17 @@
-Fri Jun 09 2006  Cedric Pinson  <cpinson@freesheep.org>
+Fri Jun 16 2006  Loic Dachary  <loic@dachary.org>
 
-	* Release 131.0
+	* Release 132.0
+
+	* configure.ac: s/AC_CONFIG_HEADER/AM_CONFIG_HEADER/
+
+Fri Jun 09 2006  Cedric Pinson  <cpinson@freesheep.org>
 
 	* gentoo/dev-games/pypoker-eval/poker-eval-131.0-r1.ebuild:
 	Update gentoo package
 
 Sat Apr 15 2006  Loic Dachary  <loic@gnu.org>
 
+	* Release 131.0
 
 	* include */*.dos && prevent creation of * dir
 
