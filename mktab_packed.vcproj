@@ -61,7 +61,8 @@
 				Name="VCPostBuildEventTool"
 				Description="running $(OutDir)\$(TargetFileName)"
 				CommandLine="cd $(ProjectDir)/lib
-$(TargetPath)"/>
+$(TargetPath)
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -133,7 +134,8 @@ $(TargetPath)"/>
 				Name="VCPostBuildEventTool"
 				Description="running $(OutDir)\$(TargetFileName)"
 				CommandLine="cd $(ProjectDir)/lib
-$(TargetPath)"/>
+$(TargetPath)
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -205,7 +207,8 @@ $(TargetPath)"/>
 				Name="VCPostBuildEventTool"
 				Description="running $(OutDir)\$(TargetFileName)"
 				CommandLine="cd $(ProjectDir)/lib
-$(TargetPath)"/>
+$(TargetPath)
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -255,5 +258,8 @@ $(TargetPath)"/>
 		</Filter>
 	</Files>
 	<Globals>
+		<Global
+			Name="DevPartner_IsInstrumented"
+			Value="0"/>
 	</Globals>
 </VisualStudioProject>
