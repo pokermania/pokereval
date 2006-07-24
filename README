@@ -27,7 +27,7 @@ To build both the C library and the examples:
 
 To build and run the tests:
 
-  autoreconf --install
+  AUTOMAKE=automake-1.9 ACLOCAL=aclocal-1.9 autoreconf --install
   ./configure
   make check
 
