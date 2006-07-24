@@ -39,7 +39,6 @@ AC_PROG_MAKE_SET
 AC_GNU_SOURCE
 AC_PROG_CPP
 AC_PROG_CC
-AM_PATH_CCACHE
 AC_PROG_LIBTOOL
 AC_PATH_PROG([AWK], [awk])
 AC_PATH_PROG([MD5SUM], [md5sum])
@@ -72,6 +71,8 @@ AC_CHECK_SIZEOF(long)
 AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(sys/stat.h)
 AC_CHECK_TYPES([long long, uint64_t, int8])
+
+AM_PATH_CCACHE
 
 # Generate files
 AC_CONFIG_FILES([tests/run], [chmod 544 tests/run])
