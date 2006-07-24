@@ -1,6 +1,10 @@
-Fri Jun 16 2006  Loic Dachary  <loic@dachary.org>
+2006-07-24  Loic Dachary  <loic@dachary.org>
 
 	* Release 132.0
+
+	* README: force automake-1.9
+
+Fri Jun 16 2006  Loic Dachary  <loic@dachary.org>
 
 	* configure.ac: s/AC_CONFIG_HEADER/AM_CONFIG_HEADER/
 
