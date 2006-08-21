@@ -90,32 +90,32 @@ noinst_PROGRAMS = \
 
 mktab_basic_SOURCES = mktab_basic.c $(MKTABLE_HELPERS)
 
-${BASIC_TABLES}: mktab_basic 
+${BASIC_TABLES}: mktab_basic$(EXEEXT)
 	./mktab_basic
 
 mktab_joker_SOURCES = mktab_joker.c $(MKTABLE_HELPERS)
 
-${JOKER_TABLES}: mktab_joker 
+${JOKER_TABLES}: mktab_joker$(EXEEXT) 
 	./mktab_joker
 
 mktab_packed_SOURCES = mktab_packed.c $(MKTABLE_HELPERS)
 
-${PACKED_TABLES}: mktab_packed 
+${PACKED_TABLES}: mktab_packed$(EXEEXT)
 	./mktab_packed
 
 mktab_evx_SOURCES = mktab_evx.c $(MKTABLE_HELPERS)
 
-${EVX_TABLES}: mktab_evx 
+${EVX_TABLES}: mktab_evx$(EXEEXT) 
 	./mktab_evx
 
 mktab_astud_SOURCES = mktab_astud.c $(MKTABLE_HELPERS)
 
-${ASTUD_TABLES}: mktab_astud 
+${ASTUD_TABLES}: mktab_astud$(EXEEXT) 
 	./mktab_astud
 
 mktab_lowball_SOURCES = mktab_lowball.c $(MKTABLE_HELPERS)
 
-${LOWBALL_TABLES}: mktab_lowball 
+${LOWBALL_TABLES}: mktab_lowball$(EXEEXT) 
 	./mktab_lowball
 
 evx_gen5_SOURCES = evx_generate.c 
