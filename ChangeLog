@@ -1,6 +1,9 @@
-2006-08-18  Loic Dachary  <loic@dachary.org>
+2006-08-21  Loic Dachary  <loic@dachary.org>
 
 	* Release 133.0
+
+	* lib/Makefile.am:
+	$(EXEEXT) added to executable files for cross-platform compatibility
 
 2006-07-24  Loic Dachary  <loic@dachary.org>
 
