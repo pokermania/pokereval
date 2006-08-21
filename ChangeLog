@@ -2,6 +2,9 @@
 
 	* Release 133.0
 
+	* lib/mktable.c: MINGW32 uses LL not i64
+	https://gna.org/support/index.php?func=detailitem&item_id=1128
+
 	* lib/Makefile.am:
 	$(EXEEXT) added to executable files for cross-platform compatibility
 
