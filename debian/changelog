@@ -1,8 +1,8 @@
 poker-eval (133.0-1) unstable; urgency=low
 
-  * 
+  * $(EXEEXT) added to executable files for cross-platform compatibility
 
- --
+ -- Loic Dachary (OuoU) <loic@debian.org>  Mon, 21 Aug 2006 23:42:01 +0200
 
 poker-eval (132.0-1) unstable; urgency=low
 
