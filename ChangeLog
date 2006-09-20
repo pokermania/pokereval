@@ -2,6 +2,9 @@
 
 	* Release 133.0
 
+	* packaging-farm.bat: Script for building windows package using
+	http://gna.org/projects/packaging-farm/
+	
 	* lib/mktable.c: MINGW32 uses LL not i64
 	https://gna.org/support/index.php?func=detailitem&item_id=1128
 
