@@ -21,7 +21,7 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #
 # Authors:
-#  Loic Dachary <loic@gnu.org>
+#  Loic Dachary <loic@dachary.org>
 # 
 
 # Process this file with autoconf to produce a configure script.
@@ -42,6 +42,7 @@ AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PATH_PROG([AWK], [awk])
 AC_PATH_PROG([MD5SUM], [md5sum])
+AC_PATH_PROG([VALGRIND], [valgrind])
 
 #
 # GCC specific debug and optimization flags
@@ -73,6 +74,7 @@ AC_CHECK_HEADERS(sys/stat.h)
 AC_CHECK_TYPES([long long, uint64_t, int8])
 
 AM_PATH_CCACHE
+AM_GCOV
 
 # Generate files
 AC_CONFIG_FILES([tests/run], [chmod 544 tests/run])

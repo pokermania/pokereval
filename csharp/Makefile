@@ -21,35 +21,25 @@
 #  MA 02110-1301, USA.
 #
 # Authors:
-#  Loic Dachary <loic@dachary.org>
+#  Johan Euphrosine <johan@mekensleep.com>
 #
 # 
-EXTRA_DIST = \
-	config/ccache.m4 \
-	config/gcov.m4 \
-	examples/Makefile.dos \
-	include/Makefile.dos \
-	java/Makefile.dos \
-	lib/Makefile.dos \
-	tests/Makefile.dos \
-	$(wildcard *.vcproj) \
-	poker-eval.sln \
-	WHATS-HERE.Java \
-	WHATS-HERE \
-	$(wildcard gentoo/dev-games/poker-eval/*.ebuild) \
-	poker-eval.nsi \
-	make_master.sh
 
-SUBDIRS = \
-	lib \
-	include \
-	tests \
-	examples
+NAME=PokerEval.Enum.dll
+SRCS=	Enum.cs\
+	API.cs\
+	StdDeck.cs\
+	Test.cs\
+	GameParams.cs\
+	EnumResult.cs
 
-MAINTAINERCLEANFILES = INSTALL Makefile.in aclocal.m4 configure \
-	$(filter-out %.m4,$(wildcard config/[a-z]*)) 
+all: $(NAME)
 
-pkgconfigdir = ${libdir}/pkgconfig
-pkgconfig_DATA = poker-eval.pc
+$(NAME): $(SRCS)
+	mcs $(SRCS) -target:library -out:$(NAME) -pkg:nunit
 
-ACLOCAL_AMFLAGS = -I config
+clean:
+	rm -f $(NAME) *~
+
+check: $(NAME)
+	nunit-console $(NAME)

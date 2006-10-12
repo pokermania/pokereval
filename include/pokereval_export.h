@@ -21,7 +21,7 @@
  *  MA 02110-1301, USA.
  *
  * Authors:
- *  Loic Dachary <loic@gnu.org>
+ *  Loic Dachary <loic@dachary.org>
  *
  */ 
 

@@ -2,7 +2,7 @@
  * Copyright (C) 2004-2006
  *           Michael Maurer <mjmaurer@yahoo.com>
  *           Brian Goetz <brian@quiotix.com>
- *           Loic Dachary <loic@gnu.org>
+ *           Loic Dachary <loic@dachary.org>
  *
  *  This package is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -196,6 +196,15 @@ do {                                            	\
 #define StdDeck_CardMask_IS_EMPTY(mask) \
   ((mask).cards_nn.n1 == 0 && (mask).cards_nn.n2 == 0)
 #endif
+
+#ifdef USE_INT64
+#define StdDeck_CardMask_EQUAL(mask1, mask2) \
+  ((mask1).cards_n == (mask2).cards_n)
+#else
+#define StdDeck_CardMask_EQUAL(mask1, mask2) \
+  ((mask1).cards_nn.n1 == (mask2).cards_nn.n1 && (mask1).cards_nn.n2 == (mask2).cards_nn.n2)
+#endif
+
 /*
 #ifdef __cplusplus
 extern "C" {

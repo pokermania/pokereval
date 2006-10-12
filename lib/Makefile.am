@@ -21,7 +21,7 @@
 #  MA 02110-1301, USA.
 #
 # Authors:
-#  Loic Dachary <loic@gnu.org>
+#  Loic Dachary <loic@dachary.org>
 #
 # 
 MAINTAINERCLEANFILES = \
@@ -67,11 +67,13 @@ POKER_EVAL_SOURCES = \
 	lowball.c \
 	rules_astud.c \
 	rules_joker.c \
-	rules_std.c
+	rules_std.c \
+	poker_wrapper.c
 
 nodist_libpoker_eval_la_SOURCES = \
 	$(POKER_EVAL_SOURCES) \
 	$(TABLES)
+libpoker_eval_la_CPPFLAGS = ${GCOV_CPPFLAGS}
 
 noinst_HEADERS = \
 	mktable.h
@@ -133,5 +135,6 @@ all-local: evx_gen5 evx_gen7 evx_preamble.cfrag
 
 clean-local:
 	rm -f t_*.c
+	-rm -f *.gcov *.gcda *.gcno
 
 libpoker_eval_la_LDFLAGS = -no-undefined -version-info 1:0:0

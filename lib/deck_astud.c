@@ -1,7 +1,7 @@
 /*
  *  Copyright 2006 Michael Maurer <mjmaurer@yahoo.com>, 
  *                 Brian Goetz <brian@quiotix.com>, 
- *                 Loic Dachary <loic@gnu.org>, 
+ *                 Loic Dachary <loic@dachary.org>, 
  *                 Tim Showalter <tjs@psaux.com>
  *
  *  This package is free software; you can redistribute it and/or modify

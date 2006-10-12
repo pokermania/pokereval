@@ -21,7 +21,7 @@
 #  MA 02110-1301, USA.
 #
 # Authors:
-#  Loic Dachary <loic@gnu.org>
+#  Loic Dachary <loic@dachary.org>
 #
 # 
 MAINTAINERCLEANFILES = Makefile.in
@@ -30,7 +30,11 @@ INCLUDES = -I$(top_srcdir)/include
 
 EXTRA_DIST = run.in
 
-TESTS = run
+TESTS_ENVIRONMENT = ./run
+
+TESTS = ${check_PROGRAMS} gcov-report
+
+.PHONY: gcov-report
 
 check_PROGRAMS = \
 	joktest1 \
@@ -38,22 +42,43 @@ check_PROGRAMS = \
 	enumtest2 \
 	enumtest3 \
 	enumtest5 \
-	enumtest7
+	enumtest7 \
+	poker_wrapper
 
 joktest1_SOURCES = joktest1.c
 joktest1_LDADD = $(top_builddir)/lib/libpoker-eval.la
+joktest1_CPPFLAGS = ${GCOV_CPPFLAGS}
+joktest1_LDFLAGS = ${GCOV_LDFLAGS}
 
 enumtest1_SOURCES = enumtest1.c
 enumtest1_LDADD = $(top_builddir)/lib/libpoker-eval.la
+enumtest1_CPPFLAGS = ${GCOV_CPPFLAGS}
+enumtest1_LDFLAGS = ${GCOV_LDFLAGS}
 
 enumtest2_SOURCES = enumtest2.c
 enumtest2_LDADD = $(top_builddir)/lib/libpoker-eval.la
+enumtest2_CPPFLAGS = ${GCOV_CPPFLAGS}
+enumtest2_LDFLAGS = ${GCOV_LDFLAGS}
 
 enumtest3_SOURCES = enumtest3.c
 enumtest3_LDADD = $(top_builddir)/lib/libpoker-eval.la
+enumtest3_CPPFLAGS = ${GCOV_CPPFLAGS}
+enumtest3_LDFLAGS = ${GCOV_LDFLAGS}
 
 enumtest5_SOURCES = enumtest5.c
 enumtest5_LDADD = $(top_builddir)/lib/libpoker-eval.la
+enumtest5_CPPFLAGS = ${GCOV_CPPFLAGS}
+enumtest5_LDFLAGS = ${GCOV_LDFLAGS}
 
 enumtest7_SOURCES = enumtest7.c
 enumtest7_LDADD = $(top_builddir)/lib/libpoker-eval.la
+enumtest7_CPPFLAGS = ${GCOV_CPPFLAGS}
+enumtest7_LDFLAGS = ${GCOV_LDFLAGS}
+
+poker_wrapper_SOURCES = poker_wrapper.c
+poker_wrapper_LDADD = $(top_builddir)/lib/libpoker-eval.la
+poker_wrapper_CPPFLAGS = ${GCOV_CPPFLAGS}
+poker_wrapper_LDFLAGS = ${GCOV_LDFLAGS}
+
+clean-local:
+	-rm -f *.gcov *.gcda *.gcno

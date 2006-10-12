@@ -2,6 +2,10 @@ Release 133.0
 
 Portability fixes.
 
+C# binding for enumdefs & std_deck
+
+Introduce functional equivalent of std_deck macros for language bindings.
+
 Release 132.0
 
 Distribution fixes.

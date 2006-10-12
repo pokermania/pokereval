@@ -1,6 +1,93 @@
-2006-08-21  Loic Dachary  <loic@dachary.org>
+2006-10-12  proppy  <proppy@call>
 
 	* Release 133.0
+
+	* csharp/TODO: update TODO
+
+	* csharp/Test.cs: added exhaustive unit test for wrap function
+
+2006-10-08  proppy  <proppy@call>
+
+	* csharp/Makefile: update clean rule
+
+	* csharp/API.cs: enum in API
+
+	* csharp/Test.cs: split Test
+
+	* csharp/Makefile: update Makefile
+
+	* csharp/Enum.cs, csharp/EnumResult.cs: EnumResult split
+
+	* csharp/GameParams.cs: GameParams split
+
+	* csharp/StdDeck.cs: StdDeck split
+
+	* csharp/Enum.cs, csharp/API.cs: OrderingMode
+
+	* csharp/API.cs, csharp/Enum.cs: api split
+
+	* csharp/Enum.cs: enum_ fonction
+
+	* csharp/Enum.cs: wrap_ function
+
+	* csharp/Enum.cs: Enum.Sample
+
+	* csharp/Enum.cs: CardMask.Set
+	CardMask.Reset
+
+2006-10-07  Loic Dachary  <loic@dachary.org>
+
+	* tests/run.in: tests use a shell script multiplexer for versatility
+
+	* tests/poker_wrapper.c:
+	add poker_wrapper helper tests for foreign languages bindings
+
+	* tests/Makefile.am:
+	tests use a shell script multiplexer for versatility
+	all tests use gcov when available and clean the result afterwards
+	add poker_wrapper helper tests for foreign languages bindings
+
+	* lib/poker_wrapper.c:
+	add poker_wrapper helper implementation for foreign languages bindings
+
+	* lib/Makefile.am:
+	use gcov compile options if available and clean gcov specific files if needed
+	add poker_wrapper helper implementation for foreign languages bindings
+
+	* include/poker_wrapper.h:
+	add poker_wrapper helper header for foreign languages bindings
+
+	* include/deck_std.h: define the StdDeck_CardMask_EQUAL macro
+
+	* include/Makefile.am: add poker_wrapper helper header in distribution
+
+	* examples/Makefile.am:
+	use gcov compile options if available and clean gcov specific files if needed
+
+	* config/gcov.m4: gcov compile options
+
+	* configure.ac: detect valgrind and gcov
+
+	* Makefile.am: gcov.m4 in distribution files
+
+2006-10-07  proppy  <proppy@call>
+
+	* csharp/Enum.cs: StdDeck.StringToCard
+	StdDeck.CardToString
+
+	* csharp/Makefile, csharp/Enum.cs:
+	c# wrapping of enumResultClear and enumResultPrint
+
+2006-10-07  Loic Dachary  <loic@dachary.org>
+
+	* AUTHORS, ChangeLog, LICENSE, Makefile.am, README, WHATS-HERE, configure.ac, debian/copyright, examples/Makefile.am, examples/pokenum.c, examples/utest1, include/Makefile.am, include/combinations.h, include/deck.h, include/deck_astud.h, include/deck_joker.h, include/deck_std.h, include/deck_undef.h, include/enumdefs.h, include/enumerate.h, include/enumord.h, include/evx_defs.h, include/game_astud.h, include/game_joker.h, include/game_std.h, include/handval.h, include/handval_low.h, include/inlines/eval_low27.h, include/poker_config.h.in, include/poker_defs.h, include/pokereval_export.h, include/rules_astud.h, include/rules_joker.h, include/rules_std.h, include/rules_undef.h, lib/Makefile.am, lib/deck.c, lib/deck_astud.c, lib/deck_joker.c, lib/deck_std.c, lib/evx.c, lib/lowball.c, lib/mktab_astud.c, lib/mktab_basic.c, lib/mktab_evx.c, lib/mktab_joker.c, lib/mktab_lowball.c, lib/mktab_packed.c, lib/mktable.c, lib/mktable.h, lib/mktable_utils.c, lib/rules_astud.c, lib/rules_joker.c, lib/rules_std.c, poker-eval.spec.in, tests/Makefile.am, tests/enumtest1.c, tests/enumtest2.c, tests/enumtest3.c, tests/enumtest5.c, tests/enumtest7.c, tests/joktest1.c, tests/run.in:
+	update copyrights
+
+2006-10-01  cpinson  <cpinson@call>
+
+	* gentoo/dev-games/poker-eval/poker-eval-132.0-r1.ebuild: update pkg
+
+2006-08-21  Loic Dachary  <loic@dachary.org>
 
 	* packaging-farm.bat: Script for building windows package using
 	http://gna.org/projects/packaging-farm/
@@ -28,7 +115,7 @@ Fri Jun 09 2006  Cedric Pinson  <cpinson@freesheep.org>
 	* gentoo/dev-games/pypoker-eval/poker-eval-131.0-r1.ebuild:
 	Update gentoo package
 
-Sat Apr 15 2006  Loic Dachary  <loic@gnu.org>
+Sat Apr 15 2006  Loic Dachary  <loic@dachary.org>
 
 	* Release 131.0
 
@@ -58,7 +145,7 @@ Sat Apr 15 2006  Loic Dachary  <loic@gnu.org>
 
 	* update all copyright dates + change sf.net to gna.org
 
-Thu Apr 13 2006  Loic Dachary  <loic@gnu.org>
+Thu Apr 13 2006  Loic Dachary  <loic@dachary.org>
 
 	* include/poker_config.h.in, poker-eval/include/poker_defs.h,
 	poker-eval/configure.ac, poker-eval/include/config.h.in,
@@ -96,13 +183,13 @@ Thu Apr 13 2006  Loic Dachary  <loic@gnu.org>
          CardMask tables still works correctly.  I'm also pretty sure the line
          numbers for the configure 	
 
-Sun Mar 26 2006  Loic Dachary  <loic@gnu.org>
+Sun Mar 26 2006  Loic Dachary  <loic@dachary.org>
 
 	* gentoo packaging files.
 	
 	* lib/enumord.c (enum_ordering_rank): fix signedness
 
-Sat Jan 14 2006  Loic Dachary  <loic@gnu.org>
+Sat Jan 14 2006  Loic Dachary  <loic@dachary.org>
 
 	* Release 129.0
 
@@ -110,7 +197,7 @@ Sat Jan 14 2006  Loic Dachary  <loic@gnu.org>
 
 	* examples/five_card_hands.c: getopt_w32 not available on cygwin
 
-Thu Sep 22 2005  Loic Dachary  <loic@gnu.org>
+Thu Sep 22 2005  Loic Dachary  <loic@dachary.org>
 
 	* Release 128.0
 
@@ -118,18 +205,18 @@ Thu Sep 22 2005  Loic Dachary  <loic@gnu.org>
 
 	* Portability and test fixes.
 
-Mon Jul 04 16:55:02 2005  Loic Dachary  <loic@gnu.org>
+Mon Jul 04 16:55:02 2005  Loic Dachary  <loic@dachary.org>
 
 	* Release 127.0	
 
 	* include/inlines/eval_low27.h: A-5 is not a straight
 
-Fri Dec 17 13:41:28 2004  Loic Dachary  <loic@gnu.org>
+Fri Dec 17 13:41:28 2004  Loic Dachary  <loic@dachary.org>
 
 	*  RELEASE renamed to RELEASE.old to avoid file name conflicts with some
 	   build systems.
 
-Fri Dec 10 14:16:27 2004  Loic Dachary  <loic@gnu.org>
+Fri Dec 10 14:16:27 2004  Loic Dachary  <loic@dachary.org>
 
 	* Release 126.0
 
@@ -137,7 +224,7 @@ Fri Dec 10 14:16:27 2004  Loic Dachary  <loic@gnu.org>
 
 	* include/std_deck.h: do not use non portable const 
 	
-Fri Dec 03 13:31:2200.04  Loic Dachary  <loic@gnu.org>
+Fri Dec 03 13:31:2200.04  Loic Dachary  <loic@dachary.org>
 
 	* Release 125.0
 
@@ -159,22 +246,22 @@ Thu Dec 02 3:00:0200.04  Tim Showalter  <tjs@psaux.com>
 	  help claimed it did.
 	* Default Mac build type is now darwin, since we have no carbon build.
 
-Thu Nov 25 12:27:09 2004  Loic Dachary  <loic@gnu.org>
+Thu Nov 25 12:27:09 2004  Loic Dachary  <loic@dachary.org>
 
 	* "Nick Wilton" <info@nickwilton.info> header patches + Makefiles for compilation on windows
 
-Mon Nov 15 20:20:43 2004  Loic Dachary  <loic@gnu.org>
+Mon Nov 15 20:20:43 2004  Loic Dachary  <loic@dachary.org>
 
 	* poker-eval.spec.in: by Jean-Christophe Duberga <jeanchristophe.duber@free.fr>
 
-Sun Nov 07 15:53:27 2004  Loic Dachary  <loic@gnu.org>
+Sun Nov 07 15:53:27 2004  Loic Dachary  <loic@dachary.org>
 
 	* Release 124.0
 	
 	* include/enumerate.h: apply macro/comma related patch from Martin Stjernholm
 	  http://sourceforge.net/mailarchive/forum.php?thread_id=5586390&forum_id=40226
 
-Sun Nov 07 13:55:00 2004  Loic Dachary  <loic@gnu.org>
+Sun Nov 07 13:55:00 2004  Loic Dachary  <loic@dachary.org>
 
 	* WHATS-HERE.Java: cut/paste java related stuff from WHATS-HERE
 
@@ -199,7 +286,7 @@ Sun Nov 07 13:55:00 2004  Loic Dachary  <loic@gnu.org>
 
 	* lib/mktable.c: %xLL is %xi64 if WIN32 is defined
 
-Sun Nov 07 11:42:07 2004  Loic Dachary  <loic@gnu.org>
+Sun Nov 07 11:42:07 2004  Loic Dachary  <loic@dachary.org>
 
 	* tests/run.in : tests from Makefile.in are now in a script. Accomodate for
 	  md5sum change in calling syntax

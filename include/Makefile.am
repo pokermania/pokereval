@@ -21,7 +21,7 @@
 #  MA 02110-1301, USA.
 #
 # Authors:
-#  Loic Dachary <loic@gnu.org>
+#  Loic Dachary <loic@dachary.org>
 #
 # 
 MAINTAINERCLEANFILES = Makefile.in config.h poker_config.h
@@ -64,4 +64,5 @@ nobase_pkginclude_HEADERS = \
 	rules_astud.h \
 	rules_joker.h \
 	rules_std.h \
-	rules_undef.h
+	rules_undef.h \
+	poker_wrapper.h

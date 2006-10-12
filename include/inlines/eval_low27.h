@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2005 Loic Dachary <loic@gnu.org>
+ *  Copyright (C) 2005 Loic Dachary <loic@dachary.org>
  *                1993-99 Brian Goetz, Keith Miyake, Clifford T. Matthews
  *
  *  This package is free software; you can redistribute it and/or modify

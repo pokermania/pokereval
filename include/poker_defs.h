@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 1999-2006 
  *           Brian Goetz <brian@quiotix.com>
- *           Loic Dachary <loic@gnu.org>
+ *           Loic Dachary <loic@dachary.org>
  *           Igor Kravtchenko <igor@obraz.net>
  *
  *  This package is free software; you can redistribute it and/or modify

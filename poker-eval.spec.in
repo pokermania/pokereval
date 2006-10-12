@@ -22,7 +22,7 @@ Authors:
 	Michael Maurer <mjmaurer@yahoo.com>
 	Brian Goetz <brian@quiotix.com>
 	Tim Showalter <tjs@psaux.com>
-	Loic Dachary <loic@gnu.org>
+	Loic Dachary <loic@dachary.org>
 
 %package devel
 
@@ -39,7 +39,7 @@ Authors:
 	Michael Maurer <mjmaurer@yahoo.com>
 	Brian Goetz <brian@quiotix.com>
 	Tim Showalter <tjs@psaux.com>
-	Loic Dachary <loic@gnu.org>
+	Loic Dachary <loic@dachary.org>
 
 %prep
 #%setup -n %{name}-%{version}
