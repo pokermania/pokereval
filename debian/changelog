@@ -1,3 +1,9 @@
+poker-eval (134.0-1) unstable; urgency=low
+
+  * upstream sync
+
+ -- Loic Dachary (OuoU) <loic@debian.org>  Sat, 14 Oct 2006 16:44:03 +0200
+
 poker-eval (133.0-1) unstable; urgency=low
 
   * $(EXEEXT) added to executable files for cross-platform compatibility

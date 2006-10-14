@@ -27,7 +27,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.53)
-AC_INIT(poker-eval, 133.0)
+AC_INIT(poker-eval, 134.0)
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE()
