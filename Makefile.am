@@ -37,6 +37,9 @@ EXTRA_DIST = \
 	WHATS-HERE.Java \
 	WHATS-HERE \
 	$(wildcard gentoo/dev-games/poker-eval/*.ebuild) \
+	$(wildcard csharp/*.cs) \
+	csharp/Makefile \
+	packaging-farm.bat \
 	poker-eval.nsi \
 	make_master.sh
 
