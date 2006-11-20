@@ -6,7 +6,7 @@ MY_P="${PN}-${PV}.tar.gz"
 SRC_URI="http://download.gna.org/pokersource/sources/${MY_P}"
 SLOT="0"
 LICENSE="GPL-2.1"
-KEYWORDS="x86"
+KEYWORDS="x86 amd64"
 IUSE=""
 
 DEPEND=""
