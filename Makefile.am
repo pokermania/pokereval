@@ -41,7 +41,8 @@ EXTRA_DIST = \
 	csharp/Makefile \
 	packaging-farm.bat \
 	poker-eval.nsi \
-	make_master.sh
+	make_master.sh \
+	fink/libpoker-eval.info
 
 SUBDIRS = \
 	lib \
