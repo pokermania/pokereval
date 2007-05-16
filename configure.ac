@@ -44,19 +44,8 @@ AC_PATH_PROG([AWK], [awk])
 AC_PATH_PROG([MD5SUM], [md5sum])
 AC_PATH_PROG([VALGRIND], [valgrind])
 
-#
-# GCC specific debug and optimization flags
-#
-AC_ARG_ENABLE(debug,
-    [  --enable-debug          build in debug mode (the default is to build in optimized mode)],
-    [enable_debug=yes])
-
-if test "$GCC" = "yes" -a "$ac_test_CFLAGS" != set ; then
-  if test "$enable_debug" = "yes" ; then
-    CFLAGS="-pipe -g -Wall -Wpointer-arith -Wstrict-prototypes"
-  else
-    CFLAGS="-pipe -O3 -Wall -Wpointer-arith -Wstrict-prototypes"
-  fi
+if test "$GCC" = "yes" ; then
+  CPPFLAGS="$CPPFLAGS -Wall -Wpointer-arith -Wstrict-prototypes"
 fi
 
 AC_EXEEXT
