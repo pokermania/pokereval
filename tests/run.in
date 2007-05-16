@@ -57,12 +57,17 @@ case "$1" in
         ./joktest1 > /dev/null  
         ;;
 
+*razz)
+        ./razz
+        ;;
+
 *poker_wrapper)
         ./poker_wrapper
         ;;
 
 *)
         echo "unknown test $1"
+        exit 1
         ;;
 
 esac

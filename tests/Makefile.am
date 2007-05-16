@@ -43,6 +43,7 @@ check_PROGRAMS = \
 	enumtest3 \
 	enumtest5 \
 	enumtest7 \
+	razz \
 	poker_wrapper
 
 joktest1_SOURCES = joktest1.c
@@ -79,6 +80,11 @@ poker_wrapper_SOURCES = poker_wrapper.c
 poker_wrapper_LDADD = $(top_builddir)/lib/libpoker-eval.la
 poker_wrapper_CPPFLAGS = ${GCOV_CPPFLAGS}
 poker_wrapper_LDFLAGS = ${GCOV_LDFLAGS}
+
+razz_SOURCES = razz.c
+razz_LDADD = $(top_builddir)/lib/libpoker-eval.la
+razz_CPPFLAGS = ${GCOV_CPPFLAGS}
+razz_LDFLAGS = ${GCOV_LDFLAGS}
 
 clean-local:
 	-rm -f *.gcov *.gcda *.gcno
