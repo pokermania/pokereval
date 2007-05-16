@@ -1,10 +1,18 @@
+2007-05-16  Loic Dachary <loic@dachary.org>
+
+	* Release 135.0
+
+	* tests/Makefile.am, tests/razz.c, tests/run.in: Add fail test for
+	  razz.
+	* configure.ac: Remove complex GCC flags in favor of simpler one.
+
 2006-12-17  Loic Dachary  <loic@dachary.org>
 
 	* Release 134.0
 
 2006-12-17  Johan Euphrosine  <proppy@aminche.com>
 
-	* added fink package
+	* Makefile.am, fink, fink/libpoker-eval.info: added fink package
 
 2006-10-12  proppy  <proppy@call>
 
@@ -324,3 +332,7 @@ Sun Nov 07 11:42:07 2004  Loic Dachary  <loic@dachary.org>
 	* NEWS: RELEASE is now NEWS (standard file) but RELEASE is kept back
 
 	* {include,tests,lib,examples}/Makefile.am : automake compatibility
+
+Local Variables:
+compile-command: "svn2cl --group-by-day --authors=$(echo $HOME)/.svn2cl --stdout | head -2000 | sed -n '0,/^2006-12-17/p'"
+End:
