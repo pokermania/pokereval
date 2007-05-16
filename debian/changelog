@@ -1,3 +1,9 @@
+poker-eval (135.0-1) unstable; urgency=low
+
+  * upstream sync
+
+ -- Loic Dachary (OuoU) <loic@debian.org>  Wed, 16 May 2007 14:00:46 +0200
+
 poker-eval (134.0-1) unstable; urgency=low
 
   * upstream sync
