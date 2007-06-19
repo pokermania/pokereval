@@ -34,15 +34,15 @@ public class NestedLoopEnumerationTest extends TestCase {
       {1, 2, 0},
       {1, 2, 1}
     };
-    NestedLoopEnumeration enum = new NestedLoopEnumeration(limits);
+    NestedLoopEnumeration enumerate = new NestedLoopEnumeration(limits);
     for (int i = 0; i < expected.length; i++) {
-      assertTrue(enum.hasMoreElements());
-      int[] elem = (int[]) enum.nextElement();
+      assertTrue(enumerate.hasMoreElements());
+      int[] elem = (int[]) enumerate.nextElement();
       assertEquals(expected[i].length, elem.length);
       for (int j = 0; j < expected[i].length; j++)
         assertEquals(expected[i][j], elem[j]);
     }
-    assertTrue(!enum.hasMoreElements());
+    assertTrue(!enumerate.hasMoreElements());
   }
 
 }
