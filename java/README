@@ -1,0 +1,1 @@
+Must build with 1.4 JDK because Enum has been a keywork since Java release 1.5.
