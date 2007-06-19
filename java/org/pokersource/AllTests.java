@@ -18,7 +18,7 @@ public class AllTests {
     TestSuite suite = new TestSuite("All org.pokersource tests");
     suite.addTest(org.pokersource.game.test.AllTests.suite());
     suite.addTest(org.pokersource.eval.test.AllTests.suite());
-    suite.addTest(org.pokersource.enum.test.AllTests.suite());
+    suite.addTest(org.pokersource.enumerate.test.AllTests.suite());
     suite.addTest(org.pokersource.util.test.AllTests.suite());
     return suite;
   }
