@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     StdDeck_CardMask dead;
     StdDeck_CardMask pockets[2];
     char* hand0[] = { "Ad", "2d", "3d", "4d", "5d", "Tc", "Th" };
-    char* hand1[] = { "Ac", "2c", "3c", "4c", "5c", "Tc", "Th" };
+    //char* hand1[] = { "Ac", "2c", "3c", "4c", "5c", "Tc", "Th" };
     char* hand1[] = { "4d", "4c", "8d", "8c", "9d", "9c", "9h" };
 
     enumResultClear(&result);
