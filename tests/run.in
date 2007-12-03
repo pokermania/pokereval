@@ -65,6 +65,10 @@ case "$1" in
         ./poker_wrapper
         ;;
 
+*bug*)
+        $1
+        ;;
+
 *)
         echo "unknown test $1"
         exit 1
