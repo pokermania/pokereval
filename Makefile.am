@@ -39,6 +39,7 @@ EXTRA_DIST = \
 	$(wildcard gentoo/dev-games/poker-eval/*.ebuild) \
 	$(wildcard csharp/*.cs) \
 	csharp/Makefile \
+	csharp/TODO \
 	packaging-farm.bat \
 	poker-eval.nsi \
 	make_master.sh \
