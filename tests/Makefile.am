@@ -30,6 +30,7 @@ INCLUDES = -I$(top_srcdir)/include
 
 EXTRA_DIST = \
 	run.in \
+	razz.c \
 	bug1823
 
 TESTS_ENVIRONMENT = ./run
