@@ -47,8 +47,8 @@ EXTRA_DIST = \
 SUBDIRS = \
 	lib \
 	include \
-	tests \
-	examples
+	examples \
+	tests
 
 MAINTAINERCLEANFILES = INSTALL Makefile.in aclocal.m4 configure \
 	$(filter-out %.m4,$(wildcard config/[a-z]*)) 
