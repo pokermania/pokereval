@@ -159,7 +159,7 @@ static enum_gameparams_t enum_gameparams[] = {
         result->nsharehi[i][H]++;					\
         result->nsharelo[i][L]++;					\
         result->nshare[i][H][L]++;					\
-        if (potfrac == 1)						\
+        if (potfrac > 0.99)						\
           result->nscoop[i]++;						\
         result->ev[i] += potfrac;					\
       }									\
