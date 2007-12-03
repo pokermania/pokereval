@@ -45,7 +45,6 @@ check_PROGRAMS = \
 	enumtest3 \
 	enumtest5 \
 	enumtest7 \
-	razz \
 	poker_wrapper
 
 joktest1_SOURCES = joktest1.c
