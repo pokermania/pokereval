@@ -32,7 +32,7 @@ EXTRA_DIST = run.in
 
 TESTS_ENVIRONMENT = ./run
 
-TESTS = ${check_PROGRAMS} gcov-report
+TESTS = ./bug1823 ${check_PROGRAMS} gcov-report
 
 .PHONY: gcov-report
 
