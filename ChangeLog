@@ -1,6 +1,16 @@
-2007-05-16  Loic Dachary <loic@dachary.org>
+2007-12-03  Loic Dachary <loic@dachary.org>
 
 	* Release 135.0
+
+	* tests/razz.c: remove duplicate declaration
+	* tests/run.in: run all bugs scripts as standalone
+	* tests/bug1823: Run thru all poker-eval/lib/enumerate.c #define
+	  INNER_LOOP(evalwrap)
+	* Makefile.am: compile examples before tests
+	* tests/Makefile.am: bug1823 test case
+	* lib/enumerate.c: compare double with > 0.99 instead of 1
+
+2007-05-16  Loic Dachary <loic@dachary.org>
 
 	* tests/Makefile.am, tests/razz.c, tests/run.in: Add fail test for
 	  razz.
@@ -334,5 +344,5 @@ Sun Nov 07 11:42:07 2004  Loic Dachary  <loic@dachary.org>
 	* {include,tests,lib,examples}/Makefile.am : automake compatibility
 
 Local Variables:
-compile-command: "svn2cl --group-by-day --authors=$(echo $HOME)/.svn2cl --stdout | head -2000 | sed -n '0,/^2006-12-17/p'"
+compile-command: "svn update ; svn2cl --group-by-day --authors=$(echo $HOME)/.svn2cl --stdout | head -2000 | sed -n '0,/^2006-12-17/p'"
 End:
