@@ -28,7 +28,9 @@ MAINTAINERCLEANFILES = Makefile.in
 
 INCLUDES = -I$(top_srcdir)/include
 
-EXTRA_DIST = run.in
+EXTRA_DIST = \
+	run.in \
+	bug1823
 
 TESTS_ENVIRONMENT = ./run
 
