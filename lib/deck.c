@@ -21,10 +21,16 @@
 #include <stdio.h>
 #include "poker_defs.h"
 
+/*
+ * This number MUST be higher than any of the *_N_CARDS constants
+ * listed in the include/*_deck.h files. 52 for a standard deck for
+ * instance. 
+ */
+#define STRING_CARDS 100
 
 int
 GenericDeck_maskToString(Deck *deck, void *cardMask, char *outString) {
-  int cards[50], n, i;
+  int cards[STRING_CARDS], n, i;
   char *p;
 
   n = (*deck->maskToCards)(cardMask, cards);
@@ -42,7 +48,7 @@ GenericDeck_maskToString(Deck *deck, void *cardMask, char *outString) {
 
 int 
 GenericDeck_printMask(Deck *deck, void *cardMask) {
-  char outString[150];
+  char outString[300];
   int r;
 
   r = GenericDeck_maskToString(deck, cardMask, outString);

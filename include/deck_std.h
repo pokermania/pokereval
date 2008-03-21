@@ -29,6 +29,7 @@
 
 #include "pokereval_export.h"
 
+/* MUST be lower than STRING_CARDS from lib/deck.c */
 #define StdDeck_N_CARDS      52
 #define StdDeck_MASK(index)  (StdDeck_cardMasksTable[index])
 

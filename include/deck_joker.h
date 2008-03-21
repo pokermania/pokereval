@@ -23,6 +23,7 @@
 
 #include "pokereval_export.h"
 
+/* MUST be lower than STRING_CARDS from lib/deck.c */
 #define JokerDeck_N_CARDS      53
 #define JokerDeck_MASK(index)  (JokerDeck_cardMasksTable[index])
 
