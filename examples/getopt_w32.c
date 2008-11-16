@@ -1,5 +1,5 @@
 #include "getopt_w32.h"
-
+/* LICENSE: see LICENSE.getopt at the top-level directory. */
 /*
 *  g e t o p t . c
 * 

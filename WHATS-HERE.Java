@@ -1,5 +1,5 @@
-BECAUSE OF LICENSING PROBLEMS (IBM LCP and Apache are not compatible with the
-GNU GPL), the Java part is not included in the distribution. 
+BECAUSE OF LICENSING PROBLEMS (IBM CPL is not compatible with the GNU
+GPLv3), the Java part is not included in the distribution.
 
 The PokerSource library includes an optional Java layer.  You can compile the
 C library on its own, or you can compile both the C library and the Java
