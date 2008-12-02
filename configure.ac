@@ -1,11 +1,7 @@
 #
-# Copyright (C) 2004-2006 Mekensleep
-#
-# Mekensleep
-# 24 rue vieille du temple
-# 75004 Paris
-#       licensing@mekensleep.com
-#
+# Copyright (C) 2008      Bradley M. Kuhn <bkuhn@ebb.org>
+# Copyright (C) 2004-2006 Mekensleep <licensing@mekensleep.com>
+#                         24 rue vieille du temple, 75004 Paris
 #
 # This program gives you software freedom; you can copy, convey,
 # propogate, redistribute and/or modify this program under the terms of
@@ -24,7 +20,7 @@
 #
 # Authors:
 #  Loic Dachary <loic@dachary.org>
-# 
+#  Bradley M. Kuhn <bkuhn@ebb.org>
 
 # Process this file with autoconf to produce a configure script.
 
@@ -39,7 +35,7 @@ AC_CONFIG_SRCDIR([lib/deck.c])
 # Checks for programs.
 AC_PROG_MAKE_SET
 AC_GNU_SOURCE
-AC_PROG_CPP
+AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PATH_PROG([AWK], [awk])
