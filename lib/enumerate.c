@@ -12,7 +12,7 @@
    Copyright (C) Apr 2002, Michael Maurer.
  *
  * This program gives you software freedom; you can copy, convey,
- * propogate, redistribute and/or modify this program under the terms of
+ * propagate, redistribute and/or modify this program under the terms of
  * the GNU General Public License (GPL) as published by the Free Software
  * Foundation (FSF), either version 3 of the License, or (at your option)
  * any later version of the GPL published by the FSF.
