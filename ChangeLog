@@ -1,11 +1,20 @@
 2008-12-02  Bradley M. Kuhn  <bkuhn@ebb.org>
 
+	* Release 135.0
+
 	* configure.ac (AC_PROG_CPP): AC_PROG_CPP appears to be
 	deprecated; switched to AC_PROG_CXX
 
-2008-03-21  Loic Dachary <loic@dachary.org>
+2008-11-17  Loic Dachary <loic@dachary.org>
 
-	* Release 135.0
+	* lib/md5.h, lib/md5c.c: get rid of unused md5 implementation under
+	  a proprietary license
+
+2008-04-02  Loic Dachary <loic@dachary.org>
+
+	* GPLv3.txt: 2008: license GPLv3+ added to poker-eval
+
+2008-03-21  Loic Dachary <loic@dachary.org>
 
 	* include/deck_astud.h, include/deck_joker.h, include/deck_std.h,
 	  lib/deck.c: Fix overflow as suggested by W. None
