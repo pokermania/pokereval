@@ -2,6 +2,8 @@
 
 	* Release 136.0
 
+	* configure.ac: remove AC_PROG_CXX because c++ has nothing to do
+	  with poker-eval
 	* Makefile.am: Add GPLv3 and GPLv3-assent.txt to the distribution
 	* LICENSE: update copyrights. Igor was removed because his
 	  contribution was made under contract for Mekensleep who has the
