@@ -1,4 +1,5 @@
 #
+# Copyright (C) 2009 Loic Dachary <loic@dachary.org>
 # Copyright (C) 2004-2006 Mekensleep
 #
 # Mekensleep
@@ -26,6 +27,8 @@
 #
 # 
 EXTRA_DIST = \
+	GPLv3 \
+	GPLv3-assent.txt \
 	config/ccache.m4 \
 	config/gcov.m4 \
 	examples/Makefile.dos \
