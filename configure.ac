@@ -35,7 +35,6 @@ AC_CONFIG_SRCDIR([lib/deck.c])
 # Checks for programs.
 AC_PROG_MAKE_SET
 AC_GNU_SOURCE
-AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PATH_PROG([AWK], [awk])
