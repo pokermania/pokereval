@@ -2,6 +2,13 @@
 
 	* Release 136.0
 
+	* Makefile.am: Add GPLv3 and GPLv3-assent.txt to the distribution
+	* LICENSE: update copyrights. Igor was removed because his
+	  contribution was made under contract for Mekensleep who has the
+	  corresponding copyright.
+	* ChangeLog, NEWS, configure.ac, debian/changelog: bump to version
+	  136
+
 2008-12-02  Bradley M. Kuhn  <bkuhn@ebb.org>
 
 	* Release 135.0
