@@ -1,6 +1,13 @@
-2008-12-27  Loic Dachary  <loic@dachary.org>
+2009-01-02  Loic Dachary <loic@dachary.org>
 
 	* Release 136.0
+
+	* include/enumerate.h, lib/combinations.c, lib/evx_generate.c:
+	  replace exit() with return because it is bad practice for a
+	  library to call
+	  http://xulchris.fedorapeople.org/poker-eval-135.0-exit.patch
+
+2008-12-27  Loic Dachary  <loic@dachary.org>
 
 	* configure.ac: remove AC_PROG_CXX because c++ has nothing to do
 	  with poker-eval
