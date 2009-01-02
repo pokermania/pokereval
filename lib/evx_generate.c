@@ -70,7 +70,7 @@ main (int argc, char** argv)
   fp = fopen ("evx_preamble.cfrag", "r");
   if (fp == NULL) {
       fprintf (stderr, "Unable to read evx_preamble.c\n");
-      exit (-1);
+      return -1;
     }
   puts("/* This file is machine-generated -- DO NOT EDIT! */\n");
   {

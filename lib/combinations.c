@@ -92,7 +92,8 @@ init_combinations(int nuniv, int nelem)
         break;
       }
     }
-    if (firstIncr == -1) { printf("BUG!\n"); exit(1); }
+    if (firstIncr == -1) 
+      return NULL;
     for (i=0; i<firstIncr; i++)
       combo->combos[i][j] = combo->combos[i][j-1];
     for (i=firstIncr+1; i<combo->nelem; i++)

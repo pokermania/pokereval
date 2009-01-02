@@ -642,7 +642,7 @@ do { \
         if (!deck##_CardMask_ANY_SET(_unavail, set_var[_i])) \
           break;	/* this hand is available for player i */ \
       } \
-      if (_j == _ncombo[_i]) { printf("not enough cards\n"); exit(1); } \
+      if (_j == _ncombo[_i]) { printf("not enough cards\n"); return(1); } \
       deck##_CardMask_OR(_unavail, _unavail, set_var[_i]); \
       _curIndex[_i] = _j; \
     } \
