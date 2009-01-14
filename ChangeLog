@@ -1,6 +1,11 @@
-2009-01-02  Loic Dachary <loic@dachary.org>
+2009-01-14  Loic Dachary <loic@dachary.org>
 
 	* Release 136.0
+
+	* include/deck.h: Deck_cardString & Deck_printCard must provide
+	  &CurDeck instead of CurDeck
+
+2009-01-02  Loic Dachary <loic@dachary.org>
 
 	* include/enumerate.h, lib/combinations.c, lib/evx_generate.c:
 	  replace exit() with return because it is bad practice for a
