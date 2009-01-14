@@ -40,8 +40,8 @@ typedef struct {
 
 #define Deck_cardToString       (CurDeck.cardToString)
 #define Deck_stringToCard       (CurDeck.stringToCard)
-#define Deck_cardString(i)      GenericDeck_cardString(CurDeck, (i))
-#define Deck_printCard(i)       GenericDeck_printCard(CurDeck, (i))
+#define Deck_cardString(i)      GenericDeck_cardString(&(CurDeck), (i))
+#define Deck_printCard(i)       GenericDeck_printCard(&(CurDeck), (i))
 
 #define Deck_printMask(m)       \
         GenericDeck_printMask(&CurDeck, ((void *) &(m)))
