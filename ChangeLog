@@ -1,6 +1,14 @@
-2009-01-14  Loic Dachary <loic@dachary.org>
+2009-07-07  Loic Dachary <loic@dachary.org>
 
 	* Release 136.0
+
+	* lib/evx_generate.c: move misplaced parenthesis
+	* configure.ac, include/poker_wrapper.h, lib/Makefile.am,
+	  lib/deck.c, lib/evx_generate.c, lib/poker_wrapper.c,
+	  tests/enumtest3.c, tests/poker_wrapper.c: Mac build patches,
+	  courtesy Clifford T. Matthews
+
+2009-01-14  Loic Dachary <loic@dachary.org>
 
 	* include/deck.h: Deck_cardString & Deck_printCard must provide
 	  &CurDeck instead of CurDeck
