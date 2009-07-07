@@ -39,6 +39,8 @@
 #include <unistd.h>
 #endif
 
+#include <string.h>
+
 typedef enum {
   MAY_HAVE_FOUR_OF_A_KIND  = (1 << 0),
   MAY_HAVE_FLUSH           = (1 << 1),
@@ -61,15 +63,30 @@ static uint8 may_have[MAY_HAVE_COMBINATIONS][StdDeck_N_RANKMASKS / 8];
 static void compute_cases (void);
 static void print_cases (void);
 
+#define PREAMBLE_FRAG "evx_preamble.cfrag"
+
+/*
+ * Pass in path to the pre-amble as first argument so we can separate build
+ * from source directory.
+ */
+
 int
 main (int argc, char** argv)
 {
+  char *frag_path;
   FILE *fp;
 
+  if (argc != 2) {
+      fprintf (stderr, "Usage: %s path/evx_preamble.cfrag\n", argv[0]);
+      return -1;
+  }
+  frag_path = malloc (strlen (argv[1] + 1 + strlen (PREAMBLE_FRAG) + 1));
+  sprintf(frag_path, "%s/" PREAMBLE_FRAG, argv[1]);
+  
   /* Copy the preamble to stdout. */
-  fp = fopen ("evx_preamble.cfrag", "r");
+  fp = fopen (frag_path, "r");
   if (fp == NULL) {
-      fprintf (stderr, "Unable to read evx_preamble.c\n");
+      fprintf (stderr, "Unable to read %s\n", frag_path);
       return -1;
     }
   puts("/* This file is machine-generated -- DO NOT EDIT! */\n");
@@ -82,6 +99,7 @@ main (int argc, char** argv)
     (void)fread (p, sbuf.st_size, 1, fp);
     p[sbuf.st_size] = 0;
     printf (p, CARDS_DEALT);
+    free(p);
   }
   fclose (fp);
 

@@ -26,7 +26,7 @@
 #include <poker_defs.h>
 #include <poker_wrapper.h>
 
-int main() {
+int main(void) {
   {
     assert(wrap_StdDeck_N_CARDS() == 52);
   }

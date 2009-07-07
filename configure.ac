@@ -38,7 +38,13 @@ AC_GNU_SOURCE
 AC_PROG_CC
 AC_PROG_LIBTOOL
 AC_PATH_PROG([AWK], [awk])
+
+# Mac OS X uses md5 instead of md5sum
 AC_PATH_PROG([MD5SUM], [md5sum])
+if test x"$MD5SUM" = x ; then
+  AC_PATH_PROG([MD5SUM], [md5])
+fi
+
 AC_PATH_PROG([VALGRIND], [valgrind])
 
 if test "$GCC" = "yes" ; then

@@ -26,7 +26,7 @@
 #include "poker_defs.h"
 #include "enumerate.h"
 
-int main() {
+int main(void) {
   StdDeck_CardMask set_var[2];
   int num_sets = 2;
   int set_sizes[2] = {2, 1};

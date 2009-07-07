@@ -24,8 +24,8 @@
 
 /*
  * This number MUST be higher than any of the *_N_CARDS constants
- * listed in the include/*_deck.h files. 52 for a standard deck for
- * instance. 
+ * listed in the *_deck.h files in the include directory, 52 for
+ * a standard deck for instance. 
  */
 #define STRING_CARDS 100
 

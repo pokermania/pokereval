@@ -126,11 +126,11 @@ evx_gen7_SOURCES = evx_generate.c
 evx_gen7_CPPFLAGS = -DCARDS_DEALT=7
 
 all-local: evx_gen5 evx_gen7 evx_preamble.cfrag
-	if [ -w $(top_srcdir)/include/inlines/evx5.h ] ; then \
-		./evx_gen5 > $(top_srcdir)/include/inlines/evx5.h ; \
+	if [ -w "$(top_srcdir)/include/inlines/evx5.h" ] ; then \
+		./evx_gen5 "$(srcdir)" > "$(top_srcdir)/include/inlines/evx5.h" ; \
 	fi
-	if [ -w $(top_srcdir)/include/inlines/evx7.h ] ; then \
-		./evx_gen7 > $(top_srcdir)/include/inlines/evx7.h ; \
+	if [ -w "$(top_srcdir)/include/inlines/evx7.h" ] ; then \
+		./evx_gen7 "$(srcdir)" > "$(top_srcdir)/include/inlines/evx7.h" ; \
 	fi
 
 clean-local:
