@@ -80,7 +80,7 @@ main (int argc, char** argv)
       fprintf (stderr, "Usage: %s path/evx_preamble.cfrag\n", argv[0]);
       return -1;
   }
-  frag_path = malloc (strlen (argv[1] + 1 + strlen (PREAMBLE_FRAG) + 1));
+  frag_path = malloc (strlen (argv[1]) + 1 + strlen (PREAMBLE_FRAG) + 1);
   sprintf(frag_path, "%s/" PREAMBLE_FRAG, argv[1]);
   
   /* Copy the preamble to stdout. */
