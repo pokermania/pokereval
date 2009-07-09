@@ -24,4 +24,4 @@ $(DEB_SRCDIR)/configure::
 $(DEB_BUILDDIR)/config.status: $(DEB_SRCDIR)/configure
 	chmod a+x $(DEB_CONFIGURE_SCRIPT)
 	$(DEB_CONFIGURE_INVOKE) $(cdbs_configure_flags) $(DEB_CONFIGURE_EXTRA_FLAGS) $(DEB_CONFIGURE_USER_FLAGS)
-
+	if [ -f /usr/bin/libtool ] ; then cp /usr/bin/libtool libtool ; fi
