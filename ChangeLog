@@ -3,7 +3,7 @@
 	* Release 136.0
 
 	* debian/rules: Compensate for the case where autoconf has a
-	  capatibility problem with libtoolize that can be solved by
+	  compatibility problem with libtoolize that can be solved by
 	  copying the libtool script directly instead of going thru
 	  autoconf ( shows as an error of the type libtool: line 821:
 	  X--tag=CC: command not found etc.).
