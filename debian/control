@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 4.0.0), libtool, cdbs, automake1.9, autoconf
 Standards-Version: 3.7.2
 
 Package: libpoker-eval-dev
-Section: devel
+Section: libdevel
 Architecture: any
 Depends: ${misc:Depends}, libpoker-eval (= ${binary:Version}), pkg-config
 Description: poker hand evaluator library development files
