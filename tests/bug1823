@@ -27,7 +27,8 @@ Omaha Hi/Low 8-or-better: 820 enumerated boards containing Ts 8s Jc
 cards         scoop     HIwin   HIlos   HItie     LOwin   LOlos   LOtie      EV
 As Qs Kh Jh     500       715      15      90         0       0       0   0.796
 Ac Kd 5d 7h      15        15     715      90       224       0       0   0.204
-EOF)
+EOF
+)
 if test "$r" != "$e" ; then
   diff -u <(echo "$e") <(echo "$r")
   exit 1
@@ -39,7 +40,8 @@ Omaha Hi/Low 8-or-better: 820 enumerated boards containing Ts 8s Jc
 cards         scoop     HIwin   HIlos   HItie     LOwin   LOlos   LOtie      EV
 As 6s 7h 5h     250       324       0     496         0       0     168   0.675
 Ac 7d 6d 5d       0         0     324     496         0       0     168   0.325
-EOF)
+EOF
+)
 if test "$r" != "$e" ; then
   diff -u <(echo "$e") <(echo "$r")
   exit 1
@@ -51,7 +53,8 @@ Omaha Hi/Low 8-or-better: 820 enumerated boards containing Ts 2s Jc
 cards         scoop     HIwin   HIlos   HItie     LOwin   LOlos   LOtie      EV
 As 6s 7h 5h     289       381     352      87        12       0     157   0.504
 Ac 8d 6d 5d     314       352     381      87         0      12     157   0.496
-EOF)
+EOF
+)
 if test "$r" != "$e" ; then
   diff -u <(echo "$e") <(echo "$r")
   exit 1
