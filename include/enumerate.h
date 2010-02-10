@@ -621,7 +621,7 @@ do { \
   _combos = (Combinations *) malloc(num_sets * sizeof(Combinations)); \
   _ncombo = (int *) malloc(num_sets * sizeof(int)); \
   _curIndex = (int *) malloc(num_sets * sizeof(int)); \
-  _curElem = (int **) malloc(num_sets * sizeof(int)); \
+  _curElem = (int **) malloc(num_sets * sizeof(intptr_t)); \
   _curHand = (deck##_CardMask *) malloc(num_sets * sizeof(deck##_CardMask)); \
   for (_i=0; _i<num_sets; _i++) { \
     _combos[_i] = init_combinations(deck##_N_CARDS, set_sizes[_i]); \
