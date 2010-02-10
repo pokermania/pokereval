@@ -1,6 +1,11 @@
-2009-10-12  Loic Dachary <loic@dachary.org>
+2010-02-10  Loic Dachary <loic@dachary.org>
 
 	* Release 137.0
+
+	* include/enumerate.h: Apply 64bits fix from
+	  https://bugs.launchpad.net/ubuntu/+source/pypoker-eval/+bug/508739/comments/2
+
+2009-10-12  Loic Dachary <loic@dachary.org>
 
 	* tests/bug1823: bash4 patch from Ralf Corsepius via Christopher
 	  Stone
