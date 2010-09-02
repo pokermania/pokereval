@@ -1,4 +1,5 @@
 #
+# Copyright (C) 2004-2010 Loic Dachary <loic@dachary.org>
 # Copyright (C) 2004-2006 Mekensleep
 #
 # Mekensleep
@@ -29,7 +30,18 @@ MAINTAINERCLEANFILES = Makefile.in
 
 INCLUDES = -I$(top_srcdir)/include
 
-EXTRA_DIST = utest1 getopt_w32.c getopt_w32.h $(wildcard *.vcproj) 
+EXTRA_DIST = \
+	utest1 \
+	getopt_w32.c \
+	getopt_w32.h \
+	eval.vcproj \
+	fish.vcproj \
+	five_card_hands.vcproj \
+	hcmp2.vcproj \
+	hcmpn2.vcproj \
+	pokenum.vcproj \
+	seven_card_hands.vcproj \
+	usedecks.vcproj
 
 #TESTS = utest1
 

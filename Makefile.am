@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2009 Loic Dachary <loic@dachary.org>
+# Copyright (C) 2004-2010 Loic Dachary <loic@dachary.org>
 # Copyright (C) 2004-2006 Mekensleep
 #
 # Mekensleep
@@ -36,12 +36,23 @@ EXTRA_DIST = \
 	java/Makefile.dos \
 	lib/Makefile.dos \
 	tests/Makefile.dos \
-	$(wildcard *.vcproj) \
+	mktab_astud.vcproj \
+	mktab_basic.vcproj \
+	mktab_evx.vcproj \
+	mktab_joker.vcproj \
+	mktab_lowball.vcproj \
+	mktab_packed.vcproj \
+	poker-eval.vcproj \
 	poker-eval.sln \
 	WHATS-HERE.Java \
 	WHATS-HERE \
-	$(wildcard gentoo/dev-games/poker-eval/*.ebuild) \
-	$(wildcard csharp/*.cs) \
+	gentoo/dev-games/poker-eval/poker-eval-133.0-r1.ebuild \
+	csharp/API.cs \
+	csharp/Enum.cs \
+	csharp/EnumResult.cs \
+	csharp/GameParams.cs \
+	csharp/StdDeck.cs \
+	csharp/Test.cs \
 	csharp/Makefile \
 	csharp/TODO \
 	packaging-farm.bat \
