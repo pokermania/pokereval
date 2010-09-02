@@ -2,7 +2,7 @@ Source: poker-eval
 Priority: optional
 Section: devel
 Maintainer: Loic Dachary (OuoU) <loic@debian.org>
-Build-Depends: debhelper (>= 4.0.0), libtool, cdbs, automake1.9, autoconf
+Build-Depends: debhelper (>= 4.0.0), libtool, cdbs, automake, autoconf
 Standards-Version: 3.7.2
 
 Package: libpoker-eval-dev
