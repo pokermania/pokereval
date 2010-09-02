@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2006
+ * Copyright (C) 2004-2010
  *           Brian Goetz <brian@quiotix.com>
  *           Loic Dachary <loic@dachary.org>
  *
@@ -52,6 +52,10 @@
 #undef CardMask_CARD_IS_SET   
 #undef CardMask_ANY_SET       
 #undef CardMask_RESET         
+#undef CardMask_NOT
+#undef CardMask_XOR
+#undef CardMask_AND
+#undef CardMask_UNSET
 
 #undef CardMask_SPADES        
 #undef CardMask_HEARTS        
