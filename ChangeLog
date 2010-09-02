@@ -2,6 +2,20 @@
 
 	* Release 138.0
 
+	* debian/rules: debian/stamp-autotools-configure replaces
+	  config.status target in newer cdbs
+	* debian/rules: debian/stamp-autotools-configure replaces
+	  config.status target in newer cdbs
+	* debian/control, debian/rules: automake1.9 is not longer required
+	* Makefile.am, examples/Makefile.am: manually expand wild cards in
+	  variables for POSIX conformance
+	* include/deck_undef.h: add missing undefs as suggested by
+	  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=488747
+	* configure.ac: add AM_PROG_CC_C_O to allow per object flags
+	* ChangeLog, NEWS, configure.ac: bump to version 138.0
+	* debian/changelog, debian/libpoker-eval-dev.docs: clear spurious
+	  example file
+
 2010-02-10  Loic Dachary <loic@dachary.org>
 
 	* Release 137.0
@@ -494,5 +508,5 @@ Sun Nov 07 11:42:07 2004  Loic Dachary  <loic@dachary.org>
 	* {include,tests,lib,examples}/Makefile.am : automake compatibility
 
 Local Variables:
-compile-command: "svn update ; svn2cl --group-by-day --authors=$(echo $HOME)/.svn2cl --stdout | head -2000 | sed -n '0,/^2009-06-20/p'"
+compile-command: "svn update ; svn2cl --group-by-day --authors=$(echo $HOME)/.svn2cl --stdout | head -2000 | sed -n '0,/^2010-06-20/p'"
 End:
