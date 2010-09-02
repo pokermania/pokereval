@@ -1,4 +1,5 @@
 #
+# Copyright (C) 2004-2010 Loic Dachary <loic@dachary.org>
 # Copyright (C) 2008      Bradley M. Kuhn <bkuhn@ebb.org>
 # Copyright (C) 2004-2006 Mekensleep <licensing@mekensleep.com>
 #                         24 rue vieille du temple, 75004 Paris
@@ -25,7 +26,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.53)
-AC_INIT(poker-eval, 137.0)
+AC_INIT(poker-eval, 138.0)
 AC_CONFIG_AUX_DIR(config)
 AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE()
