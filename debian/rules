@@ -21,7 +21,7 @@ $(DEB_SRCDIR)/configure::
 	chmod a+x $@
 
 # override in order to add dependency to configure (should be a :: rule instead of a : rule)
-$(DEB_BUILDDIR)/config.status: $(DEB_SRCDIR)/configure
+debian/stamp-autotools-configure: $(DEB_SRCDIR)/configure
 	chmod a+x $(DEB_CONFIGURE_SCRIPT)
 	$(DEB_CONFIGURE_INVOKE) $(cdbs_configure_flags) $(DEB_CONFIGURE_EXTRA_FLAGS) $(DEB_CONFIGURE_USER_FLAGS)
 	if [ -f /usr/bin/libtool ] ; then cp /usr/bin/libtool libtool ; fi
