@@ -1,8 +1,14 @@
+poker-eval (138.0-1) unstable; urgency=low
+
+  * remove pokenum from debian/libpoker-eval-dev.docs (closes: #517613)
+
+ -- Loic Dachary (OuoU) <loic@debian.org>  Thu, 02 Sep 2010 10:56:28 +0200
+
 poker-eval (137.0-1) unstable; urgency=low
 
   * upstream sync
 
- -- Loic Dachary (OuoU) <loic@debian.org>  Wed, 12 Aug 2009 18:06:08 +0200
+ -- Loic Dachary (OuoU) <loic@debian.org>  Wed, 10 Feb 2010 00:42:19 +0100
 
 poker-eval (136.0-1) unstable; urgency=low
 
