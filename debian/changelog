@@ -1,3 +1,9 @@
+poker-eval (138.0-2) pokermania; urgency=low
+
+  * changed to pokermania
+
+ -- Andor Goetzendorff <andor@pokermania.de>  Wed, 04 May 2010 13:46:54 +0200
+
 poker-eval (138.0-1) unstable; urgency=low
 
   * remove pokenum from debian/libpoker-eval-dev.docs (closes: #517613)
