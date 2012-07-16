@@ -112,7 +112,7 @@ From: Michael Maurer <mjmaurer@yahoo.com>
 Subject: RE: poker-eval and GPL version 3
 To: 'Loic Dachary' <loic@dachary.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 Message-ID: <220159.35534.qm@web54403.mail.yahoo.com>
 
